@@ -98,8 +98,8 @@ define('KODE_TRANSAKSI_PEMBAYARAN', '02');
 define('KODE_TRANSAKSI_UANG_MUKA', '03');
 
 define('VERSION', 'Version 1.0');
-define('TITLES', 'SMS Gateway | BKPSDM Manado');
-define('TITLE_SECOND', 'SMS Gateway ');
+define('TITLES', 'EFORT | BKPSDM Manado');
+define('TITLE_SECOND', 'Electronic Performance Report');
 define('PROGRAMMER_PHONE', '082115407812');
 define('COPYRIGHT', 'Copyright &copy; '.date('Y').' <strong>BKPSDM Manado</strong>');
 // define('COPYRIGHT', 'Copyright &copy; '.date('Y').' <strong>PATRA LAB</strong>');
