@@ -1,6 +1,13 @@
 <div class="card card-default">
     <div class="card-header">
-        <h3 class="card-title">TAMBAH USER</h3>
+        <div class="row">
+            <div class="col-6">
+                <h3 class="card-title">TAMBAH USER</h3>
+            </div>
+            <div class="col-6 text-right">
+                <button class="btn btn-sm btn-navy" data-toggle="modal" data-target="#modal_import_user"><i class="fa fa-file-import"></i> Import dari Data Pegawai</button>
+            </div>
+        </div>
     </div>
     <div class="card-body">
         <form id="form_tambah_user">
@@ -53,6 +60,33 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="modal_import_user" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	<div id="modal-dialog" class="modal-dialog modal-xl">
+		<div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Pilih User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form_search_pegawai_new_user">
+                    <div class="row">
+                        <div class="col-9">
+                            <label>NIP / Nama Pegawai:</label>
+                            <input class="form-control" autocomplete="off" name="search_value" />
+                        </div>
+                        <div class="col-3 text-right">
+                            <label style="color: white;">ts</label>
+                            <button type="submit" class="btn btn-block btn-navy"><i class="fa fa-search"></i> Cari</button>
+                        </div>
+                        <div class="col-12 mt-3" id="result_search_pegawai" style="display: none;"></div>
+                    </div>
+                </form>
+            </div>
+		</div>
+	</div>
+</div>
 <div class="modal fade" id="modal_auth" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 	<div id="modal-dialog" class="modal-dialog modal-sm">
 		<div class="modal-content">
@@ -104,6 +138,22 @@
                 } else {
                     errortoast('Mo ba apa so?')
                 }
+            }, error: function(e){
+                errortoast('Terjadi Kesalahan')
+            }
+        })
+    })
+
+    $('#form_search_pegawai_new_user').on('submit', function(e){
+        e.preventDefault()
+        $.ajax({
+            url: '<?=base_url("user/C_User/importPegawaiNewUser")?>',
+            method: 'post',
+            data: $(this).serialize(),
+            success: function(data){
+                $('#result_search_pegawai').show()
+                $('#result_search_pegawai').html('')
+                $('#result_search_pegawai').append(data)
             }, error: function(e){
                 errortoast('Terjadi Kesalahan')
             }

@@ -155,4 +155,13 @@ class C_User extends CI_Controller
     public function deleteRole($id){
         echo json_encode($this->user->deleteRole($id));
     }
+
+    public function importPegawaiNewUser(){
+        $data['result'] = ($this->user->importPegawaiNewUser());
+        $this->load->view('user/V_ResultSearchImport', $data);
+    }
+
+    public function createUserImport($nip){
+        echo json_encode($this->user->createUserImport($nip));
+    }
 }

@@ -432,5 +432,49 @@
                     
             return $this->db->get()->result_array();
         }
+
+        public function importPegawaiNewUser(){
+            $data = $this->input->post();
+            return $this->db->select('*')
+                            ->from('pegawai')
+                            ->or_like('nipbaru_ws', $data['search_value'])
+                            ->or_like('nama', $data['search_value'])
+                            ->get()->result_array();
+        }
+
+        public function createUserImport($nip){
+            $rs['code'] = 0;
+            $rs['message'] = 'User berhasil ditambahkan';
+            $exist = $this->db->select('*')
+                            ->from('m_user')
+                            ->where('username', $nip)
+                            ->where('flag_active', 1)
+                            ->get()->row_array();
+            $pegawai = $this->db->select('*')
+                            ->from('pegawai')
+                            ->where('nipbaru_ws', $nip)
+                            ->get()->row_array();
+            if($exist){
+                $rs['code'] = 1;
+                $rs['message'] = 'User sudah terdaftar';
+                $this->db->where('nipbaru_ws', $nip)
+                        ->update('pegawai', ['flag_user_created' => 1]);
+            } else if(!$pegawai){
+                $rs['code'] = 1;
+                $rs['message'] = 'Terjadi Kesalahan';
+            } else {
+                $user['username'] = $pegawai['nipbaru_ws'];
+                $user['nama'] = $pegawai['gelar1'].$pegawai['nama'].$pegawai['gelar2'];
+                $nip_baru = explode(" ", $pegawai['nipbaru']);
+                $password = $nip_baru[0];
+                $pass_split = str_split($password);
+                $new_password = $pass_split[6].$pass_split[7].$pass_split[4].$pass_split[5].$pass_split[0].$pass_split[1].$pass_split[2].$pass_split[3];
+                $user['password'] = $this->general_library->encrypt($user['username'], $new_password);
+                $this->db->insert('m_user', $user);
+            }
+
+
+            return $rs;
+        }
 	}
 ?>

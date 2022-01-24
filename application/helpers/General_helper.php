@@ -14,6 +14,19 @@ function render($pageContent, $parent_active, $active, $data)
     $CI->load->view('base/V_BaseLayout', $data);
 }
 
+function formatNip($nip){
+    $str = strlen($nip);
+    $formatted_nip = '';
+    $nip_split = str_split($nip);
+    for($i = 0; $i < $str; $i++) {
+        $formatted_nip .= $nip_split[$i];
+        if($i == 7 || $i == 13 || $i == 14){
+            $formatted_nip .= " ";
+        }
+    }
+    return $formatted_nip;
+}
+
 function generateNorm($last_norm){
     if($last_norm){
         $cur_count_norm = ltrim($last_norm, '0');
