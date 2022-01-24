@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title><?=TITLES?></title>
-  <link rel="shortcut icon" href="<?=base_url('assets/img/logo-biru-putih.png')?>" />
+  <link rel="shortcut icon" href="<?=base_url('assets/img/EFORT-png.png')?>" />
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -19,7 +19,7 @@
         .login-page {
             background-image: url('assets/img/login.jpg');
             background-size: 100%;
-            width: 100%;
+            /* width: 100%; */
             background-attachment: scroll;
             background-size: cover;
             background-repeat: repeat;
@@ -48,6 +48,26 @@
         .card:hover{
           opacity: 1 !important;
         }
+
+        .login-box{
+          /* border-radius: 10px; */
+          box-shadow: 3px 3px 13px 3px #001f3f;
+          opacity: 1;
+          transition: 1s;
+          /* padding: 20px; */
+          height: 65%;
+          width: 30%;
+          background-color: #ffffff;
+          position: absolute;
+        }
+        
+        .login-container{
+          width: 90%;
+          transform: translate(-50%, -50%);
+          top: 45%;
+          left: 50%;
+          position: absolute;
+        }
     </style>
 </head>
 <body class="hold-transition login-page">
@@ -56,16 +76,19 @@
     <a href="#"><b><?=TITLES?></b></a>
   </div> -->
   <!-- /.login-logo -->
-  <div class="card shadow-lg mb-5 bg-white rounded" style="opacity: 1; transition: .2s">
-    <div class="card-body login-card-body">
+  <!-- <div class="card shadow-lg mb-5 bg-white rounded"> -->
+  <center>
+    <div class="login-container">
       <center>
-      <img src="<?=base_url('assets/img/logo-putih-biru.png')?>" style="height: 250px; width: 250px;
+      <img src="<?=base_url('assets/img/EFORT-png.png')?>" style="height: 250px; width: 250px;
       margin-top: -20px;
       margin-bottom: -50px;"/>
       <br>
-      <span style="font-weight: bold; font-size: 25px; color: black; font-family: Verdana;"><?=TITLE_SECOND?></span>
       <br>
-      <span style="font-weight: bold; font-size: 14px; color: black">BKPSDM Kota Manado</span>
+      <br>
+        <span style="font-weight: bold; font-size: 25px; white-space: nowrap; color: black; font-family: Verdana;"><?=TITLE_SECOND?></span>
+      <br>
+      <span style="font-weight: bold; font-size: 18px; color: black">BKPSDM Kota Manado</span>
       <br>
       </center>
       <form action="<?=base_url('login/C_Login/authenticateAdmin')?>" method="post">
@@ -86,17 +109,18 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-7">
-          </div>
-          <div class="col-5 text-right">
-            <button type="submit" class="btn btn-navy btn-sm">Sign In <i class="fas fa-sign-in-alt"></i></button>
+          <!-- <div class="col-7">
+          </div> -->
+          <div class="col-12">
+            <button type="submit" class="btn btn-block btn-navy">Sign In <i class="fas fa-sign-in-alt"></i></button>
           </div>
         </div>
       </form>
 
       <div class="col-12 text-center text-red mt-3" id="error_div" style="display: none;"></div>
     </div>
-  </div>
+  </center>
+  <!-- </div> -->
 </div>
 
 <script src="<?=base_url('plugins/jquery/jquery.min.js')?>"></script>

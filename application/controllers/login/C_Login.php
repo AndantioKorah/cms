@@ -15,7 +15,8 @@ class C_Login extends CI_Controller
         //     redirect(base_url($this->session->userdata('landing_page')));
         // } else {
             $this->session->set_userdata(['user_logged_in' => null, 'test' => null, 'params' => null]);
-            $this->load->view('login/V_Login', null);
+            $this->load->view('login/V_LoginNew', null);
+            // $this->load->view('login/V_Login', null);
         // }
     }
 

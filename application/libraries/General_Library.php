@@ -50,7 +50,7 @@ class General_library
     }
 
     public function getProfilePicture(){
-        $photo = 'assets/img/user2-160x160.jpg';
+        $photo = 'assets/img/default-user-icon.jpg';
         if($this->userLoggedIn['profile_picture']){
             $photo = 'assets/profile_picture/'.$this->userLoggedIn['profile_picture'];
         }

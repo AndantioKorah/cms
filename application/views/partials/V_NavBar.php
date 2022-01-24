@@ -47,8 +47,12 @@
   #div_search_result::-webkit-scrollbar {
     display: none;
   }
+  
+  .navbar-efort{
+    background-color: #920903;
+  }
 </style>
-<nav class="main-header navbar navbar-expand navbar-dark navbar-red">
+<nav class="main-header navbar navbar-expand navbar-dark navbar-efort">
     <!-- <form class="form-inline ml-3">
       <div class="row">
         <div class="input-group input-group-sm div_search_bar">

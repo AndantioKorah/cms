@@ -90,7 +90,7 @@ define('DEVELOPMENT_MODE', '1');
 define('DB_HOST', 'localhost');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
-define('DB_NAME', 'db_smsgateway');
+define('DB_NAME', 'db_efort');
 
 
 define('KODE_TRANSAKSI', '01');
@@ -98,10 +98,11 @@ define('KODE_TRANSAKSI_PEMBAYARAN', '02');
 define('KODE_TRANSAKSI_UANG_MUKA', '03');
 
 define('VERSION', 'Version 1.0');
-define('TITLES', 'EFORT | BKPSDM Manado');
+define('TITLES', 'EFORT | BKPSDM Kota Manado');
 define('TITLE_SECOND', 'Electronic Performance Report');
+define('TITLE_THIRD', 'EFORT');
 define('PROGRAMMER_PHONE', '082115407812');
-define('COPYRIGHT', 'Copyright &copy; '.date('Y').' <strong>BKPSDM Manado</strong>');
+define('COPYRIGHT', 'Copyright &copy; '.date('Y').' <strong>NiKita</strong>');
 // define('COPYRIGHT', 'Copyright &copy; '.date('Y').' <strong>PATRA LAB</strong>');
 define('TRANSAKSI_TABLE_VIEW', 1);
 define('USE_PRINT', '0');

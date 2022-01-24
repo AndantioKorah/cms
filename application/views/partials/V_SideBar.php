@@ -7,14 +7,18 @@
     position: fixed !important;
     /* margin-top: 50px; */
   }
+
+  .navbar-efort{
+    background-color: #920903;
+  }
 </style>
 
 <aside class="main-sidebar elevation-4 sidebar-light-navy">
   <!-- Brand Logo -->
-  <a href="<?=base_url('welcome')?>" class="brand-link navbar-red">
-    <img src="<?=base_url('assets/img/logo-putih-biru.png')?>" alt="SMS Gateway" class="brand-image img-circle elevation-3"
+  <a href="<?=base_url('welcome')?>" class="brand-link navbar-efort">
+    <img src="<?=base_url('assets/new_login/images/logo-efort-red-white.png')?>" alt="EFORT" class="brand-image img-circle elevation-3"
           style="opacity: .8">
-    <span class="brand-text" style="font-weight: bold; color: white;"><?=TITLE_SECOND?></span>
+    <span class="brand-text" style="font-weight: bold; color: white;"><?=TITLE_THIRD?></span>
   </a>
   
   <!-- Sidebar -->
