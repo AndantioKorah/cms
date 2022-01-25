@@ -30,4 +30,25 @@ class C_Master extends CI_Controller
     public function deleteJenisPesan($id){
         $this->general->delete('id', $id, 'm_jenis_pesan');
     }
+
+    public function masterBidang(){
+        $data['list_unit_kerja'] = $this->master->getAllUnitKerja();
+        render('master/V_MasterBidang', '', '', $data);
+    }
+
+    public function createMasterBidang(){
+        $data = $this->input->post();
+        $data['id_user_inputer'] = $this->general_library->getId();
+        $this->master->insert('m_bidang', $data);
+    }
+
+    public function loadMasterBidang(){
+        $data['list_master_bidang'] = $this->master->loadMasterBidang();
+        $this->load->view('master/V_MasterBidangItem', $data);
+    }
+
+    public function deleteMasterBidang($id){
+        $this->general->delete('id', $id, 'm_bidang');
+    }
+    
 }

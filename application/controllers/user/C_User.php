@@ -30,9 +30,37 @@ class C_User extends CI_Controller
         render('user/V_Users', 'user_management', 'users', null);
     }
 
+    public function userChangePassword(){
+        echo json_encode($this->user->userChangePassword($this->input->post()));
+    }
+
+    public function resetPassword($id){
+        $this->user->resetPassword($id);
+    }
+
+    public function tambahBidangUser(){
+        $data = $this->input->post();
+        $update_user['id_m_bidang'] = $data['id_m_bidang'];
+        $update_user['updated_by'] = $this->general_library->getId();
+        $this->general->update('id', $data['id_m_user'], 'm_user', $update_user);
+        echo json_encode($this->general->getOne('m_bidang', 'id', $data['id_m_bidang']));
+    }
+
+    public function refreshBidang($id_m_user){
+        $data['rs'] = $this->user->getBidangUser($id_m_user);
+        $this->load->view('user/V_UserBidangItem', $data);
+    }
+
+    public function deleteUserBidang($id_m_user){
+        $update_user['id_m_bidang'] = 0;
+        $update_user['updated_by'] = $this->general_library->getId();
+        $this->general->update('id', $id_m_user, 'm_user', $update_user);
+    }
+
     public function openAddRoleModal($id_m_user){
-        $data['user'] = $this->general->getOne('m_user', 'id', $id_m_user, 1);
+        $data['user'] = $this->general->getUserForSetting($id_m_user);
         $data['roles'] = $this->general->getAllWithOrder('m_role', 'nama', 'asc');
+        $data['bidang'] = $this->general->getAllWithOrder('m_bidang', 'nama_bidang', 'asc');
         $this->load->view('user/V_AddRoleModal', $data);
     }
 

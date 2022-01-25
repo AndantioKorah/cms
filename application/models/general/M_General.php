@@ -174,5 +174,21 @@
             return ['code' => 0];
         }
 
+        public function getDataPegawai($nip){
+            return $this->db->select('*')
+                            ->from('pegawai')
+                            ->where('nipbaru_ws', $nip)
+                            ->get()->row_array();
+        }
+
+        public function getUserForSetting($id){
+            return $this->db->select('*, a.id as id_m_user')
+                            ->from('m_user a')
+                            ->join('m_bidang b', 'a.id_m_bidang = b.id', 'left')
+                            ->where('a.flag_active',1)
+                            ->where('a.id', $id)
+                            ->get()->row_array();
+        }
+
 	}
 ?>

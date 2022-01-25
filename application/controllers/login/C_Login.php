@@ -51,6 +51,7 @@ class C_Login extends CI_Controller
             $list_menu = null;
             $list_role = $this->user->getListRoleForUser($result[0]['id']);
             $active_role = null;
+            $pegawai = $this->m_general->getDataPegawai($result[0]['username']);
             if($list_role){
                 $active_role = $list_role[0];
                 $list_menu = $this->general_library->getListMenu($active_role['id'], $active_role['role_name']);
@@ -73,6 +74,7 @@ class C_Login extends CI_Controller
                 'active_role_id' =>  $active_role['id'],
                 'active_role_name' =>  $active_role['role_name'],
                 'landing_page' =>  $active_role['landing_page'],
+                'pegawai' => $pegawai,
                 'ID_PENDAFTARAN_PASIEN' =>  null,
             ]);
             if($params){

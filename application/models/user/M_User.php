@@ -12,8 +12,9 @@
         }
 
         public function getAllUsers(){
-            return $this->db->select('*, a.nama as nama_user')
+            return $this->db->select('a.*, a.nama as nama_user, b.nama_bidang')
                             ->from('m_user a')
+                            ->join('m_bidang b', 'a.id_m_bidang = b.id', 'left')
                             ->where('a.flag_active', 1)
                             ->order_by('a.nama')
                             ->get()->result_array();
@@ -473,6 +474,56 @@
                 $this->db->insert('m_user', $user);
             }
 
+
+            return $rs;
+        }
+
+        public function resetPassword($id){
+            $user = $this->db->select('*')
+                            ->from('m_user')
+                            ->where('id', $id)
+                            ->get()->row_array();
+            $password = $user['username'];
+            $pass_split = str_split($password);
+            $new_password = $pass_split[6].$pass_split[7].$pass_split[4].$pass_split[5].$pass_split[0].$pass_split[1].$pass_split[2].$pass_split[3];
+            $new_password = $this->general_library->encrypt($user['username'], $new_password);
+            $update['password'] = $new_password;
+            $update['updated_by'] = $this->general_library->getId();
+            $this->db->where('id', $id)
+                            ->update('m_user', $update);
+        }
+
+        public function getBidangUser($id_m_user){
+            return $this->db->select('*, a.id as id_m_user')
+                            ->from('m_user a')
+                            ->join('m_bidang b', 'a.id_m_bidang = b.id')
+                            ->where('a.id', $id_m_user)
+                            ->where('a.flag_active', 1)
+                            ->get()->row_array();
+        }
+
+        public function userChangePassword($data){
+            $rs['code'] = 0;
+            $rs['message'] = '';
+            $user = $this->db->select('*')
+                            ->from('m_user')
+                            ->where('id', $data['id_m_user'])
+                            ->get()->row_array();
+            if($user){
+                if($data['new_password'] != $data['confirm_new_password']){
+                    $rs['code'] = 2;
+                    $rs['message'] = 'Password Baru dan Konfirmasi Password Baru tidak sama !';    
+                } else {
+                    $new_password = $this->general_library->encrypt($user['username'], $data['new_password']);
+                    $update['password'] = $new_password;
+                    $update['updated_by'] = $this->general_library->getId();
+                    $this->db->where('id', $data['id_m_user'])
+                            ->update('m_user', $update);
+                }
+            } else {
+                $rs['code'] = 1;
+                $rs['message'] = 'Terjadi Kesalahan ; Error Code : 1';
+            }
 
             return $rs;
         }
