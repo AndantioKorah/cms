@@ -22,8 +22,10 @@
         }
 
         public function loadKegiatan(){
+            $id =  $this->general_library->getId();
             return $this->db->select('*')
                             ->from('t_kegiatan a')
+                            ->where('a.id_user_inputer', $id)
                             ->where('a.flag_active', 1)
                             ->get()->result_array();
         }
