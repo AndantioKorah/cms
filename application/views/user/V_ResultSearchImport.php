@@ -6,13 +6,15 @@
             <th class="text-center">No</th>
             <th>NIP</th>
             <th>Nama Pegawai</th>
+            <th>SKPD</th>
             <th class="text-center">Pilihan</th>
         </thead>
         <?php $no = 1; foreach($result as $lr){ ?>
             <tr>
                 <td class="text-center"><?=$no?></td>
-                <td><?=$lr['nipbaru_ws']?></td>
+                <td><?=formatnip($lr['nipbaru_ws'])?></td>
                 <td><?=$lr['gelar1'].''.$lr['nama'].$lr['gelar2']?></td>
+                <td><?=$lr['nm_unitkerja']?></td>
                 <td class="text-center">
                     <?php
                         if($lr['flag_user_created'] == 1){

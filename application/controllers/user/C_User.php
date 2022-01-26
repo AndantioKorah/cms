@@ -38,6 +38,32 @@ class C_User extends CI_Controller
         $this->user->resetPassword($id);
     }
 
+    public function tambahVerifBidang(){
+        echo json_encode($this->user->tambahVerifBidang($this->input->post()));
+    }
+
+    public function tambahVerifPegawai(){
+        echo json_encode($this->user->tambahVerifPegawai($this->input->post()));
+    }
+
+    public function getVerifBidang($id){
+        $data['result'] = $this->user->getVerifBidang($id);
+        $this->load->view('user/V_VerifBidangItem', $data);
+    }
+
+    public function getVerifPegawai($id){
+        $data['result'] = $this->user->getVerifPegawai($id);
+        $this->load->view('user/V_VerifPegawaiItem', $data);
+    }
+
+    public function deleteVerifBidang($id){
+        $this->general->update('id', $id, 't_verif_tambahan', ['flag_active' => 0]);
+    }
+
+    public function deleteVerifPegawai($id){
+        $this->general->update('id', $id, 't_verif_tambahan', ['flag_active' => 0]);
+    }
+
     public function tambahBidangUser(){
         $data = $this->input->post();
         $update_user['id_m_bidang'] = $data['id_m_bidang'];
@@ -61,6 +87,7 @@ class C_User extends CI_Controller
         $data['user'] = $this->general->getUserForSetting($id_m_user);
         $data['roles'] = $this->general->getAllWithOrder('m_role', 'nama', 'asc');
         $data['bidang'] = $this->general->getAllWithOrder('m_bidang', 'nama_bidang', 'asc');
+        $data['pegawai'] = $this->user->getListPegawaiSkpd($this->session->userdata('pegawai')['skpd'], $id_m_user);
         $this->load->view('user/V_AddRoleModal', $data);
     }
 

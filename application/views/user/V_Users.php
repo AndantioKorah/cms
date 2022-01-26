@@ -146,12 +146,14 @@
 
     $('#form_search_pegawai_new_user').on('submit', function(e){
         e.preventDefault()
+        $('#result_search_pegawai').show()
+        $('#result_search_pegawai').html('')
+        $('#result_search_pegawai').append(divLoaderNavy)
         $.ajax({
             url: '<?=base_url("user/C_User/importPegawaiNewUser")?>',
             method: 'post',
             data: $(this).serialize(),
             success: function(data){
-                $('#result_search_pegawai').show()
                 $('#result_search_pegawai').html('')
                 $('#result_search_pegawai').append(data)
             }, error: function(e){

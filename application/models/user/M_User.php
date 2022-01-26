@@ -437,9 +437,10 @@
         public function importPegawaiNewUser(){
             $data = $this->input->post();
             return $this->db->select('*')
-                            ->from('pegawai')
-                            ->or_like('nipbaru_ws', $data['search_value'])
-                            ->or_like('nama', $data['search_value'])
+                            ->from('pegawai a')
+                            ->join('unitkerja b', 'a.skpd = b.id_unitkerja')
+                            ->or_like('a.nipbaru_ws', $data['search_value'])
+                            ->or_like('a.nama', $data['search_value'])
                             ->get()->result_array();
         }
 
@@ -491,6 +492,109 @@
             $update['updated_by'] = $this->general_library->getId();
             $this->db->where('id', $id)
                             ->update('m_user', $update);
+        }
+
+        public function getListPegawaiSkpd($idskpd, $iduser){
+            return $this->db->select('*, a.id as id_m_user, a.nama as nama_pegawai')
+                            ->from('m_user a')
+                            ->join('pegawai b', 'a.username = b.nipbaru_ws')
+                            ->where('b.skpd', $idskpd)
+                            ->where('a.id !=', $iduser)
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+        }
+
+        public function tambahVerifPegawai($data){
+            $rs['code'] = 0;
+            $rs['message'] = '';
+
+            $exist = $this->db->select('*')
+                            ->from('t_verif_tambahan')
+                            ->where('id_m_user', $data['id_m_user'])
+                            ->where('id_m_user_verif', $data['id_m_user_verif'])
+                            ->where('flag_active', 1)
+                            ->get()->row_array();
+            if($exist){
+                $rs['code'] = 1;
+                $rs['message'] = 'Pegawai sudah ditambahkan sebelumnya';
+            } else {
+                $this->db->insert('t_verif_tambahan',
+                    [
+                        'id_m_user' => $data['id_m_user'],
+                        'id_m_user_verif' => $data['id_m_user_verif'],
+                        'created_by' => $this->general_library->getId()
+                    ]);
+            }
+
+            return $rs;
+        }
+
+        public function tambahVerifBidang($data){
+            $rs['code'] = 0;
+            $rs['message'] = '';
+
+            $exist = $this->db->select('*')
+                            ->from('t_verif_tambahan')
+                            ->where('id_m_user', $data['id_m_user'])
+                            ->where('id_m_bidang', $data['id_m_bidang'])
+                            ->where('flag_active', 1)
+                            ->get()->row_array();
+            if($exist){
+                $rs['code'] = 1;
+                $rs['message'] = 'Bidang sudah ditambahkan sebelumnya';
+            } else {
+                $this->db->insert('t_verif_tambahan',
+                    [
+                        'id_m_user' => $data['id_m_user'],
+                        'id_m_bidang' => $data['id_m_bidang'],
+                        'created_by' => $this->general_library->getId()
+                    ]);
+            }
+
+            return $rs;
+        }
+
+        public function getVerifPegawai($id){
+            return $this->db->select('*, a.id as id_t_verif_tambahan')
+                            ->from('t_verif_tambahan a')
+                            ->join('m_user b', 'a.id_m_user_verif = b.id')
+                            ->join('m_bidang c', 'b.id_m_bidang = c.id', 'left')
+                            ->where('a.id_m_user', $id)
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+        }
+
+        public function getVerifBidang($id){
+            return $this->db->select('*, a.id as id_t_verif_tambahan')
+                            ->from('t_verif_tambahan a')
+                            ->join('m_bidang b', 'a.id_m_bidang = b.id')
+                            ->where('a.id_m_user', $id)
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+        }
+
+        public function tambahVerifIndividu($data){
+            $rs['code'] = 0;
+            $rs['message'] = '';
+
+            $exist = $this->db->select('*')
+                            ->from('t_verif_tambahan')
+                            ->where('id_m_user', $data['id_m_user'])
+                            ->where('flag_active', 1)
+                            ->get()->row_array();
+            if($exist){
+                $rs['code'] = 1;
+                $rs['message'] = 'Bidang sudah ditambahkan sebelumnya';
+            } else {
+                $this->db->insert('t_verif_tambahan',
+                    [
+                        'id_m_user' => $data['id_m_user'],
+                        'id_m_bidang' => $data['id_m_bidang'],
+                        'created_by' => $this->general_library->getId()
+                    ]);
+            }
+
+            return $rs;
         }
 
         public function getBidangUser($id_m_user){
