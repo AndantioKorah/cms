@@ -274,7 +274,7 @@ class General_library
         
         $config['upload_path'] = URI_UPLOAD.$path; //buat folder dengan nama assets di root folder
         $config['file_name'] = $fileName;
-        $config['allowed_types'] = 'jpg|jpeg|png';
+        $config['allowed_types'] = '*';
         $config['max_size'] = '2000';
 
         $this->nikita->load->library('upload', $config);
@@ -286,6 +286,7 @@ class General_library
             return ['code' => '500', 'message' => $this->nikita->upload->error_msg[0]];
         }
         $image = $this->nikita->upload->data();
+        dd($image);
         // $width_size = 160;
         // $filesave = base_url('assets/profile_picture/').$image['file_name'];
 
