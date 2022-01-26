@@ -5,6 +5,7 @@ class C_Kinerja extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->model('general/M_General', 'general');
         $this->load->model('kinerja/M_Kinerja', 'kinerja');
         if(!$this->general_library->isNotMenu()){
             redirect('logout');
@@ -18,22 +19,43 @@ class C_Kinerja extends CI_Controller
     
 
     public function createLaporanKegiatan(){
-        $data = $this->input->post();
-        $data['id_user_inputer'] = $this->general_library->getId();
-        $this->kinerja->insert('t_kegiatan', $data);
+      
+        $fileName = $this->general_library->getUserName().'_bukti_kegiatan_'.date('ymdhis').'_'.$_FILES['file']['name'];
+        $config['upload_path'] = "./assets/bukti_kegiatan";
+        $config['allowed_types'] = '*';
+        $config['file_name'] = $fileName;
+        // $config['encrypt_name'] = TRUE;
+
+        $this->load->library('upload', $config);
+       
+        if($this->upload->do_upload('file'))
+        {
+            $data = array('upload_data' => $this->upload->data());
+
+            $dataPost = $this->input->post();
+
+            $image = $fileName;
+
+            $result = $this->kinerja->createLaporanKegiatan($dataPost,$image);
+
+            $result = 1;
+
+            echo json_decode($result);
+        }
     }
 
-    public function updateProfilePict(){
-        $photo = $_FILES['profilePict']['name'];
-        $upload = $this->general_library->uploadImage('profile_picture','profilePict');
-        if($upload['code'] != 0){
-            $this->session->set_flashdata('message', $upload['message']);
-        } else {
-            $message = $this->user->updateProfilePicture($upload);
-            $this->session->set_flashdata('message', $message['message']);
-        }
-        redirect('user/setting');
+    
+    public function loadKegiatan(){
+       
+        $data['list_kegiatan'] = $this->kinerja->loadKegiatan();
+        // dd($data['list_kegiatan']);
+        $this->load->view('kinerja/V_LaporanKinerjaItem', $data);
     }
+
+    public function deleteKegiatan($id){
+        $this->general->delete('id', $id, 't_kegiatan');
+    }
+
 
    
     
