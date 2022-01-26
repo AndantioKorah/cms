@@ -50,6 +50,7 @@
         $('#list_kegiatan').append(divLoaderNavy)
         $('#list_kegiatan').load('<?=base_url("kinerja/C_Kinerja/loadKegiatan")?>', function(){
             $('#loader').hide()
+           
         })
     }
 
@@ -69,6 +70,7 @@
     success:function(data){
         successtoast("Data berhasil disimpan")
         loadListKegiatan()
+        document.getElementById("submit").reset();
     } , error: function(e){
                 errortoast('Terjadi Kesalahan')
     }
