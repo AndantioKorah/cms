@@ -436,6 +436,9 @@
 
         public function importPegawaiNewUser(){
             $data = $this->input->post();
+            if(!$data['search_value']){
+                return null;
+            }
             return $this->db->select('*')
                             ->from('pegawai a')
                             ->join('unitkerja b', 'a.skpd = b.id_unitkerja')
