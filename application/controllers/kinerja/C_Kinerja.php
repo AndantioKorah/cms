@@ -13,8 +13,19 @@ class C_Kinerja extends CI_Controller
     }
 
     public function Kinerja(){
-        $data['list_laporan_kinerja'] = "";
-        render('kinerja/V_LaporanKinerja', '', '', $data);
+        $data['list_rencana_kinerja'] = $this->kinerja->getRencanaKinerja();
+        render('kinerja/V_RealisasiKinerja', '', '', $data);
+    }
+
+    public function rencanaKinerja(){
+        $data['list_rencana_kerja'] = "";
+        render('kinerja/V_RencanaKinerja', '', '', $data);
+    }
+
+    public function createRencanaKinerja(){
+        $data = $this->input->post();
+        $data['id_m_user'] = $this->general_library->getId();
+        $this->kinerja->insert('t_rencana_kinerja', $data);
     }
     
 
@@ -49,13 +60,26 @@ class C_Kinerja extends CI_Controller
        
         $data['list_kegiatan'] = $this->kinerja->loadKegiatan();
         // dd($data['list_kegiatan']);
-        $this->load->view('kinerja/V_LaporanKinerjaItem', $data);
+        $this->load->view('kinerja/V_RealisasiKinerjaItem', $data);
     }
 
     public function deleteKegiatan($id){
         $this->general->delete('id', $id, 't_kegiatan');
     }
 
+      
+    public function loadRencanaKinerja(){
+       
+        $data['list_rencana_kinerja'] = $this->kinerja->loadRencanaKinerja();
+        $this->load->view('kinerja/V_RencanaKinerjaItem', $data);
+    }
+
+
+    public function getSatuan()
+    {
+        $data = $this->kinerja->getSatuan();
+        echo json_encode($data);
+    }
 
    
     

@@ -62,4 +62,5 @@ $route['logout'] = 'login/C_Login/logout';
 
 // admin
 $route['welcome'] = 'login/C_Login/welcomePage';
-$route['kinerja'] = 'kinerja/C_Kinerja/Kinerja';
+$route['kinerja/realisasi'] = 'kinerja/C_Kinerja/Kinerja';
+$route['kinerja/rencana'] = 'kinerja/C_Kinerja/rencanaKinerja';

@@ -3,9 +3,11 @@
         <table class="table table-hover table-striped" id="table_master_bidang">
             <thead>
                 <th class="text-center">No</th>
-                <th class="text-left">Rencana Kerja</th>
+                <th class="text-left">Kegiatan Tugas Jabatan</th>
                 <th class="text-left">Tanggal Kegiatan</th>
                 <th class="text-left">Deskripsi Kegiatan</th>
+                <th class="text-left">Realisasi Target (Kuantitas)</th>
+                <th class="text-left">Satuan</th>
                 <th class="text-center">Dokumen Bukti Kegiatan</th>
                 <th></th>
             </thead>
@@ -13,16 +15,18 @@
             <?php $no=1; foreach($list_kegiatan as $lp){ ?>
                     <tr>
                         <td class="text-center"><?=$no++;?></td>
-                        <td class="text-left"><?=$lp['rencana_kerja']?></td>
+                        <td class="text-left"><?=$lp['tugas_jabatan']?></td>
                         <td class="text-left"><?=$lp['tanggal_kegiatan']?></td>                       
                         <td class="text-left"><?=$lp['deskripsi_kegiatan']?></td>
+                        <td class="text-left"><?=$lp['target_kuantitas']?></td>
+                        <td class="text-left"><?=$lp['satuan']?></td>
                         <td class="text-center">  
                         <a class="btn btn-sm btn-success" href="<?= base_url('assets/bukti_kegiatan/'.$lp['bukti_kegiatan'].'');?>" target="_blank"><i class="fa fa-file"> Lihat</i></a>
 
                         </td>
                         
                         <td class="text-center">
-                            <button onclick="deleteKegiatan('<?=$lp['id']?>')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Hapus</button>
+                            <button onclick="deleteKegiatan('<?=$lp['id']?>')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
                         </td>
                         
                     </tr>
