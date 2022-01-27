@@ -38,7 +38,7 @@ class C_Master extends CI_Controller
 
     public function createMasterBidang(){
         $data = $this->input->post();
-        $data['id_user_inputer'] = $this->general_library->getId();
+        $data['created_by'] = $this->general_library->getId();
         $this->master->insert('m_bidang', $data);
     }
 
@@ -49,6 +49,26 @@ class C_Master extends CI_Controller
 
     public function deleteMasterBidang($id){
         $this->general->delete('id', $id, 'm_bidang');
+    }
+
+    public function masterSubBidang(){
+        $data['list_master_bidang'] = $this->master->loadMasterBidang();
+        render('master/V_MasterSubBidang', '', '', $data);
+    }
+
+    public function createMasterSubBidang(){
+        $data = $this->input->post();
+        $data['created_by'] = $this->general_library->getId();
+        $this->master->insert('m_sub_bidang', $data);
+    }
+
+    public function loadMasterSubBidang(){
+        $data['list_master_sub_bidang'] = $this->master->loadMasterSubBidang();
+        $this->load->view('master/V_MasterSubBidangItem', $data);
+    }
+
+    public function deleteMasterSubBidang($id){
+        $this->general->delete('id', $id, 'm_sub_bidang');
     }
     
 }

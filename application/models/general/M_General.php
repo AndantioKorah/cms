@@ -184,10 +184,19 @@
         public function getUserForSetting($id){
             return $this->db->select('*, a.id as id_m_user')
                             ->from('m_user a')
-                            ->join('m_bidang b', 'a.id_m_bidang = b.id', 'left')
+                            ->join('m_sub_bidang b', 'a.id_m_sub_bidang = b.id', 'left')
+                            ->join('m_bidang c', 'b.id_m_bidang = c.id', 'left')
                             ->where('a.flag_active',1)
                             ->where('a.id', $id)
                             ->get()->row_array();
+        }
+
+        public function getAllSubBidang(){
+            return $this->db->select('b.*, a.nama_bidang, b.id as id_m_sub_bidang')
+                        ->from('m_bidang a')
+                        ->join('m_sub_bidang b', 'a.id = b.id_m_bidang')
+                        ->where('a.flag_active', 1)
+                        ->get()->result_array();
         }
 
 	}

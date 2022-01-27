@@ -112,6 +112,8 @@ define('DB_RESTORE_FOLDER', 'db/restore/'); //local with xampp
 
 define('DEVELOPER', 'nikita');
 
+define('IMPORT_UNIT_KERJA', '4018000');
+
 define('MARGIN_TOP_CETAKAN', '150px');
 define('PADDING_CETAKAN', '10px');
 define('FONT_CETAKAN', 'Verdana');

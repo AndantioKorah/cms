@@ -12,9 +12,9 @@
         }
 
         public function getAllUsers(){
-            return $this->db->select('a.*, a.nama as nama_user, b.nama_bidang')
+            return $this->db->select('a.*, a.nama as nama_user, b.nama_sub_bidang')
                             ->from('m_user a')
-                            ->join('m_bidang b', 'a.id_m_bidang = b.id', 'left')
+                            ->join('m_sub_bidang b', 'a.id_m_sub_bidang = b.id', 'left')
                             ->where('a.flag_active', 1)
                             ->order_by('a.nama')
                             ->get()->result_array();
@@ -447,6 +447,39 @@
                             ->get()->result_array();
         }
 
+        public function importPegawaiByUnitKerja($unitkerja){
+            $list_pegawai = $this->db->select('*')
+                                    ->from('pegawai')
+                                    ->where('skpd', $unitkerja)
+                                    ->get()->result_array();
+            if($list_pegawai){
+                $bulkuser = null;
+                foreach($list_pegawai as $lp){
+                    $exist = $this->db->select('*')
+                            ->from('m_user')
+                            ->where('username', $lp['nipbaru_ws'])
+                            ->where('flag_active', 1)
+                            ->get()->row_array();
+                    if($exist){
+                        // echo 'username '.$lp['nipbaru_ws'].' sudah terdaftar'.'<br>';
+                    } else {
+                        $user['username'] = $lp['nipbaru_ws'];
+                        $user['nama'] = trim($lp['gelar1']).' '.trim($lp['nama']).' '.trim($lp['gelar2']);
+                        $nip_baru = explode(" ", $lp['nipbaru']);
+                        $password = $nip_baru[0];
+                        $pass_split = str_split($password);
+                        $new_password = $pass_split[6].$pass_split[7].$pass_split[4].$pass_split[5].$pass_split[0].$pass_split[1].$pass_split[2].$pass_split[3];
+                        $user['password'] = $this->general_library->encrypt($user['username'], $new_password);
+                        $bulkuser[] = $user;
+                        // echo 'masukkan '.$lp['nipbaru_ws'].' ke dalam list<br>';
+                    }
+                }
+                if($bulkuser){
+                    $this->db->insert_batch('m_user', $bulkuser);
+                }
+            }
+        }
+
         public function createUserImport($nip){
             $rs['code'] = 0;
             $rs['message'] = 'User berhasil ditambahkan';
@@ -469,7 +502,7 @@
                 $rs['message'] = 'Terjadi Kesalahan';
             } else {
                 $user['username'] = $pegawai['nipbaru_ws'];
-                $user['nama'] = $pegawai['gelar1'].$pegawai['nama'].$pegawai['gelar2'];
+                $user['nama'] = trim($lp['gelar1']).' '.trim($lp['nama']).' '.trim($lp['gelar2']);
                 $nip_baru = explode(" ", $pegawai['nipbaru']);
                 $password = $nip_baru[0];
                 $pass_split = str_split($password);
@@ -561,7 +594,7 @@
             return $this->db->select('*, a.id as id_t_verif_tambahan')
                             ->from('t_verif_tambahan a')
                             ->join('m_user b', 'a.id_m_user_verif = b.id')
-                            ->join('m_bidang c', 'b.id_m_bidang = c.id', 'left')
+                            ->join('m_sub_bidang c', 'b.id_m_sub_bidang = c.id', 'left')
                             ->where('a.id_m_user', $id)
                             ->where('a.flag_active', 1)
                             ->get()->result_array();
@@ -600,10 +633,11 @@
             return $rs;
         }
 
-        public function getBidangUser($id_m_user){
+        public function getSubBidangUser($id_m_user){
             return $this->db->select('*, a.id as id_m_user')
                             ->from('m_user a')
-                            ->join('m_bidang b', 'a.id_m_bidang = b.id')
+                            ->join('m_sub_bidang b', 'a.id_m_sub_bidang = b.id')
+                            ->join('m_bidang c', 'b.id_m_bidang = c.id')
                             ->where('a.id', $id_m_user)
                             ->where('a.flag_active', 1)
                             ->get()->row_array();

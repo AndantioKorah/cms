@@ -52,10 +52,18 @@ class C_Login extends CI_Controller
             $list_role = $this->user->getListRoleForUser($result[0]['id']);
             $active_role = null;
             $pegawai = $this->m_general->getDataPegawai($result[0]['username']);
+            $sub_bidang = $this->m_general->getAllSubBidang();
+            $list_sub_bidang = null;
             if($list_role){
                 $active_role = $list_role[0];
                 $list_menu = $this->general_library->getListMenu($active_role['id'], $active_role['role_name']);
                 $list_url = $this->general_library->getListUrl($active_role['id']);
+            }
+
+            if($sub_bidang){
+                foreach($sub_bidang as $sb){
+                    $list_sub_bidang[$sb['id_m_sub_bidang']] = $sb['nama_bidang'];
+                }
             }
 
             if(!$active_role){
@@ -75,6 +83,7 @@ class C_Login extends CI_Controller
                 'active_role_name' =>  $active_role['role_name'],
                 'landing_page' =>  $active_role['landing_page'],
                 'pegawai' => $pegawai,
+                'getBidangBySub' => $list_sub_bidang,
                 'ID_PENDAFTARAN_PASIEN' =>  null,
             ]);
             if($params){

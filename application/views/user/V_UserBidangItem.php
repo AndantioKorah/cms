@@ -1,14 +1,21 @@
-<div class="row">
-    <?php if($rs['id_m_bidang'] != 0){ ?>
-        <div class="col-12">
-            Bidang:
-        </div>
-        <div class="col-10 text-center">
-            <h5><?=strtoupper($rs['nama_bidang'])?></h5>
-        </div>
-        <div class="col-2">
-            <button onclick="deleteUserBidang('<?=$rs['id_m_user']?>')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Hapus</button>
-        </div>
+<div class="row p-3">
+    <?php if($rs['id_m_sub_bidang'] != 0){ ?>
+        <table class="table table-hover table-striped">
+            <thead>
+                <th>Bidang</th>
+                <th>Sub Bidang</th>
+                <th>Pilihan</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><?=strtoupper($rs['nama_bidang'])?></td>
+                    <td><?=strtoupper($rs['nama_sub_bidang'])?></td>
+                    <td>
+                        <button onclick="deleteUserBidang('<?=$rs['id_m_user']?>')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Hapus</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     <?php } else { ?>
         <div class="col-12 text-center">
             <h5><i class="fa fa-exclamation"></i> User ini belum ditentukan Bidang</h5>
@@ -24,9 +31,9 @@
                 method: 'post',
                 data: $(this).serialize(),
                 success: function(data){
-                    successtoast('Berhasil menghapus Bidang pada User')
+                    successtoast('Berhasil menghapus Sub Bidang pada User')
                     $('#label_bidang_<?=$rs['id_m_user']?>').html('')
-                    refreshBidang()
+                    refreshSubBidang()
                 }, error: function(e){
                     errortoast('Terjadi Kesalahan')
                 }

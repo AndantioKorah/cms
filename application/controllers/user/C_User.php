@@ -64,21 +64,25 @@ class C_User extends CI_Controller
         $this->general->update('id', $id, 't_verif_tambahan', ['flag_active' => 0]);
     }
 
-    public function tambahBidangUser(){
-        $data = $this->input->post();
-        $update_user['id_m_bidang'] = $data['id_m_bidang'];
-        $update_user['updated_by'] = $this->general_library->getId();
-        $this->general->update('id', $data['id_m_user'], 'm_user', $update_user);
-        echo json_encode($this->general->getOne('m_bidang', 'id', $data['id_m_bidang']));
+    public function importPegawaiByUnitKerja(){
+        $this->user->importPegawaiByUnitKerja(IMPORT_UNIT_KERJA);
     }
 
-    public function refreshBidang($id_m_user){
-        $data['rs'] = $this->user->getBidangUser($id_m_user);
+    public function tambahSubBidangUser(){
+        $data = $this->input->post();
+        $update_user['id_m_sub_bidang'] = $data['id_m_sub_bidang'];
+        $update_user['updated_by'] = $this->general_library->getId();
+        $this->general->update('id', $data['id_m_user'], 'm_user', $update_user);
+        echo json_encode($this->user->getSubBidangUser($data['id_m_user']));
+    }
+
+    public function refreshSubBidang($id_m_user){
+        $data['rs'] = $this->user->getSubBidangUser($id_m_user);
         $this->load->view('user/V_UserBidangItem', $data);
     }
 
     public function deleteUserBidang($id_m_user){
-        $update_user['id_m_bidang'] = 0;
+        $update_user['id_m_sub_bidang'] = 0;
         $update_user['updated_by'] = $this->general_library->getId();
         $this->general->update('id', $id_m_user, 'm_user', $update_user);
     }
@@ -86,7 +90,7 @@ class C_User extends CI_Controller
     public function openAddRoleModal($id_m_user){
         $data['user'] = $this->general->getUserForSetting($id_m_user);
         $data['roles'] = $this->general->getAllWithOrder('m_role', 'nama', 'asc');
-        $data['bidang'] = $this->general->getAllWithOrder('m_bidang', 'nama_bidang', 'asc');
+        $data['sub_bidang'] = $this->general->getAllWithOrder('m_sub_bidang', 'nama_sub_bidang', 'asc');
         $data['pegawai'] = $this->user->getListPegawaiSkpd($this->session->userdata('pegawai')['skpd'], $id_m_user);
         $this->load->view('user/V_AddRoleModal', $data);
     }
