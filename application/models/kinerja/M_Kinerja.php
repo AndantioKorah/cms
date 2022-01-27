@@ -25,7 +25,8 @@
             $id =  $this->general_library->getId();
             return $this->db->select('*')
                             ->from('t_kegiatan a')
-                            ->where('a.id_user_inputer', $id)
+                            ->join('t_rencana_kerja b', 'a.id_t_rencana_kerja = b.id')
+                            ->where('a.id_m_user', $id)
                             ->where('a.flag_active', 1)
                             ->get()->result_array();
         }

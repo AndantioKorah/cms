@@ -3,6 +3,7 @@
         <table class="table table-hover table-striped" id="table_master_bidang">
             <thead>
                 <th class="text-center">No</th>
+                <th class="text-left">Rencana Kerja</th>
                 <th class="text-left">Tanggal Kegiatan</th>
                 <th class="text-left">Deskripsi Kegiatan</th>
                 <th class="text-center">Dokumen Bukti Kegiatan</th>
@@ -12,7 +13,8 @@
             <?php $no=1; foreach($list_kegiatan as $lp){ ?>
                     <tr>
                         <td class="text-center"><?=$no++;?></td>
-                        <td class="text-left"><?=$lp['tanggal_kegiatan']?></td>
+                        <td class="text-left"><?=$lp['rencana_kerja']?></td>
+                        <td class="text-left"><?=$lp['tanggal_kegiatan']?></td>                       
                         <td class="text-left"><?=$lp['deskripsi_kegiatan']?></td>
                         <td class="text-center">  
                         <a class="btn btn-sm btn-success" href="<?= base_url('assets/bukti_kegiatan/'.$lp['bukti_kegiatan'].'');?>" target="_blank"><i class="fa fa-file"> Lihat</i></a>
