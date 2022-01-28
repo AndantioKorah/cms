@@ -284,7 +284,7 @@
                     ->from('m_menu a')
                     ->where('a.id_m_menu_parent', 0)
                     ->where('a.flag_active', 1)
-                    ->order_by('a.nama_menu', 'asc')
+                    ->order_by('a.created_date', 'desc')
                     ->group_by('a.id');
             if($role_name != 'programmer'){
                 $this->db->join('m_menu_role b', 'b.id_m_menu = a.id')
@@ -300,7 +300,7 @@
                                                         ->from('m_menu')
                                                         ->where('id_m_menu_parent', $l['id'])
                                                         ->where('flag_active', 1)
-                                                        ->order_by('nama_menu', 'asc')
+                                                        ->order_by('created_date', 'asc')
                                                         ->get()->result_array();
                     $i++;
                 }

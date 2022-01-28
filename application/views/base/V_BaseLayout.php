@@ -31,7 +31,9 @@
   <script src="<?=base_url('assets/css/general.css')?>"></script>
 
 	<link rel="stylesheet" href="<?=base_url('assets/css/bootstrap-datetimepicker.css')?>">
+  <link rel="stylesheet" href="<?=base_url('assets/css/bootstrap-datepicker.css')?>">
   <script src="<?=base_url('assets/js/bootstrap-datetimepicker.js')?>"></script>
+  <script src="<?=base_url('assets/js/bootstrap-datepicker.js')?>"></script>
   <link rel="stylesheet" href="<?=base_url('plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')?>">
 
 
@@ -339,6 +341,16 @@
     return i;
   }
 
+
+
+$('.datepicker').datepicker({
+    format: 'yyyy-mm-dd',
+    startView: "months", 
+    orientation: 'bottom',
+    autoclose: true,
+    todayBtn: true
+});
+
   $('.datetimepickerthis').datetimepicker({
     format: 'yyyy-mm-dd hh:ii:ss',
     autoclose: true,
@@ -353,6 +365,8 @@
     todayBtn: true,
     endDate: new Date()
   })
+
+ 
 
   $('.datetimepickermaxtodaythis').on('changeDate', function (ev) {
       $(this).removeClass('realdatetimethis')

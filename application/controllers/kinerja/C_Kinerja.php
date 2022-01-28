@@ -22,6 +22,11 @@ class C_Kinerja extends CI_Controller
         render('kinerja/V_RencanaKinerja', '', '', $data);
     }
 
+    public function rekapKinerja(){
+        $data['list_rekap_kerja'] = "";
+        render('kinerja/V_RekapKinerja', '', '', $data);
+    }
+
     public function createRencanaKinerja(){
         $data = $this->input->post();
         $data['id_m_user'] = $this->general_library->getId();

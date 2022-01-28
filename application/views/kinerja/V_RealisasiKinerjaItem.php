@@ -21,12 +21,12 @@
                         <td class="text-left"><?=$lp['target_kuantitas']?></td>
                         <td class="text-left"><?=$lp['satuan']?></td>
                         <td class="text-center">  
-                        <a class="btn btn-sm btn-success" href="<?= base_url('assets/bukti_kegiatan/'.$lp['bukti_kegiatan'].'');?>" target="_blank"><i class="fa fa-file"> Lihat</i></a>
+                        <a class="btn btn-sm btn-success" href="<?= base_url('assets/bukti_kegiatan/'.$lp['bukti_kegiatan'].'');?>" target="_blank"><i class="fa fa-file"> </i>  Lihat</a>
 
                         </td>
                         
                         <td class="text-center">
-                            <button onclick="deleteKegiatan('<?=$lp['id']?>')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                            <button onclick="deleteKegiatan('<?=$lp['id']?>')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i>  Hapus</button>
                         </td>
                         
                     </tr>
