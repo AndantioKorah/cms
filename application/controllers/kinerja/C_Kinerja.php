@@ -23,7 +23,7 @@ class C_Kinerja extends CI_Controller
     }
 
     public function rekapKinerja(){
-        $data['list_rekap_kerja'] = "";
+        $data['list_rekap_kinerja'] = $this->kinerja->loadRekapKinerja();
         render('kinerja/V_RekapKinerja', '', '', $data);
     }
 
@@ -54,9 +54,14 @@ class C_Kinerja extends CI_Controller
 
             $result = $this->kinerja->createLaporanKegiatan($dataPost,$image);
 
-            $result = 1;
 
             echo json_decode($result);
+        } else {
+            $dataPost = $this->input->post();
+
+            $image = "";
+
+            $result = $this->kinerja->createLaporanKegiatan($dataPost,$image);
         }
     }
 
@@ -78,6 +83,13 @@ class C_Kinerja extends CI_Controller
         $data['list_rencana_kinerja'] = $this->kinerja->loadRencanaKinerja();
         $this->load->view('kinerja/V_RencanaKinerjaItem', $data);
     }
+
+    public function loadRekapKinerja(){
+       
+        $data['list_rekap_kinerja'] = $this->kinerja->loadRekapKinerja();
+        $this->load->view('kinerja/V_RekapKinerja', $data);
+    }
+
 
 
     public function getSatuan()

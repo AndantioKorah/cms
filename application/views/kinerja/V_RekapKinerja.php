@@ -1,47 +1,67 @@
-<div class="card card-default">
-    <div class="card-header"  style="display: block;">
-        <h3 class="card-title">Laporan Kinerja Pegawai</h3>
-    </div>
-    <div class="card-body" style="display: block;">
-    <form method="post" id="submit">
-    <div class="form-group">
-         <label class="bmd-label-floating">Rencana Kerja</label>
-             <select class="form-control select2-navy" style="width: 100%"
-                 id="rencana_kerja" data-dropdown-css-class="select2-navy" name="rencana_kerja">
-                 <option selected>-</option>
-                 <option value="1">One</option>
-                 <option value="2">Two</option>
-                 <option value="3">Three</option>
-                 </select>
-        </div>
-  <div class="form-group" >
-    <label for="exampleFormControlInput1">Tanggal Kegiatan</label>
-    <input  class="form-control datetimepickerthis" id="tanggal_kegiatan" name="tanggal_kegiatan" readonly value="<?= date('Y-m-d') ;?>">
-  </div>
-
-  <div class="form-group">
-    <label for="exampleFormControlTextarea1">Deskripsi Kegiatan</label>
-    <textarea class="form-control" id="deskripsi_kegiatan" name="deskripsi_kegiatan" rows="3"></textarea>
-  </div>
-  <div class="form-group">
-    <label>Dokumen Bukti Kegiatan</label>
-    <!-- <input class="form-control" type="file" id="image_file" multiple="multiple" /> -->
-    <input  class="form-control" type="file" name="file" multiple="multiple" />
-  </div>
-  <div class="form-group">
-     <button class="btn btn-block btn-navy" id="btn_upload"><i class="fa fa-save"></i> SIMPAN</button>
- </div>
-</form> 
-
-    </div>
-</div>
 
 <div class="card card-default">
     <div class="card-header">
-        <h3 class="card-title">LIST KEGIATAN</h3>
+        <h3 class="card-title">Rekap Kinerja Pegawai</h3>
     </div>
     <div class="card-body">
-        <div id="list_kegiatan" class="row">
+        <div id="" class="row">
+        <thead>
+        <?php if($list_rekap_kinerja){ ?>
+    <div class="col-12">
+    <table border="3"  class="table table-hover table-striped" >
+<tbody><tr height="20" style="height:15.0pt">
+  <th rowspan="2" height="40" >No</th>
+  <th rowspan="2" >Kegiatan Tugas Jabatan</th>
+  <th rowspan="2" >Tahun</th>
+  <th rowspan="2" >Bulan</th>
+  <th colspan="3" class="text-center" width="265" style="border-left:none;width:199pt">Target<span style="mso-spacerun:yes">&nbsp;</span></th>
+  <th colspan="3" class="text-center" width="192" style="border-left:none;width:144pt">Realisasi</th>
+ </tr>
+ <tr height="20" style="height:15.0pt">
+  <td height="20" class="xl67" style="height:15.0pt;border-top:none;border-left:
+  none"> Kuantitas</td>
+  <td class="xl67" style="border-top:none;border-left:none">Satuan</td>
+  <td class="xl67" style="border-top:none;border-left:none">Kualitas</td>
+  <td class="xl67" style="border-top:none;border-left:none">Kuantitas</td>
+  <td class="xl67" style="border-top:none;border-left:none">Satuan</td>
+  <td class="xl67" style="border-top:none;border-left:none">Realisasi</td>
+ </tr>
+
+ <!--[if supportMisalignedColumns]-->
+ <?php $no=1; 
+           
+            foreach($list_rekap_kinerja as $lp){ ?>
+                <?php
+                $realisasi_kualitas = $lp['realisasi_target_kuantitas']/$lp['target_kuantitas'] * 100;
+                ?>
+                    <tr>
+                        <td class="text-left"><?=$no++;?></td>
+                        <td class="text-left"><?=$lp['tugas_jabatan']?></td>
+                        <td class="text-left"><?=$lp['tahun']?></td>
+                        <td class="text-left"><?= getNamaBulan($lp['bulan'])?></td>
+                        <td class="text-left"><?=$lp['target_kuantitas']?></td>                       
+                        <td class="text-left"><?=$lp['satuan']?></td>
+                        <td class="text-left"><?=$lp['target_kualitas']?>%</td>
+                        <td class="text-left"><?=
+                        $lp['realisasi_target_kuantitas'] == '' ? '0' : $lp['realisasi_target_kuantitas']?></td>
+                        <td class="text-left"><?=$lp['satuan']?></td>
+                        <td class="text-left"><?=$realisasi_kualitas?>%</td>
+                    </tr>
+                <?php } ?>
+ <!--[endif]-->
+</tbody></table>
+
+
+       
+    </div>
+
+<?php } else { ?>
+    <div class="row">
+        <div class="col-12">
+            <h5 style="text-center">DATA TIDAK DITEMUKAN <i class="fa fa-exclamation"></i></h5>
+        </div>
+    </div>
+<?php } ?>
         </div>
     </div>
 </div>
@@ -50,42 +70,8 @@
 <script type="text/javascript">
 
 
-    $(function(){
-        
-        loadListKegiatan()
-    })
+ 
 
-     function loadListKegiatan(){
-        $('#list_kegiatan').html('')
-        $('#list_kegiatan').append(divLoaderNavy)
-        $('#list_kegiatan').load('<?=base_url("kinerja/C_Kinerja/loadKegiatan")?>', function(){
-            $('#loader').hide()
-           
-        })
-    }
-
-
-    $("#submit").submit(function(e){
-
-    e.preventDefault();
-
-    $.ajax({
-    url:"<?=base_url("kinerja/C_Kinerja/createLaporanKegiatan")?>",
-    type:'POST',
-    data:new FormData(this),
-    processData:false,
-    contentType:false,
-    cache:false,
-    async:false,
-    success:function(data){
-        successtoast("Data berhasil disimpan")
-        loadListKegiatan()
-        document.getElementById("submit").reset();
-    } , error: function(e){
-                errortoast('Terjadi Kesalahan')
-    }
-})
-})
 
 $('.datetimepickerthis2').datetimepicker({
     format: 'yyyy-mm-dd hh:ii:ss',
