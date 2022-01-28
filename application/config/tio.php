@@ -8,3 +8,4 @@ $route['pesan/send/individu'] = 'message/C_Message/individuMessage';
 $route['pesan/send/bulk'] = 'message/C_Message/bulkMessage';
 $route['master/bidang'] = 'master/C_Master/masterBidang';
 $route['master/bidang/sub'] = 'master/C_Master/masterSubBidang';
+$route['kinerja/verifikasi'] = 'kinerja/C_VerifKinerja/verifKinerja';
