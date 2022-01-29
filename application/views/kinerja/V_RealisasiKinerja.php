@@ -1,9 +1,22 @@
+<style type="text/css">
+.thumb{
+  margin: 24px 5px 20px 0;
+  width: 150px;
+  float: left;
+}
+#blah {
+  border: 2px solid;
+  display: block;
+  background-color: white;
+  border-radius: 5px;
+}
+</style>
 <div class="card card-default">
     <div class="card-header"  style="display: block;">
         <h3 class="card-title">Realisasi Kinerja Pegawai</h3>
     </div>
     <div class="card-body" style="display: block;">
-    <form method="post" id="submit">
+    <form method="post" id="upload_form" enctype="multipart/form-data">
     <div class="form-group">
          <label class="bmd-label-floating">Kegiatan Tugas Jabatan </label>
              <select class="form-control select2-navy" style="width: 100%" onchange="getSatuan()"
@@ -43,7 +56,9 @@
   <div class="form-group">
     <label>Dokumen Bukti Kegiatan</label>
     <!-- <input class="form-control" type="file" id="image_file" multiple="multiple" /> -->
-    <input  class="form-control" type="file" name="file" multiple="multiple" />
+    <input class="form-control" type="file" id="image_file" name="files[]" multiple="multiple" />
+    <br>
+      <div id="uploadPreview"></div>
   </div>
   <div class="form-group">
      <button class="btn btn-block btn-navy" id="btn_upload"><i class="fa fa-save"></i> SIMPAN</button>
@@ -63,6 +78,8 @@
     </div>
 </div>
 
+
+
 <script type="text/javascript">
 
 
@@ -80,16 +97,41 @@
         })
     }
 
+    
+        $('#upload_form').on('submit', function(e){  
+        e.preventDefault();  
+        if($('#image_file').val() == '')  
+        {  
+        alert("Please Select the File");  
+        }  
+        else 
+        {  
+
+        var formvalue = $('#upload_form');
+        var form_data = new FormData(formvalue[0]);
+       
+        $.ajax({  
+        url:"<?=base_url("kinerja/C_Kinerja/multipleImageStore")?>",
+        method:"POST",  
+        data:form_data,  
+        contentType: false,  
+        cache: false,  
+        processData:false,  
+        // dataType: "json",
+        success:function(data){  
+           
+                successtoast("Data berhasil disimpan")
+                loadListKegiatan()
+                document.getElementById("upload_form").reset();
+                $('#uploadPreview').html('');
+        }  
+        });  
+        }  
+        }); 
+
 
     $("#submit").submit(function(e){
-
     e.preventDefault();
-    // if($('#tugas_jabatan').val() == '')  
-    // {  
-    // alert("Please Select the File");  
-    // } 
-
-
     $.ajax({
     url:"<?=base_url("kinerja/C_Kinerja/createLaporanKegiatan")?>",
     type:'POST',
@@ -131,5 +173,35 @@
       
         }
 
+        function readImage(file) {
+var reader = new FileReader();
+var image  = new Image();
+reader.readAsDataURL(file);  
+reader.onload = function(_file) {
+image.src = _file.target.result; // url.createObjectURL(file);
+image.onload = function() {
+var w = this.width,
+h = this.height,
+t = file.type, // ext only: // file.type.split('/')[1],
+n = file.name,
+s = ~~(file.size/1024) +'KB';
+$('#uploadPreview').append('<img src="' + this.src + '" class="thumb">');
+};
+image.onerror= function() {
+alert('Invalid file type: '+ file.type);
+};      
+};
+}
+$("#image_file").change(function (e) {
+if(this.disabled) {
+return alert('File upload not supported!');
+}
+var F = this.files;
+if (F && F[0]) {
+for (var i = 0; i < F.length; i++) {
+readImage(F[i]);
+}
+}
+});
 
 </script>

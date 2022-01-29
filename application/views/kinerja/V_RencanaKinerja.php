@@ -3,6 +3,7 @@
         <h3 class="card-title">Rencana Kinerja Pegawai</h3>
     </div>
     <div class="card-body" style="display: block;">
+    
     <form method="post" id="form_tambah_rencana_kinerja">
     
   <div class="form-group" >
@@ -74,16 +75,8 @@
 
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
 
 <script>
-$(".datepicker").datepicker({
-    format: "yyyy",
-    viewMode: "years", 
-    minViewMode: "years",
-    orientation: 'bottom'
-});
 
     $(function(){
         loadRencanaKinerja()

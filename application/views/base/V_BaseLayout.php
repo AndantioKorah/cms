@@ -344,11 +344,11 @@
 
 
 $('.datepicker').datepicker({
-    format: 'yyyy-mm-dd',
-    startView: "months", 
+    format: 'yyyy',
+    viewMode: "years", 
+    minViewMode: "years",
     orientation: 'bottom',
-    autoclose: true,
-    todayBtn: true
+    autoclose: true
 });
 
   $('.datetimepickerthis').datetimepicker({

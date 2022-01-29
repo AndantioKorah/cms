@@ -12,7 +12,7 @@
         }
 
         public function createLaporanKegiatan($dataPost,$image){
-      
+    //   dd($image);
         $data = array('tanggal_kegiatan' => $dataPost['tanggal_kegiatan'], 
                       'deskripsi_kegiatan' => $dataPost['deskripsi_kegiatan'],
                       'target_kuantitas' => $dataPost['target_kuantitas'],
@@ -91,9 +91,17 @@
     }
 
     public function loadRekapKinerja(){
+
+        
         $id =  $this->general_library->getId();
-        $bulan = date('n');
-        $tahun = date('Y');
+        if($this->input->post()) {
+            $bulan = $this->input->post('bulan');
+            $tahun = $this->input->post('tahun');
+        } else {
+            $bulan = date('n');
+            $tahun = date('Y');
+        }
+       
        
         $query = $this->db->select('a.*,
         (select sum(b.target_kuantitas) from t_kegiatan as b where a.id = b.id_t_rencana_kinerja) as realisasi_target_kuantitas
@@ -107,7 +115,6 @@
         // dd($query);
         return $query;
     }
-
 
       
 

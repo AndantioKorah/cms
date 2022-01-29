@@ -3,20 +3,53 @@
     <div class="card-header">
         <h3 class="card-title">Rekap Kinerja Pegawai</h3>
     </div>
+
+    
     <div class="card-body">
-        <div id="" class="row">
-        <thead>
-        <?php if($list_rekap_kinerja){ ?>
+    <div class="row">
+        <div class="col-12 mb-3">
+        <form class="form-inline" method="post" action="<?=base_url('kinerja/rekap');?>">
+  <div class="form-group">
+    <label for="email" class="mr-2">Tahun </label>
+    <input  class="form-control datepicker" id="tahun" name="tahun" value="<?=date('Y');?>">
+  </div>
+  <div class="form-group">
+    <label for="pwd" class="mr-2 ml-3"> Bulan</label>
+    <select class="form-control select2-navy" 
+                 id="bulan" data-dropdown-css-class="select2-navy" name="bulan" required>
+                 <option value="" selected>- Pilih Bulan -</option>
+                 <option value="1">Januari</option>
+                 <option value="2">Feburari</option>
+                 <option value="3">Maret</option>
+                 <option value="4">April</option>
+                 <option value="5">Mei</option>
+                 <option value="6">Juni</option>
+                 <option value="7">Juli</option>
+                 <option value="8">Agustus</option>
+                 <option value="9">September</option>
+                 <option value="10">Oktober</option>
+                 <option value="10">November</option>
+                 <option value="10">Desember</option>
+                 </select>
+         </div>
+        <button type="submit" class="btn btn-primary ml-3">Cari</button>
+        </form>
+
+        </div>
+        </div>
+    <div class="row">
+        
+    <?php if($list_rekap_kinerja){ ?>
     <div class="col-12">
     <table border="3"  class="table table-hover table-striped" >
-<tbody><tr height="20" style="height:15.0pt">
-  <th rowspan="2" height="40" >No</th>
-  <th rowspan="2" >Kegiatan Tugas Jabatan</th>
-  <th rowspan="2" >Tahun</th>
-  <th rowspan="2" >Bulan</th>
-  <th colspan="3" class="text-center" width="265" style="border-left:none;width:199pt">Target<span style="mso-spacerun:yes">&nbsp;</span></th>
-  <th colspan="3" class="text-center" width="192" style="border-left:none;width:144pt">Realisasi</th>
- </tr>
+    <tbody><tr height="20" style="height:15.0pt">
+    <th rowspan="2" height="40" >No</th>
+    <th rowspan="2" >Kegiatan Tugas Jabatan</th>
+    <th rowspan="2" >Tahun</th>
+    <th rowspan="2" >Bulan</th>
+    <th colspan="3" class="text-center" width="265" style="border-left:none;width:199pt">Target<span style="mso-spacerun:yes">&nbsp;</span></th>
+    <th colspan="3" class="text-center" width="192" style="border-left:none;width:144pt">Realisasi</th>
+    </tr>
  <tr height="20" style="height:15.0pt">
   <td height="20" class="xl67" style="height:15.0pt;border-top:none;border-left:
   none"> Kuantitas</td>
@@ -67,18 +100,19 @@
 </div>
 
 
+
+
 <script type="text/javascript">
 
-
+$('.datepicker2').datepicker({
+    format: 'yyyy-mm-dd',
+    startView: "months", 
+    orientation: 'bottom',
+    autoclose: true,
+    todayBtn: true
+});
  
 
-
-$('.datetimepickerthis2').datetimepicker({
-    format: 'yyyy-mm-dd hh:ii:ss',
-    autoclose: true,
-    todayHighlight: true,
-    todayBtn: true
-  })
 
 </script>
 
