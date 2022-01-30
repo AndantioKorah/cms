@@ -50,14 +50,17 @@
 
         }
 
-        public function loadKegiatan(){
+        public function loadKegiatan($tahun,$bulan){
             $id =  $this->general_library->getId();
             return $this->db->select('a.*, b.tugas_jabatan')
-                            ->from('t_kegiatan a')
-                            ->join('t_rencana_kinerja b', 'a.id_t_rencana_kinerja = b.id')
-                            ->where('a.id_m_user', $id)
-                            ->where('a.flag_active', 1)
-                            ->get()->result_array();
+                ->from('t_kegiatan a')
+                ->join('t_rencana_kinerja b', 'a.id_t_rencana_kinerja = b.id')
+                ->where('a.id_m_user', $id)
+                ->where('year(a.tanggal_kegiatan)', $tahun)
+                ->where('month(a.tanggal_kegiatan)', $bulan)
+                ->where('a.flag_active', 1)
+                ->get()->result_array();
+           
         }
 
 

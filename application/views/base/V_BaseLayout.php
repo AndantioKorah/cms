@@ -343,6 +343,12 @@
 
 
 
+$('.datepickerthis').datepicker({
+    format: 'yyyy-mm-dd',
+    orientation: 'bottom',
+    autoclose: true
+});
+
 $('.datepicker').datepicker({
     format: 'yyyy',
     viewMode: "years", 
