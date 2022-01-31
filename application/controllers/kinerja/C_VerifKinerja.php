@@ -15,5 +15,10 @@ class C_VerifKinerja extends CI_Controller
     public function verifKinerja(){
         render('kinerja/V_VerifKinerja', '', '', null);
     }
+
+    public function searchVerifKinerja(){
+        $data['result'] = $this->verifkinerja->searchVerifKinerja($this->input->post());
+        $this->load->view('kinerja/V_VerifKinerjaSearchItem', $data);
+    }
     
 }

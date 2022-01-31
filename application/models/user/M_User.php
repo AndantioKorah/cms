@@ -572,7 +572,7 @@
             $exist = $this->db->select('*')
                             ->from('t_verif_tambahan')
                             ->where('id_m_user', $data['id_m_user'])
-                            ->where('id_m_bidang', $data['id_m_bidang'])
+                            ->where('id_m_sub_bidang', $data['id_m_sub_bidang'])
                             ->where('flag_active', 1)
                             ->get()->row_array();
             if($exist){
@@ -582,7 +582,7 @@
                 $this->db->insert('t_verif_tambahan',
                     [
                         'id_m_user' => $data['id_m_user'],
-                        'id_m_bidang' => $data['id_m_bidang'],
+                        'id_m_sub_bidang' => $data['id_m_sub_bidang'],
                         'created_by' => $this->general_library->getId()
                     ]);
             }
@@ -603,34 +603,10 @@
         public function getVerifBidang($id){
             return $this->db->select('*, a.id as id_t_verif_tambahan')
                             ->from('t_verif_tambahan a')
-                            ->join('m_bidang b', 'a.id_m_bidang = b.id')
+                            ->join('m_sub_bidang b', 'a.id_m_sub_bidang = b.id')
                             ->where('a.id_m_user', $id)
                             ->where('a.flag_active', 1)
                             ->get()->result_array();
-        }
-
-        public function tambahVerifIndividu($data){
-            $rs['code'] = 0;
-            $rs['message'] = '';
-
-            $exist = $this->db->select('*')
-                            ->from('t_verif_tambahan')
-                            ->where('id_m_user', $data['id_m_user'])
-                            ->where('flag_active', 1)
-                            ->get()->row_array();
-            if($exist){
-                $rs['code'] = 1;
-                $rs['message'] = 'Bidang sudah ditambahkan sebelumnya';
-            } else {
-                $this->db->insert('t_verif_tambahan',
-                    [
-                        'id_m_user' => $data['id_m_user'],
-                        'id_m_bidang' => $data['id_m_bidang'],
-                        'created_by' => $this->general_library->getId()
-                    ]);
-            }
-
-            return $rs;
         }
 
         public function getSubBidangUser($id_m_user){

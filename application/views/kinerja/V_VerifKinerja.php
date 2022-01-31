@@ -3,12 +3,18 @@
         <h3 class="card-title">VERIFIKASI KINERJA</h3>
     </div>
     <div class="card-body">
-        <form id="form_tambah_user">
+        <form id="form_search_verif_kinerja">
             <div class="row">
                 <div class="col-6">
                     <div class="form-group">
                         <label class="bmd-label-floating">Pilih Periode</label>
-                        <input required class="form-control" autocomplete="off" name="search_periode" id="search_periode"/>
+                        <input class="form-control form-control-sm" id="range_periode" readonly name="range_periode"/>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <br>
+                        <button style="margin-top: 8px;" class="btn btn-sm btn-navy"><i class="fa fa-search"></i> Cari</button>
                     </div>
                 </div>
             </div>
@@ -18,148 +24,39 @@
 
 <div class="card card-default">
     <div class="card-header">
-        <h3 class="card-title">LIST USER</h3>
+        <h3 class="card-title">LIST VERIFIKASI</h3>
     </div>
     <div class="card-body">
-        <div id="list_users" class="row">
+        <div id="result_search_verif" class="row">
         </div>
     </div>
 </div>
-<div class="modal fade" id="modal_import_user" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-	<div id="modal-dialog" class="modal-dialog modal-xl">
-		<div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Pilih User</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="form_search_pegawai_new_user">
-                    <div class="row">
-                        <div class="col-9">
-                            <label>NIP / Nama Pegawai:</label>
-                            <input class="form-control" autocomplete="off" name="search_value" />
-                        </div>
-                        <div class="col-3 text-right">
-                            <label style="color: white;">ts</label>
-                            <button type="submit" class="btn btn-block btn-navy"><i class="fa fa-search"></i> Cari</button>
-                        </div>
-                        <div class="col-12 mt-3" id="result_search_pegawai" style="display: none;"></div>
-                    </div>
-                </form>
-            </div>
-		</div>
-	</div>
-</div>
-<div class="modal fade" id="modal_auth" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-	<div id="modal-dialog" class="modal-dialog modal-sm">
-		<div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Need Password</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="need_password_form">
-                    <div class="row">
-                        <div class="col-12">
-                            <label>Password:</label>
-                            <input class="form-control form-control-sm" autocomplete="off" name="password" type="password" />
-                        </div>
-                        <div class="col-12 text-right mt-3">
-                            <button type="submit" class="btn btn-sm btn-navy">Submit</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-		</div>
-	</div>
-</div>
+
 <script>
     $(function(){
-        search_periode
+        $("#range_periode").daterangepicker({
+            showDropdowns: true,
+        });
 
-        loadUsers()
+        $('#form_search_verif_kinerja').submit()
     })
 
-    function loadUsers(){
-        $('#list_users').html('')
-        $('#list_users').append(divLoaderNavy)
-        $('#list_users').load('<?=base_url("user/C_User/loadUsers")?>', function(){
-            $('#loader').hide()
-        })
-    }
-
-    $('#need_password_form').on('submit', function(e){
+    $('#form_search_verif_kinerja').on('submit', function(e){
         e.preventDefault()
+        $('#result_search_verif').show()
+        $('#result_search_verif').html('')
+        $('#result_search_verif').append(divLoaderNavy)
         $.ajax({
-            url: '<?=base_url("user/C_User/needPassword")?>',
+            url: '<?=base_url("kinerja/C_VerifKinerja/searchVerifKinerja")?>',
             method: 'post',
             data: $(this).serialize(),
             success: function(data){
-                let resp = JSON.parse(data)
-                if(resp['message'] == 'true'){
-                    createUser()
-                } else {
-                    errortoast('Mo ba apa so?')
-                }
+                $('#result_search_verif').html('')
+                $('#result_search_verif').append(data)
             }, error: function(e){
                 errortoast('Terjadi Kesalahan')
             }
         })
     })
 
-    $('#form_search_pegawai_new_user').on('submit', function(e){
-        e.preventDefault()
-        $('#result_search_pegawai').show()
-        $('#result_search_pegawai').html('')
-        $('#result_search_pegawai').append(divLoaderNavy)
-        $.ajax({
-            url: '<?=base_url("user/C_User/importPegawaiNewUser")?>',
-            method: 'post',
-            data: $(this).serialize(),
-            success: function(data){
-                $('#result_search_pegawai').html('')
-                $('#result_search_pegawai').append(data)
-            }, error: function(e){
-                errortoast('Terjadi Kesalahan')
-            }
-        })
-    })
-
-    // $('#form_tambah_user').on('submit', function(e){
-    //     e.preventDefault();
-    //     let role = $('#id_m_role').val().split(';')
-    //     if(role[1] == 'programmer'){
-    //         $('#modal_auth').modal()
-    //     } else {
-    //         createUser()
-    //     }
-    // })
-
-    $('#form_tambah_user').on('submit', function(e){
-        e.preventDefault();
-        $.ajax({
-            url: '<?=base_url("user/C_User/createUser")?>',
-            method: 'post',
-            data: $('#form_tambah_user').serialize(),
-            success: function(data){
-                let resp = JSON.parse(data)
-                if(resp['message'] == '0'){
-                    loadUsers()
-                    $('#nama').val('')
-                    $('#username').val('')
-                    $('#password').val('')
-                    $('#no_hp').val('')
-                    $('#konfirmasi_password').val('')
-                } else {
-                    errortoast(resp['message'])
-                }
-            }, error: function(e){
-                errortoast('Terjadi Kesalahan')
-            }
-        })
-    })
 </script>

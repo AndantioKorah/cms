@@ -11,7 +11,7 @@
                 <?php $no = 1; foreach($result as $rs){ ?>
                     <tr>
                         <td align="center"><?=$no++;?></td>
-                        <td><?=$rs['nama_bidang'];?></td>
+                        <td><?=$rs['nama_sub_bidang'];?></td>
                         <td>
                             <button type="button" onclick="hapus('<?=$rs['id_t_verif_tambahan']?>')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Hapus</button>
                         </td>
