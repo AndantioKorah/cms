@@ -15,7 +15,7 @@
     //   dd($image);
         $data = array('tanggal_kegiatan' => $dataPost['tanggal_kegiatan'], 
                       'deskripsi_kegiatan' => $dataPost['deskripsi_kegiatan'],
-                      'target_kuantitas' => $dataPost['target_kuantitas'],
+                      'realisasi_target_kuantitas' => $dataPost['target_kuantitas'],
                       'satuan' => $dataPost['satuan'],
                       'target_kualitas' => 100,
                       'id_t_rencana_kinerja' => $dataPost['tugas_jabatan'],
@@ -29,7 +29,7 @@
         $bulan = date('n');
         $tahun = date('Y');
         $cek = $this->db->select('a.*,
-        (select sum(b.target_kuantitas) from t_kegiatan as b where a.id = b.id_t_rencana_kinerja) as realisasi_target_kuantitas
+        (select sum(b.realisasi_target_kuantitas) from t_kegiatan as b where a.id = b.id_t_rencana_kinerja) as realisasi_target_kuantitas
         ')
                         ->from('t_rencana_kinerja a')
                         ->where('a.id_m_user', $id)
@@ -107,7 +107,7 @@
        
        
         $query = $this->db->select('a.*,
-        (select sum(b.target_kuantitas) from t_kegiatan as b where a.id = b.id_t_rencana_kinerja) as realisasi_target_kuantitas
+        (select sum(b.realisasi_target_kuantitas) from t_kegiatan as b where a.id = b.id_t_rencana_kinerja) as realisasi_target_kuantitas
         ')
                         ->from('t_rencana_kinerja a')
                         ->where('a.id_m_user', $id)

@@ -57,7 +57,7 @@
   <td class="xl67" style="border-top:none;border-left:none">Kualitas</td>
   <td class="xl67" style="border-top:none;border-left:none">Kuantitas</td>
   <td class="xl67" style="border-top:none;border-left:none">Satuan</td>
-  <td class="xl67" style="border-top:none;border-left:none">Realisasi</td>
+  <td class="xl67" style="border-top:none;border-left:none">Kualitas</td>
  </tr>
 
  <!--[if supportMisalignedColumns]-->
@@ -103,6 +103,7 @@
 
 
 <script type="text/javascript">
+    
 
 $('.datepicker2').datepicker({
     format: 'yyyy-mm-dd',

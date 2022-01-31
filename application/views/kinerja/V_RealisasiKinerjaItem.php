@@ -1,7 +1,7 @@
 <?php if($list_kegiatan){ ?>
    
     <div class="col-12">
-        <table class="table table-hover table-striped" id="table_master_bidang">
+        <table class="table table-hover table-striped" id="table_realisasi_kinerja" width="100%">
             <thead>
                 <th class="text-center">No</th>
                 <th class="text-left">Kegiatan Tugas Jabatan</th>
@@ -19,11 +19,29 @@
                         <td class="text-left"><?=$lp['tugas_jabatan']?></td>
                         <td class="text-left"><?=$lp['tanggal_kegiatan']?></td>                       
                         <td class="text-left"><?=$lp['deskripsi_kegiatan']?></td>
-                        <td class="text-left"><?=$lp['target_kuantitas']?></td>
+                        <td class="text-left"><?=$lp['realisasi_target_kuantitas']?></td>
                         <td class="text-left"><?=$lp['satuan']?></td>
                         <td class="text-center">  
-                        <a class="btn btn-sm btn-success" href="<?= base_url('assets/bukti_kegiatan/'.$lp['bukti_kegiatan'].'');?>" target="_blank"><i class="fa fa-file"> </i>  Lihat</a>
-
+                        <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                         <i class="fa fa-file"></i> Lihat File
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <?php 
+                            
+                            $file = json_decode($lp['bukti_kegiatan']);
+                            foreach($file as $file_name)
+                                {
+                                    if($file_name == null){
+                                        echo "<a class='dropdown-item' >Tidak Ada File</a>";
+                                    } else {
+                                        echo "<a class='dropdown-item' href=".base_url('assets/bukti_kegiatan/'.$file_name.'')." target='_blank'>".$file_name."</a>";
+                                    }
+                                   
+                                } 
+                            ?>
+   
+                        </div>
+                           
                         </td>
                         
                         <td class="text-center">
@@ -37,6 +55,12 @@
     </div>
 
     <script>
+        $(document).ready(function () {
+        $('#table_realisasi_kinerja').DataTable({
+        "scrollX": true
+        });
+        $('.dataTables_length').addClass('bs-select');
+        });
 
         function deleteKegiatan(id){
            

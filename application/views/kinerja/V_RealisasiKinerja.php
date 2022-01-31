@@ -1,16 +1,4 @@
-<style type="text/css">
-.thumb{
-  margin: 24px 5px 20px 0;
-  width: 150px;
-  float: left;
-}
-#blah {
-  border: 2px solid;
-  display: block;
-  background-color: white;
-  border-radius: 5px;
-}
-</style>
+
 <div class="card card-default">
     <div class="card-header"  style="display: block;">
         <h3 class="card-title">Realisasi Kinerja Pegawai</h3>
@@ -70,7 +58,7 @@
 
 <div class="card card-default">
     <div class="card-header">
-        <h3 class="card-title">LIST KEGIATAN</h3>
+        <h3 class="card-title">List Realisasi Kegiatan</h3>
     </div>
     <div class="card-body">
     <div class="col-12">
@@ -132,12 +120,7 @@
     
         $('#upload_form').on('submit', function(e){  
         e.preventDefault();  
-        if($('#image_file').val() == '')  
-        {  
-        alert("Please Select the File");  
-        }  
-        else 
-        {  
+      
 
         var formvalue = $('#upload_form');
         var form_data = new FormData(formvalue[0]);
@@ -158,7 +141,7 @@
                 $('#uploadPreview').html('');
         }  
         });  
-        }  
+          
         }); 
 
 
@@ -241,7 +224,7 @@
     function searchListKegiatan(){
         if($('#bulan').val() == '')  
         {  
-        alert("Pilih Bulan terlebih dahulu");  
+        errortoast(" Pilih Bulan terlebih dahulu");  
         return false
         } 
         var tahun = $('#tahun').val(); 
