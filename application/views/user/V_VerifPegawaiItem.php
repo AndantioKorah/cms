@@ -6,7 +6,7 @@
                 <th class="text-center">No</th>
                 <th>NIP</th>
                 <th>Nama Pegawai</th>
-                <th>Bidang</th>
+                <th>Sub Bidang</th>
                 <th>Pilihan</th>
             </thead>
             <tbody>
@@ -15,7 +15,7 @@
                         <td align="center"><?=$no++;?></td>
                         <td><?=formatnip($rs['username']);?></td>
                         <td><?=$rs['nama'];?></td>
-                        <td><?=$rs['nama_bidang'];?></td>
+                        <td><?=$rs['nama_sub_bidang'];?></td>
                         <td>
                             <button type="button" onclick="hapus('<?=$rs['id_t_verif_tambahan']?>')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Hapus</button>
                         </td>

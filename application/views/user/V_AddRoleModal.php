@@ -105,7 +105,7 @@
                     <div class="col-12">
                         <ul class="nav nav-tabs">
                             <li class="nav-item">
-                                <a class="nav-link active" onclick="refreshListVerifBidang()" aria-current="page" href="#verif_bidang_tab" data-toggle="tab">Per Bidang</a>
+                                <a class="nav-link active" onclick="refreshListVerifBidang()" aria-current="page" href="#verif_bidang_tab" data-toggle="tab">Per Sub Bidang</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" onclick="refreshListVerifPegawai()" href="#verif_pegawai_tab" data-toggle="tab">Per Pegawai</a>
@@ -119,10 +119,10 @@
                                     <div class="col-12">
                                         <form id="form_tambah_verif_bidang">
                                             <label>Pilih Bidang:</label>
-                                            <select style="width: 100%;" class="form-control form-control-sm select2_this select2-navy" data-dropdown-css-class="select2-navy" name="id_m_bidang" id="id_m_bidang">
-                                                <option value="0" disabled selected>Pilih Bidang</option>
-                                                <?php if($bidang){ foreach($bidang as $b){ ?>
-                                                    <option value="<?=$b['id']?>"><?=$b['nama_bidang']?></option>
+                                            <select style="width: 100%;" class="form-control form-control-sm select2_this select2-navy" data-dropdown-css-class="select2-navy" name="id_m_sub_bidang" id="id_m_sub_bidang">
+                                                <option value="0" disabled selected>Pilih Sub Bidang</option>
+                                                <?php if($sub_bidang){ foreach($sub_bidang as $sb){ ?>
+                                                    <option value="<?=$sb['id']?>"><?=$sb['nama_sub_bidang']?></option>
                                                 <?php } } ?>
                                             </select>
                                             <input style="display: none;" class="form-control form-control-sm" name="id_m_user" value="<?=$user['id_m_user']?>"/>
