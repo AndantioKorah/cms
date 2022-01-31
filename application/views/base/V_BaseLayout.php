@@ -343,12 +343,18 @@
 
 
 
-$('.datepicker').datepicker({
+$('.datepickerthis').datepicker({
     format: 'yyyy-mm-dd',
-    startView: "months", 
     orientation: 'bottom',
-    autoclose: true,
-    todayBtn: true
+    autoclose: true
+});
+
+$('.datepicker').datepicker({
+    format: 'yyyy',
+    viewMode: "years", 
+    minViewMode: "years",
+    orientation: 'bottom',
+    autoclose: true
 });
 
   $('.datetimepickerthis').datetimepicker({

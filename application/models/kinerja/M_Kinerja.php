@@ -12,27 +12,55 @@
         }
 
         public function createLaporanKegiatan($dataPost,$image){
-    
+    //   dd($image);
         $data = array('tanggal_kegiatan' => $dataPost['tanggal_kegiatan'], 
                       'deskripsi_kegiatan' => $dataPost['deskripsi_kegiatan'],
                       'target_kuantitas' => $dataPost['target_kuantitas'],
                       'satuan' => $dataPost['satuan'],
-                      'target_kualitas' => $dataPost['target_kualitas'],
+                      'target_kualitas' => 100,
                       'id_t_rencana_kinerja' => $dataPost['tugas_jabatan'],
                       'bukti_kegiatan' => $image,
                       'id_m_user' => $this->general_library->getId()
         );
         $result = $this->db->insert('t_kegiatan', $data);
+       
+        //cek 
+        $id =  $this->general_library->getId();
+        $bulan = date('n');
+        $tahun = date('Y');
+        $cek = $this->db->select('a.*,
+        (select sum(b.target_kuantitas) from t_kegiatan as b where a.id = b.id_t_rencana_kinerja) as realisasi_target_kuantitas
+        ')
+                        ->from('t_rencana_kinerja a')
+                        ->where('a.id_m_user', $id)
+                        ->where('a.tahun', $tahun)
+                        ->where('a.bulan', $bulan)
+                        ->where('a.id', $dataPost['tugas_jabatan'])
+                        ->where('a.flag_active', 1)
+                        ->get()->result_array();
+
+         if($cek['0']['realisasi_target_kuantitas'] > $cek['0']['target_kuantitas']){
+            $this->db->where('id',  $dataPost['tugas_jabatan'])
+                     ->update('t_rencana_kinerja', [
+                     'updated_by' => $this->general_library->getId(),
+                     'target_kuantitas' => $cek['0']['realisasi_target_kuantitas']
+            ]);
+         }
+      
+
         }
 
-        public function loadKegiatan(){
+        public function loadKegiatan($tahun,$bulan){
             $id =  $this->general_library->getId();
-            return $this->db->select('*')
-                            ->from('t_kegiatan a')
-                            ->join('t_rencana_kinerja b', 'a.id_t_rencana_kinerja = b.id')
-                            ->where('a.id_m_user', $id)
-                            ->where('a.flag_active', 1)
-                            ->get()->result_array();
+            return $this->db->select('a.*, b.tugas_jabatan')
+                ->from('t_kegiatan a')
+                ->join('t_rencana_kinerja b', 'a.id_t_rencana_kinerja = b.id')
+                ->where('a.id_m_user', $id)
+                ->where('year(a.tanggal_kegiatan)', $tahun)
+                ->where('month(a.tanggal_kegiatan)', $bulan)
+                ->where('a.flag_active', 1)
+                ->get()->result_array();
+           
         }
 
 
@@ -63,6 +91,32 @@
             ->where('a.flag_active', 1)
             ->limit(1);
             return $this->db->get()->result_array();
+    }
+
+    public function loadRekapKinerja(){
+
+        
+        $id =  $this->general_library->getId();
+        if($this->input->post()) {
+            $bulan = $this->input->post('bulan');
+            $tahun = $this->input->post('tahun');
+        } else {
+            $bulan = date('n');
+            $tahun = date('Y');
+        }
+       
+       
+        $query = $this->db->select('a.*,
+        (select sum(b.target_kuantitas) from t_kegiatan as b where a.id = b.id_t_rencana_kinerja) as realisasi_target_kuantitas
+        ')
+                        ->from('t_rencana_kinerja a')
+                        ->where('a.id_m_user', $id)
+                        ->where('a.tahun', $tahun)
+                        ->where('a.bulan', $bulan)
+                        ->where('a.flag_active', 1)
+                        ->get()->result_array();
+        // dd($query);
+        return $query;
     }
 
       

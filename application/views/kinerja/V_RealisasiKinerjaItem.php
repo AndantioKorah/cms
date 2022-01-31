@@ -1,11 +1,12 @@
 <?php if($list_kegiatan){ ?>
+   
     <div class="col-12">
         <table class="table table-hover table-striped" id="table_master_bidang">
             <thead>
                 <th class="text-center">No</th>
                 <th class="text-left">Kegiatan Tugas Jabatan</th>
                 <th class="text-left">Tanggal Kegiatan</th>
-                <th class="text-left">Deskripsi Kegiatan</th>
+                <th class="text-left">Detail Kegiatan</th>
                 <th class="text-left">Realisasi Target (Kuantitas)</th>
                 <th class="text-left">Satuan</th>
                 <th class="text-center">Dokumen Bukti Kegiatan</th>
@@ -53,6 +54,10 @@
                 })
             }
         }
+
+
+
+        
     </script>
 
    
