@@ -71,8 +71,8 @@ class C_Kinerja extends CI_Controller
            
            $data = $this->upload->data(); 
            $insert['name'] = $data['file_name'];
-        //    
-           $get = $this->db->insert_id();
+          
+        //    $get = $this->db->insert_id();
           $arr = array('msg' => 'Image has been uploaded successfully', 'success' => true);
  
           }

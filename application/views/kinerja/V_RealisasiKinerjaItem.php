@@ -1,7 +1,7 @@
 <?php if($list_kegiatan){ ?>
    
     <div class="col-12">
-        <table class="table table-hover table-striped" id="table_realisasi_kinerja" width="100%">
+        <table class="table table-hover table-striped" id="" width="100%">
             <thead>
                 <th class="text-center">No</th>
                 <th class="text-left">Kegiatan Tugas Jabatan</th>

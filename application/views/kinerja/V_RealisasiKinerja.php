@@ -1,4 +1,16 @@
-
+<style type="text/css">
+.thumb{
+  margin: 24px 5px 20px 0;
+  width: 150px;
+  float: left;
+}
+#blah {
+  border: 2px solid;
+  display: block;
+  background-color: white;
+  border-radius: 5px;
+}
+</style>
 <div class="card card-default">
     <div class="card-header"  style="display: block;">
         <h3 class="card-title">Realisasi Kinerja Pegawai</h3>
