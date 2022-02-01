@@ -43,7 +43,7 @@
 
    <div class="form-group">
     <label>Realisasi Target (Kuantitas)</label>
-    <input  class="form-control" type="text" id="target_kuantitas" name="target_kuantitas" required/>
+    <input  class="form-control" type="number" autocomplete="off" id="target_kuantitas" name="target_kuantitas" required/>
   </div>
   
   <div class="form-group">
