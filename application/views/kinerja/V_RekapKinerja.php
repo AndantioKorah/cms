@@ -19,7 +19,7 @@
                  id="bulan" data-dropdown-css-class="select2-navy" name="bulan" required>
                  <option value="" selected>- Pilih Bulan -</option>
                  <option value="1">Januari</option>
-                 <option value="2">Feburari</option>
+                 <option value="2">Februari</option>
                  <option value="3">Maret</option>
                  <option value="4">April</option>
                  <option value="5">Mei</option>
