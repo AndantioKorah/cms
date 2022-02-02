@@ -123,7 +123,7 @@
                 }
             }
             
-            $list_kerja = $this->db->select('*, a.id as id_t_kegiatan, a.created_date as tanggal_kegiatan, a.target_kuantitas as realisasi_target_kuantitas')
+            $list_kerja = $this->db->select('*, a.id as id_t_kegiatan, a.created_date as tanggal_kegiatan, a.realisasi_target_kuantitas')
                                 ->from('t_kegiatan a')
                                 ->join('t_rencana_kinerja b', 'a.id_t_rencana_kinerja = b.id')
                                 ->join('m_user c', 'a.id_m_user = c.id')
@@ -137,5 +137,72 @@
 
             return $list_kerja;
         }
+
+        public function checkVerif($status, $id_t_kegiatan){
+            $rs['code'] = 0;
+            $rs['message'] = '';
+            $rs['status'] = $status;
+            $data = $this->input->post();
+            $kegiatan = $this->db->select('*')
+                                ->from('t_kegiatan')
+                                ->where('id', $id_t_kegiatan)
+                                ->where('flag_active', 1)
+                                ->get()->row_array();
+            if($kegiatan){
+                if($status == '1' || $status == '2'){
+                    //verif bisa ditolak atau diterima hanya jika kegiatan belum diverif atau sudah batal verif
+                    if($kegiatan['status_verif'] == '0' || $kegiatan['status_verif'] == '3'){
+                        $this->db->where('id', $id_t_kegiatan)
+                                ->update('t_kegiatan',
+                                [
+                                    'status_verif' => $status,
+                                    'keterangan_verif' => $data['keterangan_verif'],
+                                    'updated_by' => $this->general_library->getId(),
+                                    'id_m_user_verif' => $this->general_library->getId(),
+                                    'tanggal_verif' => date('Y-m-d H:i:s')
+                                ]);
+                    } else {
+                        $rs['code'] = 1;
+                        $rs['message'] = 'Kegiatan sudah terverifikasi';
+                    }
+                } else {
+                    if($kegiatan['status_verif'] == '1' || $kegiatan['status_verif'] == '2'){
+                        //hanya bisa batal verif jika kegiatan sudah diverif (tolak maupun setuju)
+                        $this->db->where('id', $id_t_kegiatan)
+                                ->update('t_kegiatan',
+                                [
+                                    'status_verif' => $status,
+                                    'keterangan_verif' => "",
+                                    'updated_by' => $this->general_library->getId(),
+                                    'id_m_user_verif' => $this->general_library->getId(),
+                                    'tanggal_verif' => date('Y-m-d H:i:s')
+                                ]);
+                    } else {
+                        $rs['code'] = 1;
+                        $rs['message'] = 'Kegiatan tidak dapat dibatalkan verifikasinya karena belum dilakukan verifikasi';
+                    }
+                }
+            } else {
+                $rs['code'] = 1;
+                $rs['message'] = 'Terjadi Kesalahan';
+            }
+
+            return $rs;
+        }
+
+        public function loadDetailKegiatan($id){
+            return $this->db->select('c.nama as nama_pegawai, c.username as nip_pegawai, a.id as id_t_kegiatan, a.created_date as tanggal_kegiatan,
+                                    a. deskripsi_kegiatan, a.status_verif, a.realisasi_target_kuantitas, d.nama as nama_pegawai_verif, d.username as nip_pegawai_verif,
+                                    b.tugas_jabatan, b.target_kuantitas, b.satuan, a.tanggal_verif, a.keterangan_verif, a.bukti_kegiatan')
+                                    ->from('t_kegiatan a')
+                                    ->join('t_rencana_kinerja b', 'a.id_t_rencana_kinerja = b.id')
+                                    ->join('m_user c', 'a.id_m_user = c.id')
+                                    ->join('m_user d', 'a.id_m_user_verif = d.id')
+                                    ->where('a.flag_active', 1)
+                                    ->where('a.id', $id)
+                                    ->group_by('a.id')
+                                    ->get()->row_array();
+        }
+
 	}
 ?>

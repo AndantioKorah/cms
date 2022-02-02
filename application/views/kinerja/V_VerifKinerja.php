@@ -35,10 +35,14 @@
 <script>
     $(function(){
         $("#range_periode").daterangepicker({
-            showDropdowns: true,
+            showDropdowns: true
         });
 
         $('#form_search_verif_kinerja').submit()
+    })
+
+    $('#range_periode').on('change', function(){
+        $('#form_search_verif_kinerja').submit()    
     })
 
     $('#form_search_verif_kinerja').on('submit', function(e){
