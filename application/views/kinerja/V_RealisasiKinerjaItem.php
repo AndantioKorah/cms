@@ -1,7 +1,7 @@
 <?php if($list_kegiatan){ ?>
    
     <div class="col-12">
-        <table class="table table-hover table-striped" id="" width="100%">
+        <table class="table table-hover table-striped" id="table_realisasi_kinerja" width="100%">
             <thead>
                 <th class="text-center">No</th>
                 <th class="text-left">Kegiatan Tugas Jabatan</th>
@@ -9,7 +9,9 @@
                 <th class="text-left">Detail Kegiatan</th>
                 <th class="text-left">Realisasi Target (Kuantitas)</th>
                 <th class="text-left">Satuan</th>
+                <th class="text-center">Status</th>
                 <th class="text-center">Dokumen Bukti Kegiatan</th>
+               
                 <th></th>
             </thead>
             <tbody>
@@ -19,8 +21,15 @@
                         <td class="text-left"><?=$lp['tugas_jabatan']?></td>
                         <td class="text-left"><?=$lp['tanggal_kegiatan']?></td>                       
                         <td class="text-left"><?=$lp['deskripsi_kegiatan']?></td>
-                        <td class="text-left"><?=$lp['realisasi_target_kuantitas']?></td>
+                        <td class="text-left" style="width:10%;"><?=$lp['realisasi_target_kuantitas']?></td>
                         <td class="text-left"><?=$lp['satuan']?></td>
+                        <td class="text-left">
+                        <button class="btn btn-<?php if($lp['id_status_verif'] == 0) echo  "warning";
+                                                    else if($lp['id_status_verif'] == 1) echo "success";
+                                                    else if($lp['id_status_verif'] == 2) echo "danger";
+                                                    else if($lp['id_status_verif'] == 3) echo "warning";   ?> btn-sm" type="button" >
+                        <?= $lp['status_verif'];?>
+                            </button></td>
                         <td class="text-center">  
                         <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                          <i class="fa fa-file"></i> Lihat File
