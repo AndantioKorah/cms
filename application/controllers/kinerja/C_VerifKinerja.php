@@ -21,4 +21,12 @@ class C_VerifKinerja extends CI_Controller
         $this->load->view('kinerja/V_VerifKinerjaSearchItem', $data);
     }
     
+    public function checkVerif($status, $id_t_kegiatan){
+        echo json_encode($this->verifkinerja->checkVerif($status, $id_t_kegiatan));
+    }
+
+    public function loadDetailKegiatan($id){
+        $data['result'] = $this->verifkinerja->loadDetailKegiatan($id);
+        $this->load->view('kinerja/V_VerifKinerjaDetail', $data);
+    }
 }
