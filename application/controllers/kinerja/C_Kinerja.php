@@ -44,7 +44,7 @@ class C_Kinerja extends CI_Controller
   {
  
       $countfiles = count($_FILES['files']['name']);
-    //   dd($countfiles);
+      
   
       for($i=0;$i<$countfiles;$i++){
   
@@ -71,8 +71,8 @@ class C_Kinerja extends CI_Controller
            
            $data = $this->upload->data(); 
            $insert['name'] = $data['file_name'];
-        //    
-           $get = $this->db->insert_id();
+          
+        //    $get = $this->db->insert_id();
           $arr = array('msg' => 'Image has been uploaded successfully', 'success' => true);
  
           }
@@ -83,6 +83,7 @@ class C_Kinerja extends CI_Controller
       }
         $image = json_encode($nama_file);
         $dataPost = $this->input->post();
+        
         $this->kinerja->createLaporanKegiatan($dataPost,$image);
 
   

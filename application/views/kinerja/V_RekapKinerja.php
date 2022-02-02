@@ -19,7 +19,7 @@
                  id="bulan" data-dropdown-css-class="select2-navy" name="bulan" required>
                  <option value="" selected>- Pilih Bulan -</option>
                  <option value="1">Januari</option>
-                 <option value="2">Feburari</option>
+                 <option value="2">Februari</option>
                  <option value="3">Maret</option>
                  <option value="4">April</option>
                  <option value="5">Mei</option>
@@ -57,7 +57,7 @@
   <td class="xl67" style="border-top:none;border-left:none">Kualitas</td>
   <td class="xl67" style="border-top:none;border-left:none">Kuantitas</td>
   <td class="xl67" style="border-top:none;border-left:none">Satuan</td>
-  <td class="xl67" style="border-top:none;border-left:none">Realisasi</td>
+  <td class="xl67" style="border-top:none;border-left:none">Kualitas</td>
  </tr>
 
  <!--[if supportMisalignedColumns]-->
@@ -103,6 +103,7 @@
 
 
 <script type="text/javascript">
+    
 
 $('.datepicker2').datepicker({
     format: 'yyyy-mm-dd',

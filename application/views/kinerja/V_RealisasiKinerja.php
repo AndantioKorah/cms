@@ -43,7 +43,7 @@
 
    <div class="form-group">
     <label>Realisasi Target (Kuantitas)</label>
-    <input  class="form-control" type="text" id="target_kuantitas" name="target_kuantitas" required/>
+    <input  class="form-control" type="number" autocomplete="off" id="target_kuantitas" name="target_kuantitas" required/>
   </div>
   
   <div class="form-group">
@@ -70,7 +70,7 @@
 
 <div class="card card-default">
     <div class="card-header">
-        <h3 class="card-title">LIST KEGIATAN</h3>
+        <h3 class="card-title">List Realisasi Kegiatan</h3>
     </div>
     <div class="card-body">
     <div class="col-12">
@@ -85,7 +85,7 @@
                  id="bulan" data-dropdown-css-class="select2-navy" name="bulan" required>
                  <option value="" selected>- Pilih Bulan -</option>
                  <option value="1">Januari</option>
-                 <option value="2">Feburari</option>
+                 <option value="2">Februari</option>
                  <option value="3">Maret</option>
                  <option value="4">April</option>
                  <option value="5">Mei</option>
@@ -132,12 +132,7 @@
     
         $('#upload_form').on('submit', function(e){  
         e.preventDefault();  
-        if($('#image_file').val() == '')  
-        {  
-        alert("Please Select the File");  
-        }  
-        else 
-        {  
+      
 
         var formvalue = $('#upload_form');
         var form_data = new FormData(formvalue[0]);
@@ -158,7 +153,7 @@
                 $('#uploadPreview').html('');
         }  
         });  
-        }  
+          
         }); 
 
 
@@ -241,7 +236,7 @@
     function searchListKegiatan(){
         if($('#bulan').val() == '')  
         {  
-        alert("Pilih Bulan terlebih dahulu");  
+        errortoast(" Pilih Bulan terlebih dahulu");  
         return false
         } 
         var tahun = $('#tahun').val(); 
