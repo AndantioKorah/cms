@@ -135,7 +135,42 @@ function array_flatten($array) {
       } 
     } 
     return $result; 
-  }
+}
+
+function getProgressBarColor($progress){
+    $bgcolor = '#ff0000';
+    if($progress > 25 && $progress <= 50){
+        $bgcolor = '#ff9900';
+    } else if($progress > 50 && $progress <= 75){
+        $bgcolor = '#ffff00';
+    } else if($progress > 75 && $progress <= 90){
+        $bgcolor = '#66ff66';
+    } else if($progress > 90 && $progress <= 99){
+        $bgcolor = '#00e600';
+    } else if($progress == 100){
+        $bgcolor = '#006600';
+    }
+    return $bgcolor;
+}
+
+function formatTwoMaxDecimal($data){
+    $dt = explode(".", $data);
+    $rs = $dt[0];
+    if(isset($dt[1])){
+        $rs .= ".";
+        $dtsplit = str_split($dt[1]);
+        $rs = $rs.$dtsplit[0];
+        if(isset($dtsplit[1])){
+            $rs = $rs.$dtsplit[1];
+        } else {
+            $rs = $rs.'0';
+        }
+    }
+    if($rs > 100){
+        $rs = 100;
+    }
+    return $rs;
+}
 
 function formatDateNamaBulan($data){
     $date_only = formatDateOnly($data);
