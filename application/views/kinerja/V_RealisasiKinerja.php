@@ -17,9 +17,16 @@
     </div>
     <div class="card-body" style="display: block;">
     <form method="post" id="upload_form" enctype="multipart/form-data">
+    <div class="form-group" >
+    <label for="exampleFormControlInput1">Tanggal Kegiatan</label>
+    <input oncanges="" class="form-control datepickerthis" id="tanggal_kegiatan" name="tanggal_kegiatan" readonly value="<?= date('Y-m-d') ;?>">
+  </div>
     <div class="form-group">
          <label class="bmd-label-floating">Kegiatan Tugas Jabatan </label>
-             <select class="form-control select2-navy" style="width: 100%" onchange="getSatuan()"
+         <select class="form-control select2-navy" name="tugas_jabatan" id="tugas_jabatan" onchange="getSatuan()">
+         <option value="" selected>- Pilih Tugas Jabatan -</option>
+         </select>
+             <!-- <select class="form-control select2-navy" style="width: 100%" onchange="getSatuan()"
                  id="tugas_jabatan" data-dropdown-css-class="select2-navy" name="tugas_jabatan" required>
                  <option value="" selected>- Pilih Tugas Jabatan -</option>
                  <?php if($list_rencana_kinerja){
@@ -29,12 +36,9 @@
                                     <?=$ljp['tugas_jabatan']?>
                                 </option>
                             <?php } } ?>
-                 </select>
+                 </select> -->
         </div>
-  <div class="form-group" >
-    <label for="exampleFormControlInput1">Tanggal Kegiatan</label>
-    <input  class="form-control datepickerthis" id="tanggal_kegiatan" name="tanggal_kegiatan" readonly value="<?= date('Y-m-d') ;?>">
-  </div>
+
 
   <div class="form-group">
     <label for="exampleFormControlTextarea1">Detail Kegiatan</label>
@@ -108,13 +112,13 @@
 </div>
 
 
-
 <script type="text/javascript">
 
 
     $(function(){
         
         loadListKegiatan()
+        loadListTugasJabatan()
     })
 
      function loadListKegiatan(){
@@ -129,14 +133,71 @@
         })
     }
 
+     function loadListTugasJabatan(){
+      
+           var bulan = new Date().getMonth()+1;
+           var tahun=new Date().getFullYear();
+           
+                $.ajax({
+                    url : "<?php echo site_url('kinerja/C_Kinerja/getRencanaKerja');?>",
+                    method : "POST",
+                    data : {tahun: tahun, bulan:bulan},
+                    async : true,
+                    dataType : 'json',
+                    success: function(data){
+                         
+                        
+                        var i;
+                        var html = '<option>- Pilih Tugas Jabatan -</option>';
+                        for(i=0; i<data.length; i++){
+                            
+                            html += '<option value='+data[i].id+'>'+data[i].tugas_jabatan+'</option>';
+                        }
+                        $('#tugas_jabatan').html(html);
+ 
+                    }
+                });
+                return false;
+    }
+
+           $('#tanggal_kegiatan').change(function(){ 
+            var tanggal=$(this).val();
+            var date = new Date(tanggal);
+
+            var bulan = date.getMonth()+1;
+            var tahun = date.getFullYear();
+         
+           
+                $.ajax({
+                    url : "<?php echo site_url('kinerja/C_Kinerja/getRencanaKerja');?>",
+                    method : "POST",
+                    data : {tahun: tahun, bulan:bulan},
+                    async : true,
+                    dataType : 'json',
+                    success: function(data){
+                         
+                     
+                        var i;
+                        var html = '<option>- Pilih Tugas Jabatan -</option>';
+                        for(i=0; i<data.length; i++){
+                       
+                            html += '<option value='+data[i].id+'>'+data[i].tugas_jabatan+'</option>';
+                        }
+                        $('#tugas_jabatan').html(html);
+ 
+                    }
+                });
+                return false;
+            }); 
+
+
     
         $('#upload_form').on('submit', function(e){  
         e.preventDefault();  
-      
-
         var formvalue = $('#upload_form');
         var form_data = new FormData(formvalue[0]);
-       
+        var ins = document.getElementById('image_file').files.length;
+      
         $.ajax({  
         url:"<?=base_url("kinerja/C_Kinerja/multipleImageStore")?>",
         method:"POST",  
@@ -145,10 +206,20 @@
         cache: false,  
         processData:false,  
         // dataType: "json",
-        success:function(data){  
-           
-                successtoast("Data berhasil disimpan")
+        success:function(res){ 
+            var result = JSON.parse(res); 
+            console.log(result);
+            // console.log(result.msg);
+            // return false;
+            
+              if(result.success == true){
+                successtoast(result.msg)
                 loadListKegiatan()
+              } else {
+                errortoast(result.msg)
+                return false;
+              }
+                
                 document.getElementById("upload_form").reset();
                 $('#uploadPreview').html('');
         }  
@@ -190,7 +261,6 @@
         data : {id_t_rencana_kinerja:id_t_rencana_kinerja},
         success: function(data){
             var satuan = data[0].satuan;
-            console.log(satuan)
             $('[name="satuan"]').val(satuan);
          }
         });

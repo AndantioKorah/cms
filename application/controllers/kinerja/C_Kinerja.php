@@ -44,48 +44,65 @@ class C_Kinerja extends CI_Controller
   {
  
       $countfiles = count($_FILES['files']['name']);
-      
-  
-      for($i=0;$i<$countfiles;$i++){
-  
-        if(!empty($_FILES['files']['name'][$i])){
-  
-          // Define new $_FILES array - $_FILES['file']
-          $_FILES['file']['name'] = $_FILES['files']['name'][$i];
-          $_FILES['file']['type'] = $_FILES['files']['type'][$i];
-          $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i];
-          $_FILES['file']['error'] = $_FILES['files']['error'][$i];
-          $_FILES['file']['size'] = $_FILES['files']['size'][$i];
- 
-          // Set preference
-          $config['upload_path'] = './assets/bukti_kegiatan'; 
-          $config['allowed_types'] = 'jpg|jpeg|png|gif';
-          $config['max_size'] = '5000'; // max_size in kb
-          $config['file_name'] = $_FILES['files']['name'][$i];
-  
-          //Load upload library
-          $this->load->library('upload',$config); 
-          $arr = array('msg' => 'something went wrong', 'success' => false);
-          // File upload
-          if($this->upload->do_upload('file')){
-           
-           $data = $this->upload->data(); 
-           $insert['name'] = $data['file_name'];
+    
+      $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
+      $ress = 1;
+      if(implode($_FILES['files']['name']) == ""){
           
-        //    $get = $this->db->insert_id();
-          $arr = array('msg' => 'Image has been uploaded successfully', 'success' => true);
- 
-          }
-        }
-        $nama_file[] = $data['file_name'];
-        
-  
-      }
-        $image = json_encode($nama_file);
+        $nama_file = '[""]';
+        $image = $nama_file;
         $dataPost = $this->input->post();
-        
         $this->kinerja->createLaporanKegiatan($dataPost,$image);
-
+      } else {
+        for($i=0;$i<$countfiles;$i++){
+  
+            if(!empty($_FILES['files']['name'][$i])){
+      
+              // Define new $_FILES array - $_FILES['file']
+              $_FILES['file']['name'] = $_FILES['files']['name'][$i];
+              $_FILES['file']['type'] = $_FILES['files']['type'][$i];
+              $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i];
+              $_FILES['file']['error'] = $_FILES['files']['error'][$i];
+              $_FILES['file']['size'] = $_FILES['files']['size'][$i];
+            
+              if($_FILES['file']['size'] > 1048576){
+                $ress = 0;
+                $res = array('msg' => 'File tidak boleh lebih dari 1MB', 'success' => false);
+                break;
+              }
+           
+              // Set preference
+              $config['upload_path'] = './assets/bukti_kegiatan'; 
+              $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
+              $config['max_size'] = '5000'; // max_size in kb
+              $config['file_name'] = $_FILES['files']['name'][$i];
+              
+              
+              //Load upload library
+              $this->load->library('upload',$config); 
+            //   $res = array('msg' => 'something went wrong', 'success' => false);
+              // File upload
+              if($this->upload->do_upload('file')){
+               
+               $data = $this->upload->data(); 
+               $insert['name'] = $data['file_name'];
+              
+            //   $res = array('msg' => 'File tidak boleh lebih dari 1MB', 'success' => false);
+            //   $res = array('msg' => 'Image has been uploaded successfully', 'success' => true);
+     
+              }
+            }
+            $nama_file[] = $data['file_name'];
+           }
+           if($ress == 1){
+            $image = json_encode($nama_file); 
+            $dataPost = $this->input->post();
+            $this->kinerja->createLaporanKegiatan($dataPost,$image);
+           }
+            
+           
+      }
+        echo json_encode($res);
   
   }
     
@@ -159,6 +176,11 @@ class C_Kinerja extends CI_Controller
         $this->load->view('kinerja/V_RekapKinerja', $data);
     }
 
+    function getRencanaKerja(){
+      
+        $data = $this->kinerja->getRencanaKerja()->result();
+        echo json_encode($data);
+    }
   
 
    

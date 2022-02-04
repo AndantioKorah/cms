@@ -17,7 +17,7 @@
                         <td class="text-center"><?=$no++;?></td>
                         <td class="text-left"><?=$lp['tugas_jabatan']?></td>
                         <td class="text-left"><?=$lp['tahun']?></td>                       
-                        <td class="text-left"><?=$lp['bulan']?></td>
+                        <td class="text-left"><?= getNamaBulan($lp['bulan'])?></td>
                         <td class="text-left"><?=$lp['target_kuantitas']?></td>
                         <td class="text-left"><?=$lp['satuan']?></td>
                         <td class="text-left"><?=$lp['target_kualitas']?></td>
