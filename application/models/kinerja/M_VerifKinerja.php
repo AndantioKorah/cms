@@ -11,15 +11,7 @@
             $this->db->insert($tablename, $data);
         }
 
-
-        public function searchVerifKinerja($data){
-            $range = explodeRangeDate($data['range_periode']);
-            $startDate = explode("-", $range[0]);
-            $endDate = explode("-", $range[1]);
-
-            $startDate = $startDate[0].'-'.$startDate[2].'-'.$startDate[1];
-            $endDate = $endDate[0].'-'.$endDate[2].'-'.$endDate[1];
-
+        public function getListIdPegawaiForVerif(){
             $role = $this->general_library->getRole();
             $vt = $this->db->select('*')
                         ->from('t_verif_tambahan')
@@ -122,8 +114,23 @@
                     }
                 }
             }
-            
-            $list_kerja = $this->db->select('*, a.id as id_t_kegiatan, a.created_date as tanggal_kegiatan, a.realisasi_target_kuantitas')
+
+            return $list_id_pegawai;
+        }
+
+
+        public function searchVerifKinerja($data){
+            $range = explodeRangeDate($data['range_periode']);
+            $startDate = explode("-", $range[0]);
+            $endDate = explode("-", $range[1]);
+
+            $startDate = $startDate[0].'-'.$startDate[2].'-'.$startDate[1];
+            $endDate = $endDate[0].'-'.$endDate[2].'-'.$endDate[1];
+
+            $list_id_pegawai = $this->getListIdPegawaiForVerif();
+
+            $list_kerja = null;
+            $temp = $this->db->select('*, a.id as id_t_kegiatan, a.created_date as tanggal_kegiatan, a.realisasi_target_kuantitas')
                                 ->from('t_kegiatan a')
                                 ->join('t_rencana_kinerja b', 'a.id_t_rencana_kinerja = b.id')
                                 ->join('m_user c', 'a.id_m_user = c.id')
@@ -135,6 +142,17 @@
                                 ->group_by('a.id')
                                 ->get()->result_array();
 
+            if($temp){
+                $urutan = [0, 3, 2, 1];
+                foreach($urutan as $u){
+                    foreach($temp as $t){
+                        if($t['status_verif'] == $u){
+                            $list_kerja[] = $t;
+                        }
+                    }
+                }
+            }
+
             return $list_kerja;
         }
 
@@ -142,6 +160,9 @@
             $rs['code'] = 0;
             $rs['message'] = '';
             $rs['status'] = $status;
+
+            $this->db->trans_begin();
+
             $data = $this->input->post();
             $kegiatan = $this->db->select('*')
                                 ->from('t_kegiatan')
@@ -161,6 +182,22 @@
                                     'id_m_user_verif' => $this->general_library->getId(),
                                     'tanggal_verif' => date('Y-m-d H:i:s')
                                 ]);
+                        
+                        $rencana_kegiatan = $this->db->select('a.*, sum(b.realisasi_target_kuantitas) as sum_realisasi')
+                                                    ->from('t_rencana_kinerja a')
+                                                    ->join('t_kegiatan b', 'a.id = b.id_t_rencana_kinerja')
+                                                    ->where('a.flag_active', 1)
+                                                    ->where('b.flag_active', 1)
+                                                    ->where('b.status_verif', 1)
+                                                    ->where('a.id', $kegiatan['id_t_rencana_kinerja'])
+                                                    ->get()->row_array();
+
+                        if(floatval($rencana_kegiatan['sum_realisasi']) > 100){
+                            $rencana_kegiatan['sum_realisasi'] = 100;
+                        }
+                        $this->db->where('id', $rencana_kegiatan['id'])
+                                    ->update('t_rencana_kinerja', ['total_realisasi' => floatval($rencana_kegiatan['sum_realisasi'])]);
+                        
                     } else {
                         $rs['code'] = 1;
                         $rs['message'] = 'Kegiatan sudah terverifikasi';
@@ -177,6 +214,21 @@
                                     'id_m_user_verif' => $this->general_library->getId(),
                                     'tanggal_verif' => date('Y-m-d H:i:s')
                                 ]);
+
+                        $rencana_kegiatan = $this->db->select('a.*, sum(b.realisasi_target_kuantitas) as sum_realisasi')
+                                ->from('t_rencana_kinerja a')
+                                ->join('t_kegiatan b', 'a.id = b.id_t_rencana_kinerja')
+                                ->where('b.flag_active', 1)
+                                ->where('a.flag_active', 1)
+                                ->where('b.status_verif', 1)
+                                ->where('a.id', $kegiatan['id_t_rencana_kinerja'])
+                                ->get()->row_array();
+                                    
+                        if(floatval($rencana_kegiatan['sum_realisasi']) > 100){
+                            $rencana_kegiatan['sum_realisasi'] = 100;
+                        }
+                        $this->db->where('id', $rencana_kegiatan['id'])
+                                ->update('t_rencana_kinerja', ['total_realisasi' => floatval($rencana_kegiatan['sum_realisasi'])]);
                     } else {
                         $rs['code'] = 1;
                         $rs['message'] = 'Kegiatan tidak dapat dibatalkan verifikasinya karena belum dilakukan verifikasi';
@@ -185,6 +237,14 @@
             } else {
                 $rs['code'] = 1;
                 $rs['message'] = 'Terjadi Kesalahan';
+            }
+
+            if($this->db->trans_status() == FALSE){
+                $this->db->trans_rollback();
+                $rs['code'] = 1;
+                $rs['message'] = 'Terjadi Kesalahan';
+            } else {
+                $this->db->trans_commit();
             }
 
             return $rs;
@@ -204,5 +264,95 @@
                                     ->get()->row_array();
         }
 
+        public function countTotalProgress($arr){
+            $total_progress = 0;
+            // dd($arr);
+            if(isset($arr['rk']) && $arr['rk']){
+                $total = 0;
+                foreach($arr['rk'] as $total_progress){
+                    $total += $total_progress;
+                }
+                //total progress = total / jumlah kegiatan;
+                $total_progress = (floatval($total)/floatval(count($arr['rk'])));
+            }
+
+            return $total_progress;
+        }
+
+        public function searchRekapRealisasi($data){
+            $rs = null;
+            $list_id_pegawai = $this->getListIdPegawaiForVerif();
+            if($list_id_pegawai){
+                foreach($list_id_pegawai as $lid){
+                    if($lid){
+                        $rs[$lid] = array();
+                    }
+                }
+            }
+
+            $temp = $this->db->select('*, a.id as id_t_rencana_kinerja')
+                                ->from('t_rencana_kinerja a')
+                                ->join('m_user b', 'a.id_m_user = b.id')
+                                ->where('a.flag_active', 1)
+                                ->where_in('a.id_m_user', $list_id_pegawai)
+                                ->where('a.bulan', $data['bulan'])
+                                ->where('a.tahun', $data['tahun'])
+                                ->order_by('b.id', 'desc')
+                                ->group_by('a.id')
+                                ->get()->result_array();
+            if($temp){
+                $tmp_user_id = 0;
+                $count_kegiatan = 0;
+                $i = 0;
+                foreach($temp as $t){
+                    if($tmp_user_id == $t['id_m_user']){ //jika masih id sama, jumlah kegiatan di tambah terus
+                        $count_kegiatan++;
+                    } else { // jika sudah beda, hitung presentase realisasi untuk pegawai sebelumnya
+                        if(isset($rs[$tmp_user_id])){
+                            $rs[$tmp_user_id]['total_progress'] = $this->countTotalProgress($rs[$tmp_user_id]);
+                        }                            
+
+                        $tmp_user_id = $t['id_m_user'];
+                        $count_kegiatan = 1;
+                    }
+
+                    $rs[$t['id_m_user']]['id_m_user'] = $t['id_m_user'];
+                    $rs[$t['id_m_user']]['id_rencana_kinerja'] = $t['id_t_rencana_kinerja'];
+                    $rs[$t['id_m_user']]['nama_pegawai'] = $t['nama'];
+                    $rs[$t['id_m_user']]['nip_pegawai'] = $t['username'];
+                    $rs[$t['id_m_user']]['total_progress'] = 0;
+                    // $rs[$t['id_m_user']]['jk'] = $count_kegiatan;
+                    $presentase_kegiatan = (floatval($t['total_realisasi'])/floatval($t['target_kuantitas'])) * 100;
+                    $rs[$t['id_m_user']]['rk'][] = $presentase_kegiatan;
+                    $i++;
+
+                    if($i == count($temp) && isset($rs[$tmp_user_id])){ // cek jika sudah index terakhir
+                        $rs[$tmp_user_id]['total_progress'] = $this->countTotalProgress($rs[$tmp_user_id]);
+                    }
+                }
+            }
+
+            return $rs;
+        }
+
+        public function loadDetailRekap($id){
+            return $this->db->select('*, a.id as id_t_rencana_kinerja')
+                            ->from('t_rencana_kinerja a')
+                            ->join('m_user b', 'a.id_m_user = b.id')
+                            ->where('b.id', $id)
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+        }
+
+        public function loadListKegiatanRencanaKinerja($id){
+            return $this->db->select('a.*, b.tugas_jabatan, b.target_kuantitas, b.satuan, b.total_realisasi, a.tanggal_verif, a.keterangan_verif, c.nama as verifikator')
+                            ->from('t_kegiatan a')
+                            ->join('t_rencana_kinerja b', 'a.id_t_rencana_kinerja = b.id')
+                            ->join('m_user c', 'a.id_m_user_verif = c.id')
+                            ->where('b.id', $id)
+                            ->where('a.flag_active', 1)
+                            ->order_by('a.tanggal_verif', 'desc')
+                            ->get()->result_array();
+        }
 	}
 ?>

@@ -34,7 +34,13 @@
                         <td class="text-center">
                             <button onclick="loadDetailKegiatan('<?=$rs['id_t_kegiatan']?>')" data-target="#modal_detail_kegiatan" data-toggle="modal" title="Detail" class="btn btn-sm btn-navy"><i class="fa fa-edit"></i></button>
                         </td>
-                        <td>
+                        <td class="p-3">
+                            <span id="status_belum_verif_<?=$rs['id_t_kegiatan']?>" style="display: <?=$rs['status_verif'] == 0 ? 'show;' : 'none;'?>font-weight: bold; color: white; padding: 3px; background-color: grey;"><i class="fa fa-dot-circle"></i> Belum Verif</span>
+                            <span id="status_sudah_verif_<?=$rs['id_t_kegiatan']?>" style="display: <?=$rs['status_verif'] == 1 ? 'show;' : 'none;'?>font-weight: bold; color: white; padding: 3px; background-color: green;"><i class="fa fa-check-circle"></i> Diterima</span>
+                            <span id="status_tolak_verif_<?=$rs['id_t_kegiatan']?>" style="display: <?=$rs['status_verif'] == 2 ? 'show;' : 'none;'?>font-weight: bold; color: white; padding: 3px; background-color: red;"><i class="fa fa-times-circle"></i> Ditolak</span>
+                            <span id="status_batal_verif_<?=$rs['id_t_kegiatan']?>" style="display: <?=$rs['status_verif'] == 3 ? 'show;' : 'none;'?>font-weight: bold; color: black; padding: 3px; background-color: yellow;"><i class="fa fa-minus-circle"></i> Verifikasi Dibatalkan</span>
+                            <br>
+                            <br>
                             <textarea style="display: <?=$dnv?>;" class="form-control" rows=5 id="keterangan_verif_<?=$rs['id_t_kegiatan']?>"></textarea>
                             <h6 style="display: <?=$dv?>;" id="text_keterangan_verif_<?=$rs['id_t_kegiatan']?>">
                                 <?=$ket_verif?>
@@ -83,6 +89,28 @@
                 success: function(data){
                     let rs = JSON.parse(data)
                     if(rs.code == 0){
+                        if(rs.status == 0){
+                            $('#status_belum_verif_'+id).show()
+                            $('#status_sudah_verif_'+id).hide()
+                            $('#status_tolak_verif_'+id).hide()
+                            $('#status_batal_verif_'+id).hide()
+                        } else if(rs.status == 1){
+                            $('#status_belum_verif_'+id).hide()
+                            $('#status_sudah_verif_'+id).show()
+                            $('#status_tolak_verif_'+id).hide()
+                            $('#status_batal_verif_'+id).hide()
+                        } else if(rs.status == 2){
+                            $('#status_belum_verif_'+id).hide()
+                            $('#status_sudah_verif_'+id).hide()
+                            $('#status_tolak_verif_'+id).show()
+                            $('#status_batal_verif_'+id).hide()
+                        } else if(rs.status == 3){
+                            $('#status_belum_verif_'+id).hide()
+                            $('#status_sudah_verif_'+id).hide()
+                            $('#status_tolak_verif_'+id).hide()
+                            $('#status_batal_verif_'+id).show()
+                        }
+
                         if(rs.status == 1 || rs.status == 2){
                             $('.btn_verif_'+id).hide()
                             $('.btn_loading_'+id).hide()

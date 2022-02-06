@@ -29,4 +29,25 @@ class C_VerifKinerja extends CI_Controller
         $data['result'] = $this->verifkinerja->loadDetailKegiatan($id);
         $this->load->view('kinerja/V_VerifKinerjaDetail', $data);
     }
+
+    public function rekapRealisasi(){
+        render('kinerja/V_RekapRealisasi', '', '', null);
+    }
+
+    public function searchRekapRealisasi(){
+        $data['result'] = $this->verifkinerja->searchRekapRealisasi($this->input->post());
+        $this->session->set_userdata(['periode_search_rekap' => $this->input->post()]);
+        $this->load->view('kinerja/V_RekapRealisasiSearchItem', $data);
+    }
+
+    public function loadDetailRekap($id){
+        $data['result'] = $this->verifkinerja->loadDetailRekap($id);
+        $data['periode'] = $this->session->userdata('periode_search_rekap');
+        $this->load->view('kinerja/V_DetailRekapRealisasiItem', $data);
+    }
+
+    public function loadListKegiatanRencanaKinerja($id){
+        $data['result'] = $this->verifkinerja->loadListKegiatanRencanaKinerja($id);
+        $this->load->view('kinerja/V_ListKegiatanDetailRekapRealisasi', $data);
+    }
 }

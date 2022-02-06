@@ -69,8 +69,18 @@
                             ->where('id_m_role', $data['id_m_role'])
                             ->where('flag_active', 1)
                             ->get()->row_array();
+
+            $default_role = $this->db->select('*')
+                                ->from('m_user_role')
+                                ->where('id_m_user', $data['id_m_user'])
+                                ->where('is_default', 1)
+                                ->where('flag_active', 1)
+                                ->get()->row_array();
             if(!$exist){
                 $data['created_by'] = $this->general_library->getId();
+                if(!$default_role){
+                    $data['is_default'] = 1;
+                }
                 $this->db->insert('m_user_role', $data);
             } else {
                 $rs['code'] = 1;
