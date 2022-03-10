@@ -18,7 +18,7 @@
                         ->where('id_m_user', $this->general_library->getId())
                         ->where('flag_active', 1)
                         ->get()->result_array();
-
+                        
             $list_user_tambahan = null;
             $list_bidang_tambahan = null;
             if($vt){
@@ -41,25 +41,28 @@
             $list_pegawai = null;
             if($role == 'subkoordinator'){
                 //pegawai yang diverif adalah staf pelaksana di sub bidang yang sama
-                $list_pegawai = $this->db->select('*, id as id_m_muser')
+                $list_pegawai = $this->db->select('*, id as id_m_user')
                                         ->from('m_user')
                                         ->where('id_m_sub_bidang', $this_user['id_m_sub_bidang'])
+                                        ->where('id !=', $this->general_library->getId())
                                         ->where('flag_active', 1)
                                         ->get()->result_array();
             } else if($role == 'kepalabidang' || $role == 'sekretarisbadan'){
                 //pegawai yang diverif adalah subkoordinator di bidang yang sama
                 $subbidang = $this->db->select('*')
                                         ->from('m_sub_bidang a')
-                                        ->where('a.id_m_sub_bidang', $this_user['id_m_sub_bidang'])
+                                        ->where('a.id', $this_user['id_m_sub_bidang'])
                                         ->where('a.flag_active', 1)
                                         ->get()->row_array();
                 $list_role = ['subkoordinator'];
-                $list_pegawai = $this->db->select('*, a.id as id_m_muser')
+                $list_pegawai = $this->db->select('*, a.id as id_m_user')
                                         ->from('m_user a')
                                         ->join('m_sub_bidang b', 'a.id_m_sub_bidang = b.id')
-                                        ->join('m_role c', 'a.id = c.id_m_user')
+                                        ->join('m_user_role c', 'a.id = c.id_m_user')
+                                        ->join('m_role d', 'c.id_m_role = d.id')
                                         ->where('b.id_m_bidang', $subbidang['id_m_bidang'])
-                                        ->where_in('c.role_name', $list_role)
+                                        ->where_in('d.role_name', $list_role)
+                                        ->where('a.id !=', $this->general_library->getId())
                                         ->where('a.flag_active', 1)
                                         ->where('c.flag_active', 1)
                                         ->get()->result_array();
@@ -78,10 +81,11 @@
                 }
                 
                 $list_role = ['kepalabidang', 'sekretarisbadan'];
-                $list_pegawai = $this->db->select('*, a.id as id_m_muser')
+                $list_pegawai = $this->db->select('*, a.id as id_m_user')
                                         ->from('m_user a')
                                         ->join('m_role b', 'a.id = b.id_m_user')
                                         ->join('m_sub_bidang c', 'c.id = a.id_m_sub_bidang')
+                                        ->where('a.id !=', $this->general_library->getId())
                                         ->where_in('b.role_name', $list_role)
                                         ->where_in('c.id_m_bidang', $list_bidang)
                                         ->where('a.flag_active', 1)
@@ -89,6 +93,7 @@
                                         ->get()->result_array();
             }
             $list_id_pegawai = array();
+            // dd($list_pegawai);
             if($list_pegawai){
                 foreach($list_pegawai as $lp){
                     $list_id_pegawai[] = $lp['id_m_user'];
@@ -128,7 +133,9 @@
             $endDate = $endDate[0].'-'.$endDate[2].'-'.$endDate[1];
 
             $list_id_pegawai = $this->getListIdPegawaiForVerif();
-
+            if(!$list_id_pegawai){
+                return null;
+            }
             $list_kerja = null;
             $temp = $this->db->select('*, a.id as id_t_kegiatan, a.created_date as tanggal_kegiatan, a.realisasi_target_kuantitas')
                                 ->from('t_kegiatan a')
@@ -290,7 +297,8 @@
                 }
             }
 
-            $temp = $this->db->select('*, a.id as id_t_rencana_kinerja')
+            if($list_id_pegawai){
+                $temp = $this->db->select('*, a.id as id_t_rencana_kinerja')
                                 ->from('t_rencana_kinerja a')
                                 ->join('m_user b', 'a.id_m_user = b.id')
                                 ->where('a.flag_active', 1)
@@ -300,34 +308,35 @@
                                 ->order_by('b.id', 'desc')
                                 ->group_by('a.id')
                                 ->get()->result_array();
-            if($temp){
-                $tmp_user_id = 0;
-                $count_kegiatan = 0;
-                $i = 0;
-                foreach($temp as $t){
-                    if($tmp_user_id == $t['id_m_user']){ //jika masih id sama, jumlah kegiatan di tambah terus
-                        $count_kegiatan++;
-                    } else { // jika sudah beda, hitung presentase realisasi untuk pegawai sebelumnya
-                        if(isset($rs[$tmp_user_id])){
+                if($temp){
+                    $tmp_user_id = 0;
+                    $count_kegiatan = 0;
+                    $i = 0;
+                    foreach($temp as $t){
+                        if($tmp_user_id == $t['id_m_user']){ //jika masih id sama, jumlah kegiatan di tambah terus
+                            $count_kegiatan++;
+                        } else { // jika sudah beda, hitung presentase realisasi untuk pegawai sebelumnya
+                            if(isset($rs[$tmp_user_id])){
+                                $rs[$tmp_user_id]['total_progress'] = $this->countTotalProgress($rs[$tmp_user_id]);
+                            }                            
+
+                            $tmp_user_id = $t['id_m_user'];
+                            $count_kegiatan = 1;
+                        }
+
+                        $rs[$t['id_m_user']]['id_m_user'] = $t['id_m_user'];
+                        $rs[$t['id_m_user']]['id_rencana_kinerja'] = $t['id_t_rencana_kinerja'];
+                        $rs[$t['id_m_user']]['nama_pegawai'] = $t['nama'];
+                        $rs[$t['id_m_user']]['nip_pegawai'] = $t['username'];
+                        $rs[$t['id_m_user']]['total_progress'] = 0;
+                        // $rs[$t['id_m_user']]['jk'] = $count_kegiatan;
+                        $presentase_kegiatan = (floatval($t['total_realisasi'])/floatval($t['target_kuantitas'])) * 100;
+                        $rs[$t['id_m_user']]['rk'][] = $presentase_kegiatan;
+                        $i++;
+
+                        if($i == count($temp) && isset($rs[$tmp_user_id])){ // cek jika sudah index terakhir
                             $rs[$tmp_user_id]['total_progress'] = $this->countTotalProgress($rs[$tmp_user_id]);
-                        }                            
-
-                        $tmp_user_id = $t['id_m_user'];
-                        $count_kegiatan = 1;
-                    }
-
-                    $rs[$t['id_m_user']]['id_m_user'] = $t['id_m_user'];
-                    $rs[$t['id_m_user']]['id_rencana_kinerja'] = $t['id_t_rencana_kinerja'];
-                    $rs[$t['id_m_user']]['nama_pegawai'] = $t['nama'];
-                    $rs[$t['id_m_user']]['nip_pegawai'] = $t['username'];
-                    $rs[$t['id_m_user']]['total_progress'] = 0;
-                    // $rs[$t['id_m_user']]['jk'] = $count_kegiatan;
-                    $presentase_kegiatan = (floatval($t['total_realisasi'])/floatval($t['target_kuantitas'])) * 100;
-                    $rs[$t['id_m_user']]['rk'][] = $presentase_kegiatan;
-                    $i++;
-
-                    if($i == count($temp) && isset($rs[$tmp_user_id])){ // cek jika sudah index terakhir
-                        $rs[$tmp_user_id]['total_progress'] = $this->countTotalProgress($rs[$tmp_user_id]);
+                        }
                     }
                 }
             }

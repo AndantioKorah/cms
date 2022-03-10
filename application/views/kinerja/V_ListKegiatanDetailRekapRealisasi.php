@@ -25,7 +25,27 @@
                     <td class="text-center"><?=formatDateOnly($rs['tanggal_kegiatan']);?></td>
                     <td><?=$rs['deskripsi_kegiatan'];?></td>
                     <td class="text-center"><?=$rs['realisasi_target_kuantitas'].' '.$rs['satuan']?></td>
-                    <td class="text-center"></td>
+                    <td class="text-center">
+                    <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                         <i class="fa fa-file"></i> Lihat File
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <?php 
+                                $file = json_decode($rs['bukti_kegiatan']);
+                                $no = 1;
+                                foreach($file as $file_name)
+                                    {
+                                        if($file_name == null){
+                                            echo "<a class='dropdown-item' >Tidak Ada File</a>";
+                                        } else {
+                                            echo "<a class='dropdown-item' href=".base_url('assets/bukti_kegiatan/'.$file_name.'')." target='_blank'>Dokumen ".$no."</a>";
+                                        }
+                                    $no++;
+                                    } 
+                                ?>
+    
+                            </div>
+                    </td>
                     <td>
                         <?=$status_verif?><br>
                         <?php if($rs['status_verif'] != 0){ ?>

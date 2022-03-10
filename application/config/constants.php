@@ -112,6 +112,12 @@ define('DB_RESTORE_FOLDER', 'db/restore/'); //local with xampp
 
 define('DEVELOPER', 'nikita');
 
+define('START_CELL', 'B23');
+define('HEADER_CELL', 'A21:AG22');
+define('START_ROW_NUM', '23');
+define('SKPD_CELL', 'C19');
+define('PERIODE_CELL', 'C20');
+
 define('IMPORT_UNIT_KERJA', '4018000');
 
 define('MARGIN_TOP_CETAKAN', '150px');

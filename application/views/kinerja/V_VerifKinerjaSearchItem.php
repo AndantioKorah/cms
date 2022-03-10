@@ -140,7 +140,13 @@
         }
     </script>
 <?php } else { ?>
+    <?php if($this->general_library->getSubBidangUser() == 0){ ?>
+        <div class="col-12 text-center">
+            <h6>Akun Anda belum diatur penempatan Bidang / Sub Bidang. Hubungi Administrator <i class="fa fa-exclamation"></i></h6>
+        </div>
+    <?php } else { ?>
     <div class="col-12 text-center">
         <h6>Data Tidak Ditemukan <i class="fa fa-exclamation"></i></h6>
     </div>
+    <?php } ?>
 <?php } ?>
