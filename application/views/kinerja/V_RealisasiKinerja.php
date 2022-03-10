@@ -60,7 +60,7 @@
   <div class="form-group">
     <label>Dokumen Bukti Kegiatan</label>
     <!-- <input class="form-control" type="file" id="image_file" multiple="multiple" /> -->
-    <input class="form-control" type="file" id="image_file" name="files[]" multiple="multiple" />
+    <input onclick="getDok()" class="form-control" type="file" id="image_file" name="files[]" multiple="multiple" />
     <br>
       <div id="uploadPreview"></div>
   </div>
@@ -127,7 +127,6 @@
         $('#list_kegiatan').append(divLoaderNavy)
         $('#list_kegiatan').load('<?=base_url("kinerja/C_Kinerja/loadKegiatan/")?>'+tahun+'/'+bulan+'', function(){
             $('#loader').hide()
-           
         })
     }
 
@@ -139,6 +138,10 @@
         searchListKegiatan()
     })
 
+    
+     function getDok(){
+        document.getElementById("uploadPreview").reset();
+     }
      function loadListTugasJabatan(){
       
            var bulan = new Date().getMonth()+1;
@@ -277,6 +280,7 @@
         }
 
         function readImage(file) {
+        $('#uploadPreview').html('');
         var reader = new FileReader();
         var image  = new Image();
         reader.readAsDataURL(file);  

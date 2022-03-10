@@ -61,6 +61,7 @@
                 ->where('year(a.tanggal_kegiatan)', $tahun)
                 ->where('month(a.tanggal_kegiatan)', $bulan)
                 ->where('a.flag_active', 1)
+                ->order_by('a.id', 'desc')
                 ->get()->result_array();
            
         }
