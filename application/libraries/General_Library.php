@@ -245,6 +245,12 @@ class General_library
         return $this->userLoggedIn['id'];
     }
 
+    public function getSubBidangUser(){
+        // $this->userLoggedIn = $this->nikita->session->userdata('user_logged_in');
+        $this->refreshUserLoggedInData();
+        return $this->userLoggedIn['id_m_sub_bidang'];
+    }
+
     public function test(){
         return 'tiokors';
     }

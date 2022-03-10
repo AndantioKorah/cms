@@ -87,22 +87,21 @@
     <label for="pwd" class="mr-2 ml-3"> Bulan</label>
     <select class="form-control select2-navy" 
                  id="bulan" data-dropdown-css-class="select2-navy" name="bulan" required>
-                 <option value="" selected>- Pilih Bulan -</option>
-                 <option value="1">Januari</option>
-                 <option value="2">Februari</option>
-                 <option value="3">Maret</option>
-                 <option value="4">April</option>
-                 <option value="5">Mei</option>
-                 <option value="6">Juni</option>
-                 <option value="7">Juli</option>
-                 <option value="8">Agustus</option>
-                 <option value="9">September</option>
-                 <option value="10">Oktober</option>
-                 <option value="10">November</option>
-                 <option value="10">Desember</option>
+                 <option <?=date('m') == 1 ? 'selected' : '';?> value="1">Januari</option>
+                 <option <?=date('m') == 2 ? 'selected' : '';?> value="2">Februari</option>
+                 <option <?=date('m') == 3 ? 'selected' : '';?> value="3">Maret</option>
+                 <option <?=date('m') == 4 ? 'selected' : '';?> value="4">April</option>
+                 <option <?=date('m') == 5 ? 'selected' : '';?> value="5">Mei</option>
+                 <option <?=date('m') == 6 ? 'selected' : '';?> value="6">Juni</option>
+                 <option <?=date('m') == 7 ? 'selected' : '';?> value="7">Juli</option>
+                 <option <?=date('m') == 8 ? 'selected' : '';?> value="8">Agustus</option>
+                 <option <?=date('m') == 9 ? 'selected' : '';?> value="9">September</option>
+                 <option <?=date('m') == 10 ? 'selected' : '';?> value="10">Oktober</option>
+                 <option <?=date('m') == 11 ? 'selected' : '';?> value="11">November</option>
+                 <option <?=date('m') == 12 ? 'selected' : '';?> value="12">Desember</option>
                  </select>
          </div>
-        <button type="button" onclick="searchListKegiatan()" class="btn btn-primary ml-3">Cari</button>
+        <!-- <button type="button" onclick="searchListKegiatan()" class="btn btn-primary ml-3">Cari</button> -->
         </form>
      <br>
     </div>
@@ -116,14 +115,13 @@
 
 
     $(function(){
-        
         loadListKegiatan()
         loadListTugasJabatan()
     })
 
      function loadListKegiatan(){
-         var tahun = new Date().getFullYear()
-         var bulan = new Date().getMonth()+1;
+         var tahun = '<?=date("Y")?>'
+         var bulan = '<?=date("m")?>'
  
         $('#list_kegiatan').html('')
         $('#list_kegiatan').append(divLoaderNavy)
@@ -132,6 +130,14 @@
            
         })
     }
+
+    $('#bulan').on('change', function(){
+        searchListKegiatan()
+    })
+
+    $('#tahun').on('change', function(){
+        searchListKegiatan()
+    })
 
      function loadListTugasJabatan(){
       

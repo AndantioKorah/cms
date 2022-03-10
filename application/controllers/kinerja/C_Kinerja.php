@@ -15,7 +15,7 @@ class C_Kinerja extends CI_Controller
     }
 
     public function Kinerja(){
-        $data['list_rencana_kinerja'] = $this->kinerja->getRencanaKinerja();
+        $data['list_rencana_kinerja'] = $this->kinerja->getRencanaKinerja(date('m'), date('Y'));
         render('kinerja/V_RealisasiKinerja', '', '', $data);
     }
 
@@ -151,9 +151,14 @@ class C_Kinerja extends CI_Controller
     }
 
       
-    public function loadRencanaKinerja(){
-       
-        $data['list_rencana_kinerja'] = $this->kinerja->loadRencanaKinerja();
+    public function loadRencanaKinerja($bulan = null, $tahun = null){
+        if(!$tahun){
+            $tahun = date('Y');
+        }
+        if(!$bulan){
+            $bulan = date('m');
+        }
+        $data['list_rencana_kinerja'] = $this->kinerja->loadRencanaKinerja($bulan, $tahun);
         $this->load->view('kinerja/V_RencanaKinerjaItem', $data);
     }
 

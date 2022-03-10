@@ -56,7 +56,7 @@
             return $this->db->select('a.*, b.tugas_jabatan,c.status_verif')
                 ->from('t_kegiatan a')
                 ->join('t_rencana_kinerja b', 'a.id_t_rencana_kinerja = b.id')
-                ->join('m_status_verif c', 'a.id_status_verif = c.id')
+                ->join('m_status_verif c', 'a.status_verif = c.id')
                 ->where('a.id_m_user', $id)
                 ->where('year(a.tanggal_kegiatan)', $tahun)
                 ->where('month(a.tanggal_kegiatan)', $bulan)
@@ -66,21 +66,26 @@
         }
 
 
-        public function loadRencanaKinerja(){
+        public function loadRencanaKinerja($bulan, $tahun){
             $id =  $this->general_library->getId();
             return $this->db->select('*')
                             ->from('t_rencana_kinerja a')
                             ->where('a.id_m_user', $id)
                             ->where('a.flag_active', 1)
+                            ->where('a.bulan', $bulan)
+                            ->where('a.tahun', $tahun)
                             ->get()->result_array();
         }
 
 
-        public function getRencanaKinerja(){
+        public function getRencanaKinerja($bulan, $tahun){
             $id =  $this->general_library->getId();
             return $this->db->select('*')
                             ->from('t_rencana_kinerja as a')
                             ->where('a.id_m_user', $id)
+                            ->where('a.tahun', $tahun)
+                            ->where('a.bulan', $bulan)
+                            ->where('a.flag_active', 1)
                             ->get()->result_array();
         }
 
@@ -125,7 +130,7 @@
     function getRencanaKerja(){
         $tahun = $this->input->post('tahun');
         $bulan = $this->input->post('bulan');
-        $query = $this->db->get_where('t_rencana_kinerja', array('flag_active' => 1, 'bulan' => $bulan, 'tahun' => $tahun));
+        $query = $this->db->get_where('t_rencana_kinerja', array('flag_active' => 1, 'bulan' => $bulan, 'tahun' => $tahun, 'id_m_user' => $this->general_library->getId()));
         return $query;
     }
 
