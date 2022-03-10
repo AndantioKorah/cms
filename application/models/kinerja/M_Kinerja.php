@@ -109,7 +109,7 @@
        
        
         $query = $this->db->select('a.*,
-        (select sum(b.realisasi_target_kuantitas) from t_kegiatan as b where a.id = b.id_t_rencana_kinerja and b.flag_active = 1) as realisasi_target_kuantitas
+        (select sum(b.realisasi_target_kuantitas) from t_kegiatan as b where a.id = b.id_t_rencana_kinerja and b.flag_active = 1 and b.id_status_verif = 1) as realisasi_target_kuantitas
         ')
                         ->from('t_rencana_kinerja a')
                         ->where('a.id_m_user', $id)
