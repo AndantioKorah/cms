@@ -72,10 +72,11 @@ class C_Kinerja extends CI_Controller
               }
            
               // Set preference
+              $random_number = intval( "0" . rand(1,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) );
               $config['upload_path'] = './assets/bukti_kegiatan'; 
               $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
               $config['max_size'] = '5000'; // max_size in kb
-              $config['file_name'] = $_FILES['files']['name'][$i];
+              $config['file_name'] = $this->getUserName().'_'.$random_number;
               
               
               //Load upload library
@@ -182,6 +183,10 @@ class C_Kinerja extends CI_Controller
         echo json_encode($data);
     }
   
+    public function getUserName(){
+        $this->userLoggedIn = $this->session->userdata('user_logged_in');
+        return $this->userLoggedIn[0]['username'];
+    }
 
    
     

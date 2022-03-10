@@ -54,10 +54,10 @@
   <td height="20" class="xl67" style="height:15.0pt;border-top:none;border-left:
   none"> Kuantitas</td>
   <td class="xl67" style="border-top:none;border-left:none">Satuan</td>
-  <td class="xl67" style="border-top:none;border-left:none">Kualitas</td>
+  <td class="xl67" style="border-top:none;border-left:none">Capaian</td>
   <td class="xl67" style="border-top:none;border-left:none">Kuantitas</td>
   <td class="xl67" style="border-top:none;border-left:none">Satuan</td>
-  <td class="xl67" style="border-top:none;border-left:none">Kualitas</td>
+  <td class="xl67" style="border-top:none;border-left:none">Capaian</td>
  </tr>
 
  <!--[if supportMisalignedColumns]-->
@@ -78,7 +78,7 @@
                         <td class="text-left"><?=
                         $lp['realisasi_target_kuantitas'] == '' ? '0' : $lp['realisasi_target_kuantitas']?></td>
                         <td class="text-left"><?=$lp['satuan']?></td>
-                        <td class="text-left"><?=$realisasi_kualitas?>%</td>
+                        <td class="text-left"><?=formatTwoMaxDecimal($realisasi_kualitas)?>%</td>
                     </tr>
                 <?php } ?>
  <!--[endif]-->

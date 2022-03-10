@@ -1,6 +1,6 @@
 <head>
 <title>404 | <?=TITLES?></title>
-<link rel="shortcut icon" href="../../assets/img/logo-biru-putih.png" />
+<link rel="shortcut icon" href="<?=('.../.../assets/new_login/images/logo-efort-red-white.png')?>" />
 </head>
 <style>
 	html,
