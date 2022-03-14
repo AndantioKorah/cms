@@ -67,13 +67,14 @@ class C_Kinerja extends CI_Controller
             
               if($_FILES['file']['size'] > 1048576){
                 $ress = 0;
-                $res = array('msg' => 'File tidak boleh lebih dari 1MB', 'success' => false);
+                $res = array('msg' => 'File tidak boleh lebih dari 1 MB', 'success' => false);
                 break;
               }
            
               // Set preference
               $config['upload_path'] = './assets/bukti_kegiatan'; 
-              $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
+            //   $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
+            $config['allowed_types'] = '*';
               $config['max_size'] = '5000'; // max_size in kb
               $config['file_name'] = $_FILES['files']['name'][$i];
               

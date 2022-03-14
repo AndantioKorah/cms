@@ -8,7 +8,7 @@
     
   <div class="form-group" >
     <label for="exampleFormControlInput1">Kegiatan Tugas Jabatan</label>
-    <input  class="form-control " id="tugas_jabatan" name="tugas_jabatan" >
+    <input  class="form-control " id="tugas_jabatan" name="tugas_jabatan" autocomplete="off">
   </div>
 
     <div class="form-group" >
@@ -31,8 +31,8 @@
                  <option value="8">Agustus</option>
                  <option value="9">September</option>
                  <option value="10">Oktober</option>
-                 <option value="10">November</option>
-                 <option value="10">Desember</option>
+                 <option value="11">November</option>
+                 <option value="12">Desember</option>
                  </select>
   </div>
 

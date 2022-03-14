@@ -23,8 +23,8 @@
   </div>
     <div class="form-group">
          <label class="bmd-label-floating">Kegiatan Tugas Jabatan </label>
-         <select class="form-control select2-navy" name="tugas_jabatan" id="tugas_jabatan" onchange="getSatuan()">
-         <option value="" selected>- Pilih Tugas Jabatan -</option>
+         <select class="form-control select2-navy" name="tugas_jabatan" id="tugas_jabatan" onchange="getSatuan()" required>
+         <option value="0" selected>- Pilih Tugas Jabatan -</option>
          </select>
              <!-- <select class="form-control select2-navy" style="width: 100%" onchange="getSatuan()"
                  id="tugas_jabatan" data-dropdown-css-class="select2-navy" name="tugas_jabatan" required>
@@ -60,7 +60,7 @@
   <div class="form-group">
     <label>Dokumen Bukti Kegiatan</label>
     <!-- <input class="form-control" type="file" id="image_file" multiple="multiple" /> -->
-    <input class="form-control" type="file" id="image_file" name="files[]" multiple="multiple" />
+    <input class="form-control" type="file" accept="image/*" id="image_file" name="files[]" multiple="multiple" />
     <br>
       <div id="uploadPreview"></div>
   </div>
@@ -124,6 +124,7 @@
      function loadListKegiatan(){
          var tahun = new Date().getFullYear()
          var bulan = new Date().getMonth()+1;
+        
  
         $('#list_kegiatan').html('')
         $('#list_kegiatan').append(divLoaderNavy)
@@ -193,7 +194,17 @@
 
     
         $('#upload_form').on('submit', function(e){  
-        e.preventDefault();  
+        e.preventDefault();
+        // var tes = $('#tugas_jabatan').val()
+        // alert(tes)
+        // return false; 
+      
+        if($('#tugas_jabatan').val() == "- Pilih Tugas Jabatan -")  
+        {  
+        errortoast(" Pilih tugas jabatan terlebih dulu");  
+        return false
+        }  
+
         var formvalue = $('#upload_form');
         var form_data = new FormData(formvalue[0]);
         var ins = document.getElementById('image_file').files.length;
@@ -284,9 +295,9 @@
         s = ~~(file.size/1024) +'KB';
         $('#uploadPreview').append('<img src="' + this.src + '" class="thumb">');
         };
-        image.onerror= function() {
-        alert('Invalid file type: '+ file.type);
-        };      
+        // image.onerror= function() {
+        // alert('Invalid file type: '+ file.type);
+        // };      
         };
         }
         $("#image_file").change(function (e) {
