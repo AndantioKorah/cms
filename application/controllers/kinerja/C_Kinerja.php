@@ -15,7 +15,7 @@ class C_Kinerja extends CI_Controller
     }
 
     public function Kinerja(){
-        $data['list_rencana_kinerja'] = $this->kinerja->getRencanaKinerja();
+        $data['list_rencana_kinerja'] = $this->kinerja->getRencanaKinerja(date('m'), date('Y'));
         render('kinerja/V_RealisasiKinerja', '', '', $data);
     }
 
@@ -72,11 +72,12 @@ class C_Kinerja extends CI_Controller
               }
            
               // Set preference
+              $random_number = intval( "0" . rand(1,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) );
               $config['upload_path'] = './assets/bukti_kegiatan'; 
             //   $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
             $config['allowed_types'] = '*';
               $config['max_size'] = '5000'; // max_size in kb
-              $config['file_name'] = $_FILES['files']['name'][$i];
+              $config['file_name'] = $this->getUserName().'_'.$random_number;
               
               
               //Load upload library
@@ -151,9 +152,14 @@ class C_Kinerja extends CI_Controller
     }
 
       
-    public function loadRencanaKinerja(){
-       
-        $data['list_rencana_kinerja'] = $this->kinerja->loadRencanaKinerja();
+    public function loadRencanaKinerja($bulan = null, $tahun = null){
+        if(!$tahun){
+            $tahun = date('Y');
+        }
+        if(!$bulan){
+            $bulan = date('m');
+        }
+        $data['list_rencana_kinerja'] = $this->kinerja->loadRencanaKinerja($bulan, $tahun);
         $this->load->view('kinerja/V_RencanaKinerjaItem', $data);
     }
 
@@ -183,6 +189,10 @@ class C_Kinerja extends CI_Controller
         echo json_encode($data);
     }
   
+    public function getUserName(){
+        $this->userLoggedIn = $this->session->userdata('user_logged_in');
+        return $this->userLoggedIn[0]['username'];
+    }
 
    
     

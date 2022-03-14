@@ -60,7 +60,8 @@
             $this->db->select('*, a.nama as nama_user')
                         ->from('m_user a')
                         ->where('a.username', $username)
-                        ->where('a.password', $password);
+                        ->where('a.password', $password)
+                        ->where('a.flag_active', 1);
             $result = $this->db->get()->result_array();
             if(!$result){
                 $this->session->set_flashdata('message', 'Kombinasi Username dan Password tidak ditemukan');

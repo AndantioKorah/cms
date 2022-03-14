@@ -153,6 +153,27 @@
             success: function(data){
                 let rs = JSON.parse(data)
                 if(rs.code == 0){
+                    if(rs.status == 0){
+                        $('#status_belum_verif_'+id).show()
+                        $('#status_sudah_verif_'+id).hide()
+                        $('#status_tolak_verif_'+id).hide()
+                        $('#status_batal_verif_'+id).hide()
+                    } else if(rs.status == 1){
+                        $('#status_belum_verif_'+id).hide()
+                        $('#status_sudah_verif_'+id).show()
+                        $('#status_tolak_verif_'+id).hide()
+                        $('#status_batal_verif_'+id).hide()
+                    } else if(rs.status == 2){
+                        $('#status_belum_verif_'+id).hide()
+                        $('#status_sudah_verif_'+id).hide()
+                        $('#status_tolak_verif_'+id).show()
+                        $('#status_batal_verif_'+id).hide()
+                    } else if(rs.status == 3){
+                        $('#status_belum_verif_'+id).hide()
+                        $('#status_sudah_verif_'+id).hide()
+                        $('#status_tolak_verif_'+id).hide()
+                        $('#status_batal_verif_'+id).show()
+                    }
                     if(rs.status == 1 || rs.status == 2){
                         $('.btn_verif_'+id).hide()
                         $('.btn_loading_'+id).hide()

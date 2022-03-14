@@ -1,7 +1,7 @@
 <?php if($list_kegiatan){ ?>
    
     <div class="col-12">
-        <table class="table table-hover table-striped" id="table_realisasi_kinerja" width="100%">
+        <table class="table table-hover table-striped" id="" width="100%">
             <thead>
                 <th class="text-center">No</th>
                 <th class="text-left">Kegiatan Tugas Jabatan</th>
@@ -38,14 +38,15 @@
                             <?php 
                             
                             $file = json_decode($lp['bukti_kegiatan']);
+                            $nodok = 1;
                             foreach($file as $file_name)
                                 {
                                     if($file_name == null){
                                         echo "<a class='dropdown-item' >Tidak Ada File</a>";
                                     } else {
-                                        echo "<a class='dropdown-item' href=".base_url('assets/bukti_kegiatan/'.$file_name.'')." target='_blank'>".$file_name."</a>";
+                                        echo "<a class='dropdown-item' href=".base_url('assets/bukti_kegiatan/'.$file_name.'')." target='_blank'>Dokumen ".$nodok."</a>";
                                     }
-                                   
+                                   $nodok++;
                                 } 
                             ?>
    
