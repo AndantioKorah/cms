@@ -90,7 +90,7 @@ define('DEVELOPMENT_MODE', '1');
 define('DB_HOST', 'localhost');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
-define('DB_NAME', 'db_efort');
+define('DB_NAME', 'db_efort2022');
 
 
 define('KODE_TRANSAKSI', '01');
@@ -102,7 +102,7 @@ define('TITLES', 'APANG | BKPSDM Kota Manado');
 define('TITLE_SECOND', 'APLIKASI PENILAIAN KINERJA PEGAWAI');
 define('TITLE_THIRD', 'APANG');
 define('PROGRAMMER_PHONE', '082115407812');
-define('COPYRIGHT', 'Copyright &copy; '.date('Y').' <strong>NiKita</strong>');
+define('COPYRIGHT', 'Copyright &copy; '.date('Y').' <strong>BKPSDM Kota Manado</strong>');
 // define('COPYRIGHT', 'Copyright &copy; '.date('Y').' <strong>PATRA LAB</strong>');
 define('TRANSAKSI_TABLE_VIEW', 1);
 define('USE_PRINT', '0');

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>EFORT | BKPSDM Manado</title>
+	<title>APANG | BKPSDM Manado</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -43,7 +43,10 @@
 							<span class="login100-form-title p-b-59">
 								Selamat Datang!
 							</span>
-							<img src="assets/new_login/images/logo-efort-png.png" style="height: 250px; width: 250px;"/>
+							<span class="login100-form-title">
+							Aplikasi Penilaian Kinerja Pegawai
+							</span>
+							<!-- <img src="assets/new_login/images/logo-efort-png.png" style="height: 250px; width: 250px;"/> -->
 						</center>
 					</div>
 
