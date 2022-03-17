@@ -29,7 +29,7 @@
         $bulan = date('n');
         $tahun = date('Y');
         $cek = $this->db->select('a.*,
-        (select sum(b.realisasi_target_kuantitas) from t_kegiatan as b where a.id = b.id_t_rencana_kinerja) as realisasi_target_kuantitas
+        (select sum(b.realisasi_target_kuantitas) from t_kegiatan as b where a.id = b.id_t_rencana_kinerja and b.flag_active = 1) as realisasi_target_kuantitas
         ')
                         ->from('t_rencana_kinerja a')
                         ->where('a.id_m_user', $id)
@@ -53,34 +53,41 @@
 
         public function loadKegiatan($tahun,$bulan){
             $id =  $this->general_library->getId();
-            return $this->db->select('a.*, b.tugas_jabatan,c.status_verif')
+            return $this->db->select('a.*, b.tugas_jabatan,c.status_verif, a.status_verif as id_status_verif')
                 ->from('t_kegiatan a')
                 ->join('t_rencana_kinerja b', 'a.id_t_rencana_kinerja = b.id')
-                ->join('m_status_verif c', 'a.id_status_verif = c.id')
+                ->join('m_status_verif c', 'a.status_verif = c.id')
                 ->where('a.id_m_user', $id)
                 ->where('year(a.tanggal_kegiatan)', $tahun)
                 ->where('month(a.tanggal_kegiatan)', $bulan)
                 ->where('a.flag_active', 1)
+                ->order_by('a.id', 'desc')
                 ->get()->result_array();
            
         }
 
 
-        public function loadRencanaKinerja(){
+        public function loadRencanaKinerja($bulan, $tahun){
             $id =  $this->general_library->getId();
-            return $this->db->select('*')
+            return $this->db->select('a.*,
+            (select count(b.id) from t_kegiatan as b where a.id = b.id_t_rencana_kinerja and b.flag_active = 1) as count')
                             ->from('t_rencana_kinerja a')
                             ->where('a.id_m_user', $id)
                             ->where('a.flag_active', 1)
+                            ->where('a.bulan', $bulan)
+                            ->where('a.tahun', $tahun)
                             ->get()->result_array();
         }
 
 
-        public function getRencanaKinerja(){
+        public function getRencanaKinerja($bulan, $tahun){
             $id =  $this->general_library->getId();
             return $this->db->select('*')
                             ->from('t_rencana_kinerja as a')
                             ->where('a.id_m_user', $id)
+                            ->where('a.tahun', $tahun)
+                            ->where('a.bulan', $bulan)
+                            ->where('a.flag_active', 1)
                             ->get()->result_array();
         }
 
@@ -109,7 +116,7 @@
        
        
         $query = $this->db->select('a.*,
-        (select sum(b.realisasi_target_kuantitas) from t_kegiatan as b where a.id = b.id_t_rencana_kinerja and b.flag_active = 1) as realisasi_target_kuantitas
+        (select sum(b.realisasi_target_kuantitas) from t_kegiatan as b where a.id = b.id_t_rencana_kinerja and b.flag_active = 1 and b.status_verif = 1) as realisasi_target_kuantitas
         ')
                         ->from('t_rencana_kinerja a')
                         ->where('a.id_m_user', $id)
@@ -125,7 +132,7 @@
     function getRencanaKerja(){
         $tahun = $this->input->post('tahun');
         $bulan = $this->input->post('bulan');
-        $query = $this->db->get_where('t_rencana_kinerja', array('flag_active' => 1, 'bulan' => $bulan, 'tahun' => $tahun));
+        $query = $this->db->get_where('t_rencana_kinerja', array('flag_active' => 1, 'bulan' => $bulan, 'tahun' => $tahun, 'id_m_user' => $this->general_library->getId()));
         return $query;
     }
 

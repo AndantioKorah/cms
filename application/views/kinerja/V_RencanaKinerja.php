@@ -8,7 +8,7 @@
     
   <div class="form-group" >
     <label for="exampleFormControlInput1">Kegiatan Tugas Jabatan</label>
-    <input  class="form-control " id="tugas_jabatan" name="tugas_jabatan" >
+    <input required class="form-control " id="tugas_jabatan" name="tugas_jabatan" >
   </div>
 
     <div class="form-group" >
@@ -21,18 +21,18 @@
     <select class="form-control select2-navy" style="width: 100%"
                  id="bulan" data-dropdown-css-class="select2-navy" name="bulan">
                  <option selected>- Pilih Bulan -</option>
-                 <option value="1">Januari</option>
-                 <option value="2">Feburari</option>
-                 <option value="3">Maret</option>
-                 <option value="4">April</option>
-                 <option value="5">Mei</option>
-                 <option value="6">Juni</option>
-                 <option value="7">Juli</option>
-                 <option value="8">Agustus</option>
-                 <option value="9">September</option>
-                 <option value="10">Oktober</option>
-                 <option value="10">November</option>
-                 <option value="10">Desember</option>
+                 <option <?=date('m') == 1 ? 'selected' : '';?> value="1">Januari</option>
+                 <option <?=date('m') == 2 ? 'selected' : '';?> value="2">Feburari</option>
+                 <option <?=date('m') == 3 ? 'selected' : '';?> value="3">Maret</option>
+                 <option <?=date('m') == 4 ? 'selected' : '';?> value="4">April</option>
+                 <option <?=date('m') == 5 ? 'selected' : '';?> value="5">Mei</option>
+                 <option <?=date('m') == 6 ? 'selected' : '';?> value="6">Juni</option>
+                 <option <?=date('m') == 7 ? 'selected' : '';?> value="7">Juli</option>
+                 <option <?=date('m') == 8 ? 'selected' : '';?> value="8">Agustus</option>
+                 <option <?=date('m') == 9 ? 'selected' : '';?> value="9">September</option>
+                 <option <?=date('m') == 10 ? 'selected' : '';?> value="10">Oktober</option>
+                 <option <?=date('m') == 11 ? 'selected' : '';?> value="11">November</option>
+                 <option <?=date('m') == 12 ? 'selected' : '';?> value="12">Desember</option>
                  </select>
   </div>
 
@@ -41,11 +41,11 @@
     <div class="row">
     <div class="col">
     <label >Target Kuantitas</label>
-      <input type="text" class="form-control" name="target_kuantitas" id="target_kuantitas">
+      <input required type="text" class="form-control" name="target_kuantitas" id="target_kuantitas">
     </div>
     <div class="col">
     <label >Satuan</label>
-      <input type="text" class="form-control" name="satuan" id="satuan" >
+      <input required type="text" class="form-control" name="satuan" id="satuan" >
     </div>
   </div>
   </div>
@@ -67,6 +67,34 @@
         <h3 class="card-title">List Rencana Kinerja</h3>
     </div>
     <div class="card-body">
+    <div class="col-12">
+    <form class="form-inline" method="post">
+  <div class="form-group">
+    <label for="email" class="mr-2">Tahun </label>
+    <input  class="form-control datepicker" id="search_tahun" name="search_tahun" value="<?=date('Y');?>">
+  </div>
+  <div class="form-group">
+    <label for="pwd" class="mr-2 ml-3"> Bulan</label>
+    <select class="form-control select2-navy" 
+                 id="search_bulan" data-dropdown-css-class="select2-navy" name="search_bulan" required>
+                 <option <?=date('m') == 1 ? 'selected' : '';?> value="1">Januari</option>
+                 <option <?=date('m') == 2 ? 'selected' : '';?> value="2">Februari</option>
+                 <option <?=date('m') == 3 ? 'selected' : '';?> value="3">Maret</option>
+                 <option <?=date('m') == 4 ? 'selected' : '';?> value="4">April</option>
+                 <option <?=date('m') == 5 ? 'selected' : '';?> value="5">Mei</option>
+                 <option <?=date('m') == 6 ? 'selected' : '';?> value="6">Juni</option>
+                 <option <?=date('m') == 7 ? 'selected' : '';?> value="7">Juli</option>
+                 <option <?=date('m') == 8 ? 'selected' : '';?> value="8">Agustus</option>
+                 <option <?=date('m') == 9 ? 'selected' : '';?> value="9">September</option>
+                 <option <?=date('m') == 10 ? 'selected' : '';?> value="10">Oktober</option>
+                 <option <?=date('m') == 11 ? 'selected' : '';?> value="11">November</option>
+                 <option <?=date('m') == 12 ? 'selected' : '';?> value="12">Desember</option>
+                 </select>
+         </div>
+        <!-- <button type="button" onclick="searchListKegiatan()" class="btn btn-primary ml-3">Cari</button> -->
+        </form>
+     <br>
+    </div>
         <div id="list_rencana_kinerja" class="row">
         </div>
     </div>
@@ -79,16 +107,24 @@
 <script>
 
     $(function(){
-        loadRencanaKinerja()
+        loadRencanaKinerja('<?=date("m")?>', '<?=date("Y")?>')
     })
 
-    function loadRencanaKinerja(){
+    function loadRencanaKinerja(bulan,tahun){
         $('#list_rencana_kinerja').html('')
         $('#list_rencana_kinerja').append(divLoaderNavy)
-        $('#list_rencana_kinerja').load('<?=base_url("kinerja/C_kinerja/loadRencanaKinerja")?>', function(){
+        $('#list_rencana_kinerja').load('<?=base_url("kinerja/C_kinerja/loadRencanaKinerja")?>'+'/'+bulan+'/'+tahun, function(){
             $('#loader').hide()
         })
     }
+
+    $('#search_bulan').on('change', function(){
+        loadRencanaKinerja($('#search_bulan').val(), $('#search_tahun').val())
+    })
+
+    $('#search_tahun').on('changeDate', function(){
+        loadRencanaKinerja($('#search_bulan').val(), $('#search_tahun').val())
+    })
 
     $('#form_tambah_rencana_kinerja').on('submit', function(e){
         e.preventDefault();
@@ -98,7 +134,7 @@
             data: $(this).serialize(),
             success: function(){
                 successtoast('Data berhasil ditambahkan')
-                loadRencanaKinerja()
+                loadRencanaKinerja($('#bulan').val(), $('#tahun').val())
                 document.getElementById("form_tambah_rencana_kinerja").reset();
             }, error: function(e){
                 errortoast('Terjadi Kesalahan')

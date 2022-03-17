@@ -23,8 +23,8 @@
   </div>
     <div class="form-group">
          <label class="bmd-label-floating">Kegiatan Tugas Jabatan </label>
-         <select class="form-control select2-navy" name="tugas_jabatan" id="tugas_jabatan" onchange="getSatuan()">
-         <option value="" selected>- Pilih Tugas Jabatan -</option>
+         <select class="form-control select2-navy" name="tugas_jabatan" id="tugas_jabatan" onchange="getSatuan()" required>
+         <option value="0" selected>- Pilih Tugas Jabatan -</option>
          </select>
              <!-- <select class="form-control select2-navy" style="width: 100%" onchange="getSatuan()"
                  id="tugas_jabatan" data-dropdown-css-class="select2-navy" name="tugas_jabatan" required>
@@ -60,7 +60,7 @@
   <div class="form-group">
     <label>Dokumen Bukti Kegiatan</label>
     <!-- <input class="form-control" type="file" id="image_file" multiple="multiple" /> -->
-    <input class="form-control" type="file" id="image_file" name="files[]" multiple="multiple" />
+    <input onclick="getDok()" class="form-control" type="file" id="image_file" name="files[]" multiple="multiple" />
     <br>
       <div id="uploadPreview"></div>
   </div>
@@ -87,22 +87,21 @@
     <label for="pwd" class="mr-2 ml-3"> Bulan</label>
     <select class="form-control select2-navy" 
                  id="bulan" data-dropdown-css-class="select2-navy" name="bulan" required>
-                 <option value="" selected>- Pilih Bulan -</option>
-                 <option value="1">Januari</option>
-                 <option value="2">Februari</option>
-                 <option value="3">Maret</option>
-                 <option value="4">April</option>
-                 <option value="5">Mei</option>
-                 <option value="6">Juni</option>
-                 <option value="7">Juli</option>
-                 <option value="8">Agustus</option>
-                 <option value="9">September</option>
-                 <option value="10">Oktober</option>
-                 <option value="10">November</option>
-                 <option value="10">Desember</option>
+                 <option <?=date('m') == 1 ? 'selected' : '';?> value="1">Januari</option>
+                 <option <?=date('m') == 2 ? 'selected' : '';?> value="2">Februari</option>
+                 <option <?=date('m') == 3 ? 'selected' : '';?> value="3">Maret</option>
+                 <option <?=date('m') == 4 ? 'selected' : '';?> value="4">April</option>
+                 <option <?=date('m') == 5 ? 'selected' : '';?> value="5">Mei</option>
+                 <option <?=date('m') == 6 ? 'selected' : '';?> value="6">Juni</option>
+                 <option <?=date('m') == 7 ? 'selected' : '';?> value="7">Juli</option>
+                 <option <?=date('m') == 8 ? 'selected' : '';?> value="8">Agustus</option>
+                 <option <?=date('m') == 9 ? 'selected' : '';?> value="9">September</option>
+                 <option <?=date('m') == 10 ? 'selected' : '';?> value="10">Oktober</option>
+                 <option <?=date('m') == 11 ? 'selected' : '';?> value="11">November</option>
+                 <option <?=date('m') == 12 ? 'selected' : '';?> value="12">Desember</option>
                  </select>
          </div>
-        <button type="button" onclick="searchListKegiatan()" class="btn btn-primary ml-3">Cari</button>
+        <!-- <button type="button" onclick="searchListKegiatan()" class="btn btn-primary ml-3">Cari</button> -->
         </form>
      <br>
     </div>
@@ -116,23 +115,33 @@
 
 
     $(function(){
-        
         loadListKegiatan()
         loadListTugasJabatan()
     })
 
      function loadListKegiatan(){
-         var tahun = new Date().getFullYear()
-         var bulan = new Date().getMonth()+1;
+         var tahun = '<?=date("Y")?>'
+         var bulan = '<?=date("m")?>'
  
         $('#list_kegiatan').html('')
         $('#list_kegiatan').append(divLoaderNavy)
         $('#list_kegiatan').load('<?=base_url("kinerja/C_Kinerja/loadKegiatan/")?>'+tahun+'/'+bulan+'', function(){
             $('#loader').hide()
-           
         })
     }
 
+    $('#bulan').on('change', function(){
+        searchListKegiatan()
+    })
+
+    $('#tahun').on('change', function(){
+        searchListKegiatan()
+    })
+
+    
+     function getDok(){
+        document.getElementById("uploadPreview").reset();
+     }
      function loadListTugasJabatan(){
       
            var bulan = new Date().getMonth()+1;
@@ -193,7 +202,17 @@
 
     
         $('#upload_form').on('submit', function(e){  
-        e.preventDefault();  
+        e.preventDefault();
+        // var tes = $('#tugas_jabatan').val()
+        // alert(tes)
+        // return false; 
+      
+        if($('#tugas_jabatan').val() == "- Pilih Tugas Jabatan -")  
+        {  
+        errortoast(" Pilih tugas jabatan terlebih dulu");  
+        return false
+        }  
+
         var formvalue = $('#upload_form');
         var form_data = new FormData(formvalue[0]);
         var ins = document.getElementById('image_file').files.length;
@@ -271,6 +290,7 @@
         }
 
         function readImage(file) {
+        $('#uploadPreview').html('');
         var reader = new FileReader();
         var image  = new Image();
         reader.readAsDataURL(file);  
@@ -284,9 +304,9 @@
         s = ~~(file.size/1024) +'KB';
         $('#uploadPreview').append('<img src="' + this.src + '" class="thumb">');
         };
-        image.onerror= function() {
-        alert('Invalid file type: '+ file.type);
-        };      
+        // image.onerror= function() {
+        // alert('Invalid file type: '+ file.type);
+        // };      
         };
         }
         $("#image_file").change(function (e) {

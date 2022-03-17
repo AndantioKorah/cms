@@ -26,7 +26,11 @@
                         </td>
                         
                         <td class="text-center">
-                            <button onclick="deleteKegiatan('<?=$lp['id']?>')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Hapus</button>
+                        <?php if($lp['count'] != 0 ){ ?>
+                            <?php } else { ?>
+                                <button onclick="deleteKegiatan('<?=$lp['id']?>')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Hapus</button>
+                            
+                            <?php } ?>
                         </td>
                         
                     </tr>

@@ -8,7 +8,7 @@
     <div class="card-body">
     <div class="row">
         <div class="col-12 mb-3">
-        <form class="form-inline" method="post" action="<?=base_url('kinerja/rekap');?>">
+        <form id="formSearchRekapKinerja" class="form-inline" method="post" action="<?=base_url('kinerja/rekap');?>">
   <div class="form-group">
     <label for="email" class="mr-2">Tahun </label>
     <input  class="form-control datepicker" id="tahun" name="tahun" value="<?=date('Y');?>">
@@ -16,7 +16,7 @@
   <div class="form-group">
     <label for="pwd" class="mr-2 ml-3"> Bulan</label>
     <select class="form-control select2-navy" 
-                 id="bulan" data-dropdown-css-class="select2-navy" name="bulan" required>
+                 id="bulan" data-dropdown-css-class="select2-navy" name="bulan" id="bulan" required>
                  <option value="" selected>- Pilih Bulan -</option>
                  <option value="1">Januari</option>
                  <option value="2">Februari</option>
@@ -32,16 +32,16 @@
                  <option value="10">Desember</option>
                  </select>
          </div>
-        <button type="submit" class="btn btn-primary ml-3">Cari</button>
+        <!-- <button type="submit" class="btn btn-primary ml-3">Cari</button> -->
         </form>
 
         </div>
         </div>
-    <div class="row">
+    <div class="row" >
         
     <?php if($list_rekap_kinerja){ ?>
-    <div class="col-12">
-    <table border="3"  class="table table-hover table-striped" >
+    <div class="col-12" id="list_rekap_kinerja">
+    <table border="3"  class="table table-hover table-striped" id="table_rekap_kinerja">
     <tbody><tr height="20" style="height:15.0pt">
     <th rowspan="2" height="40" >No</th>
     <th rowspan="2" >Kegiatan Tugas Jabatan</th>
@@ -64,10 +64,14 @@
  <?php $no=1; 
            
             foreach($list_rekap_kinerja as $lp){ ?>
+            
                 <?php
-                $realisasi_kualitas = $lp['realisasi_target_kuantitas']/$lp['target_kuantitas'] * 100;
+                
+                // $realisasi_kualitas = $lp['realisasi_target_kuantitas']/$lp['target_kuantitas'] * 100;
+                $progress = (floatval($lp['realisasi_target_kuantitas'])/floatval($lp['target_kuantitas'])) * 100;
+                $progress = formatTwoMaxDecimal($progress);
                 ?>
-                    <tr>
+                    <tr onclick="openListKegiatan('<?=$lp['id']?>')">
                         <td class="text-left"><?=$no++;?></td>
                         <td class="text-left"><?=$lp['tugas_jabatan']?></td>
                         <td class="text-left"><?=$lp['tahun']?></td>
@@ -75,10 +79,16 @@
                         <td class="text-left"><?=$lp['target_kuantitas']?></td>                       
                         <td class="text-left"><?=$lp['satuan']?></td>
                         <td class="text-left"><?=$lp['target_kualitas']?>%</td>
-                        <td class="text-left"><?=
-                        $lp['realisasi_target_kuantitas'] == '' ? '0' : $lp['realisasi_target_kuantitas']?></td>
+                        <td class="text-left">
+                            <?=$lp['realisasi_target_kuantitas'] == '' ? '0' : $lp['realisasi_target_kuantitas']?></td>
                         <td class="text-left"><?=$lp['satuan']?></td>
-                        <td class="text-left"><?=formatTwoMaxDecimal($realisasi_kualitas)?>%</td>
+                        <td class="text-left">
+                        <div class="text-center" style="border: 2px solid #80808082; border-radius: 5px; width: 100%; height: 30px; padding-bottom: 27px;">
+                                        <div class="text-center" style="border-radius: 3px; background-color: <?=getProgressBarColor($progress)?>; overflow: show; white-space: nowrap; width: <?=$progress.'%'?>; height: 27px;">
+                                            <strong style="font-size: 18px; color: <?=$progress == 25 || $progress == 100 ? 'white' : 'black'?>;"><?=$progress.' %';?></td></strong>
+                                        </div>
+                                    </div>
+                        </td>
                     </tr>
                 <?php } ?>
  <!--[endif]-->
@@ -87,7 +97,8 @@
 
        
     </div>
-
+    <div class="col-12" id="list_kegiatan" style="display: none;">
+            </div>
 <?php } else { ?>
     <div class="row">
         <div class="col-12">
@@ -112,8 +123,32 @@ $('.datepicker2').datepicker({
     autoclose: true,
     todayBtn: true
 });
+
+    $('#bulan').on('change', function(){
+        $('#table_rekap_kinerja').hide()
+        $('#list_kegiatan').hide()
+        // $('#list_rekap_kinerja').append(divLoaderNavy)
+        document.getElementById("formSearchRekapKinerja").submit();
+    })
+
+    // $('#tahun').on('change', function(){
+    //     $('#table_rekap_kinerja').hide()
+    //     $('#list_rekap_kinerja').append(divLoaderNavy)
+    //     document.getElementById("formSearchRekapKinerja").submit();
+    // })
  
 
+    function openListKegiatan(id){
+            $('.tr_rekap_realisasi').removeClass('tr_rekap_active')
+            $('#tr_rekap_'+id).addClass('tr_rekap_active')
+
+            $('#list_kegiatan').show()
+            $('#list_kegiatan').html('')
+            $('#list_kegiatan').append(divLoaderNavy)
+            $('#list_kegiatan').load('<?=base_url("kinerja/C_VerifKinerja/loadListKegiatanRencanaKinerja")?>'+'/'+id, function(){
+                $('#loader').hide()
+            })
+        } 
 
 </script>
 

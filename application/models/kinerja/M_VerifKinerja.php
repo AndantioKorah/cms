@@ -41,25 +41,28 @@
             $list_pegawai = null;
             if($role == 'subkoordinator'){
                 //pegawai yang diverif adalah staf pelaksana di sub bidang yang sama
-                $list_pegawai = $this->db->select('*, id as id_m_muser')
+                $list_pegawai = $this->db->select('*, id as id_m_user')
                                         ->from('m_user')
                                         ->where('id_m_sub_bidang', $this_user['id_m_sub_bidang'])
+                                        ->where('id !=', $this->general_library->getId())
                                         ->where('flag_active', 1)
                                         ->get()->result_array();
             } else if($role == 'kepalabidang' || $role == 'sekretarisbadan'){
                 //pegawai yang diverif adalah subkoordinator di bidang yang sama
                 $subbidang = $this->db->select('*')
                                         ->from('m_sub_bidang a')
-                                        ->where('a.id_m_sub_bidang', $this_user['id_m_sub_bidang'])
+                                        ->where('a.id', $this_user['id_m_sub_bidang'])
                                         ->where('a.flag_active', 1)
                                         ->get()->row_array();
                 $list_role = ['subkoordinator'];
-                $list_pegawai = $this->db->select('*, a.id as id_m_muser')
+                $list_pegawai = $this->db->select('*, a.id as id_m_user')
                                         ->from('m_user a')
                                         ->join('m_sub_bidang b', 'a.id_m_sub_bidang = b.id')
-                                        ->join('m_role c', 'a.id = c.id_m_user')
+                                        ->join('m_user_role c', 'a.id = c.id_m_user')
+                                        ->join('m_role d', 'c.id_m_role = d.id')
                                         ->where('b.id_m_bidang', $subbidang['id_m_bidang'])
-                                        ->where_in('c.role_name', $list_role)
+                                        ->where_in('d.role_name', $list_role)
+                                        ->where('a.id !=', $this->general_library->getId())
                                         ->where('a.flag_active', 1)
                                         ->where('c.flag_active', 1)
                                         ->get()->result_array();
@@ -78,10 +81,11 @@
                 }
                 
                 $list_role = ['kepalabidang', 'sekretarisbadan'];
-                $list_pegawai = $this->db->select('*, a.id as id_m_muser')
+                $list_pegawai = $this->db->select('*, a.id as id_m_user')
                                         ->from('m_user a')
                                         ->join('m_role b', 'a.id = b.id_m_user')
                                         ->join('m_sub_bidang c', 'c.id = a.id_m_sub_bidang')
+                                        ->where('a.id !=', $this->general_library->getId())
                                         ->where_in('b.role_name', $list_role)
                                         ->where_in('c.id_m_bidang', $list_bidang)
                                         ->where('a.flag_active', 1)
@@ -89,6 +93,7 @@
                                         ->get()->result_array();
             }
             $list_id_pegawai = array();
+            // dd($list_pegawai);
             if($list_pegawai){
                 foreach($list_pegawai as $lp){
                     $list_id_pegawai[] = $lp['id_m_user'];
@@ -128,7 +133,9 @@
             $endDate = $endDate[0].'-'.$endDate[2].'-'.$endDate[1];
 
             $list_id_pegawai = $this->getListIdPegawaiForVerif();
-
+            if(!$list_id_pegawai){
+                return null;
+            }
             $list_kerja = null;
             $temp = $this->db->select('*, a.id as id_t_kegiatan, a.created_date as tanggal_kegiatan, a.realisasi_target_kuantitas')
                                 ->from('t_kegiatan a')
