@@ -38,15 +38,15 @@
                             <?php 
                             
                             $file = json_decode($lp['bukti_kegiatan']);
-                            $no = 1;
+                            $nodok = 1;
                             foreach($file as $file_name)
                                 {
                                     if($file_name == null){
                                         echo "<a class='dropdown-item' >Tidak Ada File</a>";
                                     } else {
-                                        echo "<a class='dropdown-item' href=".base_url('assets/bukti_kegiatan/'.$file_name.'')." target='_blank'>Dokumen ".$no."</a>";
+                                        echo "<a class='dropdown-item' href=".base_url('assets/bukti_kegiatan/'.$file_name.'')." target='_blank'>Dokumen ".$nodok."</a>";
                                     }
-                                   $no++;
+                                   $nodok++;
                                 } 
                             ?>
    

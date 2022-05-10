@@ -346,7 +346,8 @@
 $('.datepickerthis').datepicker({
     format: 'yyyy-mm-dd',
     orientation: 'bottom',
-    autoclose: true
+    autoclose: true,
+    todayHighlight: true
 });
 
 $('.datepicker').datepicker({
