@@ -53,7 +53,7 @@
 
         public function loadKegiatan($tahun,$bulan){
             $id =  $this->general_library->getId();
-            return $this->db->select('a.*, b.tugas_jabatan,c.status_verif')
+            return $this->db->select('a.*, b.tugas_jabatan,c.status_verif, c.id as id_status_verif')
                 ->from('t_kegiatan a')
                 ->join('t_rencana_kinerja b', 'a.id_t_rencana_kinerja = b.id')
                 ->join('m_status_verif c', 'a.status_verif = c.id')

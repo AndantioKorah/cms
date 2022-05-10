@@ -13,7 +13,7 @@
 
         public function getAllUnitKerja(){
             return $this->db->select('*')
-                            ->from('unitkerja')
+                            ->from('db_pegawai.unitkerja')
                             ->order_by('nm_unitkerja', 'asc')
                             ->get()->result_array();
         }
@@ -21,7 +21,7 @@
         public function loadMasterBidang(){
             return $this->db->select('*')
                             ->from('m_bidang a')
-                            ->join('unitkerja b', 'a.id_unitkerja = b.id_unitkerja')
+                            ->join('db_pegawai.unitkerja b', 'a.id_unitkerja = b.id_unitkerja')
                             ->where('a.flag_active', 1)
                             ->order_by('a.nama_bidang', 'asc')
                             ->get()->result_array();
@@ -31,7 +31,7 @@
             return $this->db->select('*, a.id as id_m_sub_bidang')
                             ->from('m_sub_bidang a')
                             ->join('m_bidang b', 'a.id_m_bidang = b.id')
-                            ->join('unitkerja c', 'b.id_unitkerja = c.id_unitkerja')
+                            ->join('db_pegawai.unitkerja c', 'b.id_unitkerja = c.id_unitkerja')
                             ->where('a.flag_active', 1)
                             ->order_by('a.nama_sub_bidang', 'asc')
                             ->get()->result_array();

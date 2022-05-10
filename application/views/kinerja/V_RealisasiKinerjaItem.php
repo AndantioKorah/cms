@@ -24,10 +24,10 @@
                         <td class="text-left" style="width:10%;"><?=$lp['realisasi_target_kuantitas']?></td>
                         <td class="text-left"><?=$lp['satuan']?></td>
                         <td class="text-left">
-                        <button class="btn btn-<?php if($lp['status_verif'] == 0) echo  "warning";
-                                                    else if($lp['status_verif'] == 1) echo "success";
-                                                    else if($lp['status_verif'] == 2) echo "danger";
-                                                    else if($lp['status_verif'] == 3) echo "warning";   ?> btn-sm" type="button" >
+                        <button class="btn btn-<?php if($lp['id_status_verif'] == 0) echo  "warning";
+                                                    else if($lp['id_status_verif'] == 1) echo "success";
+                                                    else if($lp['id_status_verif'] == 2) echo "danger";
+                                                    else if($lp['id_status_verif'] == 3) echo "warning";   ?> btn-sm" type="button" >
                         <?= $lp['status_verif'];?>
                             </button></td>
                         <td class="text-center">  

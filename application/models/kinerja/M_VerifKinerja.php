@@ -33,7 +33,7 @@
             
             $this_user = $this->db->select('*')
                                 ->from('m_user a')
-                                ->join('pegawai b', 'a.username = b.nipbaru_ws')
+                                ->join('db_pegawai.pegawai b', 'a.username = b.nipbaru_ws')
                                 ->where('a.id', $this->general_library->getId())
                                 ->where('a.flag_active', 1)
                                 ->get()->row_array();
@@ -69,10 +69,11 @@
             } else if($role == 'kepalabadan'){
                 //pegawai yang diverif adalah kepala bidang atau sekretaris di instansi yang sama
                 $list_bidang = null;
+                // dd($this_user);
                 $bidang = $this->db->select('*')
                                 ->from('m_bidang')
                                 ->where('flag_active', 1)
-                                ->where('id_unit_kerja', $this_user['id_unit_kerja'])
+                                ->where('id_unitkerja', $this_user['skpd'])
                                 ->get()->result_array();
                 if($bidang){
                     foreach($bidang as $b){
@@ -83,13 +84,16 @@
                 $list_role = ['kepalabidang', 'sekretarisbadan'];
                 $list_pegawai = $this->db->select('*, a.id as id_m_user')
                                         ->from('m_user a')
-                                        ->join('m_role b', 'a.id = b.id_m_user')
+                                        ->join('m_user_role b', 'a.id = b.id_m_user')
+                                        ->join('m_role d', 'd.id = b.id_m_role')
                                         ->join('m_sub_bidang c', 'c.id = a.id_m_sub_bidang')
                                         ->where('a.id !=', $this->general_library->getId())
-                                        ->where_in('b.role_name', $list_role)
+                                        ->where_in('d.role_name', $list_role)
                                         ->where_in('c.id_m_bidang', $list_bidang)
                                         ->where('a.flag_active', 1)
+                                        ->where('b.flag_active', 1)
                                         ->where('c.flag_active', 1)
+                                        ->group_by('a.id')
                                         ->get()->result_array();
             }
             $list_id_pegawai = array();

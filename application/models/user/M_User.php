@@ -11,6 +11,13 @@
             $this->db->insert($tablename, $data);
         }
 
+        public function getAllSkpd(){
+            return $this->db->select('id_unitkerja, nm_unitkerja')
+                            ->from('db_pegawai.unitkerja')
+                            ->order_by('nm_unitkerja', 'asc')
+                            ->get()->result_array();
+        }
+
         public function getAllUsers(){
             return $this->db->select('a.*, a.nama as nama_user, b.nama_sub_bidang')
                             ->from('m_user a')
@@ -306,12 +313,17 @@
                 $i = 0;
                 foreach($list_menu as $l){
                     $list_menu[$i]['child'] = null;
-                    $list_menu[$i]['child'] = $this->db->select('*')
-                                                        ->from('m_menu')
-                                                        ->where('id_m_menu_parent', $l['id'])
-                                                        ->where('flag_active', 1)
-                                                        ->order_by('created_date', 'asc')
-                                                        ->get()->result_array();
+                    $this->db->select('*')
+                        ->from('m_menu a')
+                        ->where('a.id_m_menu_parent', $l['id'])
+                        ->where('a.flag_active', 1)
+                        ->order_by('a.created_date', 'asc');
+                        if($role_name != 'programmer'){
+                            $this->db->join('m_menu_role b', 'b.id_m_menu = a.id')
+                                    ->where('b.id_m_role', $id_role)    
+                                    ->where('b.flag_active', 1);    
+                        }           
+                        $list_menu[$i]['child'] = $this->db->get()->result_array();
                     $i++;
                 }
             }
@@ -444,26 +456,40 @@
             return $this->db->get()->result_array();
         }
 
+        public function getListPegawaiByUnitKerja($id_unitkerja){
+            return $this->db->select('*')
+                            ->from('db_pegawai.pegawai')
+                            ->where('skpd', $id_unitkerja)
+                            ->order_by('nama', 'asc')
+                            ->get()->result_array();
+        }
+
         public function importPegawaiNewUser(){
             $data = $this->input->post();
             if(!$data['search_value']){
                 return null;
             }
             return $this->db->select('*')
-                            ->from('pegawai a')
-                            ->join('unitkerja b', 'a.skpd = b.id_unitkerja')
+                            ->from('db_pegawai.pegawai a')
+                            ->join('db_pegawai.unitkerja b', 'a.skpd = b.id_unitkerja')
                             ->or_like('a.nipbaru_ws', $data['search_value'])
                             ->or_like('a.nama', $data['search_value'])
                             ->get()->result_array();
         }
 
         public function importPegawaiByUnitKerja($unitkerja){
+            $rs['code'] = 0;
+            $rs['message'] = 'OK';
+
+            $this->db->trans_begin();
+
             $list_pegawai = $this->db->select('*')
-                                    ->from('pegawai')
+                                    ->from('db_pegawai.pegawai')
                                     ->where('skpd', $unitkerja)
                                     ->get()->result_array();
             if($list_pegawai){
                 $bulkuser = null;
+                $list_id_pegawai = null;
                 foreach($list_pegawai as $lp){
                     $exist = $this->db->select('*')
                             ->from('m_user')
@@ -471,23 +497,45 @@
                             ->where('flag_active', 1)
                             ->get()->row_array();
                     if($exist){
+                        $list_id_pegawai[] = $lp['id_peg'];
                         // echo 'username '.$lp['nipbaru_ws'].' sudah terdaftar'.'<br>';
                     } else {
                         $user['username'] = $lp['nipbaru_ws'];
-                        $user['nama'] = trim($lp['gelar1']).' '.trim($lp['nama']).' '.trim($lp['gelar2']);
+                        $user['nama'] = getNamaPegawaiFull($lp);
                         $nip_baru = explode(" ", $lp['nipbaru']);
                         $password = $nip_baru[0];
                         $pass_split = str_split($password);
                         $new_password = $pass_split[6].$pass_split[7].$pass_split[4].$pass_split[5].$pass_split[0].$pass_split[1].$pass_split[2].$pass_split[3];
                         $user['password'] = $this->general_library->encrypt($user['username'], $new_password);
                         $bulkuser[] = $user;
+                        $list_id_pegawai[] = $lp['id_peg'];
                         // echo 'masukkan '.$lp['nipbaru_ws'].' ke dalam list<br>';
                     }
                 }
+                if($list_id_pegawai){
+                    $this->db->where_in('id_peg', $list_id_pegawai)
+                            ->update('db_pegawai.pegawai', ['flag_user_created' => 1]);
+                }
                 if($bulkuser){
                     $this->db->insert_batch('m_user', $bulkuser);
+                } else {
+                    $rs['code'] = 2;
+                    $rs['message'] = 'Import Selesai';
                 }
+            } else {
+                $rs['code'] = 1;
+                $rs['message'] = 'Terjadi Kesalahan';
             }
+
+            if($this->db->trans_status() == FALSE){
+                $this->db->trans_rollback();
+                $rs['code'] = 1;
+                $rs['message'] = 'Terjadi Kesalahan';
+            } else {
+                $this->db->trans_commit();
+            }
+
+            return $rs;
         }
 
         public function createUserImport($nip){
@@ -499,14 +547,14 @@
                             ->where('flag_active', 1)
                             ->get()->row_array();
             $pegawai = $this->db->select('*')
-                            ->from('pegawai')
+                            ->from('db_pegawai.pegawai')
                             ->where('nipbaru_ws', $nip)
                             ->get()->row_array();
             if($exist){
                 $rs['code'] = 1;
                 $rs['message'] = 'User sudah terdaftar';
                 $this->db->where('nipbaru_ws', $nip)
-                        ->update('pegawai', ['flag_user_created' => 1]);
+                        ->update('db_pegawai.pegawai', ['flag_user_created' => 1]);
             } else if(!$pegawai){
                 $rs['code'] = 1;
                 $rs['message'] = 'Terjadi Kesalahan';
@@ -543,7 +591,7 @@
         public function getListPegawaiSkpd($idskpd, $iduser){
             return $this->db->select('*, a.id as id_m_user, a.nama as nama_pegawai')
                             ->from('m_user a')
-                            ->join('pegawai b', 'a.username = b.nipbaru_ws')
+                            ->join('db_pegawai.pegawai b', 'a.username = b.nipbaru_ws')
                             ->where('b.skpd', $idskpd)
                             ->where('a.id !=', $iduser)
                             ->where('a.flag_active', 1)

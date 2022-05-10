@@ -177,7 +177,7 @@
 
         public function getDataPegawai($nip){
             return $this->db->select('*')
-                            ->from('pegawai')
+                            ->from('db_pegawai.pegawai')
                             ->where('nipbaru_ws', $nip)
                             ->get()->row_array();
         }

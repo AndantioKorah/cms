@@ -178,6 +178,10 @@ function formatDateNamaBulan($data){
     return $explode[0].' '.getNamaBulan($explode[1]).' '.$explode[2];
 }
 
+function getNamaPegawaiFull($pegawai){
+    return trim($pegawai['gelar1']).' '.trim($pegawai['nama']).' '.trim($pegawai['gelar2']);
+}
+
 function getNamaBulan($bulan){
     $bulan = floatval($bulan);
     switch($bulan){
