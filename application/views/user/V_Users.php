@@ -1,59 +1,77 @@
-<div class="card card-default">
-    <div class="card-header">
-        <div class="row">
-            <div class="col-6">
-                <h3 class="card-title">TAMBAH USER</h3>
-            </div>
-            <div class="col-6 text-right">
-                <button class="btn btn-sm btn-navy" data-toggle="modal" data-target="#modal_import_user"><i class="fa fa-file-import"></i> Import dari Data Pegawai</button>
+<?php if($this->general_library->getRole() == 'programmer') { ?>
+    <div class="card card-default">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-6">
+                    <h3 class="card-title">TAMBAH USER</h3>
+                </div>
+                <div class="col-6 text-right">
+                    <button class="btn btn-sm btn-navy" data-toggle="modal" data-target="#modal_import_user"><i class="fa fa-file-import"></i> Import dari Data Pegawai</button>
+                </div>
             </div>
         </div>
+        <div class="card-body">
+            <form id="form_tambah_user">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="bmd-label-floating">Nama</label>
+                            <input required class="form-control" autocomplete="off" name="nama" id="nama"/>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label class="bmd-label-floating">Nomor HP</label>
+                            <input required class="form-control" autocomplete="off" name="no_hp" id="no_hp"/>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="bmd-label-floating">Username</label>
+                            <input required class="form-control" autocomplete="off" name="username" id="username"/>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label class="bmd-label-floating">Password</label>
+                            <input required class="form-control" autocomplete="off" type="password" name="password" id="password"/>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label class="bmd-label-floating">Konfirmasi Password</label>
+                            <input required class="form-control" autocomplete="off" type="password" name="konfirmasi_password" id="konfirmasi_password"/>
+                        </div>
+                    </div>
+                        <div class="col-8"></div>
+                    <div class="col-4 text-right mt-2">
+                        <button class="btn btn-sm btn-navy" type="submit"><i class="fa fa-save"></i> SIMPAN</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="card-body">
-        <form id="form_tambah_user">
-            <div class="row">
-                <div class="col-3">
-                    <div class="form-group">
-                        <label class="bmd-label-floating">Nama</label>
-                        <input required class="form-control" autocomplete="off" name="nama" id="nama"/>
-                    </div>
-                </div>
-                <div class="col-2">
-                    <div class="form-group">
-                        <label class="bmd-label-floating">Nomor HP</label>
-                        <input required class="form-control" autocomplete="off" name="no_hp" id="no_hp"/>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="form-group">
-                        <label class="bmd-label-floating">Username</label>
-                        <input required class="form-control" autocomplete="off" name="username" id="username"/>
-                    </div>
-                </div>
-                <div class="col-2">
-                    <div class="form-group">
-                        <label class="bmd-label-floating">Password</label>
-                        <input required class="form-control" autocomplete="off" type="password" name="password" id="password"/>
-                    </div>
-                </div>
-                <div class="col-2">
-                    <div class="form-group">
-                        <label class="bmd-label-floating">Konfirmasi Password</label>
-                        <input required class="form-control" autocomplete="off" type="password" name="konfirmasi_password" id="konfirmasi_password"/>
-                    </div>
-                </div>
-                    <div class="col-8"></div>
-                <div class="col-4 text-right mt-2">
-                    <button class="btn btn-sm btn-navy" type="submit"><i class="fa fa-save"></i> SIMPAN</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-
+<?php } ?>
+<style>
+     
+</style>
 <div class="card card-default">
     <div class="card-header">
-        <h3 class="card-title">LIST USER</h3>
+        <?php if($this->general_library->getRole() == 'programmer') { ?>
+            <h3 class="card-title mb-2"><strong>PILIH SKPD</strong></h3>
+            <select class="form-control select2-navy" style="width: 100%;"
+                id="select_search_skpd" data-dropdown-css-class="select2-navy" name="select_search_skpd">
+                <?php if($list_skpd){
+                    foreach($list_skpd as $ls){
+                    ?>
+                    <option value="<?=$ls['id_unitkerja']?>">
+                        <?=$ls['nm_unitkerja']?>
+                    </option>
+                <?php } } ?>
+            </select>
+        <?php } else { ?>
+            <h3 class="card-title mb-2"><strong>LIST USER</strong></h3>
+        <?php } ?>
     </div>
     <div class="card-body">
         <div id="list_users" class="row">
@@ -112,7 +130,7 @@
                                         <h5>LIST PEGAWAI</h5>
                                         <hr>
                                     </div>
-                                    <div class="col-12" id="div_create_list_pegawai">
+                                    <div class="col-12" id="div_create_list_pegawai" style="max-height: 600px; overflow: auto !important;">
                                     </div>
                                 </div>
                             </div>
@@ -150,14 +168,19 @@
 <script>
     $(function(){
         $('#id_skpd').select2()
+        $('#select_search_skpd').select2()
         // searchBySkpd()
         loadUsers()
     })
 
     function loadUsers(){
+        let parameter = '<?=$pegawai['skpd']?>'
+        <?php if($this->general_library->getRole() == 'programmer') { ?>
+            parameter = $('#select_search_skpd').val()
+        <?php } ?>
         $('#list_users').html('')
         $('#list_users').append(divLoaderNavy)
-        $('#list_users').load('<?=base_url("user/C_User/loadUsers")?>', function(){
+        $('#list_users').load('<?=base_url("user/C_User/loadUsers")?>'+'/'+parameter, function(){
             $('#loader').hide()
         })
     }
@@ -169,6 +192,10 @@
             $('#loader').hide()
         })
     }
+
+    $('#select_search_skpd').on('change', function(){
+        loadUsers()
+    })
 
     $('#id_skpd').on('change', function(){
         searchBySkpd()

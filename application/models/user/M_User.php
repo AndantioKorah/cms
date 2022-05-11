@@ -27,6 +27,17 @@
                             ->get()->result_array();
         }
 
+        public function getAllUsersBySkpd($id_unitkerja){
+            return $this->db->select('a.*, a.nama as nama_user, b.nama_sub_bidang')
+                            ->from('m_user a')
+                            ->join('m_sub_bidang b', 'a.id_m_sub_bidang = b.id', 'left')
+                            ->join('db_pegawai.pegawai c', 'a.username = c.nipbaru_ws')
+                            ->where('c.skpd', $id_unitkerja)
+                            ->where('a.flag_active', 1)
+                            ->order_by('a.nama')
+                            ->get()->result_array();
+        }
+
         public function createUser($data){
             if($data['password'] != $data['konfirmasi_password']){
                 return ['message' => 'Password dan Konfirmasi Password harus sama'];

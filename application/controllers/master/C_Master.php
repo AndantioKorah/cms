@@ -33,6 +33,17 @@ class C_Master extends CI_Controller
 
     public function masterBidang(){
         $data['list_unit_kerja'] = $this->master->getAllUnitKerja();
+        $data['unit_kerja']['id_unitkerja'] = 0;
+        $data['unit_kerja']['nm_unitkerja'] = '';
+        if($this->general_library->getRole() != 'programmer'){
+            $pegawai = $this->session->userdata('pegawai');
+            foreach($data['list_unit_kerja'] as $duk){
+                if($duk['id_unitkerja'] == $pegawai['skpd']){
+                    $data['unit_kerja']['id_unitkerja'] = $duk['id_unitkerja'];
+                    $data['unit_kerja']['nm_unitkerja'] = $duk['nm_unitkerja'];
+                }
+            }
+        }
         render('master/V_MasterBidang', '', '', $data);
     }
 
@@ -42,8 +53,8 @@ class C_Master extends CI_Controller
         $this->master->insert('m_bidang', $data);
     }
 
-    public function loadMasterBidang(){
-        $data['list_master_bidang'] = $this->master->loadMasterBidang();
+    public function loadMasterBidang($id_unitkerja){
+        $data['list_master_bidang'] = $this->master->loadMasterBidangByUnitKerja($id_unitkerja);
         $this->load->view('master/V_MasterBidangItem', $data);
     }
 
@@ -51,8 +62,26 @@ class C_Master extends CI_Controller
         $this->general->delete('id', $id, 'm_bidang');
     }
 
+    public function loadBidangByUnitKerja($id_unitkerja){
+        echo json_encode($this->master->loadMasterBidangByUnitKerja($id_unitkerja));
+    }
+
     public function masterSubBidang(){
-        $data['list_master_bidang'] = $this->master->loadMasterBidang();
+        $data['list_unit_kerja'] = $this->master->getAllUnitKerja();
+        $data['unit_kerja']['id_unitkerja'] = 0;
+        $data['unit_kerja']['nm_unitkerja'] = '';
+        if($this->general_library->getRole() != 'programmer'){
+            $pegawai = $this->session->userdata('pegawai');
+            foreach($data['list_unit_kerja'] as $duk){
+                if($duk['id_unitkerja'] == $pegawai['skpd']){
+                    $data['unit_kerja']['id_unitkerja'] = $duk['id_unitkerja'];
+                    $data['unit_kerja']['nm_unitkerja'] = $duk['nm_unitkerja'];
+                }
+            }
+            $data['list_master_bidang'] = $this->master->loadMasterBidang();
+        } else {
+            $data['list_master_bidang'] = $this->master->loadMasterBidang();
+        }        
         render('master/V_MasterSubBidang', '', '', $data);
     }
 
@@ -62,13 +91,23 @@ class C_Master extends CI_Controller
         $this->master->insert('m_sub_bidang', $data);
     }
 
-    public function loadMasterSubBidang(){
-        $data['list_master_sub_bidang'] = $this->master->loadMasterSubBidang();
+    public function loadMasterSubBidangByUnitKerja($id_unitkerja){
+        $data['list_master_sub_bidang'] = $this->master->loadMasterSubBidangByUnitKerja($id_unitkerja);
         $this->load->view('master/V_MasterSubBidangItem', $data);
     }
 
     public function deleteMasterSubBidang($id){
         $this->general->delete('id', $id, 'm_sub_bidang');
+    }
+
+    public function rekapPegawaiBySkpd(){
+        $data['list_unit_kerja'] = $this->master->getAllUnitKerja();
+        render('master/V_RekapPegawaiBySkpd', '', '', $data);
+    }
+
+    public function rekapPegawaiSubmit(){
+        $data['result'] = $this->master->searchPegawaiBySkpd($this->input->post());
+        $this->load->view('master/V_RekapPegawaiItem', $data);
     }
     
 }

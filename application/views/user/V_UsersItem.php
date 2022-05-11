@@ -78,4 +78,8 @@
             }
         }
     </script>
+<?php } else { ?>
+    <div class="col-12 text-center">
+        <h5>DATA TIDAK DITEMUKAN !</h5>
+    </div>
 <?php } ?>
