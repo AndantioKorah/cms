@@ -202,6 +202,8 @@
 
     
         $('#upload_form').on('submit', function(e){  
+        document.getElementById('btn_upload').disabled = true;
+        $('#btn_upload').html('SIMPAN.. <i class="fas fa-spinner fa-spin"></i>')
         e.preventDefault();
         // var tes = $('#tugas_jabatan').val()
         // alert(tes)
@@ -241,6 +243,8 @@
                 
                 document.getElementById("upload_form").reset();
                 $('#uploadPreview').html('');
+                $('#btn_upload').html('<i class="fa fa-save"></i>  SIMPAN')
+                document.getElementById('btn_upload').disabled = false;
         }  
         });  
           

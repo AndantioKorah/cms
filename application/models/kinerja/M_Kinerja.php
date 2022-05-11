@@ -12,7 +12,8 @@
         }
 
         public function createLaporanKegiatan($dataPost,$image){
-    //   dd($image);
+  
+        $this->db->trans_begin();
         $data = array('tanggal_kegiatan' => $dataPost['tanggal_kegiatan'], 
                       'deskripsi_kegiatan' => $dataPost['deskripsi_kegiatan'],
                       'realisasi_target_kuantitas' => $dataPost['target_kuantitas'],
@@ -47,6 +48,14 @@
                      'target_kuantitas' => $cek['0']['realisasi_target_kuantitas']
             ]);
          }
+         if ($this->db->trans_status() === FALSE)
+            {
+                    $this->db->trans_rollback();
+            }
+            else
+            {
+                    $this->db->trans_commit();
+            }
       
 
         }
