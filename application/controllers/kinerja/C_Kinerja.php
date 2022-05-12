@@ -94,7 +94,7 @@ class C_Kinerja extends CI_Controller
                $config['maintain_ratio'] = FALSE;
                
                if($data['image_height'] > 1000) {
-                $imgdata=exif_read_data($this->upload->upload_path.$this->upload->file_name, 'IFD0');
+                // $imgdata=exif_read_data($this->upload->upload_path.$this->upload->file_name, 'IFD0');
                 $config['width'] = $data['image_width'] * 50 / 100;
                 $config['height'] = $data['image_height'] * 50 / 100;
                } else {
@@ -106,37 +106,38 @@ class C_Kinerja extends CI_Controller
               
                $this->image_lib->initialize($config);
               
-            if($data['image_height'] > 1000) {
-                if (!$this->image_lib->resize()){  
-                    echo "error";
-                }else{
+            // if($data['image_height'] > 1000) {
+            //     if (!$this->image_lib->resize()){  
+            //         echo "error";
+            //     }else{
     
-                    $this->image_lib->clear();
-                    $config=array();
+            //         $this->image_lib->clear();
+            //         $config=array();
     
-                    $config['image_library'] = 'gd2';
-                    $config['source_image'] = $this->upload->upload_path.$this->upload->file_name;
+            //         $config['image_library'] = 'gd2';
+            //         $config['source_image'] = $this->upload->upload_path.$this->upload->file_name;
     
     
-                    switch($imgdata['Orientation']) {
-                        case 3:
-                            $config['rotation_angle']='180';
-                            break;
-                        case 6:
-                            $config['rotation_angle']='270';
-                            break;
-                        case 8:
-                            $config['rotation_angle']='90';
-                            break;
-                    }
+            //         switch($imgdata['Orientation']) {
+            //             case 3:
+            //                 $config['rotation_angle']='180';
+            //                 break;
+            //             case 6:
+            //                 $config['rotation_angle']='270';
+            //                 break;
+            //             case 8:
+            //                 $config['rotation_angle']='90';
+            //                 break;
+            //         }
     
-                    $this->image_lib->initialize($config); 
-                    $this->image_lib->rotate();
+            //         $this->image_lib->initialize($config); 
+            //         $this->image_lib->rotate();
     
-                }
-                } else {
-                $this->image_lib->resize();
-                }   
+            //     }
+            //     } else {
+            //     $this->image_lib->resize();
+            //     } 
+            $this->image_lib->resize();  
               }
             }
             $nama_file[] = $data['file_name'];

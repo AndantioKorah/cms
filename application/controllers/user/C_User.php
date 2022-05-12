@@ -27,7 +27,13 @@ class C_User extends CI_Controller
 
     public function users(){
         // $data['roles'] = $this->general->getAllWithOrder('m_role', 'nama', 'asc');
-        render('user/V_Users', 'user_management', 'users', null);
+        $data['list_skpd'] = $this->user->getAllSkpd();
+        render('user/V_Users', 'user_management', 'users', $data);
+    }
+
+    public function loadPegawaiBySkpd($id_unitkerja){
+        $data['list_pegawai'] = $this->user->getListPegawaiByUnitKerja($id_unitkerja);
+        $this->load->view('user/V_ListPegawaiBySkpd', $data);
     }
 
     public function userChangePassword(){
@@ -64,8 +70,13 @@ class C_User extends CI_Controller
         $this->general->update('id', $id, 't_verif_tambahan', ['flag_active' => 0]);
     }
 
-    public function importPegawaiByUnitKerja(){
-        $this->user->importPegawaiByUnitKerja(IMPORT_UNIT_KERJA);
+    // public function importPegawaiByUnitKerja(){
+    //     $this->user->importPegawaiByUnitKerja(IMPORT_UNIT_KERJA);
+    // }
+
+    public function importPegawaiByUnitKerja($id_unitkerja){
+        // dd($id_unitkerja);
+        echo json_encode ($this->user->importPegawaiByUnitKerja($id_unitkerja));
     }
 
     public function tambahSubBidangUser(){

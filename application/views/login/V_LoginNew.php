@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>APANG | BKPSDM Manado</title>
+	<title><?=TITLES?></title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="assets/new_login/images/logo-efort-red-white.png"/>
+	<!-- <link rel="icon" type="image/png" href="assets/new_login/images/logo-efort-red-white.png"/> -->
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="assets/new_login/vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
@@ -43,8 +43,8 @@
 							<span class="login100-form-title p-b-59">
 								Selamat Datang!
 							</span>
-							<span class="login100-form-title">
-							Aplikasi Penilaian Kinerja Pegawai
+							<span class="login100-form-title p-b-59">
+								APLIKASI PENILAIAN KINERJA PEGAWAI
 							</span>
 							<!-- <img src="assets/new_login/images/logo-efort-png.png" style="height: 250px; width: 250px;"/> -->
 						</center>
