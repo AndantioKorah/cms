@@ -28,6 +28,7 @@ class C_User extends CI_Controller
     public function users(){
         // $data['roles'] = $this->general->getAllWithOrder('m_role', 'nama', 'asc');
         $data['list_skpd'] = $this->user->getAllSkpd();
+        $data['pegawai'] = $this->session->userdata('pegawai');
         render('user/V_Users', 'user_management', 'users', $data);
     }
 
@@ -120,8 +121,8 @@ class C_User extends CI_Controller
         echo json_encode($this->user->addRoleForUser($this->input->post()));
     }
 
-    public function loadUsers(){
-        $data['result'] = $this->user->getAllUsers();
+    public function loadUsers($id_unitkerja){
+        $data['result'] = $this->user->getAllUsersBySkpd($id_unitkerja);
         $this->load->view('user/V_UsersItem', $data);
     }
 

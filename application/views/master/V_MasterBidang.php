@@ -6,6 +6,7 @@
         <form id="form_tambah_master_bidang">
             <div class="row">
                 <div class="col-lg-4 col-md-12">
+                    <?php if($this->general_library->getRole() == 'programmer'){ ?>
                     <div class="form-group">
                         <label class="bmd-label-floating">Pilih SKPD</label>
                         <select class="form-control select2-navy" style="width: 100%"
@@ -19,6 +20,20 @@
                             <?php } } ?>
                         </select>
                     </div>
+                    <?php } else { ?>
+                        <div class="form-group">
+                            <label class="bmd-label-floating">SKPD</label>
+                            <select class="form-control select2-navy" style="width: 100%"
+                            id="id_unitkerja" data-dropdown-css-class="select2-navy" name="id_unitkerja">
+                                <?php if($unit_kerja){
+                                    ?>
+                                    <option value="<?=$unit_kerja['id_unitkerja']?>">
+                                        <?=$unit_kerja['nm_unitkerja']?>
+                                    </option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    <?php } ?>
                 </div>
                 <div class="col-lg-4 col-md-12">
                     <div class="form-group">
@@ -56,10 +71,14 @@
     function loadMasterBidang(){
         $('#list_master_bidang').html('')
         $('#list_master_bidang').append(divLoaderNavy)
-        $('#list_master_bidang').load('<?=base_url("master/C_Master/loadMasterBidang")?>', function(){
+        $('#list_master_bidang').load('<?=base_url("master/C_Master/loadMasterBidang")?>'+'/'+$('#id_unitkerja').val(), function(){
             $('#loader').hide()
         })
     }
+
+    $('#id_unitkerja').on('change', function(){
+        loadMasterBidang()
+    })
 
     $('#form_tambah_master_bidang').on('submit', function(e){
         e.preventDefault();

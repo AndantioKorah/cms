@@ -98,11 +98,11 @@ define('KODE_TRANSAKSI_PEMBAYARAN', '02');
 define('KODE_TRANSAKSI_UANG_MUKA', '03');
 
 define('VERSION', 'Version 1.0');
-define('TITLES', 'BIDIK - Asn Juara | BKPSDM Kota Manado');
-define('TITLE_SECOND', 'BIDIK - Asn Juara');
+define('TITLES', 'BIDIK - ASN Juara | BKPSDM Kota Manado');
+define('TITLE_SECOND', 'BIDIK - ASN Juara');
 define('TITLE_THIRD', 'BIDIK');
 define('PROGRAMMER_PHONE', '082115407812');
-define('COPYRIGHT', 'Copyright &copy; '.date('Y').' <strong>BKPSDM Kota Manado</strong>');
+define('COPYRIGHT', 'Copyright &copy; '.date('Y').' <strong>BKPSDM Manado</strong>');
 // define('COPYRIGHT', 'Copyright &copy; '.date('Y').' <strong>PATRA LAB</strong>');
 define('TRANSAKSI_TABLE_VIEW', 1);
 define('USE_PRINT', '0');
