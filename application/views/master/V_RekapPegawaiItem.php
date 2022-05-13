@@ -8,7 +8,7 @@
         <h4><?=strtoupper($result[0]['nm_unitkerja'])?></h4>
     </center>
     <br>
-    <table>
+    <table border=1>
         <thead>
             <th style="text-align: center;">No</th>
             <th style="text-align: center;">NIP</th>
@@ -29,7 +29,7 @@
                     <td style="text-align: center;"><?=formatDateOnly($rs['tmtpangkat'])?></td>
                     <td><?=$rs['jabatan']?></td>
                     <td style="text-align: center;"><?=countDiffDateLengkap(date('Y-m-d H:i:s'), $rs['tmtcpns'], ['tahun', 'bulan'])?></td>
-                    <td></td>
+                    <td><?=$rs['nipbaru_ws'].'`'?></td>
                 </tr>
             <?php } ?>
         </tbody>
