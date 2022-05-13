@@ -3,6 +3,26 @@
   $active_role = $this->general_library->getActiveRole();
 ?>
 <style>
+
+  @media screen and (max-width: 600px) {
+    span.nmuser {
+        font-size: 10px;
+      display:none;
+    }
+
+    a.haritanggal {
+      font-weight: bold; 
+      color: white; 
+      font-size:12px
+    }
+
+    span.nmrole {
+      font-weight: bold; 
+      color: white; 
+      font-size:12px
+    }
+  }
+     
   .dropdown-item:hover{
     cursor: pointer !important;
     background-color: #001f3f !important;
@@ -75,7 +95,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item">
-        <a style="font-weight: bold; color: white;" id="live_date_time" class="nav-link"></a>
+        <a class="haritanggal" style="font-weight: bold; color: white;" id="live_date_time" class="nav-link"></a>
       </li>
     </ul>
 
@@ -114,7 +134,7 @@
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#" style="font-weight: bold; color: white;">
           <i class="fa fa-id-badge"></i>
-          <?=$active_role['nama']?>
+          <span class="nmrole"><?=$active_role['nama']?></span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <?php foreach($list_role as $lr){ ?>
@@ -125,10 +145,11 @@
             <?php } ?>
         </div>
       </li>
+
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#" style="font-weight: bold; color: white;">
             <img src="<?=$this->general_library->getProfilePicture()?>" style="height: 25px; width:25px; margin-right: 1px;" class="img-circle elevation-2" alt="User Image">
-            <?=$this->general_library->getNamaUser()?>
+           <span  class="nmuser"><?=$this->general_library->getNamaUser()?></span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <!-- <div class="dropdown-divider"></div> -->

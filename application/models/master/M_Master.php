@@ -64,7 +64,7 @@
                             ->from('db_pegawai.pegawai a')
                             ->join('db_pegawai.pangkat b', 'a.pangkat = b.id_pangkat')
                             ->join('db_pegawai.unitkerja d', 'a.skpd = d.id_unitkerja')
-                            ->where('a.skpd', $data['id_unitkerja'])
+                            ->where('a.skpd', 4012000)
                             ->order_by('a.nama', 'asc')
                             ->get()->result_array();
         }

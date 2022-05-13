@@ -43,10 +43,10 @@
 							<span class="login100-form-title p-b-59">
 								Selamat Datang!
 							</span>
-							<span class="login100-form-title p-b-59">
+							<!-- <span class="login100-form-title p-b-59">
 								APLIKASI PENILAIAN KINERJA PEGAWAI
-							</span>
-							<!-- <img src="assets/new_login/images/logo-efort-png.png" style="height: 250px; width: 250px;"/> -->
+							</span> -->
+							<img src="assets/new_login/images/logo-bidik-png.png" style="height: 150px; width: 400px;"/>
 						</center>
 					</div>
 

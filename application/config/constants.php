@@ -90,7 +90,7 @@ define('DEVELOPMENT_MODE', '1');
 define('DB_HOST', 'localhost');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
-define('DB_NAME', 'db_efort');
+define('DB_NAME', 'db_efort2022');
 
 
 define('KODE_TRANSAKSI', '01');

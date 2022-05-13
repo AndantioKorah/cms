@@ -42,7 +42,7 @@ class C_Kinerja extends CI_Controller
 
     public function multipleImageStore()
   {
- 
+       $this->load->library('image_lib');
       $countfiles = count($_FILES['files']['name']);
     
       $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
@@ -55,31 +55,30 @@ class C_Kinerja extends CI_Controller
         $this->kinerja->createLaporanKegiatan($dataPost,$image);
       } else {
         for($i=0;$i<$countfiles;$i++){
-  
+         
             if(!empty($_FILES['files']['name'][$i])){
       
               // Define new $_FILES array - $_FILES['file']
-              $_FILES['file']['name'] = $_FILES['files']['name'][$i];
+              $_FILES['file']['name'] = $this->getUserName().'_'.$_FILES['files']['name'][$i];
               $_FILES['file']['type'] = $_FILES['files']['type'][$i];
               $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i];
               $_FILES['file']['error'] = $_FILES['files']['error'][$i];
               $_FILES['file']['size'] = $_FILES['files']['size'][$i];
             
-              if($_FILES['file']['size'] > 1048576){
-                $ress = 0;
-                $res = array('msg' => 'File tidak boleh lebih dari 1 MB', 'success' => false);
-                break;
-              }
+            //   if($_FILES['file']['size'] > 1048576){
+            //     $ress = 0;
+            //     $res = array('msg' => 'File tidak boleh lebih dari 1 MB', 'success' => false);
+            //     break;
+            //   }
            
               // Set preference
               $random_number = intval( "0" . rand(1,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) );
               $config['upload_path'] = './assets/bukti_kegiatan'; 
             //   $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
-            $config['allowed_types'] = '*';
+              $config['allowed_types'] = '*';
               $config['max_size'] = '5000'; // max_size in kb
-              $config['file_name'] = $this->getUserName().'_'.$random_number;
-              
-              
+            //   $config['file_name'] = $this->getUserName().'_'.$_FILES['file']['name'];
+             
               //Load upload library
               $this->load->library('upload',$config); 
             //   $res = array('msg' => 'something went wrong', 'success' => false);
@@ -87,11 +86,58 @@ class C_Kinerja extends CI_Controller
               if($this->upload->do_upload('file')){
                
                $data = $this->upload->data(); 
+            //    dd($data['image_width']);
                $insert['name'] = $data['file_name'];
+               $config['image_library'] = 'gd2';
+               $config['source_image'] = './assets/bukti_kegiatan/'.$data["file_name"];
+               $config['create_thumb'] = FALSE;
+               $config['maintain_ratio'] = FALSE;
+               
+               if($data['image_height'] > 1000) {
+                // $imgdata=exif_read_data($this->upload->upload_path.$this->upload->file_name, 'IFD0');
+                $config['width'] = $data['image_width'] * 50 / 100;
+                $config['height'] = $data['image_height'] * 50 / 100;
+               } else {
+                $config['width'] = 600;
+                $config['height'] =600;  
+               }
+               $config['master_dim'] = 'auto';
+               $config['quality'] = "50%";
               
-            //   $res = array('msg' => 'File tidak boleh lebih dari 1MB', 'success' => false);
-            //   $res = array('msg' => 'Image has been uploaded successfully', 'success' => true);
-     
+               $this->image_lib->initialize($config);
+              
+            // if($data['image_height'] > 1000) {
+            //     if (!$this->image_lib->resize()){  
+            //         echo "error";
+            //     }else{
+    
+            //         $this->image_lib->clear();
+            //         $config=array();
+    
+            //         $config['image_library'] = 'gd2';
+            //         $config['source_image'] = $this->upload->upload_path.$this->upload->file_name;
+    
+    
+            //         switch($imgdata['Orientation']) {
+            //             case 3:
+            //                 $config['rotation_angle']='180';
+            //                 break;
+            //             case 6:
+            //                 $config['rotation_angle']='270';
+            //                 break;
+            //             case 8:
+            //                 $config['rotation_angle']='90';
+            //                 break;
+            //         }
+    
+            //         $this->image_lib->initialize($config); 
+            //         $this->image_lib->rotate();
+    
+            //     }
+            //     } else {
+            //     $this->image_lib->resize();
+            //     } 
+            $this->image_lib->resize();  
               }
             }
             $nama_file[] = $data['file_name'];
