@@ -27,8 +27,38 @@
   left: 53%;
   transform: translate(-50%, -50%);">
     <div class="col-12 text-center">
-        <h3>Welcome to <?=TITLE_SECOND?></h3>
-        <h4><strong><?=$this->general_library->getNamaUser();?></strong></h4>
+    
+          
+       <style>
+
+         img.logo {
+          height: 120px; width: 350px; margin-bottom:20px;
+         }
+        @media screen and (max-width: 600px) {
+        h4 {
+        font-size: 17px;
+        /* display:none; */
+        }
+
+        img.logo {
+          height: 120px; 
+          width: 350px; 
+          /* height: 100%; 
+          width: 200%; */
+          /* margin-left:-52%;  */
+          margin-bottom:20px;
+           /* display:none; */
+        }
+     
+       }
+
+       </style>
+       <!-- tyle="height: 150px; width: 400px; margin-bottom:20px;" -->
+        <h3>Welcome to</h3>
+        <center>
+							<img class="logo" src="assets/new_login/images/logo-bidik-png.png" />
+						</center>
+        <h4><strong class="nmuser"><?=$this->general_library->getNamaUser();?></strong></h4>
         <img class="img-circle elevation-2" id="profile_pict" style="max-width: 150px; max-height: 150px;" src="<?=$this->general_library->getProfilePicture()?>" alt="User Image">
     </div>
     <div class="col-12 text-center">

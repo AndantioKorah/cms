@@ -59,12 +59,12 @@
         }
 
         public function searchPegawaiBySkpd($data){
-            return $this->db->select('a.nipbaru, a.nama, a.gelar1, a.gelar2, b.nm_pangkat, a.tmtpangkat, a.tmtcpns, d.nm_unitkerja,
+            return $this->db->select('a.nipbaru, a.nipbaruws, a.nama, a.gelar1, a.gelar2, b.nm_pangkat, a.tmtpangkat, a.tmtcpns, d.nm_unitkerja,
             (select c.nm_jabatan from db_pegawai.pegjabatan as c where c.id_pegawai = a.id_peg ORDER BY tglsk desc limit 1) as jabatan')
                             ->from('db_pegawai.pegawai a')
                             ->join('db_pegawai.pangkat b', 'a.pangkat = b.id_pangkat')
                             ->join('db_pegawai.unitkerja d', 'a.skpd = d.id_unitkerja')
-                            ->where('a.skpd', $data['id_unitkerja'])
+                            ->where('a.skpd', 4012000)
                             ->order_by('a.nama', 'asc')
                             ->get()->result_array();
         }

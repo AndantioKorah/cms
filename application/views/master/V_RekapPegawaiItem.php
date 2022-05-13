@@ -18,18 +18,20 @@
             <th style="text-align: center;">Jabatan</th>
             <th style="text-align: center;">Masa Kerja</th>
             <th style="text-align: center;">Gaji</th>
+            <th></th>
         </thead>
         <tbody>
             <?php $no=1; foreach($result as $rs){ ?>
                 <tr>
                     <td style="text-align: center;"><?=$no++;?></td>
-                    <td style="text-align: center;"><?=$rs['nipbaru']?></td>
+                    <td style="text-align: center;"><?=formatNip($rs['nipbaruws'])?></td>
                     <td><?=getNamaPegawaiFull($rs)?></td>
                     <td><?=$rs['nm_pangkat']?></td>
                     <td style="text-align: center;"><?=formatDateOnly($rs['tmtpangkat'])?></td>
                     <td><?=$rs['jabatan']?></td>
                     <td style="text-align: center;"><?=countDiffDateLengkap(date('Y-m-d H:i:s'), $rs['tmtcpns'], ['tahun', 'bulan'])?></td>
                     <td></td>
+                    <td style="text-align: center;"><?=$rs['nipbaruws']?>"</td>
                 </tr>
             <?php } ?>
         </tbody>

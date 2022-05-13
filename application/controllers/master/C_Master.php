@@ -107,6 +107,7 @@ class C_Master extends CI_Controller
 
     public function rekapPegawaiSubmit(){
         $data['result'] = $this->master->searchPegawaiBySkpd($this->input->post());
+      
         $this->load->view('master/V_RekapPegawaiItem', $data);
     }
     

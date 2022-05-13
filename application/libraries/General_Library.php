@@ -292,7 +292,7 @@ class General_library
             return ['code' => '500', 'message' => $this->nikita->upload->error_msg[0]];
         }
         $image = $this->nikita->upload->data();
-        dd($image);
+        // dd($image);
         // $width_size = 160;
         // $filesave = base_url('assets/profile_picture/').$image['file_name'];
 
