@@ -3,7 +3,7 @@
 ?>
     <div class="row p-2">
         <div class="col-12">
-            <h5><strong><?=$user['username'].' ('.$user['nama'].')'?></strong></h5>
+            <h5><strong><?=$user['username'].' ('.getNamaPegawaiFull($user).')'?></strong></h5>
         </div>
         <div class="col-12">
             <ul class="nav nav-tabs">
@@ -140,7 +140,7 @@
                                             <select style="width: 100%;" class="form-control form-control-sm select2_this select2-navy" data-dropdown-css-class="select2-navy" name="id_m_user_verif" id="id_m_user_verif">
                                                 <option value="0" disabled selected>Pilih Pegawai</option>
                                                 <?php if($pegawai){ foreach($pegawai as $p){ ?>
-                                                    <option value="<?=$p['id_m_user']?>"><?=$p['nama_pegawai'].'('.formatNip($p['username']).')'?></option>
+                                                    <option value="<?=$p['id_m_user']?>"><?='('.formatNip($p['username']).') <strong>'.getNamaPegawaiFull($p).'</strong>'?></option>
                                                 <?php } } ?>
                                             </select>
                                             <input style="display: none;" class="form-control form-control-sm" name="id_m_user" value="<?=$user['id_m_user']?>"/>

@@ -146,7 +146,7 @@
                     return ['message' => '0'];
                 }
             }
-            return ['message' => 'Terjadi Kesalahan'];
+            return ['message' => 'Update Berhasil'];
         }
 
         public function updateProfile($data){
@@ -156,10 +156,13 @@
             if($this->db->affected_rows() > 0){
                 $this->session->set_userdata(['user_logged_in' => null]);
 
-                $user = $this->db->select('*, a.nama as nama_user, b.nama as nama_role')
+                $user = $this->db->select('*, a.nama as nama_user, c.nama as nama_role')
                             ->from('m_user a')
-                            ->join('m_role b', 'a.id_m_role = b.id')
+                            ->join('m_user_role b', 'a.id = b.id_m_user')
+                            ->join('m_role c', 'b.id_m_role = c.id')
                             ->where('a.id', $this->general_library->getId())
+                            ->where('c.id', $this->general_library->getActiveRoleId())
+                            ->limit(1)
                             ->get()->result_array();
 
                 $this->session->set_userdata([
@@ -180,10 +183,13 @@
             if($this->db->affected_rows() > 0){
                 $this->session->set_userdata(['user_logged_in' => null]);
 
-                $user = $this->db->select('*, a.nama as nama_user, b.nama as nama_role')
+                $user = $this->db->select('*, a.nama as nama_user, c.nama as nama_role')
                             ->from('m_user a')
-                            ->join('m_role b', 'a.id_m_role = b.id')
+                            ->join('m_user_role b', 'a.id = b.id_m_user')
+                            ->join('m_role c', 'b.id_m_role = c.id')
                             ->where('a.id', $this->general_library->getId())
+                            ->where('c.id', $this->general_library->getActiveRoleId())
+                            ->limit(1)
                             ->get()->result_array();
 
                 $this->session->set_userdata([
@@ -203,11 +209,14 @@
 
             if($this->db->affected_rows() > 0){
                 $this->session->set_userdata(['user_logged_in' => null]);
-                
-                $user = $this->db->select('*, a.nama as nama_user, b.nama as nama_role')
+
+                $user = $this->db->select('*, a.nama as nama_user, c.nama as nama_role')
                             ->from('m_user a')
-                            ->join('m_role b', 'a.id_m_role = b.id')
+                            ->join('m_user_role b', 'a.id = b.id_m_user')
+                            ->join('m_role c', 'b.id_m_role = c.id')
                             ->where('a.id', $this->general_library->getId())
+                            ->where('c.id', $this->general_library->getActiveRoleId())
+                            ->limit(1)
                             ->get()->result_array();
 
                 $this->session->set_userdata([
@@ -552,6 +561,9 @@
         public function createUserImport($nip){
             $rs['code'] = 0;
             $rs['message'] = 'User berhasil ditambahkan';
+
+            $this->db->trans_begin();
+
             $exist = $this->db->select('*')
                             ->from('m_user')
                             ->where('username', $nip)
@@ -571,15 +583,24 @@
                 $rs['message'] = 'Terjadi Kesalahan';
             } else {
                 $user['username'] = $pegawai['nipbaru_ws'];
-                $user['nama'] = trim($lp['gelar1']).' '.trim($lp['nama']).' '.trim($lp['gelar2']);
+                $user['nama'] = getNamaPegawaiFull($pegawai);
                 $nip_baru = explode(" ", $pegawai['nipbaru']);
                 $password = $nip_baru[0];
                 $pass_split = str_split($password);
                 $new_password = $pass_split[6].$pass_split[7].$pass_split[4].$pass_split[5].$pass_split[0].$pass_split[1].$pass_split[2].$pass_split[3];
                 $user['password'] = $this->general_library->encrypt($user['username'], $new_password);
                 $this->db->insert('m_user', $user);
+                $this->db->where('id_peg', $pegawai['id_peg'])
+                        ->update('db_pegawai.pegawai', ['flag_user_created' => 1]);
             }
 
+            if($this->db->trans_status() == FALSE){
+                $this->db->trans_rollback();
+                $rs['code'] = 1;
+                $rs['message'] = 'Terjadi Kesalahan';
+            } else {
+                $this->db->trans_commit();
+            }
 
             return $rs;
         }
@@ -606,6 +627,7 @@
                             ->where('b.skpd', $idskpd)
                             ->where('a.id !=', $iduser)
                             ->where('a.flag_active', 1)
+                            ->order_by('b.nama', 'asc')
                             ->get()->result_array();
         }
 

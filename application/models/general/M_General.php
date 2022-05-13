@@ -187,6 +187,7 @@
                             ->from('m_user a')
                             ->join('m_sub_bidang b', 'a.id_m_sub_bidang = b.id', 'left')
                             ->join('m_bidang c', 'b.id_m_bidang = c.id', 'left')
+                            ->join('db_pegawai.pegawai d', 'a.username = d.nipbaru_ws')
                             ->where('a.flag_active',1)
                             ->where('a.id', $id)
                             ->get()->row_array();

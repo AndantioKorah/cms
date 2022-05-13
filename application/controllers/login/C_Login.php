@@ -41,7 +41,9 @@ class C_Login extends CI_Controller
             redirect('developer');
         }
         $username = $this->input->post('username');
+        // $username = 'prog';
         $password = $this->general_library->encrypt($username, $this->input->post('password'));
+        // dd($password);
         // var_dump($password);
         // die();
         $result = $this->m_general->authenticate($username, $password);

@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
-	<!-- <link rel="icon" type="image/png" href="assets/new_login/images/logo-efort-red-white.png"/> -->
+	<link rel="shortcut icon" href="<?=base_url('assets/new_login/images/logo-bulatan.png')?>" />
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="assets/new_login/vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
