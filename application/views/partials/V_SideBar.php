@@ -9,14 +9,14 @@
   }
 
   .navbar-efort{
-    background-color: #920903;
+    background-color: #ff0000;
   }
 </style>
 
 <aside class="main-sidebar elevation-4 sidebar-light-navy">
   <!-- Brand Logo -->
   <a href="<?=base_url('welcome')?>" class="brand-link navbar-efort">
-    <img src="<?=base_url('assets/new_login/images/logo-bulatan.png')?>" alt="EFORT" class="brand-image img-circle elevation-3"
+    <img src="<?=base_url('assets/new_login/images/logo-bidik-2-mini.png')?>" alt="EFORT" class="brand-image img-circle elevation-3"
           style="opacity: .8">
     <span class="brand-text" style="font-weight: bold; color: white;"><?=TITLE_THIRD?></span>
   </a>

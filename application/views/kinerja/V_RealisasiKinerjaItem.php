@@ -19,7 +19,7 @@
                     <tr>
                         <td class="text-center"><?=$no++;?></td>
                         <td class="text-left"><?=$lp['tugas_jabatan']?></td>
-                        <td class="text-left"><?=$lp['tanggal_kegiatan']?></td>                       
+                        <td class="text-left"><?= formatDateNamaBulanWT($lp['tanggal_kegiatan'])?></td>                       
                         <td class="text-left"><?=$lp['deskripsi_kegiatan']?></td>
                         <td class="text-left" style="width:10%;"><?=$lp['realisasi_target_kuantitas']?></td>
                         <td class="text-left"><?=$lp['satuan']?></td>
@@ -55,7 +55,9 @@
                         </td>
                         
                         <td class="text-center">
+                        <?php if($lp['id_status_verif'] != 1){ ?>
                             <button onclick="deleteKegiatan('<?=$lp['id']?>')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i>  Hapus</button>
+                            <?php } ?>
                         </td>
                         
                     </tr>

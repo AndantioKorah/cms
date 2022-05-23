@@ -201,7 +201,10 @@ class C_Kinerja extends CI_Controller
     public function deleteKegiatan($id){
         $this->general->delete('id', $id, 't_kegiatan');
     }
-
+    
+    public function deleteRencanaKinerja($id){
+        $this->general->delete('id', $id, 't_rencana_kinerja');
+    }
       
     public function loadRencanaKinerja($bulan = null, $tahun = null){
         if(!$tahun){

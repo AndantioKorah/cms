@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
-	<link rel="shortcut icon" href="<?=base_url('assets/new_login/images/logo-bulatan.png')?>" />
+	<link rel="shortcut icon" href="<?=base_url('assets/new_login/images/logo-bidik-2.png')?>" />
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="assets/new_login/vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
@@ -46,7 +46,12 @@
 							<!-- <span class="login100-form-title p-b-59">
 								APLIKASI PENILAIAN KINERJA PEGAWAI
 							</span> -->
-							<img src="assets/new_login/images/logo-bidik-png.png" style="height: 150px; width: 400px;"/>
+							<img src="assets/new_login/images/logo-bidik-2.png" 
+							style="height: 200px; 
+								   width: 400px;
+								   margin-left: -20px;
+								   "/>
+
 						</center>
 					</div>
 
