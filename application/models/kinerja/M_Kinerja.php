@@ -111,13 +111,39 @@
             return $this->db->get()->result_array();
     }
 
-    public function loadRekapKinerja(){
+    public function loadRekapKinerjaBU(){
 
         
         $id =  $this->general_library->getId();
         if($this->input->post()) {
             $bulan = $this->input->post('bulan');
             $tahun = $this->input->post('tahun');
+        } else {
+            $bulan = date('n');
+            $tahun = date('Y');
+        }
+       
+       
+        $query = $this->db->select('a.*,
+        (select sum(b.realisasi_target_kuantitas) from t_kegiatan as b where a.id = b.id_t_rencana_kinerja and b.flag_active = 1 and b.status_verif = 1) as realisasi_target_kuantitas
+        ')
+                        ->from('t_rencana_kinerja a')
+                        ->where('a.id_m_user', $id)
+                        ->where('a.tahun', $tahun)
+                        ->where('a.bulan', $bulan)
+                        ->where('a.flag_active', 1)
+                        ->get()->result_array();
+        // dd($query);
+        return $query;  
+    }
+
+    public function loadRekapKinerja($tahun,$bulan){
+
+        
+        $id =  $this->general_library->getId();
+        if($tahun) {
+            $bulan = $bulan;
+            $tahun = $tahun;
         } else {
             $bulan = date('n');
             $tahun = date('Y');
