@@ -7,6 +7,7 @@ class C_User extends CI_Controller
         parent::__construct();
         $this->load->model('general/M_General', 'general');
         $this->load->model('user/M_User', 'user');
+        $this->load->model('master/M_Master', 'master');
         if(!$this->general_library->isNotMenu()){
             redirect('logout');
         };
@@ -102,8 +103,9 @@ class C_User extends CI_Controller
     public function openAddRoleModal($id_m_user){
         $data['user'] = $this->general->getUserForSetting($id_m_user);
         $data['roles'] = $this->general->getAllWithOrder('m_role', 'nama', 'asc');
-        $data['sub_bidang'] = $this->general->getAllWithOrder('m_sub_bidang', 'nama_sub_bidang', 'asc');
-        $data['pegawai'] = $this->user->getListPegawaiSkpd($this->session->userdata('pegawai')['skpd'], $id_m_user);
+        // $data['sub_bidang'] = $this->general->getAllWithOrder('m_sub_bidang', 'nama_sub_bidang', 'asc');
+        $data['sub_bidang'] = $this->master->loadMasterSubBidangByUnitKerja($data['user']['skpd']);
+        $data['pegawai'] = $this->user->getListPegawaiSkpd($data['user']['skpd'], $id_m_user);
         $this->load->view('user/V_AddRoleModal', $data);
     }
 

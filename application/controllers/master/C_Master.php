@@ -78,7 +78,7 @@ class C_Master extends CI_Controller
                     $data['unit_kerja']['nm_unitkerja'] = $duk['nm_unitkerja'];
                 }
             }
-            $data['list_master_bidang'] = $this->master->loadMasterBidang();
+            $data['list_master_bidang'] = $this->master->loadMasterBidangByUnitKerja($pegawai['skpd']);
         } else {
             $data['list_master_bidang'] = $this->master->loadMasterBidang();
         }        

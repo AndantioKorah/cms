@@ -43,7 +43,7 @@
                             ->join('m_bidang b', 'a.id_m_bidang = b.id')
                             ->join('db_pegawai.unitkerja c', 'b.id_unitkerja = c.id_unitkerja')
                             ->where('a.flag_active', 1)
-                            ->order_by('a.nama_sub_bidang', 'asc')
+                            ->order_by('a.created_date', 'desc')
                             ->get()->result_array();
         }
 
@@ -54,12 +54,12 @@
                             ->join('db_pegawai.unitkerja c', 'b.id_unitkerja = c.id_unitkerja')
                             ->where('a.flag_active', 1)
                             ->where('b.id_unitkerja', $id_unitkerja)
-                            ->order_by('a.nama_sub_bidang', 'asc')
+                            ->order_by('a.created_date', 'desc')
                             ->get()->result_array();
         }
 
         public function searchPegawaiBySkpd($data){
-            return $this->db->select('a.nipbaru, a.nipbaruws, a.nama, a.gelar1, a.gelar2, b.nm_pangkat, a.tmtpangkat, a.tmtcpns, d.nm_unitkerja,
+            return $this->db->select('a.nipbaru, a.nama, a.gelar1, a.gelar2, b.nm_pangkat, a.tmtpangkat, a.tmtcpns, d.nm_unitkerja, a.nipbaru_ws,
             (select c.nm_jabatan from db_pegawai.pegjabatan as c where c.id_pegawai = a.id_peg ORDER BY tglsk desc limit 1) as jabatan')
                             ->from('db_pegawai.pegawai a')
                             ->join('db_pegawai.pangkat b', 'a.pangkat = b.id_pangkat')

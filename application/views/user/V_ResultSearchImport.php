@@ -13,12 +13,12 @@
             <tr>
                 <td class="text-center"><?=$no?></td>
                 <td><?=formatnip($lr['nipbaru_ws'])?></td>
-                <td><?=$lr['gelar1'].''.$lr['nama'].$lr['gelar2']?></td>
+                <td><?=getNamaPegawaiFull($lr)?></td>
                 <td><?=$lr['nm_unitkerja']?></td>
                 <td class="text-center">
                     <?php
                         if($lr['flag_user_created'] == 1){
-                            echo "<label style='color: red;'>User sudah dibuat</label>";
+                            echo "<label style='color: red;'>User sudah terdaftar</label>";
                         } else {
                             ?>
                             <button id="btn_create_<?=$lr['nipbaru_ws']?>" class="btn btn-sm btn-navy" onclick="createUserImport('<?=$lr['nipbaru_ws']?>')"><i class="fa fa-plus"></i> Buat User</button>
