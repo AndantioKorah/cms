@@ -1,15 +1,15 @@
 <?php if($list_rencana_kinerja){ ?>
-    <div class="col-12">
-        <table class="table table-hover table-striped" id="table_master_bidang">
+    <div class="col-12 table-responsive">
+        <table class="table table-hover table-striped" id="table_rencana_kinerja">
             <thead>
-                <th class="text-center">No</th>
-                <th class="text-left">Kegiatan Tugas Jabatan</th>
-                <th class="text-left">Tahun</th>
-                <th class="text-left">Bulan</th>
-                <th class="text-left">Target Kuantitas</th>
-                <th class="text-left">Satuan</th>
-                <th class="text-left">Target Kualitas (%)</th>
-                <th></th>
+                <th class="text-center table-danger">No</th>
+                <th class="text-left table-danger">Kegiatan Tugas Jabatan</th>
+                <th class="text-left table-danger">Tahun</th>
+                <th class="text-left table-danger">Bulan</th>
+                <th class="text-left table-danger">Target Kuantitas</th>
+                <th class="text-left table-danger">Satuan</th>
+                <th class="text-left table-danger">Target Kualitas (%)</th>
+                <th class="table-danger"></th>
             </thead>
             <tbody>
             <?php $no=1; foreach($list_rencana_kinerja as $lp){ ?>
@@ -21,15 +21,15 @@
                         <td class="text-left"><?= getNamaBulan($lp['bulan'])?></td>
                         <td class="text-left"><?=$lp['target_kuantitas']?></td>
                         <td class="text-left"><?=$lp['satuan']?></td>
-                        <td class="text-left"><?=$lp['target_kualitas']?></td>
-                        <td class="text-center">  
-
-                        </td>
-                        
+                        <td class="text-left"><?=$lp['target_kualitas']?></td>                        
                         <td class="text-center">
                         <?php if($lp['count'] != 0 ){ ?>
                             <?php } else { ?>
-                                <button onclick="deleteRencanaKinerja('<?=$lp['id']?>')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Hapus</button>
+                                <span href="#edit_rencana_kinerja" data-toggle="modal" >
+                                <button href="#edit_rencana_kinerja" data-toggle="tooltip" class="btn btn-sm btn-navy"  data-placement="top" title="Edit" 
+                                 onclick="openModalEditRencanaKinerja('<?=$lp['id']?>')"><i class="fa fa-edit"></i> </button>
+                                 </span>
+                                <button onclick="deleteRencanaKinerja('<?=$lp['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash"></i> </button>
                             
                             <?php } ?>
                         </td>
@@ -68,3 +68,20 @@
         </div>
     </div>
 <?php } ?>
+
+
+
+<script>
+
+$('#table_rencana_kinerja').DataTable({
+    "ordering": false
+     } );
+    
+
+    $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
+
+
+</script>

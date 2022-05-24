@@ -110,6 +110,22 @@
     </div>
 </div>
 
+<div class="modal fade" id="edit_realisasi_kinerja" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div id="modal-dialog" class="modal-dialog modal-xl">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h6 class="modal-title">EDIT REALISASI KINERJA</h6>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div id="edit_realisasi_kinerja_content">
+          </div>
+      </div>
+  </div>
+</div>
+
+
 
 <script type="text/javascript">
 
@@ -342,5 +358,13 @@
            
         })
     }
+
+    function openModalEditRealisasiKinerja(id = 0){
+    $('#edit_realisasi_kinerja_content').html('')
+    $('#edit_realisasi_kinerja_content').append(divLoaderNavy)
+    $('#edit_realisasi_kinerja_content').load('<?=base_url("kinerja/C_Kinerja/loadEditRealisasiKinerja")?>'+'/'+id, function(){
+      $('#loader').hide()
+    })
+  }
 
 </script>
