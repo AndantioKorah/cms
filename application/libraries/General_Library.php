@@ -110,6 +110,26 @@ class General_library
         return $this->nikita->session->userdata('active_role');
     }
 
+    public function isProgrammer(){
+        return $this->getActiveRoleName() == 'programmer';
+    }
+
+    public function isKaban(){
+        return $this->getActiveRoleName() == 'kepalabadan';
+    }
+
+    public function isSetda(){
+        return $this->getActiveRoleName() == 'setda';
+    }
+
+    public function isWalikota(){
+        return $this->getActiveRoleName() == 'walikota';
+    }
+
+    public function getUnitKerjaPegawai(){
+        return $this->nikita->session->userdata('pegawai')['skpd'];
+    }
+
     public function setActiveRole($id_role){
         $this->nikita->session->set_userdata([
             'active_role_id' => null,
@@ -131,28 +151,43 @@ class General_library
     
     public function refreshMenu(){
         $list_menu = $this->nikita->user->getListMenu($this->nikita->session->userdata('active_role_id'), $this->nikita->session->userdata('active_role_name'));
+        $list_url = null;
+        $urls = $this->getListUrl($this->nikita->session->userdata('active_role_id'));
+        foreach($urls as $u){
+            $list_url[$u['url']] = $u['url'];
+        }
+        
         $this->nikita->session->set_userdata('list_menu', null);
+        $this->nikita->session->set_userdata('list_url', null);
+        
         $this->nikita->session->set_userdata([
+            'list_url' => $list_url,
             'list_menu' => $list_menu
         ]);
     }
 
     public function isNotMenu(){
         // return true;
-        // logic belum jalan for ni menu
-        return $this->isSessionExpired();
-        // $res = 0;
-        // if($this->isSessionExpired()){
-        //     $current_url = substr($_SERVER["REDIRECT_QUERY_STRING"], 1, strlen($_SERVER["REDIRECT_QUERY_STRING"])-1);
-        //     $list_url = $this->nikita->session->userdata('list_url');
-        //     foreach($list_url as $lu){
-        //         if($current_url == $lu['url']){
-        //             $res = 1;
-        //             break;
-        //         }
-        //     }
-        // }
-        // return $res == 0 ? false : true;
+        if($this->isProgrammer()){
+            return true;
+        }
+        $res = 0;
+        if($this->isSessionExpired()){
+            $current_url = substr($_SERVER["REDIRECT_QUERY_STRING"], 1, strlen($_SERVER["REDIRECT_QUERY_STRING"])-1);
+            $url_exist = $this->nikita->session->userdata('list_exist_url');
+            if(isset($url_exist[$current_url]) && $url_exist[$current_url] == 0){
+                $list_url = $this->nikita->session->userdata('list_url');
+                if(isset($list_url[$current_url])){
+                    $res = 1;
+                } else {
+                    $this->nikita->session->set_userdata('apps_error', 'Anda tidak memiliki Hak Akses untuk menggunakan Menu tersebut');
+                }
+            } else {
+                return true;
+            }
+        }
+        return $res == 0 ? false : true;
+        // return $this->isSessionExpired();
     }
 
     public function getDataProfilePicture(){

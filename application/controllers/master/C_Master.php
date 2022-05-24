@@ -87,6 +87,7 @@ class C_Master extends CI_Controller
 
     public function createMasterSubBidang(){
         $data = $this->input->post();
+        unset($data['id_unitkerja']);
         $data['created_by'] = $this->general_library->getId();
         $this->master->insert('m_sub_bidang', $data);
     }

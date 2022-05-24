@@ -5,6 +5,47 @@
     <div class="card-body">
         <form id="form_search_verif_kinerja">
             <div class="row">
+                <?php if($this->general_library->isKaban()){ ?>
+                    <div class="col-4">
+                        <label class="bmd-label-floating">Filter</label>
+                        <select class="form-control select2-navy" style="width: 100%"
+                            id="filter" data-dropdown-css-class="select2-navy" name="filter">
+                            <option value="0" selected>Semua Bidang/Bagian</option>
+                            <option value="eselon_tiga">Eselon III</option>
+                            <option value="eselon_empat">Eselon IV</option>
+                            <?php if($list_bidang){ foreach($list_bidang as $lb){ ?>
+                                <option value="<?=$lb['id']?>"><?=$lb['nama_bidang']?></option>
+                            <?php } } ?>
+                        </select>
+                    </div>
+                <?php } else if($this->general_library->isWalikota() || $this->general_library->isSetda()) { ?>
+                    <div class="col-4">
+                        <label class="bmd-label-floating">Filter Berdasarkan</label>
+                        <select class="form-control select2-navy" style="width: 100%"
+                            id="filter_walikota" data-dropdown-css-class="select2-navy" name="filter_walikota">
+                            <option value="skpd" selected>SKPD</option>
+                            <option value="eselon_dua">Eselon II</option>
+                            <!-- <option value="eselon_tiga">Eselon III</option> -->
+                            <!-- <option value="eselon_empat">Eselon IV</option> -->
+                            <option value="pegawai">Pegawai</option>
+                        </select>
+                    </div>
+                    <div id="div_skpd" class="col-4">
+                        <label class="bmd-label-floating">Pilih SKPD</label>
+                        <select class="form-control select2-navy" style="width: 100%"
+                            id="filter_skpd" data-dropdown-css-class="select2-navy" name="filter_skpd">
+                            <?php foreach($list_skpd as $skpd){ ?>
+                                <option value="<?=$skpd['id_unitkerja']?>"><?=$skpd['nm_unitkerja']?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div id="div_pegawai" class="col-4" style="display: none;">
+                        <label class="bmd-label-floating">NIP / Nama Pegawai</label>
+                        <input class="form-control" name="nama_pegawai" />
+                    </div>
+                <?php } ?>
+            </div>
+            <div class="row">
                 <div class="col-6">
                     <div class="form-group">
                         <label class="bmd-label-floating">Pilih Periode</label>
@@ -34,11 +75,29 @@
 
 <script>
     $(function(){
+        $('#filter').select2()
+        $('#filter_walikota').select2()
+        $('#filter_skpd').select2()
+
         $("#range_periode").daterangepicker({
             showDropdowns: true
         });
 
         $('#form_search_verif_kinerja').submit()
+    })
+
+    $('#filter_walikota').on('change', function(){
+        if($('#filter_walikota').val() == 'skpd'){
+            $('#div_skpd').show()
+        } else {
+            $('#div_skpd').hide()
+        }
+
+        if($('#filter_walikota').val() == 'pegawai'){
+            $('#div_pegawai').show()
+        } else {
+            $('#div_pegawai').hide()
+        }
     })
 
     $('#range_periode').on('change', function(){
