@@ -13,6 +13,7 @@
             </thead>
             <tbody>
             <?php $no=1; foreach($list_rencana_kinerja as $lp){ ?>
+                
                     <tr>
                         <td class="text-center"><?=$no++;?></td>
                         <td class="text-left"><?=$lp['tugas_jabatan']?></td>
@@ -28,7 +29,7 @@
                         <td class="text-center">
                         <?php if($lp['count'] != 0 ){ ?>
                             <?php } else { ?>
-                                <button onclick="deleteKegiatan('<?=$lp['id']?>')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Hapus</button>
+                                <button onclick="deleteRencanaKinerja('<?=$lp['id']?>')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Hapus</button>
                             
                             <?php } ?>
                         </td>
@@ -41,16 +42,16 @@
 
     <script>
 
-        function deleteKegiatan(id){
+        function deleteRencanaKinerja(id){
            
             if(confirm('Apakah Anda yakin ingin menghapus data?')){
                 $.ajax({
-                    url: '<?=base_url("kinerja/C_Kinerja/deleteKegiatan/")?>'+id,
+                    url: '<?=base_url("kinerja/C_Kinerja/deleteRencanaKinerja/")?>'+id,
                     method: 'post',
                     data: null,
                     success: function(){
                         successtoast('Data sudah terhapus')
-                        loadListKegiatan()
+                        loadRencanaKinerja()
                     }, error: function(e){
                         errortoast('Terjadi Kesalahan')
                     }

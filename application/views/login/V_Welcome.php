@@ -31,8 +31,8 @@
           
        <style>
 
-         img.logo {
-          height: 120px; width: 350px; margin-bottom:20px;
+        img.logo {
+          height: 200px; width: 400px; margin-bottom:20px;
          }
         @media screen and (max-width: 600px) {
         h4 {
@@ -41,11 +41,11 @@
         }
 
         img.logo {
-          height: 120px; 
-          width: 350px; 
+          height: 150px; 
+          width: 300px; 
           /* height: 100%; 
           width: 200%; */
-          /* margin-left:-52%;  */
+          /* margin-left: 50;  */
           margin-bottom:20px;
            /* display:none; */
         }
@@ -56,7 +56,7 @@
        <!-- tyle="height: 150px; width: 400px; margin-bottom:20px;" -->
         <h3>Welcome to</h3>
         <center>
-							<img class="logo" src="assets/new_login/images/logo-bidik-png.png" />
+							<img class="logo" src="assets/new_login/images/logo-bidik-2.png" />
 						</center>
         <h4><strong class="nmuser"><?=$this->general_library->getNamaUser();?></strong></h4>
         <img class="img-circle elevation-2" id="profile_pict" style="max-width: 150px; max-height: 150px;" src="<?=$this->general_library->getProfilePicture()?>" alt="User Image">

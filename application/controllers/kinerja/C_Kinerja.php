@@ -30,8 +30,13 @@ class C_Kinerja extends CI_Controller
     }
 
     public function rekapKinerja(){
-        $data['list_rekap_kinerja'] = $this->kinerja->loadRekapKinerja();
+        $data['list_rekap_kinerja'] = $this->kinerja->loadRekapKinerjaBU();
         render('kinerja/V_RekapKinerja', '', '', $data);
+    }
+
+    public function LoadRekapKinerja($tahun,$bulan){
+        $data['list_rekap_kinerja'] = $this->kinerja->loadRekapKinerja($tahun,$bulan);
+        $this->load->view('kinerja/V_RekapKinerjaItem', $data);
     }
 
     public function createRencanaKinerja(){
@@ -196,7 +201,10 @@ class C_Kinerja extends CI_Controller
     public function deleteKegiatan($id){
         $this->general->delete('id', $id, 't_kegiatan');
     }
-
+    
+    public function deleteRencanaKinerja($id){
+        $this->general->delete('id', $id, 't_rencana_kinerja');
+    }
       
     public function loadRencanaKinerja($bulan = null, $tahun = null){
         if(!$tahun){
@@ -209,11 +217,11 @@ class C_Kinerja extends CI_Controller
         $this->load->view('kinerja/V_RencanaKinerjaItem', $data);
     }
 
-    public function loadRekapKinerja(){
+    // public function loadRekapKinerja(){
        
-        $data['list_rekap_kinerja'] = $this->kinerja->loadRekapKinerja();
-        $this->load->view('kinerja/V_RekapKinerja', $data);
-    }
+    //     $data['list_rekap_kinerja'] = $this->kinerja->loadRekapKinerja();
+    //     $this->load->view('kinerja/V_RekapKinerja', $data);
+    // }
 
 
 
@@ -239,6 +247,9 @@ class C_Kinerja extends CI_Controller
         $this->userLoggedIn = $this->session->userdata('user_logged_in');
         return $this->userLoggedIn[0]['username'];
     }
+
+    
+    
 
    
     

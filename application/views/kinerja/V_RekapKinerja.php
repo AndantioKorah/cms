@@ -8,7 +8,7 @@
     <div class="card-body">
     <div class="row">
         <div class="col-12 mb-3">
-        <form id="formSearchRekapKinerja" class="form-inline" method="post" action="<?=base_url('kinerja/rekap');?>">
+        <form id="formSearchRekapKinerja" class="form-inline" method="post" action="#">
   <div class="form-group">
     <label for="email" class="mr-2">Tahun </label>
     <input  class="form-control datepicker" id="tahun" name="tahun" value="<?=date('Y');?>">
@@ -18,18 +18,18 @@
     <select class="form-control select2-navy" 
                  id="bulan" data-dropdown-css-class="select2-navy" name="bulan" id="bulan" required>
                  <option value="" selected>- Pilih Bulan -</option>
-                 <option value="1">Januari</option>
-                 <option value="2">Februari</option>
-                 <option value="3">Maret</option>
-                 <option value="4">April</option>
-                 <option value="5">Mei</option>
-                 <option value="6">Juni</option>
-                 <option value="7">Juli</option>
-                 <option value="8">Agustus</option>
-                 <option value="9">September</option>
-                 <option value="10">Oktober</option>
-                 <option value="10">November</option>
-                 <option value="10">Desember</option>
+                 <option <?=date('m') == 1 ? 'selected' : '';?> value="1">Januari</option>
+                 <option <?=date('m') == 2 ? 'selected' : '';?> value="2">Februari</option>
+                 <option <?=date('m') == 3 ? 'selected' : '';?> value="3">Maret</option>
+                 <option <?=date('m') == 4 ? 'selected' : '';?> value="4">April</option>
+                 <option <?=date('m') == 5 ? 'selected' : '';?> value="5">Mei</option>
+                 <option <?=date('m') == 6 ? 'selected' : '';?> value="6">Juni</option>
+                 <option <?=date('m') == 7 ? 'selected' : '';?> value="7">Juli</option>
+                 <option <?=date('m') == 8 ? 'selected' : '';?> value="8">Agustus</option>
+                 <option <?=date('m') == 9 ? 'selected' : '';?> value="9">September</option>
+                 <option <?=date('m') == 10 ? 'selected' : '';?> value="10">Oktober</option>
+                 <option <?=date('m') == 11 ? 'selected' : '';?> value="11">November</option>
+                 <option <?=date('m') == 12 ? 'selected' : '';?> value="12">Desember</option>
                  </select>
          </div>
         <!-- <button type="submit" class="btn btn-primary ml-3">Cari</button> -->
@@ -37,84 +37,27 @@
 
         </div>
         </div>
-    <div class="row" >
-        
-    <?php if($list_rekap_kinerja){ ?>
-    <div class="col-12" id="list_rekap_kinerja">
-    <table border="3"  class="table table-hover table-striped" id="table_rekap_kinerja">
-    <tbody><tr height="20" style="height:15.0pt">
-    <th rowspan="2" height="40" >No</th>
-    <th rowspan="2" >Kegiatan Tugas Jabatan</th>
-    <th rowspan="2" >Tahun</th>
-    <th rowspan="2" >Bulan</th>
-    <th colspan="3" class="text-center" width="265" style="border-left:none;width:199pt">Target<span style="mso-spacerun:yes">&nbsp;</span></th>
-    <th colspan="3" class="text-center" width="192" style="border-left:none;width:144pt">Realisasi</th>
-    </tr>
- <tr height="20" style="height:15.0pt">
-  <td height="20" class="xl67" style="height:15.0pt;border-top:none;border-left:
-  none"> Kuantitas</td>
-  <td class="xl67" style="border-top:none;border-left:none">Satuan</td>
-  <td class="xl67" style="border-top:none;border-left:none">Capaian</td>
-  <td class="xl67" style="border-top:none;border-left:none">Kuantitas</td>
-  <td class="xl67" style="border-top:none;border-left:none">Satuan</td>
-  <td class="xl67" style="border-top:none;border-left:none">Capaian</td>
- </tr>
-
- <!--[if supportMisalignedColumns]-->
- <?php $no=1; 
-           
-            foreach($list_rekap_kinerja as $lp){ ?>
-            
-                <?php
-                
-                // $realisasi_kualitas = $lp['realisasi_target_kuantitas']/$lp['target_kuantitas'] * 100;
-                $progress = (floatval($lp['realisasi_target_kuantitas'])/floatval($lp['target_kuantitas'])) * 100;
-                $progress = formatTwoMaxDecimal($progress);
-                ?>
-                    <tr onclick="openListKegiatan('<?=$lp['id']?>')">
-                        <td class="text-left"><?=$no++;?></td>
-                        <td class="text-left"><?=$lp['tugas_jabatan']?></td>
-                        <td class="text-left"><?=$lp['tahun']?></td>
-                        <td class="text-left"><?= getNamaBulan($lp['bulan'])?></td>
-                        <td class="text-left"><?=$lp['target_kuantitas']?></td>                       
-                        <td class="text-left"><?=$lp['satuan']?></td>
-                        <td class="text-left"><?=$lp['target_kualitas']?>%</td>
-                        <td class="text-left">
-                            <?=$lp['realisasi_target_kuantitas'] == '' ? '0' : $lp['realisasi_target_kuantitas']?></td>
-                        <td class="text-left"><?=$lp['satuan']?></td>
-                        <td class="text-left">
-                        <div class="text-center" style="border: 2px solid #80808082; border-radius: 5px; width: 100%; height: 30px; padding-bottom: 27px;">
-                                        <div class="text-center" style="border-radius: 3px; background-color: <?=getProgressBarColor($progress)?>; overflow: show; white-space: nowrap; width: <?=$progress.'%'?>; height: 27px;">
-                                            <strong style="font-size: 18px; color: <?=$progress == 25 || $progress == 100 ? 'white' : 'black'?>;"><?=$progress.' %';?></td></strong>
-                                        </div>
-                                    </div>
-                        </td>
-                    </tr>
-                <?php } ?>
- <!--[endif]-->
-</tbody></table>
-
-
-       
+    <div id="list_rekap_kinerja" class="row">   
     </div>
-    <div class="col-12" id="list_kegiatan" style="display: none;">
-            </div>
-<?php } else { ?>
-    <div class="row">
-        <div class="col-12">
-            <h5 style="text-center">DATA TIDAK DITEMUKAN <i class="fa fa-exclamation"></i></h5>
-        </div>
-    </div>
-<?php } ?>
-        </div>
-    </div>
-</div>
-
 
 
 
 <script type="text/javascript">
     
+    $(function(){
+        loadRekapKinerja()
+    })
+
+     function loadRekapKinerja(){
+         var tahun = '<?=date("Y")?>'
+         var bulan = '<?=date("m")?>'
+ 
+        $('#list_rekap_kinerja').html('')
+        $('#list_rekap_kinerja').append(divLoaderNavy)
+        $('#list_rekap_kinerja').load('<?=base_url("kinerja/C_Kinerja/LoadRekapKinerja/")?>'+tahun+'/'+bulan+'', function(){
+            $('#loader').hide()
+        })
+    }
 
 $('.datepicker2').datepicker({
     format: 'yyyy-mm-dd',
@@ -124,12 +67,37 @@ $('.datepicker2').datepicker({
     todayBtn: true
 });
 
-    $('#bulan').on('change', function(){
-        $('#table_rekap_kinerja').hide()
-        $('#list_kegiatan').hide()
-        // $('#list_rekap_kinerja').append(divLoaderNavy)
-        document.getElementById("formSearchRekapKinerja").submit();
+$('#bulan').on('change', function(){
+    searchListKegiatan();
     })
+
+    $('#tahun').on('change', function(){
+        searchListKegiatan();
+    })
+
+
+    function searchListKegiatan(){
+        if($('#bulan').val() == '')  
+        {  
+        errortoast(" Pilih Bulan terlebih dahulu");  
+        return false
+        } 
+        var tahun = $('#tahun').val(); 
+        var bulan = $('#bulan').val();
+        $('#list_rekap_kinerja').html(' ')
+        $('#list_rekap_kinerja').append(divLoaderNavy)
+        $('#list_rekap_kinerja').load('<?=base_url('kinerja/C_Kinerja/LoadRekapKinerja/')?>'+tahun+'/'+bulan+'', function(){
+            $('#loader').hide()
+           
+        })
+    }
+
+    // $('#bulan').on('change', function(){
+    //     $('#table_rekap_kinerja').hide()
+    //     $('#list_kegiatan').hide()
+    //     // $('#list_rekap_kinerja').append(divLoaderNavy)
+    //     document.getElementById("formSearchRekapKinerja").submit();
+    // })
 
     // $('#tahun').on('change', function(){
     //     $('#table_rekap_kinerja').hide()

@@ -107,10 +107,13 @@
 <script>
 
     $(function(){
-        loadRencanaKinerja('<?=date("m")?>', '<?=date("Y")?>')
+        loadRencanaKinerja()
     })
 
     function loadRencanaKinerja(bulan,tahun){
+      var tahun = '<?=date("Y")?>'
+         var bulan = '<?=date("m")?>'
+
         $('#list_rencana_kinerja').html('')
         $('#list_rencana_kinerja').append(divLoaderNavy)
         $('#list_rencana_kinerja').load('<?=base_url("kinerja/C_kinerja/loadRencanaKinerja")?>'+'/'+bulan+'/'+tahun, function(){
@@ -119,12 +122,37 @@
     }
 
     $('#search_bulan').on('change', function(){
-        loadRencanaKinerja($('#search_bulan').val(), $('#search_tahun').val())
+      searchListRencanaKinerja()
     })
 
-    $('#search_tahun').on('changeDate', function(){
-        loadRencanaKinerja($('#search_bulan').val(), $('#search_tahun').val())
+    $('#search_tahun').on('change', function(){
+        searchListRencanaKinerja()
     })
+
+    function searchListRencanaKinerja(){
+        if($('#search_bulan').val() == '')  
+        {  
+        errortoast(" Pilih Bulan terlebih dahulu");  
+        return false
+        } 
+        var tahun = $('#search_tahun').val(); 
+        var bulan = $('#search_bulan').val();
+        $('#list_rencana_kinerja').html(' ')
+        $('#list_rencana_kinerja').append(divLoaderNavy)
+        $('#list_rencana_kinerja').load('<?=base_url('kinerja/C_Kinerja/loadRencanaKinerja/')?>'+bulan+'/'+tahun+'', function(){
+            $('#loader').hide()
+           
+        })
+    }
+
+
+    // $('#search_bulan').on('change', function(){
+    //     loadRencanaKinerja($('#search_bulan').val(), $('#search_tahun').val())
+    // })
+
+    // $('#search_tahun').on('changeDate', function(){
+    //     loadRencanaKinerja($('#search_bulan').val(), $('#search_tahun').val())
+    // })
 
     $('#form_tambah_rencana_kinerja').on('submit', function(e){
         e.preventDefault();

@@ -19,7 +19,7 @@
     <form method="post" id="upload_form" enctype="multipart/form-data">
     <div class="form-group" >
     <label for="exampleFormControlInput1">Tanggal Kegiatan</label>
-    <input oncanges="" class="form-control datepickerthis" id="tanggal_kegiatan" name="tanggal_kegiatan" readonly value="<?= date('Y-m-d') ;?>">
+    <input oncanges="" class="form-control datetimepickerthis" id="tanggal_kegiatan" name="tanggal_kegiatan" readonly value="<?= date('Y-m-d H:i:s') ;?>">
   </div>
     <div class="form-group">
          <label class="bmd-label-floating">Kegiatan Tugas Jabatan </label>
