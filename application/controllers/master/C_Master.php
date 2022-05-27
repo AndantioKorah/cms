@@ -112,4 +112,19 @@ class C_Master extends CI_Controller
         $this->load->view('master/V_RekapPegawaiItem', $data);
     }
     
+    public function importBidangSubBidangByUnitKerja($id_unitkerja){
+        list($data['result'], $data['skpd'], $data['id_skpd']) = $this->master->importBidangSubBidangByUnitKerja($id_unitkerja);
+        $this->session->set_userdata('save_import_bidang', $data['result']);
+        $this->session->set_userdata('id_save_import_bidang', $data['id_skpd']);
+        $this->load->view('master/V_MasterImportBidang', $data);
+    }
+
+    public function saveImportBidang(){
+        echo json_encode($this->master->saveImportBidang($this->session->userdata('save_import_bidang'), $this->session->userdata('id_save_import_bidang')));
+    }
+
+    public function importAllBidangByUnitKerja($page){
+        $this->master->importAllBidangByUnitKerja($page);
+    }
+
 }

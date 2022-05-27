@@ -13,3 +13,5 @@ $route['kinerja/rekapitulasi-realisasi'] = 'kinerja/C_VerifKinerja/rekapRealisas
 
 $route['rekapitulasi/realisasi-kinerja'] = 'kinerja/C_VerifKinerja/rekapRealisasi';
 $route['rekapitulasi/absensi'] = 'rekap/C_Rekap/rekapAbsensi';
+
+$route['dashboard'] = 'dashboard/C_Dashboard/dashboard';

@@ -28,10 +28,11 @@
         }
 
         public function getAllUsersBySkpd($id_unitkerja){
-            return $this->db->select('a.*, a.nama as nama_user, b.nama_sub_bidang')
+            return $this->db->select('a.*, a.nama as nama_user, b.nama_sub_bidang, d.nama_bidang')
                             ->from('m_user a')
                             ->join('m_sub_bidang b', 'a.id_m_sub_bidang = b.id', 'left')
                             ->join('db_pegawai.pegawai c', 'a.username = c.nipbaru_ws')
+                            ->join('m_bidang d', 'b.id_m_bidang = d.id', 'left')
                             ->where('c.skpd', $id_unitkerja)
                             ->where('a.flag_active', 1)
                             ->order_by('a.nama')

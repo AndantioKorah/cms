@@ -5,6 +5,11 @@
     <div class="card-body" style="display: block;">
         <form id="form_tambah_master_bidang">
             <div class="row">
+                <div class="col-3">
+                    <button id="btn_import" class="btn btn-sm btn-navy" href="#modal_import" data-toggle="modal" type="button">
+                    <i class="fa fa-file-import"></i> IMPORT DATABASE</button>
+                </div>
+                <div class="col-9"></div>
                 <div class="col-lg-4 col-md-12">
                     <?php if($this->general_library->getRole() == 'programmer'){ ?>
                     <div class="form-group">
@@ -61,6 +66,11 @@
     </div>
 </div>
 
+<div class="modal fade" id="modal_import" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content" id="modal_import_content"></div>
+    </div>
+</div>
 
 <script>
     $(function(){
@@ -78,6 +88,14 @@
 
     $('#id_unitkerja').on('change', function(){
         loadMasterBidang()
+    })
+
+    $('#btn_import').on('click', function(){
+        $('#modal_import_content').html()
+        $('#modal_import_content').append(divLoaderNavy)
+        $('#modal_import_content').load('<?=base_url("master/C_Master/importBidangSubBidangByUnitKerja")?>'+'/'+$('#id_unitkerja').val(), function(){
+
+        })
     })
 
     $('#form_tambah_master_bidang').on('submit', function(e){

@@ -69,5 +69,136 @@
                             ->get()->result_array();
         }
 
+        public function importBidangSubBidangByUnitKerja($id_unitkerja){
+            $data = $this->db->select('a.*, b.nm_unitkerja, b.id_unitkerja')
+                            ->from('db_pegawai.jabatan a')
+                            ->join('db_pegawai.unitkerja b', 'a.id_unitkerja = b.id_unitkerja')
+                            ->where('a.id_unitkerja', $id_unitkerja)
+                            ->get()->result_array();
+
+            $rs = null;
+            $skpd = null;
+            $id_skpd = null;
+            $counter_kabid = 0;
+            $counter_sub = 0;
+            $rs[0]['nama_bidang'] = "Sekretariat";
+            if($data){
+                $skpd = $data[0]['nm_unitkerja'];
+                $id_skpd = $data[0]['id_unitkerja'];
+                foreach($data as $d){
+                    $explode = explode(" ", $d['eselon']);
+                    $bidang = explode(" ", $d['nama_jabatan']);
+                    if(strcasecmp($explode[0], "III") == 0){
+                        if(strcasecmp($bidang[0], "sekretaris") == 0){
+                            $rs[$counter_kabid]['sub_bidang'][$counter_sub] = $bidang[0]." ".$bidang[1];
+                        } else {
+                            $counter_kabid += 1;
+                            $counter_sub = 0;
+                            $i = 0;
+                            $rs[$counter_kabid]['nama_bidang'] = '';
+                            foreach($bidang as $b){
+                                if($i != 0){
+                                    $rs[$counter_kabid]['nama_bidang'] .= " ".$b;
+                                }
+                                $i++;
+                            }
+                            $rs[$counter_kabid]['nama_bidang'] = trim($rs[$counter_kabid]['nama_bidang']);
+                            if($counter_sub == 0){
+                                $rs[$counter_kabid]['sub_bidang'][$counter_sub] = $rs[$counter_kabid]['nama_bidang'];
+                            }
+                        }
+                        $counter_sub ++;
+                    } else if(strcasecmp($explode[0], "IV") == 0){
+                        // if($counter_sub == 0){
+                        //     $rs[$counter_kabid]['sub_bidang'] = [];
+                        // }
+                        $i = 0;
+                        $rs[$counter_kabid]['sub_bidang'][$counter_sub] = '';
+                        foreach($bidang as $sb){
+                            if($i != 0){
+                                $rs[$counter_kabid]['sub_bidang'][$counter_sub] .= " ".$sb;
+                            }
+                            $i++;
+                        }
+                        $rs[$counter_kabid]['sub_bidang'][$counter_sub] = trim($rs[$counter_kabid]['sub_bidang'][$counter_sub]);
+                        $counter_sub++;
+                    }
+                }
+            }
+            return [$rs, $skpd, $id_skpd];
+        }
+
+        public function saveImportBidang($data, $id_skpd){
+            $res['code'] = 0;
+            $res['message'] = 'SELESAI';
+
+            $this->db->trans_begin();
+
+            $exists = $this->db->select('*')
+                                ->from('m_bidang a')
+                                ->join('db_pegawai.unitkerja b', 'a.id_unitkerja = b.id_unitkerja')
+                                ->where('a.id_unitkerja', $id_skpd)
+                                ->where('a.flag_active', 1)
+                                ->get()->row_array();
+            if($exists){
+                $res['code'] = 2;
+                $res['message'] = $exists['nm_unitkerja'].' sudah memiliki Bidang/Sub Bidang';
+                echo $exists['nm_unitkerja']." sudah memiliki Bidang/Sub Bidang <br> \n";
+            } else {
+                foreach($data as $d){
+                    $input['id_unitkerja'] = $id_skpd;
+                    $input['nama_bidang'] = $d['nama_bidang'];
+                    $input['created_by'] = $this->general_library->getId();
+                    
+                    $this->db->insert('m_bidang', $input);
+                    
+                    $last_id = $this->db->insert_id();
+                    $sub_bidang = [];
+                    $i = 0;
+                    if(isset($d['sub_bidang'])){
+                        foreach($d['sub_bidang'] as $sb){
+                            $sub_bidang[$i]['id_m_bidang'] = $last_id;
+                            $sub_bidang[$i]['created_by'] = $this->general_library->getId();
+                            $sub_bidang[$i]['nama_sub_bidang'] = $sb;
+                            $i++;
+                        }
+                        $this->db->insert_batch('m_sub_bidang', $sub_bidang);   
+                    }
+                }
+            }
+            if($this->db->trans_status() == FALSE){
+                $this->db->trans_rollback();
+                $rs['code'] = 1;
+                $rs['message'] = 'Terjadi Kesalahan';
+            } else {
+                $this->db->trans_commit();
+            }
+
+            return $res;
+        }
+
+        public function importAllBidangByUnitKerja($page){
+            // $unitkerja = $this->db->select('id_unitkerja, nm_unitkerja')
+            //                         ->from('db_pegawai.unitkerja')
+            //                         // ->limit($page, 10)
+            //                         ->get()->result_array();
+            $unitkerja = $this->db->get('db_pegawai.unitkerja', 50, $page)->result_array();
+            // dd($unitkerja);
+            foreach($unitkerja as $u){
+                if($u['id_unitkerja'] != '1000001'){
+                    echo "on working ".$u['nm_unitkerja']."\n <br>";
+                    list($data, $skpd, $id) = $this->importBidangSubBidangByUnitKerja($u['id_unitkerja']);
+                    // dd(json_encode($data));
+                    $res = $this->saveImportBidang($data, $u['id_unitkerja']);
+                    if($res['code'] == 1){
+                        echo "canceled <br> \n";
+                        echo $res['message']."<br> \n";
+                        break;
+                    }
+                }
+                echo "done ".$u['nm_unitkerja']. "\n <br><br> \n";
+            }
+            echo "selesai";
+        }
 	}
 ?>
