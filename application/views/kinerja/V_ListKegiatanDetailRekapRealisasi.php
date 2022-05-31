@@ -66,4 +66,5 @@
         })
     </script>
 <?php } else { ?>
+    <center><b>Belum Diverifikasi Pimpinan<b></center>
 <?php } ?>

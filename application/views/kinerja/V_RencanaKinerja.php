@@ -8,7 +8,7 @@
     
   <div class="form-group" >
     <label for="exampleFormControlInput1">Kegiatan Tugas Jabatan</label>
-    <input required class="form-control " id="tugas_jabatan" name="tugas_jabatan" >
+    <input required class="form-control " id="tugas_jabatan" name="tugas_jabatan" autocomplete="off">
   </div>
 
     <div class="form-group" >
@@ -41,11 +41,11 @@
     <div class="row">
     <div class="col">
     <label >Target Kuantitas</label>
-      <input required type="text" class="form-control" name="target_kuantitas" id="target_kuantitas">
+      <input required type="text" class="form-control" name="target_kuantitas" id="target_kuantitas" autocomplete="off">
     </div>
     <div class="col">
     <label >Satuan</label>
-      <input required type="text" class="form-control" name="satuan" id="satuan" >
+      <input required type="text" class="form-control" name="satuan" id="satuan" autocomplete="off">
     </div>
   </div>
   </div>

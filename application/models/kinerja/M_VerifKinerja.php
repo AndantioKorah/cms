@@ -268,7 +268,7 @@
                                     ->from('t_kegiatan a')
                                     ->join('t_rencana_kinerja b', 'a.id_t_rencana_kinerja = b.id')
                                     ->join('m_user c', 'a.id_m_user = c.id')
-                                    ->join('m_user d', 'a.id_m_user_verif = d.id')
+                                    ->join('m_user d', 'a.id_m_user_verif = d.id', 'left')
                                     ->where('a.flag_active', 1)
                                     ->where('a.id', $id)
                                     ->group_by('a.id')

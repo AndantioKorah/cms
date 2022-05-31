@@ -1,6 +1,6 @@
 <?php if($list_rekap_kinerja){ ?>
     <div class="col-12 table-responsive">
-    <table border="3"  class="table table-hover table-striped" id="table_rekap_kinerja">
+    <table border="2"  class="table table-hover table-striped" id="table_rekap_kinerja">
     <tbody><tr height="20" style="height:15.0pt">
     <th rowspan="2" class="table-danger" height="40" >No</th>
     <th rowspan="2" class="table-danger">Kegiatan Tugas Jabatan</th>
@@ -11,12 +11,12 @@
     </tr>
     <tr height="20" style="height:15.0pt">
     <td height="20" class="xl67 table-danger" style="height:15.0pt;border-top:none;border-left:
-    none"> Kuantitas</td>
-    <td class="xl67 table-danger" style="border-top:none;border-left:none">Satuan</td>
-    <td class="xl67 table-danger" style="border-top:none;border-left:none">Capaian</td>
-    <td class="xl67 table-danger" style="border-top:none;border-left:none">Kuantitas</td>
-    <td class="xl67 table-danger" style="border-top:none;border-left:none">Satuan</td>
-    <td class="xl67 table-danger" style="border-top:none;border-left:none">Capaian</td>
+    none"> <b>Kuantitas</b></td>
+    <td class="xl67 table-danger" style="border-top:none;border-left:none"><b>Satuan</b></td>
+    <td class="xl67 table-danger" style="border-top:none;border-left:none"><b>Capaian</b></td>
+    <td class="xl67 table-danger" style="border-top:none;border-left:none"><b>Kuantitas</b></td>
+    <td class="xl67 table-danger" style="border-top:none;border-left:none"><b>Satuan</b></td>
+    <td class="xl67 table-danger" style="border-top:none;border-left:none;width:144pt"><b>Capaian</b></td>
     </tr>
   
     <!--[if supportMisalignedColumns]-->

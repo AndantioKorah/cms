@@ -225,6 +225,7 @@
 
     
         $data["target_kuantitas"] = $datapost["edit_target_kuantitas"];
+        $data["satuan"] = $datapost["edit_satuan"];
 
 
         $this->db->where('id', $id_rencana_kinerja)
