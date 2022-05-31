@@ -9,7 +9,8 @@
   }
 
   .navbar-efort{
-    background-color: #ff0000;
+    background-color: #920903;
+    /* background-color: #ff0000; */
   }
 </style>
 
@@ -34,8 +35,8 @@
     </div>
     <?php 
     $active_role = $this->session->userdata('active_role');
-    // $list_menu = $this->session->userdata('list_menu');
-    $list_menu = $this->general_library->getListMenu($active_role['id'], $active_role['role_name']);
+    $list_menu = $this->session->userdata('list_menu');
+    // $list_menu = $this->general_library->getListMenu($active_role['id'], $active_role['role_name']);
     if($list_menu){  
     ?>
     <nav class="mt-2">

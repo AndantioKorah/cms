@@ -11,14 +11,14 @@
                     <a class="nav-link active" aria-current="page" href="#role_tab" data-toggle="tab">Role</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" onclick="refreshSubBidang()" href="#bidang_tab" data-toggle="tab">Sub Bidang</a>
+                    <a class="nav-link" onclick="refreshSubBidang()" href="#bidang_tab" data-toggle="tab">Sub Bidang/Sub Bagian/Seksi</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#password_tab" data-toggle="tab">Password</a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" onclick="refreshListVerifBidang()" href="#verif_tab" data-toggle="tab">Verifikasi</a>
-                </li>
+                </li> -->
             </ul>
         </div>
         <div class="tab-content col-12" id="myTabContent">
@@ -29,9 +29,14 @@
                             <label>Pilih Role:</label>
                             <select class="form-control form-control-sm select2_this select2-navy" data-dropdown-css-class="select2-navy" name="id_m_role" id="id_m_role">
                                 <option value="0" disabled selected>Pilih Item</option>
-                                <?php if($roles){ foreach($roles as $r){ ?>
-                                    <option value="<?=$r['id']?>"><?=$r['nama'].' ('.$r['role_name'].')'?></option>
-                                <?php } } ?>
+                                <?php
+                                    $exlcude = ['programmer', 'walikota', 'setda']; 
+                                    if($roles){ foreach($roles as $r){ 
+                                        if((!$this->general_library->isProgrammer() && !in_array($r['role_name'], $exlcude)) || $this->general_library->isProgrammer()){ 
+                                    ?>
+                                    <!-- <option value="<?=$r['id']?>"><?=$r['nama'].' ('.$r['role_name'].')'?></option> -->
+                                    <option value="<?=$r['id']?>"><?=$r['nama']?></option>
+                                <?php } } } ?>
                             </select>
                             <input style="display: none;" class="form-control form-control-sm" name="id_m_user" value="<?=$user['id_m_user']?>"/>
                             <button class="btn btn-sm btn-navy float-right mt-3"><i class="fa fa-save"></i> Simpan</button>
@@ -48,11 +53,11 @@
                 <div class="row">
                     <div class="col-12">
                         <form id="form_tambah_sub_bidang">
-                            <label>Pilih Sub Bidang:</label>
+                            <label>Sub Bidang/Sub Bagian/Seksi:</label>
                             <select style="width: 100%;" class="form-control form-control-sm select2_this select2-navy" data-dropdown-css-class="select2-navy" name="id_m_sub_bidang">
                                 <option value="0" disabled selected>Pilih Item</option>
                                 <?php if($sub_bidang){ foreach($sub_bidang as $b){ ?>
-                                    <option value="<?=$b['id']?>"><?=$b['nama_sub_bidang']?></option>
+                                    <option value="<?=$b['id_m_sub_bidang']?>"><?=$b['nama_sub_bidang']?></option>
                                 <?php } } ?>
                             </select>
                             <input style="display: none;" class="form-control form-control-sm" name="id_m_user" value="<?=$user['id_m_user']?>"/>
@@ -303,6 +308,7 @@
                 successtoast('Berhasil menambahkan Sub Bidang pada User')
                 refreshSubBidang()
                 $('#label_bidang_<?=$user['id_m_user']?>').html(rs.nama_bidang)
+                $('#label_sub_bidang_<?=$user['id_m_user']?>').html(rs.nama_sub_bidang)
             }, error: function(e){
                 errortoast('Terjadi Kesalahan')
             }

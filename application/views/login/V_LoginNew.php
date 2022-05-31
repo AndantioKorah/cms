@@ -165,6 +165,9 @@
 		title: message
 		})
 	}
+
+	console.log('message = <?=$this->session->flashdata('message');?>')
+
     <?php if($this->session->flashdata('message')){ ?>
 		errortoast("<?=$this->session->flashdata('message')?>");
     //   $('#error_div').show()

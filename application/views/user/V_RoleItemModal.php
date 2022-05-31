@@ -9,7 +9,7 @@
             <th>Keterangan</th>
             <th class="text-center">Pilihan</th>
         </thead>
-        <?php $no = 1; foreach($list_user_role as $lr){ ?>
+        <?php $no = 1; foreach($list_user_role as $lr){ if($lr['role'] != 'programmer'){ ?>
             <tr>
                 <td class="text-center"><?=$no?></td>
                 <td><?=$lr['is_default'] == 1 ? $lr['nama_role'].' <strong>(default)</strong>' : $lr['nama_role']?></td>
@@ -20,11 +20,13 @@
                         <button onclick="setDefault('<?=$lr['id']?>')" class="btn btn-sm btn-info"
                         data-tooltip-role="tooltip" title="Set Default"><i class="fa fa-check"></i></button>
                     <?php } ?>
-                    <button onclick="deleteRole('<?=$lr['id']?>')" class="btn btn-sm btn-danger"
-                    data-tooltip-role="tooltip" title="Hapus"><i class="fa fa-trash"></i></button>
+                    <?php if($this->general_library->getActiveRoleName() != $lr['role']) { ?>
+                        <button onclick="deleteRole('<?=$lr['id']?>')" class="btn btn-sm btn-danger"
+                        data-tooltip-role="tooltip" title="Hapus"><i class="fa fa-trash"></i></button>
+                    <?php } ?>
                 </td>
             </tr>
-        <?php $no++; } ?>
+        <?php $no++; } } ?>
     </table>
 <?php } else { ?>
     <center><label><i class="fa fa-exclamation"></i> Belum ada role</label></center>

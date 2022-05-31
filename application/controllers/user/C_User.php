@@ -237,4 +237,14 @@ class C_User extends CI_Controller
     public function createUserImport($nip){
         echo json_encode($this->user->createUserImport($nip));
     }
+
+    public function setGeneralMenu($id){
+        $update = ['flag_general_menu' => 1];
+        $this->general->update('id', $id, 'm_menu', $update);
+    }
+
+    public function cancelGeneralMenu($id){
+        $update = ['flag_general_menu' => 0];
+        $this->general->update('id', $id, 'm_menu', $update);
+    }
 }

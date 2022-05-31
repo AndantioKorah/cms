@@ -8,7 +8,9 @@
                 <th>Parent</th>
                 <th>Icon</th>
                 <th>Keterangan</th>
-                <th>Pilihan</th>
+                <?php if($this->general_library->isProgrammer()) { ?>
+                    <th>Pilihan</th>
+                <?php } ?>
             </thead>
             <tbody>
                 <?php $no = 1; foreach($result as $rs){ ?>
@@ -19,13 +21,26 @@
                         <td><?=$rs['nama_menu_parent'];?></td>
                         <td><i class="<?=$rs['icon'] ? $rs['icon'] : 'far fa-circle'?>"></i> <?=$rs['icon'] ? $rs['icon'] : 'default-icon';?></td>
                         <td><?=$rs['keterangan'];?></td>
-                        <td>
-                            <button type="button" data-toggle="modal" href="#add_role_modal" onclick="openAddRoleModal('<?=$rs['id']?>')" class="btn btn-sm btn-info"
-                            data-tooltip="tooltip" title="Tambah Role"><i class="fa fa-user"></i> Role</button>
+                        <?php if($this->general_library->isProgrammer()) { ?>
+                            <td>
+                                <div class="btn-group">
+                                    <button style="display: <?=$rs['flag_general_menu'] == 0 ?  'block' : 'none'?>;" id="btn_general_menu_<?=$rs['id']?>" type="button" onclick="setGeneralMenu('<?=$rs['id']?>')" class="btn btn-sm btn-info"
+                                    data-tooltip="tooltip" title="Atur Sebagai Menu General"><i class="fa fa-check"></i></button>
 
-                            <button type="button" onclick="hapus('<?=$rs['id']?>')" class="btn btn-sm btn-danger"
-                            data-tooltip="tooltip" title="Hapus"><i class="fa fa-trash"></i> Hapus</button>
-                        </td>
+                                    <button disabled style="display: none;" id="btn_loading_general_menu_<?=$rs['id']?>" type="button" class="btn btn-sm btn-info"
+                                    data-tooltip="tooltip" title="Loading..."><i class="fa fa-spin fa-spinner"></i> Loading...</button>
+
+                                    <button style="display: <?=$rs['flag_general_menu'] == 1 ?  'block' : 'none'?>;;" id="btn_cancel_general_menu_<?=$rs['id']?>" type="button" onclick="cancelGeneralMenu('<?=$rs['id']?>')" class="btn btn-sm btn-danger"
+                                    data-tooltip="tooltip" title="Hapus dari General Menu"><i class="fa fa-times"></i></button>
+
+                                    <button type="button" data-toggle="modal" href="#add_role_modal" onclick="openAddRoleModal('<?=$rs['id']?>')" class="btn btn-sm btn-warning"
+                                    data-tooltip="tooltip" title="Tambah Role"><i class="fa fa-user"></i></button>
+                                    
+                                    <button type="button" onclick="hapus('<?=$rs['id']?>')" class="btn btn-sm btn-danger"
+                                    data-tooltip="tooltip" title="Hapus menu"><i class="fa fa-trash"></i></button>
+                                </div>
+                            </td>
+                        <?php } ?>
                     </tr>
                 <?php } ?>
             </tbody>
@@ -54,6 +69,40 @@
             $('#add_role_modal_content').load('<?=base_url("user/C_User/addRoleForMenu")?>'+'/'+id, function(){
 
             })
+        }
+
+        function setGeneralMenu(id){
+                $('#btn_loading_general_menu_'+id).show()
+                $('#btn_general_menu_'+id).hide()
+                $.ajax({
+                    url: '<?=base_url("user/C_User/setGeneralMenu/")?>'+id,
+                    method: 'post',
+                    data: null,
+                    success: function(){
+                        successtoast('Update Berhasil')
+                        $('#btn_loading_general_menu_'+id).hide()
+                        $('#btn_cancel_general_menu_'+id).show()
+                    }, error: function(e){
+                        errortoast('Terjadi Kesalahan')
+                    }
+                })
+        }
+
+        function cancelGeneralMenu(id){
+                $('#btn_loading_general_menu_'+id).show()
+                $('#btn_cancel_general_menu_'+id).hide()
+                $.ajax({
+                    url: '<?=base_url("user/C_User/setGeneralMenu/")?>'+id,
+                    method: 'post',
+                    data: null,
+                    success: function(){
+                        successtoast('Update Berhasil')
+                        $('#btn_loading_general_menu_'+id).hide()
+                        $('#btn_general_menu_'+id).show()
+                    }, error: function(e){
+                        errortoast('Terjadi Kesalahan')
+                    }
+                })
         }
 
         function hapus(id){

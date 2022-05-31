@@ -6,6 +6,8 @@ class C_VerifKinerja extends CI_Controller
     {
         parent::__construct();
         $this->load->model('general/M_General', 'general');
+        $this->load->model('master/M_Master', 'master');
+        $this->load->model('user/M_User', 'user');
         $this->load->model('kinerja/M_VerifKinerja', 'verifkinerja');
         if(!$this->general_library->isNotMenu()){
             redirect('logout');
@@ -13,7 +15,14 @@ class C_VerifKinerja extends CI_Controller
     }
 
     public function verifKinerja(){
-        render('kinerja/V_VerifKinerja', '', '', null);
+        $data = null;
+        if($this->general_library->isKaban()){
+            $data['list_bidang'] = $this->master->loadMasterBidangByUnitKerja($this->general_library->getUnitKerjaPegawai());
+        } 
+        if($this->general_library->isWalikota() || $this->general_library->isSetda()){
+            $data['list_skpd'] = $this->user->getAllSkpd();
+        }
+        render('kinerja/V_VerifKinerja', '', '', $data);
     }
 
     public function searchVerifKinerja(){
@@ -31,7 +40,14 @@ class C_VerifKinerja extends CI_Controller
     }
 
     public function rekapRealisasi(){
-        render('kinerja/V_RekapRealisasi', '', '', null);
+        $data = null;
+        if($this->general_library->isKaban()){
+            $data['list_bidang'] = $this->master->loadMasterBidangByUnitKerja($this->general_library->getUnitKerjaPegawai());
+        } 
+        if($this->general_library->isWalikota() || $this->general_library->isSetda()){
+            $data['list_skpd'] = $this->user->getAllSkpd();
+        }
+        render('kinerja/V_RekapRealisasi', '', '', $data);
     }
 
     public function searchRekapRealisasi(){

@@ -138,17 +138,17 @@ function array_flatten($array) {
 }
 
 function getProgressBarColor($progress){
-    $bgcolor = '#ff0000';
+    $bgcolor = '#ff0000 !important';
     if($progress > 25 && $progress <= 50){
-        $bgcolor = '#ff9900';
-    } else if($progress > 50 && $progress <= 75){
-        $bgcolor = '#ffff00';
-    } else if($progress > 75 && $progress <= 90){
-        $bgcolor = '#66ff66';
-    } else if($progress > 90 && $progress <= 99){
-        $bgcolor = '#00e600';
+        $bgcolor = '#ff7100 !important';
+    } else if($progress > 50 && $progress <= 65){
+        $bgcolor = '#ffcf00 !important';
+    } else if($progress > 65 && $progress <= 85){
+        $bgcolor = '#5bff00 !important';
+    } else if($progress > 85 && $progress <= 99){
+        $bgcolor = '#41b302 !important';
     } else if($progress == 100){
-        $bgcolor = '#006600';
+        $bgcolor = '#006600 !important';
     }
     return $bgcolor;
 }
