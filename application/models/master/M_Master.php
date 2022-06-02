@@ -69,6 +69,24 @@
                             ->get()->result_array();
         }
 
+        public function getSubBidangByBidang($id){
+            return $this->db->select('*')
+                            ->from('m_sub_bidang')
+                            ->where('id_m_bidang', $id)
+                            ->where('flag_active', 1)
+                            ->get()->result_array();
+        }
+
+        public function getBidangBySubBidang($id){
+            return $this->db->select('*, b.id as id_m_bidang')
+                            ->from('m_sub_bidang a')
+                            ->join('m_bidang b', 'a.id_m_bidang = b.id')
+                            ->where('a.flag_active', 1)
+                            ->where('b.flag_active', 1)
+                            ->where('a.id', $id)
+                            ->get()->row_array();
+        }
+
         public function importBidangSubBidangByUnitKerja($id_unitkerja){
             $data = $this->db->select('a.*, b.nm_unitkerja, b.id_unitkerja')
                             ->from('db_pegawai.jabatan a')

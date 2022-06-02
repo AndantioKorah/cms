@@ -20,6 +20,10 @@ class General_library
         $this->nikita->load->model('user/M_User', 'm_user');
     }
 
+    public function logErrorTelegram($data){
+        $this->nikita->m_general->logErrorTelegram($data);
+    }
+
     public function getBiosSerialNum(){
         $info = $this->bios_serial_num;
         return trim($info);
@@ -118,12 +122,24 @@ class General_library
         return $this->getActiveRoleName() == 'kepalabadan';
     }
 
+    public function isKabid(){
+        return $this->getActiveRoleName() == 'kepalabidang';
+    }
+
     public function isSetda(){
         return $this->getActiveRoleName() == 'setda';
     }
 
     public function isWalikota(){
         return $this->getActiveRoleName() == 'walikota';
+    }
+
+    public function isKepalaSekolah(){
+        return $this->getActiveRoleName() == 'kepalasekolah';
+    }
+
+    public function isGuruStaffSekolah(){
+        return $this->getActiveRoleName() == 'gurusekolah';
     }
 
     public function getUnitKerjaPegawai(){
@@ -282,7 +298,7 @@ class General_library
 
     public function getSubBidangUser(){
         // $this->userLoggedIn = $this->nikita->session->userdata('user_logged_in');
-        $this->refreshUserLoggedInData();
+        // $this->refreshUserLoggedInData();
         return $this->userLoggedIn['id_m_sub_bidang'];
     }
 

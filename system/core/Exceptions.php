@@ -209,12 +209,13 @@ class CI_Exceptions {
 		{
 			$templates_path .= 'html'.DIRECTORY_SEPARATOR;
 		}
-
+		
 		if (ob_get_level() > $this->ob_level + 1)
 		{
 			ob_end_flush();
 		}
 
+		// logErrorTelegram($exception);
 		ob_start();
 		include($templates_path.'error_exception.php');
 		$buffer = ob_get_contents();

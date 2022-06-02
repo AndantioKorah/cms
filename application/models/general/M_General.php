@@ -201,5 +201,11 @@
                         ->get()->result_array();
         }
 
+        public function logErrorTelegram($data){
+            dd($data);
+            $data_telegram['message'] = '';
+            $req = $this->telegramlib->send_curl_exec('GET', 'sendMessage', '713399901', $data_telegram);
+        }
+
 	}
 ?>

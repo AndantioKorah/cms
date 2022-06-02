@@ -137,7 +137,7 @@ function array_flatten($array) {
     return $result; 
 }
 
-function getProgressBarColor($progress){
+function getProgressBarColor($progress, $use_important = true){
     $bgcolor = '#ff0000 !important';
     if($progress > 25 && $progress <= 50){
         $bgcolor = '#ff7100 !important';
@@ -147,8 +147,12 @@ function getProgressBarColor($progress){
         $bgcolor = '#5bff00 !important';
     } else if($progress > 85 && $progress <= 99){
         $bgcolor = '#41b302 !important';
-    } else if($progress == 100){
+    } else if($progress >= 100){
         $bgcolor = '#006600 !important';
+    }
+    if(!$use_important){
+        $arr = explode(" ", $bgcolor);
+        $bgcolor = $arr[0];
     }
     return $bgcolor;
 }
@@ -277,6 +281,10 @@ function terbilang($x){
 
 function isValidTokenHeader($token, $kode_merchant){
     return $token == encrypt('nikita', $kode_merchant);
+}
+
+function logErrorTelegram($data){
+    $this->general_library->logErrorTelegram($data);
 }
 
 function get_client_ip() {
