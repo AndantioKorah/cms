@@ -248,6 +248,32 @@ class C_Kinerja extends CI_Controller
         return $this->userLoggedIn[0]['username'];
     }
 
+
+    public function loadEditRealisasiKinerja($id){
+        $data['realisasi'] = $this->kinerja->getReaslisasiKinerjaEdit($id);
+        // dd($data['realisasi']);
+        $this->load->view('kinerja/V_EditRealisasiKinerja', $data);
+    }
+
+    
+    public function editRealisasiKinerja(){
+        echo json_encode($this->kinerja->editRealisasiKinerja());
+    }
+
+
+    
+    public function loadEditRencanaKinerja($id){
+        $data['rencana'] = $this->kinerja->getRencanaKinerjaEdit($id);
+        // dd($data['realisasi']);
+        $this->load->view('kinerja/V_EditRencanaKinerja', $data);
+    }
+
+    public function editRencanaKinerja(){
+        echo json_encode($this->kinerja->editRencanaKinerja());
+    }
+
+
+
     
     
 

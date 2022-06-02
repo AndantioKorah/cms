@@ -8,7 +8,7 @@
     
   <div class="form-group" >
     <label for="exampleFormControlInput1">Kegiatan Tugas Jabatan</label>
-    <input required class="form-control " id="tugas_jabatan" name="tugas_jabatan" >
+    <input required class="form-control " id="tugas_jabatan" name="tugas_jabatan" autocomplete="off">
   </div>
 
     <div class="form-group" >
@@ -41,11 +41,11 @@
     <div class="row">
     <div class="col">
     <label >Target Kuantitas</label>
-      <input required type="text" class="form-control" name="target_kuantitas" id="target_kuantitas">
+      <input required type="text" class="form-control" name="target_kuantitas" id="target_kuantitas" autocomplete="off">
     </div>
     <div class="col">
     <label >Satuan</label>
-      <input required type="text" class="form-control" name="satuan" id="satuan" >
+      <input required type="text" class="form-control" name="satuan" id="satuan" autocomplete="off">
     </div>
   </div>
   </div>
@@ -100,6 +100,20 @@
     </div>
 </div>
 
+<div class="modal fade" id="edit_rencana_kinerja" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div id="modal-dialog" class="modal-dialog modal-xl">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h6 class="modal-title">EDIT RENCANA KINERJA</h6>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div id="edit_rencana_kinerja_content">
+          </div>
+      </div>
+  </div>
+</div>
 
 
 
@@ -169,6 +183,16 @@
             }
         })
     })
+
+
+
+    function openModalEditRencanaKinerja(id = 0){
+    $('#edit_rencana_kinerja_content').html('')
+    $('#edit_rencana_kinerja_content').append(divLoaderNavy)
+    $('#edit_rencana_kinerja_content').load('<?=base_url("kinerja/C_Kinerja/loadEditRencanaKinerja")?>'+'/'+id, function(){
+      $('#loader').hide()
+    })
+  }
 
 
 </script>

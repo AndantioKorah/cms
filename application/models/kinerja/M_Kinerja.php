@@ -171,6 +171,88 @@
         return $query;
     }
 
+    
+    public function getReaslisasiKinerjaEdit($id){
+        return $this->db->select('a.*, b.tugas_jabatan')
+                        ->from('t_kegiatan a')
+                        ->join('t_rencana_kinerja b', 'a.id_t_rencana_kinerja = b.id')
+                        ->where('a.id', $id)
+                        ->where('a.flag_active', 1)
+                        ->limit(1)
+                        ->get()->row_array();
+    }
+
+
+    public function editRealisasiKinerja(){
+        $res['code'] = 0;
+        $res['message'] = 'ok';
+        $res['data'] = null;
+
+        $datapost = $this->input->post();
+        
+        $this->db->trans_begin();
+        $id_kegiatan = $datapost['id_kegiatan'];
+
+        $data["realisasi_target_kuantitas"] = $datapost["edit_realisasi_target_kuantitas"];
+        $data["deskripsi_kegiatan"] = $datapost["edit_deskripsi_kegiatan"];
+
+
+        $this->db->where('id', $id_kegiatan)
+                ->update('t_kegiatan', $data);
+
+        if($this->db->trans_status() == FALSE){
+            $this->db->trans_rollback();
+            $res['code'] = 1;
+            $res['message'] = 'Terjadi Kesalahan';
+            $res['data'] = null;
+        } else {
+            $this->db->trans_commit();
+        }
+
+        return $res;
+    }
+
+
+    public function editRencanaKinerja(){
+        $res['code'] = 0;
+        $res['message'] = 'ok';
+        $res['data'] = null;
+
+        $datapost = $this->input->post();
+        
+        $this->db->trans_begin();
+        $id_rencana_kinerja = $datapost['id_rencana_kinerja'];
+
+    
+        $data["target_kuantitas"] = $datapost["edit_target_kuantitas"];
+        $data["satuan"] = $datapost["edit_satuan"];
+
+
+        $this->db->where('id', $id_rencana_kinerja)
+                ->update('t_rencana_kinerja', $data);
+
+        if($this->db->trans_status() == FALSE){
+            $this->db->trans_rollback();
+            $res['code'] = 1;
+            $res['message'] = 'Terjadi Kesalahan';
+            $res['data'] = null;
+        } else {
+            $this->db->trans_commit();
+        }
+
+        return $res;
+    }
+
+
+    public function getRencanaKinerjaEdit($id){
+        return $this->db->select('a.*')
+                        ->from('t_rencana_kinerja a')
+                        ->where('a.id', $id)
+                        ->where('a.flag_active', 1)
+                        ->limit(1)
+                        ->get()->row_array();
+    }
+
       
 
 	}

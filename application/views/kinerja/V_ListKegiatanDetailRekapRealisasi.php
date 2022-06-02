@@ -1,5 +1,6 @@
 <?php if($result){ ?>
     <hr>
+    <div  class="col-12 table-responsive">
     <table border=1 class="table table-hover" id="table_list_kegiatan_detail_rekap">
         <thead>
             <th class="text-center">No</th>
@@ -58,10 +59,12 @@
             <?php } ?>
         </tbody>
     </table>
+    </div>
     <script>
         $(function(){
             $('#table_list_kegiatan_detail_rekap').dataTable()
         })
     </script>
 <?php } else { ?>
+    <center><b>Belum Diverifikasi Pimpinan<b></center>
 <?php } ?>

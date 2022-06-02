@@ -1,18 +1,18 @@
 <?php if($list_kegiatan){ ?>
    
-    <div class="col-12">
-        <table class="table table-hover table-striped" id="" width="100%">
+    <div class="col-12 table-responsive">
+        <table class="table table-hover table-striped" id="table_realisasi_kinerja" width="100%">
             <thead>
-                <th class="text-center">No</th>
-                <th class="text-left">Kegiatan Tugas Jabatan</th>
-                <th class="text-left">Tanggal Kegiatan</th>
-                <th class="text-left">Detail Kegiatan</th>
-                <th class="text-left">Realisasi Target (Kuantitas)</th>
-                <th class="text-left">Satuan</th>
-                <th class="text-center">Status</th>
-                <th class="text-center">Dokumen Bukti Kegiatan</th>
+                <th class="text-center table-danger">No</th>
+                <th class="text-left table-danger">Kegiatan Tugas Jabatan</th>
+                <th class="text-left table-danger">Tanggal Kegiatan</th>
+                <th class="text-left table-danger">Detail Kegiatan</th>
+                <th class="text-left table-danger">Realisasi Target (Kuantitas)</th>
+                <th class="text-left table-danger">Satuan</th>
+                <th class="text-center table-danger">Status</th>
+                <th class="text-center table-danger">Dokumen Bukti Kegiatan</th>
                
-                <th></th>
+                <th class="table-danger"></th>
             </thead>
             <tbody>
             <?php $no=1; foreach($list_kegiatan as $lp){ ?>
@@ -55,8 +55,13 @@
                         </td>
                         
                         <td class="text-center">
+                       
                         <?php if($lp['id_status_verif'] != 1){ ?>
-                            <button onclick="deleteKegiatan('<?=$lp['id']?>')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i>  Hapus</button>
+                            <span href="#edit_realisasi_kinerja" data-toggle="modal" >
+                            <button href="#edit_realisasi_kinerja" data-toggle="tooltip" class="btn btn-sm btn-navy" data-placement="top" title="Edit" 
+                             onclick="openModalEditRealisasiKinerja('<?=$lp['id']?>')"><i class="fa fa-edit"></i> </button>
+                                 </span>  
+                            <button onclick="deleteKegiatan('<?=$lp['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button>
                             <?php } ?>
                         </td>
                         
@@ -67,12 +72,12 @@
     </div>
 
     <script>
-        $(document).ready(function () {
-        $('#table_realisasi_kinerja').DataTable({
-        "scrollX": true
-        });
-        $('.dataTables_length').addClass('bs-select');
-        });
+        // $(document).ready(function () {
+        // $('#table_realisasi_kinerja').DataTable({
+        // "scrollX": true
+        // });
+        // $('.dataTables_length').addClass('bs-select');
+        // });
 
         function deleteKegiatan(id){
            
@@ -104,3 +109,13 @@
         </div>
     </div>
 <?php } ?>
+
+<script>
+    $('#table_realisasi_kinerja').DataTable({
+    "ordering": false
+     } );
+    
+    $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
