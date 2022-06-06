@@ -50,13 +50,16 @@
             }
 
             if($this->general_library->isKabid()){
-                $bidang = $this->db->select('a.id')
+                $bidang = $this->db->select('a.id, a.nama_bidang, b.nama_sub_bidang')
                                 ->from('m_bidang a')
                                 ->join('m_sub_bidang b', 'a.id = b.id_m_bidang')
                                 ->where('b.id', $this->general_library->getSubBidangUser())
                                 ->get()->row_array();
                 if($bidang){
                     $data['bidang'] = $bidang['id'];
+                    if($bidang['nama_bidang'] == $bidang['nama_sub_bidang']){
+                        $data['sub_bidang'] = 0;
+                    }
                 }
             }
 
@@ -76,7 +79,6 @@
                 $this->db->where('b.id_m_sub_bidang', $data['sub_bidang']);
             }
             $result['rencana_kinerja'] = $this->db->get()->result_array();
-
 
             $this->db->select('*')
                     ->from('t_kegiatan a')
