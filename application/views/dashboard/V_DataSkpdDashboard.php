@@ -60,7 +60,7 @@
                     <label class="bmd-label-floating">Pilih Sub Bidang/Sub Bagian/Seksi</label>
                     <select class="form-control select2-navy" style="width: 100%"
                         id="sub_bidang" data-dropdown-css-class="select2-navy" name="sub_bidang">
-                        <option selected value="0">Semua</option>
+                        <!-- <option selected value="0">Semua</option> -->
                         <?php if($this->general_library->isKabid()){ foreach($list_sub_bidang as $sb){ ?>
                             <option value="<?=$sb['id']?>"><?=$sb['nama_sub_bidang']?></option>
                         <?php } } ?>
