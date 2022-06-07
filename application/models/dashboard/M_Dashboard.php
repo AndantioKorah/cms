@@ -53,7 +53,7 @@
                 $bidang = $this->db->select('a.id, a.nama_bidang, b.nama_sub_bidang')
                                 ->from('m_bidang a')
                                 ->join('m_sub_bidang b', 'a.id = b.id_m_bidang')
-                                ->where('b.id', $this->general_library->getSubBidangUser())
+                                ->where('b.id', $data['sub_bidang'])
                                 ->get()->row_array();
                 if($bidang){
                     $data['bidang'] = $bidang['id'];
