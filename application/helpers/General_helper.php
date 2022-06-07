@@ -170,9 +170,9 @@ function formatTwoMaxDecimal($data){
             $rs = $rs.'0';
         }
     }
-    if($rs > 100){
-        $rs = 100;
-    }
+    // if($rs > 100){
+    //     $rs = 100;
+    // }
     return $rs;
 }
 

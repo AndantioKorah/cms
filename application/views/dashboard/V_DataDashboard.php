@@ -37,6 +37,9 @@
                                 <div class="card-body">
                                     <div class="col-12 text-center">
                                         <?php $color = getProgressBarColor(formatTwoMaxDecimal($data_dashboard['total_progress']), false); ?>
+                                        <?php if($data_dashboard['total_progress'] > 100){
+                                            $data_dashboard['total_progress'] = 100;
+                                        } ?>
                                         <input data-readonly="true" disabled type="number" class="knob" 
                                         value="<?=formatTwoMaxDecimal($data_dashboard['total_progress'])?>"
                                         data-width="450" data-height="450" data-fgColor="<?=$color?>">
