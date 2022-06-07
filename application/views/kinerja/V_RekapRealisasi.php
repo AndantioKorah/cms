@@ -72,7 +72,7 @@
                         <input readonly autocomplete="off" class="form-control datepicker" id="tahun" name="tahun" value="<?=date('Y')?>" />
                     </div>
                 </div>
-                <div class="col-2">
+                <div class="col-2 col-sm-12">
                     <div class="form-group">
                         <br>
                         <button style="margin-top: 8px;" class="btn btn-block btn-navy"><i class="fa fa-search"></i> Cari</button>

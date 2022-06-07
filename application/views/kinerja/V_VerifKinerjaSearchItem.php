@@ -1,5 +1,5 @@
 <?php if($result){ ?>
-    <div class="col-12">
+    <div class="col-12 table-responsive">
         <table border=1 style="width: 100%;" id="table_verif_kinerja" class="table table-hover">
             <thead>
                 <th class="text-center">No</th>
@@ -66,9 +66,7 @@
 </div>
 
     <script>
-        $('#table_verif_kinerja').dataTable({
-            responsive: true;
-        })
+        $('#table_verif_kinerja').dataTable()
 
         function loadDetailKegiatan(id){
             $('#modal_detail_kegiatan_content').html('')
