@@ -66,7 +66,9 @@
 </div>
 
     <script>
-        $('#table_verif_kinerja').dataTable()
+        $('#table_verif_kinerja').dataTable({
+            responsive: true;
+        })
 
         function loadDetailKegiatan(id){
             $('#modal_detail_kegiatan_content').html('')
