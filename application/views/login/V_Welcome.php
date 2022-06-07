@@ -36,7 +36,7 @@
          }
         @media screen and (max-width: 600px) {
         h4 {
-        font-size: 17px;
+          font-size: 17px;
         /* display:none; */
         }
 

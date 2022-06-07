@@ -7,7 +7,7 @@
   @media screen and (max-width: 600px) {
     span.nmuser {
         font-size: 10px;
-      display:none;
+        display:none;
     }
 
     a.haritanggal {
@@ -16,10 +16,15 @@
       font-size:12px
     }
 
+    div.haritanggal {
+      white-space: nowrap;
+    }
+
     span.nmrole {
       font-weight: bold; 
       color: white; 
-      font-size:12px
+      font-size:12px;
+      display: none;
     }
   }
      
@@ -95,7 +100,7 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item haritanggal">
         <a class="haritanggal" style="font-weight: bold; color: white;" id="live_date_time" class="nav-link"></a>
       </li>
     </ul>
