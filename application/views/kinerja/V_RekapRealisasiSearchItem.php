@@ -1,5 +1,5 @@
 <?php if($result){ ?>
-    <div class="col-12">
+    <div class="col-12 table-responsive">
         <table border=1 class="table table-hover" id="table_search_rekap_realisasi">
             <thead>
                 <th class="text-center">No</th>
