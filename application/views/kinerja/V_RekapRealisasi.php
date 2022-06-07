@@ -6,7 +6,7 @@
         <form id="form_search_rekap_realisasi">
             <div class="row">
                 <?php if($this->general_library->isKaban()){ ?>
-                    <div class="col-4">
+                    <div class="col-4 col-lg-12">
                         <label class="bmd-label-floating">Filter</label>
                         <select class="form-control select2-navy" style="width: 100%"
                             id="filter" data-dropdown-css-class="select2-navy" name="filter">
@@ -19,7 +19,7 @@
                         </select>
                     </div>
                 <?php } else if($this->general_library->isWalikota() || $this->general_library->isSetda()) { ?>
-                    <div class="col-4">
+                    <div class="col-4 col-lg-12">
                         <label class="bmd-label-floating">Filter Berdasarkan</label>
                         <select class="form-control select2-navy" style="width: 100%"
                             id="filter_walikota" data-dropdown-css-class="select2-navy" name="filter_walikota">
@@ -30,7 +30,7 @@
                             <option value="pegawai">Pegawai</option>
                         </select>
                     </div>
-                    <div id="div_skpd" class="col-4">
+                    <div id="div_skpd" class="col-4 col-lg-12">
                         <label class="bmd-label-floating">Pilih SKPD</label>
                         <select class="form-control select2-navy" style="width: 100%"
                             id="filter_skpd" data-dropdown-css-class="select2-navy" name="filter_skpd">
@@ -39,14 +39,14 @@
                             <?php } ?>
                         </select>
                     </div>
-                    <div id="div_pegawai" class="col-4" style="display: none;">
+                    <div id="div_pegawai" class="col-4 col-lg-12" style="display: none;">
                         <label class="bmd-label-floating">NIP / Nama Pegawai</label>
                         <input class="form-control" name="nama_pegawai" />
                     </div>
                 <?php } ?>
             </div>
             <div class="row">
-                <div class="col-4">
+                <div class="col-4 col-lg-12">
                     <div class="form-group">
                         <label class="bmd-label-floating">Pilih Bulan</label>
                         <select class="form-control select2-navy" style="width: 100%"
@@ -66,13 +66,13 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-4 col-lg-12">
                     <div class="form-group">
                         <label class="bmd-label-floating">Pilih Tahun</label>
                         <input readonly autocomplete="off" class="form-control datepicker" id="tahun" name="tahun" value="<?=date('Y')?>" />
                     </div>
                 </div>
-                <div class="col-2 col-sm-12">
+                <div class="col-2 col-lg-12">
                     <div class="form-group">
                         <br>
                         <button style="margin-top: 8px;" class="btn btn-block btn-navy"><i class="fa fa-search"></i> Cari</button>
