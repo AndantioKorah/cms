@@ -13,38 +13,38 @@
         <div class="card-body">
             <form id="form_tambah_user">
                 <div class="row">
-                    <div class="col-3">
+                    <div class="col-lg-3 col-md-3">
                         <div class="form-group">
                             <label class="bmd-label-floating">Nama</label>
                             <input required class="form-control" autocomplete="off" name="nama" id="nama"/>
                         </div>
                     </div>
-                    <div class="col-2">
+                    <div class="col-lg-2 col-md-2">
                         <div class="form-group">
                             <label class="bmd-label-floating">Nomor HP</label>
                             <input required class="form-control" autocomplete="off" name="no_hp" id="no_hp"/>
                         </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-lg-3 col-md-3">
                         <div class="form-group">
                             <label class="bmd-label-floating">Username</label>
                             <input required class="form-control" autocomplete="off" name="username" id="username"/>
                         </div>
                     </div>
-                    <div class="col-2">
+                    <div class="col-lg-2 col-md-2">
                         <div class="form-group">
                             <label class="bmd-label-floating">Password</label>
                             <input required class="form-control" autocomplete="off" type="password" name="password" id="password"/>
                         </div>
                     </div>
-                    <div class="col-2">
+                    <div class="col-lg-2 col-md-2">
                         <div class="form-group">
                             <label class="bmd-label-floating">Konfirmasi Password</label>
                             <input required class="form-control" autocomplete="off" type="password" name="konfirmasi_password" id="konfirmasi_password"/>
                         </div>
                     </div>
-                        <div class="col-8"></div>
-                    <div class="col-4 text-right mt-2">
+                        <div class="col-lg-8 col-md-8"></div>
+                    <div class="col-lg-4 col-md-4 text-right mt-2">
                         <button class="btn btn-sm btn-navy" type="submit"><i class="fa fa-save"></i> SIMPAN</button>
                     </div>
                 </div>
@@ -74,7 +74,7 @@
         <?php } ?>
     </div>
     <div class="card-body">
-        <div id="list_users" class="row">
+        <div id="list_users" class="row table-responsive">
         </div>
     </div>
 </div>

@@ -5,31 +5,31 @@
     <div class="card-body" style="display: block;">
         <form id="form_tambah_menu">
             <div class="row">
-                <div class="col-2">
+                <div class="col-lg-2 col-md-2">
                     <div class="form-group">
                         <label class="bmd-label-floating">Nama Menu</label>
                         <input class="form-control form-control-sm" autocomplete="off" name="nama_menu" id="nama_menu"/>
                     </div>
                 </div>
-                <div class="col-2">
+                <div class="col-lg-2 col-md-2">
                     <div class="form-group">
                         <label class="bmd-label-floating">URL</label>
                         <input class="form-control form-control-sm" autocomplete="off" name="url" id="url"/>
                     </div>
                 </div>
-                <div class="col-1">
+                <div class="col-lg-1 col-md-1">
                     <div class="form-group">
                         <label class="bmd-label-floating">Icon</label>
                         <input class="form-control form-control-sm" autocomplete="off" name="icon" id="icon"/>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-lg-3 col-md-3">
                     <div class="form-group">
                         <label class="bmd-label-floating">Keterangan</label>
                         <input class="form-control form-control-sm" autocomplete="off" name="keterangan" id="keterangan"/>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-lg-4 col-md-4">
                     <div class="form-group">
                         <label class="bmd-label-floating">Parent</label>
                         <select class="form-control form-control-sm select2_this select2-navy" data-dropdown-css-class="select2-navy" name="id_m_menu_parent" id="id_m_menu_parent">
@@ -55,7 +55,7 @@
         <h3 class="card-title">LIST MENU</h3>
     </div>
     <div class="card-body">
-        <div id="list_menu" class="row">
+        <div id="list_menu" class="row table-responsive">
         </div>
     </div>
 </div>

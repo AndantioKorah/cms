@@ -5,26 +5,26 @@
     <div class="card-body" style="display: block;">
         <form id="form_tambah_role">
             <div class="row">
-                <div class="col-4">
+                <div class="col-lg-4 col-md-4">
                     <div class="form-group">
                         <label class="bmd-label-floating">Nama Role</label>
                         <input class="form-control" autocomplete="off" name="nama" id="nama"/>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-lg-4 col-md-4">
                     <div class="form-group">
                         <label class="bmd-label-floating">Role</label>
                         <input class="form-control" autocomplete="off" name="role_name" id="role_name"/>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-lg-4 col-md-4">
                     <div class="form-group">
                         <label class="bmd-label-floating">Keterangan</label>
                         <input class="form-control" autocomplete="off" name="keterangan" id="keterangan"/>
                     </div>
                 </div>
-                    <div class="col-8"></div>
-                <div class="col-4 text-right mt-2">
+                    <div class="col-lg-8 col-md-8"></div>
+                <div class="col-lg-4 col-md-4 text-right mt-2">
                     <button class="btn btn-sm btn-navy" type="submit"><i class="fa fa-save"></i> SIMPAN</button>
                 </div>
             </div>
@@ -37,7 +37,7 @@
         <h3 class="card-title">LIST ROLE</h3>
     </div>
     <div class="card-body">
-        <div id="list_role" class="row">
+        <div id="list_role" class="row table-responsive">
         </div>
     </div>
 </div>

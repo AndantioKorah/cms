@@ -4,6 +4,12 @@
         border-radius: 5px;
         cursor: pointer;
     }
+    @media screen and (max-width: 600px) {
+        .status-verif{
+            padding: 3px !important;
+            /* font-size: 10px; */
+        }
+    }
 </style>
 <div class="modal-header">
     <h5>Detail Kegiatan</h5>
@@ -104,13 +110,13 @@
                 <tbody>
                     <tr>
                         <?php
-                            $status_verif = '<span style="font-weight: bold; color: white; padding: 10px; background-color: grey;"><i class="fa fa-dot-circle"></i> Belum Verif</span>';
+                            $status_verif = '<span class="status-verif" style="font-weight: bold; color: white; padding: 10px; background-color: grey;"><i class="fa fa-dot-circle"></i> Belum Verif</span>';
                             if($result['status_verif'] == 1){
-                                $status_verif = '<span style="font-weight: bold; color: white; padding: 10px; background-color: green;"><i class="fa fa-check-circle"></i> Diterima</span>';
+                                $status_verif = '<span class="status-verif" style="font-weight: bold; color: white; padding: 10px; background-color: green;"><i class="fa fa-check-circle"></i> Diterima</span>';
                             } else if($result['status_verif'] == 2){
-                                $status_verif = '<span style="font-weight: bold; color: white; padding: 10px; background-color: red;"><i class="fa fa-times-circle"></i> Ditolak</span>';
+                                $status_verif = '<span class="status-verif" style="font-weight: bold; color: white; padding: 10px; background-color: red;"><i class="fa fa-times-circle"></i> Ditolak</span>';
                             } else if($result['status_verif'] == 3){
-                                $status_verif = '<span style="font-weight: bold; color: black; padding: 10px; background-color: yellow;"><i class="fa fa-minus-circle"></i> Verifikasi Dibatalkan</span>';
+                                $status_verif = '<span class="status-verif" style="font-weight: bold; color: black; padding: 10px; background-color: yellow;"><i class="fa fa-minus-circle"></i> Verifikasi Dibatalkan</span>';
                             }
                         ?>
                         <td><?=$status_verif?></td>

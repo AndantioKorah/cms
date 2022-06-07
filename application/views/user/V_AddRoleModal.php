@@ -45,7 +45,7 @@
                     <div class="col-12"><hr></div>
                     <div class="col-12">
                         <label>Role:</label>
-                        <div id="list_role"></div>
+                        <div id="list_role" class="table-responsive"></div>
                     </div>
                 </div>
             </div>
@@ -66,7 +66,7 @@
                     </div>
                     <div class="col-12"><hr></div>
                     <div class="col-12">
-                        <div id="div_bidang"></div>
+                        <div id="div_bidang" class="table-responsive"></div>
                     </div>
                 </div>
             </div>
