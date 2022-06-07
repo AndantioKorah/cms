@@ -21,7 +21,7 @@
                 <h5>NIP. <?=formatnip($result[0]['username'])?></h5>
                 <span style="font-size: 17px; font-weight: bold;">Periode: <?=getNamaBulan($periode['bulan']).' '.$periode['tahun']?></span>
             </div>
-            <div class="col-12">
+            <div class="col-12 responsive-true">
                 <table border=1 class="table table-hover" id="table_detail_rekap">
                     <thead>
                         <th class="text-center">No</th>
