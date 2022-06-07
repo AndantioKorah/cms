@@ -101,7 +101,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item haritanggal">
-        <a class="haritanggal" style="font-weight: bold; color: white;" id="live_date_time" class="nav-link"></a>
+        <a class="haritanggal" style="font-weight: bold; color: white; margin: 0; top: 50%; position: absolute;" id="live_date_time" class="nav-link"></a>
       </li>
     </ul>
 
