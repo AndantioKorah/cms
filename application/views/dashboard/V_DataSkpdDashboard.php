@@ -165,7 +165,7 @@
                         </div>
                         <div class="col-lg-12">
                             <label class="bmd-label-floating">Pilih Tahun</label>
-                            <input readonly autocomplete="off" class="form-control datepicker" id="tahun" name="tahun" value="<?=date('Y')?>" />
+                            <input readonly autocomplete="off" class="form-control datepicker" id="tahun_mobile" name="tahun" value="<?=date('Y')?>" />
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -184,6 +184,11 @@
             $('#sub_bidang').select2()
 
             $('#tahun').datepicker({
+                autoClose: true,
+                format: 'yyyy',
+            })
+
+            $('#tahun_mobile').datepicker({
                 autoClose: true,
                 format: 'yyyy',
             })
