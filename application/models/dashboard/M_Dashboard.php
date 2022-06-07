@@ -75,7 +75,7 @@
                 $this->db->join('m_sub_bidang d', 'b.id_m_sub_bidang = d.id')
                         ->where('d.id_m_bidang', $data['bidang']);
             }
-            if($data['sub_bidang'] != 0){
+            if(isset($data['sub_bidang']) && $data['sub_bidang'] != 0){
                 $this->db->where('b.id_m_sub_bidang', $data['sub_bidang']);
             }
             $result['rencana_kinerja'] = $this->db->get()->result_array();
@@ -94,7 +94,7 @@
                 $this->db->join('m_sub_bidang e', 'c.id_m_sub_bidang = e.id')
                         ->where('e.id_m_bidang', $data['bidang']);
             }
-            if($data['sub_bidang'] != 0){
+            if(isset($data['sub_bidang']) && $data['sub_bidang'] != 0){
                 $this->db->where('c.id_m_sub_bidang', $data['sub_bidang']);
             }
             $result['realisasi'] = $this->db->get()->result_array();
