@@ -97,12 +97,12 @@
       </div>
     </form> -->
     <ul class="navbar-nav">
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item haritanggal">
         <a class="haritanggal" style="font-weight: bold; color: white; margin: 0; top: 50%; position: absolute;" id="live_date_time" class="nav-link"></a>
-      </li>
+      </li> -->
     </ul>
 
     <ul class="navbar-nav ml-auto">
@@ -137,6 +137,12 @@
           <i class="fa fa-stopwatch"></i> <?=formatDate($params_exp_app['parameter_value'])?>
         </a>
       </li> -->
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+      <li class="nav-item haritanggal">
+        <a class="haritanggal" style="font-weight: bold; color: white; margin: 0; top: 50%; position: absolute;" id="live_date_time" class="nav-link"></a>
+      </li>
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#" style="font-weight: bold; color: white;">
           <i class="fa fa-id-badge"></i>
