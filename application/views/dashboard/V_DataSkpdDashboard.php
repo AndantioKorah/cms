@@ -111,7 +111,7 @@
                         </div>
                         <div class="col-2">
                             <label class="bmd-label-floating">Pilih Tahun</label>
-                            <input readonly autocomplete="off" class="form-control tahunpicker datepicker" id="tahun" name="tahun" value="<?=date('Y')?>" />
+                            <input readonly autocomplete="off" class="form-control tahunpicker" id="tahun" name="tahun" value="<?=date('Y')?>" />
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -165,7 +165,7 @@
                         </div>
                         <div class="col-lg-12">
                             <label class="bmd-label-floating">Pilih Tahun</label>
-                            <input readonly class="form-control datepicker tahunpicker" id="tahun" name="tahun" value="<?=date('Y')?>" />
+                            <input readonly class="form-control tahunpicker" id="tahun" name="tahun" value="<?=date('Y')?>" />
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -186,6 +186,8 @@
             $('.tahunpicker').datepicker({
                 autoClose: true,
                 format: 'yyyy',
+                viewMode: "years", 
+                minViewMode: "years",
             })
             
             $('#form_data_dashboard').submit()
