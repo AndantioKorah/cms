@@ -184,7 +184,7 @@
                             <input data-readonly="true" disabled type="number" class="knob" 
                             value="<?=formatTwoMaxDecimal($data_dashboard['total_progress'])?>"
                             data-width="250" data-height="250" data-fgColor="<?=$color?>">
-                            <div class="knob-label"><strong>PRESENTASE CAPAIAN REALISASI TARGET</strong></div>
+                            <div class="knob-label"><strong style="font-size: 14px;">PRESENTASE CAPAIAN REALISASI TARGET</strong></div>
                         </div>
                         <br>
                         <div class="col-12">
