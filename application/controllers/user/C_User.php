@@ -285,4 +285,18 @@ class C_User extends CI_Controller
 
 
     
+
+    public function loadDataPegawaiFromNewDb(){
+        $data['list_pegawai_export'] = $this->user->loadDataPegawaiFromNewDb();
+        // $this->session->set_userdata(['list_pegawai_export' => $data['list_pegawai_export']]);
+        $this->load->view('user/V_ImportPegawaiFromNewDb', $data);
+    }
+
+    public function exportOne($id){
+        echo json_encode($this->user->exportOne($id));
+    }
+
+    public function exportAll(){
+        echo json_encode($this->user->exportAll());
+    }
 }

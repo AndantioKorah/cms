@@ -102,7 +102,7 @@ define('TITLES', 'BIDIK - ASN Juara | BKPSDM Kota Manado');
 define('TITLE_SECOND', 'BIDIK - ASN Juara');
 define('TITLE_THIRD', 'BIDIK - ASN Juara');
 define('PROGRAMMER_PHONE', '00000000');
-define('COPYRIGHT', 'Copyright &copy; '.date('Y').' <strong>BKPSDM Manado</strong>');
+define('COPYRIGHT', 'Copyright &copy; 2022 <strong>BKPSDM Manado</strong>');
 // define('COPYRIGHT', 'Copyright &copy; '.date('Y').' <strong>PATRA LAB</strong>');
 define('TRANSAKSI_TABLE_VIEW', 1);
 define('USE_PRINT', '0');

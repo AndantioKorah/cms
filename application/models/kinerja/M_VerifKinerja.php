@@ -410,7 +410,7 @@
                     }
                 }
             }
-
+            
             if($list_id_pegawai){
                 $this->db->select('*, a.id as id_t_rencana_kinerja')
                     ->from('t_rencana_kinerja a')
@@ -471,10 +471,13 @@
         }
 
         public function loadDetailRekap($id){
+            $periode = $this->session->userdata('periode_search_rekap');
             return $this->db->select('*, a.id as id_t_rencana_kinerja')
                             ->from('t_rencana_kinerja a')
                             ->join('m_user b', 'a.id_m_user = b.id')
                             ->where('b.id', $id)
+                            ->where('a.bulan', floatval($periode['bulan']))
+                            ->where('a.tahun', floatval($periode['tahun']))
                             ->where('a.flag_active', 1)
                             ->get()->result_array();
         }

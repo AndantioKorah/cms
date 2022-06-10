@@ -6,7 +6,7 @@
         <form id="form_search_verif_kinerja">
             <div class="row">
                 <?php if($this->general_library->isKaban()){ ?>
-                    <div class="col-4">
+                    <div class="col">
                         <label class="bmd-label-floating">Filter</label>
                         <select class="form-control select2-navy" style="width: 100%"
                             id="filter" data-dropdown-css-class="select2-navy" name="filter">
@@ -19,7 +19,7 @@
                         </select>
                     </div>
                 <?php } else if($this->general_library->isWalikota() || $this->general_library->isSetda()) { ?>
-                    <div class="col-4">
+                    <div class="col">
                         <label class="bmd-label-floating">Filter Berdasarkan</label>
                         <select class="form-control select2-navy" style="width: 100%"
                             id="filter_walikota" data-dropdown-css-class="select2-navy" name="filter_walikota">
@@ -30,7 +30,7 @@
                             <option value="pegawai">Pegawai</option>
                         </select>
                     </div>
-                    <div id="div_skpd" class="col-4">
+                    <div id="div_skpd" class="col">
                         <label class="bmd-label-floating">Pilih SKPD</label>
                         <select class="form-control select2-navy" style="width: 100%"
                             id="filter_skpd" data-dropdown-css-class="select2-navy" name="filter_skpd">
@@ -39,23 +39,29 @@
                             <?php } ?>
                         </select>
                     </div>
-                    <div id="div_pegawai" class="col-4" style="display: none;">
+                    <div id="div_pegawai" class="col" style="display: none;">
                         <label class="bmd-label-floating">NIP / Nama Pegawai</label>
                         <input class="form-control" name="nama_pegawai" />
                     </div>
                 <?php } ?>
+                <div class="col d-none d-sm-none d-md-block d-lg-block d-xl-block"></div>
             </div>
             <div class="row">
-                <div class="col-6">
+                <div class="col-lg-6 col-md-6">
                     <div class="form-group">
                         <label class="bmd-label-floating">Pilih Periode</label>
                         <input class="form-control form-control-sm" id="range_periode" readonly name="range_periode"/>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-lg-3 col-md-3">
                     <div class="form-group">
                         <br>
-                        <button style="margin-top: 8px;" class="btn btn-sm btn-navy"><i class="fa fa-search"></i> Cari</button>
+                        <div class="d-none d-sm-none d-md-block d-lg-block d-xl-block">
+                            <button type="submit" style="margin-top: 8px;" class="btn btn-sm btn-navy"><i class="fa fa-search"></i> Cari</button>
+                        </div>
+                        <div class="d-block d-sm-block d-md-none d-lg-none d-xl-none">
+                            <button type="submit" style="margin-top: 8px;" class="btn btn-block btn-navy"><i class="fa fa-search"></i> Cari</button>
+                        </div>
                     </div>
                 </div>
             </div>

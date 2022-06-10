@@ -37,6 +37,9 @@
                                 <div class="card-body">
                                     <div class="col-12 text-center">
                                         <?php $color = getProgressBarColor(formatTwoMaxDecimal($data_dashboard['total_progress']), false); ?>
+                                        <?php if($data_dashboard['total_progress'] > 100){
+                                            $data_dashboard['total_progress'] = 100;
+                                        } ?>
                                         <input data-readonly="true" disabled type="number" class="knob" 
                                         value="<?=formatTwoMaxDecimal($data_dashboard['total_progress'])?>"
                                         data-width="450" data-height="450" data-fgColor="<?=$color?>">
@@ -181,7 +184,7 @@
                             <input data-readonly="true" disabled type="number" class="knob" 
                             value="<?=formatTwoMaxDecimal($data_dashboard['total_progress'])?>"
                             data-width="250" data-height="250" data-fgColor="<?=$color?>">
-                            <div class="knob-label"><strong>PRESENTASE CAPAIAN REALISASI TARGET</strong></div>
+                            <div class="knob-label"><strong style="font-size: 12px;">PRESENTASE CAPAIAN REALISASI TARGET</strong></div>
                         </div>
                         <br>
                         <div class="col-12">
@@ -197,7 +200,7 @@
                 <div class="info-box">
                     <span class="info-box-icon bg-info"><i class="far fa-file"></i></span>
                     <div class="info-box-content">
-                        <span class="info-box-text">TOTAL RENCANA KINERJA</span>
+                        <span class="info-box-text" style="font-size: 12px; font-weight: bold;">TOTAL RENCANA KINERJA</span>
                         <span class="info-box-number"><?=count($data_dashboard['rencana_kinerja'])?></span>
                     </div>
                 </div>
@@ -218,7 +221,7 @@
                 <div class="info-box">
                     <span class="info-box-icon bg-info"><i class="far fa-file-alt"></i></span>
                     <div class="info-box-content">
-                        <span class="info-box-text">TOTAL REALISASI KINERJA</span>
+                        <span class="info-box-text" style="font-size: 12px; font-weight: bold;">TOTAL REALISASI KINERJA</span>
                         <div class="progress progress-sm" style="height: 1rem !important; border-radius: 10px;">
                             <div class="progress-bar" role="progressbar" aria-valuenow="<?=count($data_dashboard['realisasi'])?>" aria-valuemin="0" aria-valuemax="<?=$progress_realisasi?>" style="width: <?=$progress_realisasi == 0 ? '0' : '100' ?>%; background-color: <?=getProgressBarColor($progress_realisasi)?>;">
                             </div>
@@ -229,7 +232,7 @@
                 <div class="info-box">
                     <span class="info-box-icon bg-green"><i class="fa fa-check"></i></span>
                     <div class="info-box-content">
-                        <span class="info-box-text">KINERJA YANG SUDAH DIVERIFIKASI</span>
+                        <span class="info-box-text" style="font-size: 12px; font-weight: bold;">KINERJA YANG SUDAH DIVERIFIKASI</span>
                         <div class="progress progress-sm" style="height: 1rem !important; border-radius: 10px;">
                             <div class="progress-bar" role="progressbar" aria-valuenow="<?=$data_dashboard['verif_diterima']?>" aria-valuemin="0" aria-valuemax="<?=count($data_dashboard['realisasi'])?>" style="width: <?=$progress_diterima.'%'?>; background-color: <?=getProgressBarColor($progress_diterima)?>;">
                             </div>
@@ -240,7 +243,7 @@
                     <div class="info-box">
                         <span class="info-box-icon bg-danger"><i class="fa fa-times"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-text">KINERJA YANG DITOLAK VERIFIKASI</span>
+                            <span class="info-box-text" style="font-size: 12px; font-weight: bold;">KINERJA YANG DITOLAK VERIFIKASI</span>
                             <div class="progress progress-sm" style="height: 1rem !important; border-radius: 10px;">
                                 <div class="progress-bar" role="progressbar" aria-valuenow="<?=$data_dashboard['verif_ditolak']?>" aria-valuemin="0" aria-valuemax="<?=count($data_dashboard['realisasi'])?>" style="width: <?=$progress_ditolak.'%'?>; background-color: #dc3545;">
                                 </div>
@@ -251,7 +254,7 @@
                 <div class="info-box">
                     <span class="info-box-icon bg-warning"><i class="fa fa-minus"></i></span>
                     <div class="info-box-content">
-                        <span class="info-box-text">KINERJA YANG DIBATALKAN VERIFIKASI</span>
+                        <span class="info-box-text" style="font-size: 12px; font-weight: bold;">KINERJA YANG DIBATALKAN VERIFIKASI</span>
                         <div class="progress progress-sm" style="height: 1rem !important; border-radius: 10px;">
                             <div class="progress-bar" role="progressbar" aria-valuenow="<?=$data_dashboard['batal_verif']?>" aria-valuemin="0" aria-valuemax="<?=count($data_dashboard['realisasi'])?>" style="width: <?=$progress_batal.'%'?>; background-color: #ffc107;">
                             </div>
@@ -262,7 +265,7 @@
                 <div class="info-box">
                     <span class="info-box-icon bg-dark"><i class="far fa-circle"></i></span>
                     <div class="info-box-content">
-                        <span class="info-box-text">KINERJA YANG BELUM DIVERIFIKASI</span>
+                        <span class="info-box-text" style="font-size: 12px; font-weight: bold;">KINERJA YANG BELUM DIVERIFIKASI</span>
                         <div class="progress progress-sm" style="height: 1rem !important; border-radius: 10px;">
                             <div class="progress-bar" role="progressbar" aria-valuenow="<?=$data_dashboard['belum_verif']?>" aria-valuemin="0" aria-valuemax="<?=count($data_dashboard['realisasi'])?>" style="width: <?=$progress_belum.'%'?>; background-color: #343a40;">
                             </div>

@@ -7,7 +7,7 @@
 .image-settings {
   opacity: 1;
   display: block;
-  width: 100%;
+  /* width: 100%; */
   height: auto;
   transition: .5s ease;
   backface-visibility: hidden;
@@ -34,9 +34,29 @@
   cursor:pointer;
 }
 
+@media screen and (max-width: 650px) {
+    .image-settings {
+        width: 250px !important;
+        height: 250px !important;
+    }
+}
+
+/* @media screen and (max-width: 450px) {
+    .image-settings {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .image-settings {
+        width: 50px;
+        height: 50px;
+    }
+} */
 </style>
 <div class="row">
-    <div class="col-12">
+    <div class="col-lg-12 col-md-12">
         <div class="card card-navy">
             <div class="card-header card_header" style="cursor: pointer;" data-card-widget="collapse">
                 <h3 class="card-title">USER PROFILE</h3>
@@ -46,7 +66,7 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-lg-6 col-md-6">
                         <center>
                         <div class="foto_container">
                             <img src="<?=$this->general_library->getProfilePicture()?>" style="height: 350px; width: 350px; margin-right: 1px;" 
@@ -65,50 +85,49 @@
                         <?php } ?>
                         </center>                  
                     </div>
-                    <div class="col-6">
+                    <div class="col-lg-6 col-md-6">
                         <form action="<?=base_url('user/C_User/updateProfile')?>" method="POST">
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-lg-12 col-md-12">
                                     <label>Username</label>
                                     <input class="form-control form-control-sm" readonly value="<?=$this->general_library->getUserName()?>" />
                                 </div>
-                                <div class="col-12">
+                                <div class="col-lg-12 col-md-12">
                                     <label>Role</label>
                                     <input class="form-control form-control-sm" readonly value="<?=$this->general_library->getRole()?>" />
                                 </div>
-                                <div class="col-12">
+                                <div class="col-lg-12 col-md-12">
                                     <label>Nama</label>
-                                    <input class="form-control form-control-sm" name="nama" value="<?=$this->general_library->getNamaUser()?>" />
+                                    <input class="form-control form-control-sm" readonly name="nama" value="<?=$this->general_library->getNamaUser()?>" />
                                 </div>
-                                <div class="col-9"></div>
-                                <div class="col-3 text-right mt-3">
+                                <div style="display: none;" class="col-lg-9 col-md-9"></div>
+                                <div style="display: none;" class="col-lg-3 col-md-3 text-right mt-3">
                                     <button type="submit" class="btn btn-sm btn-navy"><i class="fa fa-save"></i>&nbsp;&nbsp;Simpan</button>
                                 </div>
-                                <div class="col-12"><hr></div>
+                                <div class="col-lg-12 col-md-12"><hr></div>
                             </div>
                         </form>
                         <form action="<?=base_url('user/C_User/changePassword')?>" method="POST">
                             <div class="row">
-                                <div class="col-12 text-center">
+                                <div class="col-lg-12 col-md-12 text-center">
                                     <h5><i class="fa fa-key"></i> Change Password</h5>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-lg-12 col-md-12">
                                     <label>Password Lama</label>
                                     <input class="form-control form-control-sm" autocomplete="off" type="password" name="password_lama"/>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-lg-12 col-md-12">
                                     <label>Password Baru</label>
                                     <input class="form-control form-control-sm" autocomplete="off" type="password" name="password_baru"/>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-lg-12 col-md-12">
                                     <label>Konfirmasi Password Baru</label>
                                     <input class="form-control form-control-sm" autocomplete="off" type="password" name="konfirmasi_password"/>
                                 </div>
-                                <div class="col-9"></div>
-                                <div class="col-3 text-right mt-3">
+                                <div class="col-lg-12 col-md-12 text-right mt-3">
                                     <button type="submit" class="btn btn-sm btn-navy"><i class="fa fa-save"></i>&nbsp;&nbsp;Ganti Password</button>
                                 </div>
-                                <div class="col-12"><hr></div>
+                                <div class="col-lg-12 col-md-12"><hr></div>
                             </div>
                         </form>
                     </div>

@@ -498,16 +498,22 @@
                             ->get()->result_array();
         }
 
-        public function importPegawaiByUnitKerja($unitkerja){
+        public function importPegawaiByUnitKerja($unitkerja, $list_pegawai_export = null, $flag_import_new_db = 0){
             $rs['code'] = 0;
             $rs['message'] = 'OK';
 
             $this->db->trans_begin();
 
-            $list_pegawai = $this->db->select('*')
+            if($flag_import_new_db == 1){
+                $list_pegawai = $list_pegawai_export;
+                $this->session->set_userdata(['list_pegawai_export' => null]);
+            } else {
+                $list_pegawai = $this->db->select('*')
                                     ->from('db_pegawai.pegawai')
                                     ->where('skpd', $unitkerja)
                                     ->get()->result_array();
+            }
+
             if($list_pegawai){
                 $bulkuser = null;
                 $list_id_pegawai = null;
@@ -522,7 +528,7 @@
                         // echo 'username '.$lp['nipbaru_ws'].' sudah terdaftar'.'<br>';
                     } else {
                         $user['username'] = $lp['nipbaru_ws'];
-                        $user['nama'] = getNamaPegawaiFull($lp);
+                        $user['nama'] = trim(getNamaPegawaiFull($lp));
                         $nip_baru = explode(" ", $lp['nipbaru']);
                         $password = $nip_baru[0];
                         $pass_split = str_split($password);
@@ -821,6 +827,51 @@
 
 
 
+        public function loadDataPegawaiFromNewDb(){
+            return $this->db->select('a.*, c.nm_unitkerja')
+                            ->from('db_pegawai_new.pegawai a')
+                            ->join('db_pegawai.unitkerja c', 'a.skpd = c.id_unitkerja', 'left')
+                            ->where('a.id_peg NOT IN (SELECT b.id_peg FROM db_pegawai.pegawai b)')
+                            ->get()->result_array();
+        }
+
+        public function exportOne($id){
+            $res['code'] = 0;
+            $res['message'] = '';
+
+            $pegawai = $this->db->select('*')
+                                ->from('db_pegawai_new.pegawai')
+                                ->where('id_peg', $id)
+                                ->get()->result_array();
+            if($pegawai){
+                $pegawai[0]['nipbaru_ws'] = str_replace(' ', '', $pegawai[0]['nipbaru']);
+                $this->db->insert('db_pegawai.pegawai', $pegawai[0]);
+                $res = $this->importPegawaiByUnitKerja(0, $pegawai, 1);
+            }
+            return $res;
+        }
+
+
+        public function exportAll(){
+            $res['code'] = 0;
+            $res['message'] = '';
+
+            $pegawai = $this->loadDataPegawaiFromNewDb();
+            $list_pegawai = null;
+            if($pegawai){
+                $i = 0;
+                foreach($pegawai as $p){
+                    $list_pegawai[$i] = $p;
+                    $list_pegawai[$i]['nipbaru_ws'] = str_replace(' ', '', $p['nipbaru']);
+                    unset($list_pegawai[$i]['nm_unitkerja']);
+                    $i++;
+                }
+                $this->db->insert_batch('db_pegawai.pegawai', $list_pegawai);
+                $res = $this->importPegawaiByUnitKerja(0, $list_pegawai, 1);
+            }
+
+            return $res;
+        } 
 	}
 
 

@@ -4,7 +4,7 @@
 ?>
 <style>
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 621px) {
     span.nmuser {
         font-size: 10px;
         display:none;
@@ -25,6 +25,55 @@
       color: white; 
       font-size:12px;
       display: none;
+    }
+  }
+
+  @media screen and (max-width: 780px) {
+    span.nmuser {
+        font-size: 10px;
+        /* display:none; */
+    }
+
+    a.haritanggal {
+      font-weight: bold; 
+      color: white; 
+      font-size:12px;
+    }
+
+    div.haritanggal {
+      white-space: nowrap;
+    }
+
+    span.nmrole {
+      font-weight: bold; 
+      color: white; 
+      font-size:10px;
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 875px) {
+    span.nmuser {
+        font-size: 12px;
+        /* display:none; */
+    }
+
+    a.haritanggal {
+      font-weight: bold; 
+      color: white; 
+      font-size:12px;
+    }
+
+    div.haritanggal {
+      white-space: nowrap;
+      font-size: 12px;
+    }
+
+    span.nmrole {
+      font-weight: bold; 
+      color: white; 
+      font-size:12px;
+      /* display: none; */
     }
   }
      
