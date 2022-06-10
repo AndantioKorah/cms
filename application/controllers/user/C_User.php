@@ -247,4 +247,42 @@ class C_User extends CI_Controller
         $update = ['flag_general_menu' => 0];
         $this->general->update('id', $id, 'm_menu', $update);
     }
+    
+    public function mutasiPegawai(){
+
+        $data['list_skpd'] = $this->user->getAllSkpd();
+        $data['pegawai'] = $this->session->userdata('pegawai');
+
+        render('user/V_MutasiPegawai', 'user_management', 'users', $data);
+    }
+
+
+    public function loadPegawai($id_unitkerja){
+        // $data['result'] = $this->user->getAllUsersBySkpd($id_unitkerja);
+        $data['result'] = $this->user->getAllPegawaiBySkpd($id_unitkerja);
+        $this->load->view('user/V_UsersItemMutasi', $data);
+    }
+
+    public function openMutasiPegawaiModal($id_peg){
+        
+        $data['pegawai'] = $this->user->getListPegawaiSkpdMutasi($id_peg);
+        $data['list_skpd'] = $this->user->getAllSkpd();
+        // dd($data['pegawai']);
+        $this->load->view('user/V_MutasiPegawaiModal', $data);
+    }
+
+    public function mutasiPegawaiSubmit(){
+        echo json_encode($this->user->mutasiPegawaiSubmit($this->input->post()));
+    }
+
+
+    public function openRiwayatMutasiModal($id_peg){
+        $data['riwayat'] = $this->user->getRiwayatMutasiPegawai($id_peg);
+        $this->load->view('user/V_RiwayatMutasiModal', $data);
+    }
+
+
+
+
+    
 }

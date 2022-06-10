@@ -736,5 +736,93 @@
 
             return $rs;
         }
+
+
+        public function getAllPegawaiBySkpd($id_unitkerja){
+            return $this->db->select('a.*, a.nama as nama_user, b.nm_unitkerja')
+                            ->from('db_pegawai.pegawai a')
+                            ->join('db_pegawai.unitkerja b', 'a.skpd = b.id_unitkerja', 'left')
+                            ->where('a.skpd', $id_unitkerja)
+                            // ->where('a.flag_active', 1)
+                            ->order_by('a.nama')
+                            ->get()->result_array();
+        }
+
+        public function mutasiPegawaiSubmit($data){
+            $rs['code'] = 0;
+            $rs['message'] = 'OK';
+
+            $this->db->trans_begin();
+
+
+            $nip = str_replace(' ', '', $data['nip']);
+
+            $id_m_user = $this->db->select('id')
+            ->from('m_user')
+            ->where('username', $nip)
+            ->where('flag_active', 1)
+            ->get()->row_array();
+
+    
+            $update['skpd'] = $data['select_search_skpd_modal'];
+            $dataInsert['id_pegawai'] = $data['id_peg'];
+            $dataInsert['id_unit_kerja_asal'] = $data['skpd'];
+            $dataInsert['id_unit_kerja_tujuan'] = $data['select_search_skpd_modal'];
+            $dataInsert['id_user_inputer'] = $this->general_library->getId();
+            $dataInsert['created_by'] = $this->general_library->getId();
+                    $this->db->where('id_peg', $data['id_peg'])
+                            ->update('db_pegawai.pegawai', $update);
+
+            $this->db->insert('t_riwayat_unit_kerja_pegawai', $dataInsert);
+
+
+            $this->db->where('id_m_user', $id_m_user['id'])
+                             ->update('m_user_role', ['flag_active' => 0]);
+
+            $this->db->where('id', $id_m_user['id'])
+                             ->update('m_user', ['id_m_sub_bidang' => null]);
+
+
+
+            if($this->db->trans_status() == FALSE){
+                $this->db->trans_rollback();
+                $rs['code'] = 1;
+                $rs['message'] = 'Terjadi Kesalahan';
+            } else {
+                $this->db->trans_commit();
+            }
+
+            return $rs;
+        }
+
+
+        public function getListPegawaiSkpdMutasi($id_peg){
+            return $this->db->select('a.nama as nama_pegawai, a.id_peg, a.skpd, a.nipbaru')
+                            ->from('db_pegawai.pegawai a')
+                            // ->where('a.skpd', $idskpd)
+                            ->where('a.id_peg ', $id_peg)
+                            // ->where('a.flag_active', 1)
+                            // ->order_by('b.nama', 'asc')
+                            ->get()->result_array();
+        }
+
+        public function getRiwayatMutasiPegawai($id_peg){
+            return $this->db->select('a.*, b.nama,
+            (select nm_unitkerja from db_pegawai.unitkerja where unitkerja.id_unitkerja = a.id_unit_kerja_asal) as unit_kerja_asal,
+            (select nm_unitkerja from db_pegawai.unitkerja where unitkerja.id_unitkerja = a.id_unit_kerja_tujuan) as unit_kerja_tujuan
+            ')
+                            ->from('t_riwayat_unit_kerja_pegawai a')
+                            ->join('db_pegawai.pegawai b', 'a.id_pegawai = b.id_peg')
+                            ->where('a.id_pegawai', $id_peg)
+                            ->where('a.flag_active', 1)
+                              ->order_by('a.id', 'desc')
+                            ->get()->result_array();
+        }
+
+
+
 	}
+
+
+   
 ?>
