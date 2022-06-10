@@ -253,7 +253,73 @@
                         ->get()->row_array();
     }
 
-      
+    public function createSkpBulanan($data){
+        $pegawai = $this->db->select('a.id, b.gelar1, b.nipbaru_ws, b.nama, b.gelar2, c.nm_unitkerja, d.nama_jabatan, e.nm_pangkat, f.id_m_bidang, a.id_m_sub_bidang')
+                            ->from('m_user a')
+                            ->join('db_pegawai.pegawai b', 'a.username = b.nipbaru_ws')
+                            ->join('db_pegawai.unitkerja c', 'b.skpd = c.id_unitkerja')
+                            ->join('db_pegawai.jabatan d', 'b.jabatan = d.id_jabatanpeg')
+                            ->join('db_pegawai.pangkat e', 'b.pangkat = e.id_pangkat')
+                            ->join('m_sub_bidang f', 'a.id_m_sub_bidang = f.id')
+                            ->where('a.flag_active', 1)
+                            ->where('a.id', $this->general_library->getId())
+                            ->get()->row_array();
+        // dd($pegawai);
+        $atasan = "";
+        $flag_sekolah = false;
+        if($this->general_library->isPelaksana()){
+            $atasan = 'kepalabidang';
+        } else if($this->general_library->isKabid() || $this->general_library->isSekban()){
+            $atasan = 'kepalabadan';
+        } else if($this->general_library->isKaban()){
+            $atasan = 'setda';
+        } else if($this->general_library->isSetda()){
+            $atasan = 'walikota';
+        } else if($this->general_library->isGuruStaffSekolah()){
+            $atasan = 'kepalasekolah';
+            $flag_sekolah = true;
+        } else if($this->general_library->isKepalaSekolah()){
+            $atasan = 'kepalabidang';
+            $flag_sekolah = true;
+        }
 
-	}
+        $atasan_pegawai = null;
+        if($flag_sekolah){
+
+        } else {
+            $atasan_pegawai = $this->db->select('a.id, b.nipbaru_ws, b.gelar1, b.nama, b.gelar2, c.nm_unitkerja, d.nama_jabatan, e.nm_pangkat, f.id_m_bidang')
+                            ->from('m_user a')
+                            ->join('db_pegawai.pegawai b', 'a.username = b.nipbaru_ws')
+                            ->join('db_pegawai.unitkerja c', 'b.skpd = c.id_unitkerja')
+                            ->join('db_pegawai.jabatan d', 'b.jabatan = d.id_jabatanpeg')
+                            ->join('db_pegawai.pangkat e', 'b.pangkat = e.id_pangkat')
+                            ->join('m_sub_bidang f', 'a.id_m_sub_bidang = f.id')
+                            ->join('m_user_role g', 'a.id = g.id_m_user')
+                            ->join('m_role h', 'g.id_m_role = h.id')
+                            ->where('f.id_m_bidang', $pegawai['id_m_bidang'])
+                            ->where('a.id !=', $this->general_library->getId())
+                            ->where('h.role_name', $atasan)
+                            ->where('a.flag_active', 1)
+                            ->group_by('a.id')
+                            ->limit(1)
+                            ->get()->row_array();
+        }
+
+        $rencana_kinerja = $this->db->select('a.*,
+                                (SELECT SUM(b.realisasi_target_kuantitas)
+                                FROM t_kegiatan b
+                                WHERE b.id_t_rencana_kinerja = a.id
+                                AND b.flag_active = 1) as realisasi')
+                                ->from('t_rencana_kinerja a')
+                                ->where('a.id_m_user', $pegawai['id'])
+                                ->where('a.bulan', floatval($data['bulan']))
+                                ->where('a.tahun', floatval($data['tahun']))
+                                ->where('a.flag_active', 1)
+                                ->order_by('a.created_date')
+                                ->get()->result_array();
+        
+        return [$pegawai, $atasan_pegawai, $rencana_kinerja];
+    }
+
+}
 ?>
