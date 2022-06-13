@@ -14,14 +14,14 @@
                             
                             <select class="form-control select2-navy" style="width: 100%;"
                              id="select_search_skpd_modal" data-dropdown-css-class="select2-navy" name="select_search_skpd_modal">
-                   <?php if($list_skpd){
-                    foreach($list_skpd as $ls){
-                    ?>
-                    <option value="<?=$ls['id_unitkerja']?>">
-                        <?=$ls['nm_unitkerja']?>
-                    </option>
-                <?php } } ?>
-            </select>
+                            <?php if($list_skpd){
+                                foreach($list_skpd as $ls){
+                                ?>
+                                <option value="<?=$ls['id_unitkerja']?>">
+                                    <?=$ls['nm_unitkerja']?>
+                                </option>
+                                <?php } } ?>
+                            </select>
                    <input style="display: none;"  class="form-control form-control-sm" name="skpd" value="<?=$pegawai[0]['skpd']?>"/>
                    <input style="display: none;"  class="form-control form-control-sm" name="nip" value="<?=$pegawai[0]['nipbaru']?>"/>
                             <input style="display: none;" class="form-control form-control-sm" name="id_peg" value="<?=$pegawai[0]['id_peg']?>"/>

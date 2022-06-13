@@ -471,5 +471,28 @@
         return [$pegawai, $atasan_pegawai, $rencana_kinerja, $kepala_pd];
     }
 
+
+    public function getListRencanaKinerjaTugas(){
+        return $this->db->select('a.tugas_jabatan')
+                        ->from('t_rencana_kinerja as a ')
+                        ->where('a.id_m_user',$this->general_library->getId())
+                        ->where('a.flag_active', 1)
+                        ->group_by('a.tugas_jabatan')
+                        ->get()->result_array();
+    }
+
+    public function getListRencanaKinerjaSasaran(){
+        return $this->db->select('a.sasaran_kerja')
+                        ->from('t_rencana_kinerja as a ')
+                        ->where('a.id_m_user',$this->general_library->getId())
+                        ->where('a.flag_active', 1)
+                        ->group_by('a.sasaran_kerja')
+                        ->get()->result_array();
+    }
+
+
+
+
+    
 }
 ?>
