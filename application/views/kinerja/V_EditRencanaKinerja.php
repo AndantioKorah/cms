@@ -6,9 +6,14 @@
              
             </div>
             <div class="col-md-9"></div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <label>Kegiatan Tugas Jabatan</label>
                 <input required autocomplete="off" id="edit_tugas_jabatan"  class="form-control form-control-sm" name="edit_tugas_jabatan" value="<?=$rencana['tugas_jabatan']?>" readonly/>
+            </div>
+
+            <div class="col-md-6">
+                <label>Sasaran Kerja</label>
+                <input required autocomplete="off" id="edit_sasaran_kerja"  class="form-control form-control-sm" name="edit_sasaran_kerja" value="<?=$rencana['sasaran_kerja']?>" readonly/>
             </div>
 
             <div class="col-md-4">
@@ -26,13 +31,13 @@
                 <input required autocomplete="off" id="edit_target_kuantitas"  class="form-control form-control-sm" name="edit_target_kuantitas" value="<?=$rencana['target_kuantitas']?>" />
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <label>Satuan</label>
                 <input required autocomplete="off" id="edit_satuan"  class="form-control form-control-sm" name="edit_satuan" value="<?=$rencana['satuan']?>" />
             </div>
 
 
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <label>Target (Kualitas)</label>
                 <input required autocomplete="off" id="edit_realisasi_target_kuantitas"  class="form-control form-control-sm" name="edit_realisasi_target_kuantitas" value="100%" Readonly/>
             </div>

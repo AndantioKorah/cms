@@ -322,13 +322,16 @@
     }
 
 
-    public function getAllSkpd(){
-        return $this->db->select('a.tugas_jabatan')
+    public function getListRencanaKinerja(){
+        return $this->db->select('a.tugas_jabatan, a.sasaran_kerja')
                         ->from('t_rencana_kinerja as a ')
                         ->where('a.id_m_user',$this->general_library->getId())
                         // ->order_by('nm_unitkerja', 'asc')
                         ->get()->result_array();
     }
 
+
+
+    
 }
 ?>
