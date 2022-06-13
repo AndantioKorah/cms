@@ -142,6 +142,18 @@ class General_library
         return $this->getActiveRoleName() == 'gurusekolah';
     }
 
+    public function isPelaksana(){
+        return $this->getActiveRoleName() == 'staffpelaksana';
+    }
+
+    public function isKasub(){
+        return $this->getActiveRoleName() == 'subkoordinator';
+    }
+
+    public function isSekban(){
+        return $this->getActiveRoleName() == 'sekretarisbadan';
+    }
+
     public function getUnitKerjaPegawai(){
         return $this->nikita->session->userdata('pegawai')['skpd'];
     }

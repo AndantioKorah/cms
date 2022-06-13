@@ -272,11 +272,16 @@ class C_Kinerja extends CI_Controller
         echo json_encode($this->kinerja->editRencanaKinerja());
     }
 
+    public function skpBulanan(){
+        render('kinerja/V_SkpBulanan', '', '', null);
+    }
 
-
-    
-    
-
+    public function createSkpBulanan(){
+        $data['periode'] = $this->input->post();
+        list($data['pegawai'], $data['atasan_pegawai'], $data['rencana_kinerja']) = $this->kinerja->createSkpBulanan($this->input->post());
+        $this->session->set_userdata(['data_skp' => $data]);
+        $this->load->view('kinerja/V_SkpBulananCreate', $data);
+    }
    
     
 }
