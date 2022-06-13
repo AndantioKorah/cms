@@ -6,9 +6,10 @@
              
             </div>
             <div class="col-md-9"></div>
-            <div class="col-md-4">
+            <div class="col-md-12">
                 <label>Rencana Kegiatan</label>
-                <input required autocomplete="off" id="edit_tugas_jabatan"  class="form-control form-control-sm" name="edit_tugas_jabatan" value="<?=$realisasi['tugas_jabatan']?>" readonly/>
+                <!-- <input required autocomplete="off" id="edit_tugas_jabatan"  class="form-control form-control-sm" name="edit_tugas_jabatan" value="<?=$realisasi['tugas_jabatan']?>" readonly/> -->
+                <textarea readonly  class="form-control form-control-sm" name="edit_tugas_jabatan" id="edit_tugas_jabatan" cols="30" rows="3"><?=$realisasi['tugas_jabatan']?></textarea>
             </div>
 
             <div class="col-md-4">
