@@ -6,14 +6,16 @@
              
             </div>
             <div class="col-md-9"></div>
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <label>Kegiatan Tugas Jabatan</label>
-                <input required autocomplete="off" id="edit_tugas_jabatan"  class="form-control form-control-sm" name="edit_tugas_jabatan" value="<?=$rencana['tugas_jabatan']?>" readonly/>
+                <!-- <input required autocomplete="off" id="edit_tugas_jabatan"  class="form-control form-control-sm" name="edit_tugas_jabatan" value="<?=$rencana['tugas_jabatan']?>" readonly/> -->
+          <textarea readonly  class="form-control form-control-sm" name="edit_tugas_jabatan" id="edit_tugas_jabatan" cols="30" rows="3"><?=$rencana['tugas_jabatan']?></textarea>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <label>Sasaran Kerja</label>
-                <input required autocomplete="off" id="edit_sasaran_kerja"  class="form-control form-control-sm" name="edit_sasaran_kerja" value="<?=$rencana['sasaran_kerja']?>" readonly/>
+                <!-- <input required autocomplete="off" id="edit_sasaran_kerja"  class="form-control form-control-sm" name="edit_sasaran_kerja" value="<?=$rencana['sasaran_kerja']?>" readonly/> -->
+                <textarea readonly  class="form-control form-control-sm" name="edit_sasaran_kerja" id="edit_sasaran_kerja" cols="30" rows="3"><?=$rencana['sasaran_kerja']?></textarea>
             </div>
 
             <div class="col-md-4">
