@@ -11,6 +11,11 @@
     <input required class="form-control " id="tugas_jabatan" name="tugas_jabatan" autocomplete="off">
   </div>
 
+  <div class="form-group" >
+    <label for="exampleFormControlInput1">Sasaran Kerja</label>
+    <input required class="form-control " id="sasaran_kerja" name="sasaran_kerja" autocomplete="off">
+  </div>
+
     <div class="form-group" >
     <label for="exampleFormControlInput1">Tahun</label>
     <input  class="form-control datepicker" id="tahun" name="tahun" value="<?= date('Y');?>">

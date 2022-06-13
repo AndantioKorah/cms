@@ -4,6 +4,7 @@
             <thead>
                 <th class="text-center table-danger">No</th>
                 <th class="text-left table-danger">Kegiatan Tugas Jabatan</th>
+                <th class="text-left table-danger">Sasaran Kerja</th>
                 <th class="text-left table-danger">Tahun</th>
                 <th class="text-left table-danger">Bulan</th>
                 <th class="text-left table-danger">Target Kuantitas</th>
@@ -17,6 +18,7 @@
                     <tr>
                         <td class="text-center"><?=$no++;?></td>
                         <td class="text-left"><?=$lp['tugas_jabatan']?></td>
+                        <td class="text-left"><?=$lp['sasaran_kerja']?></td>
                         <td class="text-left"><?=$lp['tahun']?></td>                       
                         <td class="text-left"><?= getNamaBulan($lp['bulan'])?></td>
                         <td class="text-left"><?=$lp['target_kuantitas']?></td>
