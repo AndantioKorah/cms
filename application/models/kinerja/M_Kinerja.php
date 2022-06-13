@@ -321,5 +321,14 @@
         return [$pegawai, $atasan_pegawai, $rencana_kinerja];
     }
 
+
+    public function getAllSkpd(){
+        return $this->db->select('a.tugas_jabatan')
+                        ->from('t_rencana_kinerja as a ')
+                        ->where('a.id_m_user',$this->general_library->getId())
+                        // ->order_by('nm_unitkerja', 'asc')
+                        ->get()->result_array();
+    }
+
 }
 ?>

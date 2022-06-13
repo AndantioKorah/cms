@@ -8,13 +8,23 @@
     
   <div class="form-group" >
     <label for="exampleFormControlInput1">Kegiatan Tugas Jabatan</label>
-    <input required class="form-control " id="tugas_jabatan" name="tugas_jabatan" autocomplete="off">
+    <!-- <input required class="form-control " id="tugas_jabatan" name="tugas_jabatan" autocomplete="off"> -->
+    <input class="form-control"  type="text" list="tugasjabatan" id="tugas_jabatan" name="tugas_jabatan" autocomplete="off"/>
+      <datalist id="tugasjabatan">
+      <?php if($list_skpd){
+                                foreach($list_skpd as $ls){
+                                ?>
+                                <option value="<?=$ls['tugas_jabatan']?>">
+                                    <?=$ls['tugas_jabatan']?>
+                                </option>
+                                <?php } } ?>
+      </datalist>
   </div>
 
   <div class="form-group" >
     <label for="exampleFormControlInput1">Sasaran Kerja</label>
     <input required class="form-control " id="sasaran_kerja" name="sasaran_kerja" autocomplete="off">
-  </div>
+        </div>
 
     <div class="form-group" >
     <label for="exampleFormControlInput1">Tahun</label>
