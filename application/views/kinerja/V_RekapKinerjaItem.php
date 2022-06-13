@@ -4,6 +4,7 @@
     <tbody><tr height="20" style="height:15.0pt">
     <th rowspan="2" class="table-danger" height="40" >No</th>
     <th rowspan="2" class="table-danger">Kegiatan Tugas Jabatan</th>
+    <th rowspan="2" class="table-danger">Sasaran Kerja</th>
     <th rowspan="2" class="table-danger">Tahun</th>
     <th rowspan="2" class="table-danger">Bulan</th>
     <th colspan="3" class="text-center table-danger" width="265" style="border-left:none;width:199pt">Target<span style="mso-spacerun:yes">&nbsp;</span></th>
@@ -33,6 +34,7 @@
                     <tr onclick="openListKegiatan('<?=$lp['id']?>')">
                         <td class="text-left"><?=$no++;?></td>
                         <td class="text-left"><?=$lp['tugas_jabatan']?></td>
+                        <td class="text-left"><?=$lp['sasaran_kerja']?></td>
                         <td class="text-left"><?=$lp['tahun']?></td>
                         <td class="text-left"><?= getNamaBulan($lp['bulan'])?></td>
                         <td class="text-left"><?=$lp['target_kuantitas']?></td>                       
