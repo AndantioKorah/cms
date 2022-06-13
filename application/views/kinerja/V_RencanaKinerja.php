@@ -25,8 +25,8 @@
     <label for="exampleFormControlInput1">Sasaran Kerja</label>
     <input required class="form-control" list="sasarankerja"  id="sasaran_kerja" name="sasaran_kerja" autocomplete="off">
     <datalist id="sasarankerja">
-      <?php if($list_rencana_kinerja){
-                                foreach($list_rencana_kinerja as $ls){
+      <?php if($list_sasaran_kerja){
+                                foreach($list_sasaran_kerja as $ls){
                                 ?>
                                 <option value="<?=$ls['sasaran_kerja']?>">
                                     <?=$ls['sasaran_kerja']?>

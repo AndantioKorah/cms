@@ -26,7 +26,8 @@ class C_Kinerja extends CI_Controller
 
     public function rencanaKinerja(){
         $data['list_rencana_kerja'] = "";
-        $data['list_rencana_kinerja'] = $this->kinerja->getListRencanaKinerja();
+        $data['list_rencana_kinerja'] = $this->kinerja->getListRencanaKinerjaTugas();
+        $data['list_sasaran_kerja'] = $this->kinerja->getListRencanaKinerjaSasaran();
         render('kinerja/V_RencanaKinerja', '', '', $data);
     }
 
