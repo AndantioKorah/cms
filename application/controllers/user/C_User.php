@@ -102,7 +102,7 @@ class C_User extends CI_Controller
 
     public function openAddRoleModal($id_m_user){
         $data['user'] = $this->general->getUserForSetting($id_m_user);
-        $data['roles'] = $this->general->getAllWithOrder('m_role', 'nama', 'asc');
+        $data['roles'] = $this->general->getRoleByUnitKerjaMaster($id_m_user);
         // $data['sub_bidang'] = $this->general->getAllWithOrder('m_sub_bidang', 'nama_sub_bidang', 'asc');
         $data['sub_bidang'] = $this->master->loadMasterSubBidangByUnitKerja($data['user']['skpd']);
         $data['pegawai'] = $this->user->getListPegawaiSkpd($data['user']['skpd'], $id_m_user);
@@ -280,12 +280,6 @@ class C_User extends CI_Controller
         $data['riwayat'] = $this->user->getRiwayatMutasiPegawai($id_peg);
         $this->load->view('user/V_RiwayatMutasiModal', $data);
     }
-
-
-
-
-    
-
     public function loadDataPegawaiFromNewDb(){
         $data['list_pegawai_export'] = $this->user->loadDataPegawaiFromNewDb();
         // $this->session->set_userdata(['list_pegawai_export' => $data['list_pegawai_export']]);
@@ -298,5 +292,9 @@ class C_User extends CI_Controller
 
     public function exportAll(){
         echo json_encode($this->user->exportAll());
+    }
+
+    public function runQuery(){
+        $this->user->runQuery();
     }
 }

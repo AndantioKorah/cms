@@ -4,17 +4,17 @@
     <table class="table table-hover table-striped table-sm data_table_role_modal">
         <thead>
             <th class="text-center">No</th>
-            <th>Nama Role</th>
+            <!-- <th>Nama Role</th> -->
             <th>Role</th>
-            <th>Keterangan</th>
+            <!-- <th>Keterangan</th> -->
             <th class="text-center">Pilihan</th>
         </thead>
         <?php $no = 1; foreach($list_user_role as $lr){ if($lr['role'] != 'programmer'){ ?>
             <tr>
                 <td class="text-center"><?=$no?></td>
                 <td><?=$lr['is_default'] == 1 ? $lr['nama_role'].' <strong>(default)</strong>' : $lr['nama_role']?></td>
-                <td><?=$lr['role']?></td>
-                <td><?=$lr['keterangan']?></td>
+                <!-- <td><?=$lr['role']?></td> -->
+                <!-- <td><?=$lr['keterangan']?></td> -->
                 <td class="text-center">
                     <?php if($lr['is_default'] == 0){ ?>
                         <button onclick="setDefault('<?=$lr['id']?>')" class="btn btn-sm btn-info"

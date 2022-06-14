@@ -154,6 +154,14 @@ class General_library
         return $this->getActiveRoleName() == 'sekretarisbadan';
     }
 
+    public function isCamat(){
+        return $this->getActiveRoleName() == 'camat';
+    }
+
+    public function isLurah(){
+        return $this->getActiveRoleName() == 'lurah';
+    }
+
     public function getUnitKerjaPegawai(){
         return $this->nikita->session->userdata('pegawai')['skpd'];
     }

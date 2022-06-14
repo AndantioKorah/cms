@@ -322,6 +322,7 @@
                     ->from('m_menu a')
                     ->where('a.id_m_menu_parent', 0)
                     ->where('a.flag_active', 1)
+                    // ->or_where('a.flag_general_menu = 1 AND a.id_m_menu_parent = 0')
                     ->order_by('a.created_date', 'desc')
                     ->group_by('a.id');
             if($role_name != 'programmer'){
@@ -338,15 +339,18 @@
                         ->from('m_menu a')
                         ->where('a.id_m_menu_parent', $l['id'])
                         ->where('a.flag_active', 1)
+                        ->or_where('a.flag_general_menu = 1 AND a.id_m_menu_parent = "'.$l["id"].'"')
+                        ->group_by('a.id')
                         ->order_by('a.created_date', 'asc');
-                        if($role_name != 'programmer'){
-                            $this->db->join('m_menu_role b', 'b.id_m_menu = a.id')
-                                    ->where('b.id_m_role', $id_role)    
-                                    ->where('b.flag_active', 1);    
-                        }           
-                        $list_menu[$i]['child'] = $this->db->get()->result_array();
+                    if($role_name != 'programmer'){
+                        $this->db->join('m_menu_role b', 'b.id_m_menu = a.id')
+                                ->where('b.id_m_role', $id_role)    
+                                ->where('b.flag_active', 1);    
+                    }           
+                    $list_menu[$i]['child'] = $this->db->get()->result_array();
                     $i++;
                 }
+                // dd($list_menu);
             }
             return $list_menu;
         }
@@ -871,7 +875,23 @@
             }
 
             return $res;
-        } 
+        }
+
+        public function runQuery(){
+            $data = $this->db->query("SELECT a.nama_bidang, a.id
+            FROM m_bidang a
+            JOIN db_pegawai.unitkerja b ON a.id_unitkerja = b.id_unitkerja
+            WHERE b.nm_unitkerja LIKE 'Kec%'
+            AND a.nama_bidang != 'Sekretariat'")->result_array();
+
+            $list_id = [];
+            foreach($data as $d){
+                $list_id[] = $d['id'];
+            }
+            // dd($list_id);
+            // $this->db->where_in('id', $list_id)
+            //         ->update('m_bidang', ['nama_bidang' => 'Sekretariat']);
+        }
 	}
 
 
