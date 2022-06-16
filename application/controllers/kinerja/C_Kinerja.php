@@ -7,6 +7,7 @@ class C_Kinerja extends CI_Controller
         parent::__construct();
         $this->load->model('general/M_General', 'general');
         $this->load->model('kinerja/M_Kinerja', 'kinerja');
+        $this->load->model('kinerja/M_VerifKinerja', 'verifkinerja');
         $this->load->helper('url_helper');
         $this->load->helper('form');
         if(!$this->general_library->isNotMenu()){
@@ -284,6 +285,26 @@ class C_Kinerja extends CI_Controller
         $this->session->set_userdata(['data_skp' => $data]);
         $this->load->view('kinerja/V_SkpBulananCreate', $data);
     }
-   
+
+    public function komponenKinerja(){
+        render('kinerja/V_KomponenKinerja', '', '', null);
+    }
+
+    public function loadPegawaiKomponenKinerja(){
+        $data['periode'] = $this->input->post();
+        $data['list_pegawai'] = $this->verifkinerja->loadPegawaiKomponenKinerja($this->input->post());
+        $this->load->view('kinerja/V_ListPegawaiKomponenKinerja', $data);
+    }
+
+    public function editNilaiKomponen($id, $bulan, $tahun){
+        $data['tahun'] = $tahun;
+        $data['bulan'] = $bulan;
+        list($data['pegawai'], $data['result']) = $this->verifkinerja->loadNilaiKomponen($id, $bulan, $tahun);
+        $this->load->view('kinerja/V_EditKomponenKinerja', $data);
+    }
+
+    public function saveNilaiKomponenKinerja(){
+        echo json_encode($this->verifkinerja->saveNiliKomponenKinerja($this->input->post()));
+    }
     
 }

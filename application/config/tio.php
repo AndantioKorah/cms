@@ -11,6 +11,7 @@ $route['master/bidang/sub'] = 'master/C_Master/masterSubBidang';
 $route['kinerja/verifikasi'] = 'kinerja/C_VerifKinerja/verifKinerja';
 $route['kinerja/rekapitulasi-realisasi'] = 'kinerja/C_VerifKinerja/rekapRealisasi';
 $route['kinerja/skp-bulanan'] = 'kinerja/C_Kinerja/skpBulanan';
+$route['kinerja/komponen'] = 'kinerja/C_Kinerja/komponenKinerja';
 
 $route['rekapitulasi/realisasi-kinerja'] = 'kinerja/C_VerifKinerja/rekapRealisasi';
 $route['rekapitulasi/absensi'] = 'rekap/C_Rekap/rekapAbsensi';

@@ -32,21 +32,54 @@
 </head>
 
 <style>
-        @media screen and (max-height: 700px) {
-			.img_login_logo{
-				width: 300px !important;
-				height: 150px !important;
-			}
+	@media screen and (max-height: 700px) {
+		.img_login_logo{
+			width: 300px !important;
+			height: 150px !important;
 		}
+	}
 
-		.login-container{
-			margin: 0;
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			width: 90%;
-		}
+	.login-container{
+		margin: 0;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 90%;
+	}
+
+	/* .showpassword::before {
+		content: attr(data-content);
+		position: absolute;
+		max-width: 70%;
+		background-color: #fff;
+		border: 1px solid #c80000;
+		border-radius: 2px;
+		padding: 4px 30px 4px 10px;
+		bottom: calc((100% - 25px) / 2);
+		-webkit-transform: translateY(50%);
+		-moz-transform: translateY(50%);
+		-ms-transform: translateY(50%);
+		-o-transform: translateY(50%);
+		transform: translateY(50%);
+		right: 2px;
+		pointer-events: none;
+
+		font-family: Poppins-Medium;
+		color: #c80000;
+		font-size: 14px;
+		line-height: 1.4;
+		text-align: left;
+
+		visibility: hidden;
+		opacity: 0;
+
+		-webkit-transition: opacity 0.4s;
+		-o-transition: opacity 0.4s;
+		-moz-transition: opacity 0.4s;
+		transition: opacity 0.4s;
+	} */
+
 </style>
 
 <body style="background-color: #ebebeb;">
@@ -91,15 +124,21 @@
 							<span class="focus-input100"></span>
 						</div> -->
 
-						<div class="wrap-input100 p-t-50 validate-input" data-validate="Username is required">
+						<div class="wrap-input100 p-t-50" data-validate="Username is required">
 							<span class="label-input100">Username</span>
-							<input class="input100" autocomplete="off" type="text" name="username" placeholder="Username">
+							<input class="input100" autocomplete="off" type="text" name="username">
 							<span class="focus-input100"></span>
 						</div>
 
-						<div class="wrap-input100 validate-input" data-validate = "Password is required">
-							<span class="label-input100">Password</span>
-							<input class="input100" autocomplete="off" type="password" name="password" placeholder="*************">
+						<div class="wrap-input100" id="div_notshowpassword" data-content = "Show Password">
+							<span class="label-input100">Password <i style="cursor: pointer;" id="showpassword" class="fa fa-eye"></i></span>
+							<input class="input100" id="input_notshowpassword" autocomplete="off" type="password" name="password">
+							<span class="focus-input100"></span>
+						</div>
+
+						<div style="display: none;" id="div_showpassword" class="wrap-input100" data-content = "Show Password">
+							<span class="label-input100">Password <i style="cursor: pointer;" id="notshowpassword" class="fa fa-eye-slash"></i></span>
+							<input class="input100" id="input_showpassword" autocomplete="off" type="text" name="password">
 							<span class="focus-input100"></span>
 						</div>
 
@@ -211,5 +250,23 @@
       title: message
     })
   }
+
+  $('#showpassword').on('click', function(){
+	  $('#div_showpassword').show()
+	  $('#div_notshowpassword').hide()
+  })
+
+  $('#notshowpassword').on('click', function(){
+	$('#div_showpassword').hide()
+	  $('#div_notshowpassword').show()
+  })
+
+  $('#input_notshowpassword').on('input', function(){
+	  $('#input_showpassword').val($(this).val())
+  })
+
+  $('#input_showpassword').on('input', function(){
+	  $('#input_notshowpassword').val($(this).val())
+  })
 
 </script>

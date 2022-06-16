@@ -649,10 +649,5 @@
                         ->group_by('a.sasaran_kerja')
                         ->get()->result_array();
     }
-
-
-
-
-    
 }
 ?>

@@ -11,7 +11,7 @@
             $this->db->insert($tablename, $data);
         }
 
-        public function getListIdPegawaiForVerif($data = null){
+        public function getListIdPegawaiForVerif($data = null, $return_data_pegawai = false){
             $role = $this->general_library->getRole();
             $vt = $this->db->select('*')
                         ->from('t_verif_tambahan')
@@ -234,16 +234,19 @@
                                             ->get()->result_array();
             }
             $list_id_pegawai = array();
+            $list_data_pegawai = array();
             // dd($list_pegawai);
             if($list_pegawai){
                 foreach($list_pegawai as $lp){
                     $list_id_pegawai[] = $lp['id_m_user'];
+                    $list_data_pegawai[] = $lp;
                 }
             }
 
             if($list_user_tambahan){
                 foreach($list_user_tambahan as $lut){
                     $list_id_pegawai[] = $lut;
+                    $list_data_pegawai[] = $lut;
                 }
             }
 
@@ -257,8 +260,12 @@
                 if($pegawai){
                     foreach($pegawai as $p){
                         $list_id_pegawai[] = $p['id_m_user'];
+                        $list_data_pegawai[] = $p;
                     }
                 }
+            }
+            if($return_data_pegawai){
+                return $list_data_pegawai;
             }
             return $list_id_pegawai;
         }
@@ -517,6 +524,93 @@
                             ->where('a.flag_active', 1)
                             ->order_by('a.tanggal_verif', 'desc')
                             ->get()->result_array();
+        }
+
+        public function loadPegawaiKomponenKinerja($data){
+            $result = null;
+            $list_id_pegawai = $this->getListIdPegawaiForVerif();
+            if($list_id_pegawai){
+                $result = $this->db->select('*, a.id as id_m_user')
+                                ->from('m_user a')
+                                ->join('db_pegawai.pegawai b', 'a.username = b.nipbaru_ws')
+                                ->join('db_pegawai.jabatan c', 'b.jabatan = c.id_jabatanpeg')
+                                ->join('m_sub_bidang d', 'a.id_m_sub_bidang = d.id', 'left')
+                                ->join('m_bidang e', 'd.id_m_bidang = e.id', 'left')
+                                ->join('db_pegawai.pangkat f', 'b.pangkat = f.id_pangkat')
+                                ->where_in('a.id', $list_id_pegawai)
+                                ->get()->result_array();
+
+                if($result){
+                    $data_komponen = $this->db->select('*')
+                                        ->from('t_komponen_kinerja a')
+                                        ->join('m_user b', 'a.id_m_user = b.id')
+                                        ->where_in('a.id_m_user', $list_id_pegawai)
+                                        ->where('a.bulan', $data['bulan'])
+                                        ->where('a.tahun', $data['tahun'])
+                                        ->where('a.flag_active', 1)
+                                        ->get()->result_array();
+                    $komponen = [];
+                    if($data_komponen){
+                        foreach($data_komponen as $k){
+                            $komponen[$k['id_m_user']] = $k;
+                        }
+
+                        $i = 0;
+                        foreach($result as $r){
+                            if(isset($komponen[$r['id_m_user']])){
+                                $result[$i]['komponen_kinerja'] = $komponen[$r['id_m_user']];
+                            }
+                            $i++;
+                        }
+                    }
+                }
+            }
+            return $result;
+        }
+
+        public function loadNilaiKomponen($id, $bulan, $tahun){
+            $pegawai =  $this->db->select('*, a.id as id_m_user')
+                                    ->from('m_user a')
+                                    ->join('db_pegawai.pegawai b', 'a.username = b.nipbaru_ws')
+                                    ->join('db_pegawai.jabatan c', 'b.jabatan = c.id_jabatanpeg')
+                                    ->join('m_sub_bidang d', 'a.id_m_sub_bidang = d.id', 'left')
+                                    ->join('m_bidang e', 'd.id_m_bidang = e.id', 'left')
+                                    ->join('db_pegawai.pangkat f', 'b.pangkat = f.id_pangkat')
+                                    ->where('a.id', $id)
+                                    ->get()->row_array();
+
+            $komponen =  $this->db->select('*, a.id as id_t_komponen_kinerja')
+                                    ->from('t_komponen_kinerja a')
+                                    ->where('a.id_m_user', $id)
+                                    ->where('a.bulan', $bulan)
+                                    ->where('a.tahun', $tahun)
+                                    ->where('a.flag_active', 1)
+                                    ->get()->row_array();
+            return [$pegawai, $komponen];
+        }
+
+        public function saveNiliKomponenKinerja($data){
+            $res['code'] = 0;
+            $res['message'] = 'OK';
+            $res['data'] = $data;
+            list($capaian, $bobot) = countNilaiKomponen($data);
+
+            if($data['id_t_komponen_kinerja']){
+                $id = $data['id_t_komponen_kinerja'];
+                unset($data['id_t_komponen_kinerja']);
+                $data['updated_by'] = $this->general_library->getId();
+                $this->db->where('id', $id)
+                        ->update('t_komponen_kinerja', $data);
+            } else {
+                unset($data['id_t_komponen_kinerja']);
+                $data['created_by'] = $this->general_library->getId();
+                $this->db->insert('t_komponen_kinerja', $data);
+            }
+
+            $res['data']['capaian'] = $capaian;
+            $res['data']['bobot'] = $bobot;
+
+            return $res;
         }
 	}
 ?>

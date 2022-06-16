@@ -215,6 +215,17 @@
     
   })
 
+  function countBobotNilaiKomponenKinerja(capaian){
+    let bobot = 30;
+    if(capaian >= 350 && capaian < 679){
+        bobot = (capaian / 700) * 0.3;
+        bobot = bobot * 100;
+    } else if(capaian < 350) {
+        bobot = 0;
+    }
+    return bobot;
+  }
+
   function divLoaderNavy(message = 'Loading'){
     return '<div class="col-12 text-center" style="height: 100%; id="loader"> <i style="color: #001f3f;" class="fas fa-3x fa-spin fa-sync-alt"></i> </div>'
   }

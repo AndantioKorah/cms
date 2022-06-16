@@ -37,6 +37,24 @@ function generateNorm($last_norm){
     return str_pad($cur_count_norm, 7, '0', STR_PAD_LEFT);
 }
 
+function countNilaiKomponen($data){
+    $capaian = floatval($data['efektivitas']) +
+                floatval($data['efisiensi']) +
+                floatval($data['inovasi']) +
+                floatval($data['kerjasama']) +
+                floatval($data['kecepatan']) +
+                floatval($data['tanggungjawab']) +
+                floatval($data['ketaatan']);
+    $bobot = 30;
+    if($capaian < 350){
+        $bobot = 0;
+    } else if ($capaian > 350 && $capaian < 679){
+        $bobot = ($capaian / 700) * 0.3;
+    }
+
+    return [$capaian, $bobot];
+}
+
 function explodeRangeDate($date){
     $tanggal = explode("-", $date);
     $awal = explode("/", $tanggal[0]);    
@@ -169,6 +187,8 @@ function formatTwoMaxDecimal($data){
         } else {
             $rs = $rs.'0';
         }
+    } else {
+        $rs .= ".00";
     }
     // if($rs > 100){
     //     $rs = 100;
