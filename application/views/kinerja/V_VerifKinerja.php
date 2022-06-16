@@ -24,7 +24,7 @@
                         <select class="form-control select2-navy" style="width: 100%"
                             id="filter_walikota" data-dropdown-css-class="select2-navy" name="filter_walikota">
                             <option value="skpd" selected>SKPD</option>
-                            <option value="eselon_dua">Eselon II</option>
+                            <option value="eselon_dua">Eselon II dan Camat</option>
                             <!-- <option value="eselon_tiga">Eselon III</option> -->
                             <!-- <option value="eselon_empat">Eselon IV</option> -->
                             <option value="pegawai">Pegawai</option>

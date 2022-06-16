@@ -73,7 +73,7 @@
                 <?php } } ?>
             </select>
         <?php } else { ?>
-            <h3 class="card-title mb-2"><strong>LIST USER</strong></h3>
+            <h3 class="card-title mb-2"><strong>LIST PEGAWAI</strong></h3>
         <?php } ?>
     </div>
     <div class="card-body">

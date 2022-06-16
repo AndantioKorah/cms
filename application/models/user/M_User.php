@@ -322,6 +322,7 @@
                     ->from('m_menu a')
                     ->where('a.id_m_menu_parent', 0)
                     ->where('a.flag_active', 1)
+                    // ->or_where('a.flag_general_menu = 1 AND a.id_m_menu_parent = 0')
                     ->order_by('a.created_date', 'desc')
                     ->group_by('a.id');
             if($role_name != 'programmer'){
@@ -334,19 +335,52 @@
                 $i = 0;
                 foreach($list_menu as $l){
                     $list_menu[$i]['child'] = null;
-                    $this->db->select('*')
+                    $child = null;
+                    $this->db->select('*, a.id as id_m_menu')
                         ->from('m_menu a')
                         ->where('a.id_m_menu_parent', $l['id'])
                         ->where('a.flag_active', 1)
+                        // ->or_where('a.flag_general_menu = 1 AND a.id_m_menu_parent = "'.$l["id"].'"')
+                        ->group_by('a.id')
                         ->order_by('a.created_date', 'asc');
-                        if($role_name != 'programmer'){
-                            $this->db->join('m_menu_role b', 'b.id_m_menu = a.id')
-                                    ->where('b.id_m_role', $id_role)    
-                                    ->where('b.flag_active', 1);    
-                        }           
-                        $list_menu[$i]['child'] = $this->db->get()->result_array();
+                    if($role_name != 'programmer'){
+                        $this->db->join('m_menu_role b', 'b.id_m_menu = a.id')
+                                ->where('b.id_m_role', $id_role)    
+                                ->where('b.flag_active', 1);    
+                    }
+                    $child = $this->db->get()->result_array();
+                    if($role_name != 'programmer'){
+                        $list_id_child = null;
+                        if($child){
+                            foreach($child as $c){
+                                $list_id_child[] = $c['id_m_menu'];
+                            }
+                        }
+
+                        $general_menu_child = $this->db->select('*, a.id as id_m_menu')
+                                            ->from('m_menu a')
+                                            ->join('m_menu_role b', 'b.id_m_menu = a.id')
+                                            ->where('a.id_m_menu_parent', $l['id'])
+                                            ->where('a.flag_active', 1)
+                                            ->where('a.flag_general_menu = 1 AND a.id_m_menu_parent = "'.$l["id"].'"')
+                                            ->where('b.id_m_role', $id_role)    
+                                            ->where('b.flag_active', 1)
+                                            ->where_not_in('a.id', $list_id_child)
+                                            ->group_by('a.id')
+                                            ->order_by('a.created_date', 'asc')
+                                            ->get()->result_array();
+                        if($general_menu_child){
+                            $i = count($child);
+                            foreach($general_menu_child as $gm){
+                                $child[$i] = $gm;
+                                $i++;
+                            }
+                        }
+                    } 
+                    $list_menu[$i]['child'] = $child;
                     $i++;
                 }
+                // dd($list_menu);
             }
             return $list_menu;
         }
@@ -871,7 +905,23 @@
             }
 
             return $res;
-        } 
+        }
+
+        public function runQuery(){
+            $data = $this->db->query("SELECT a.nama_bidang, a.id
+            FROM m_bidang a
+            JOIN db_pegawai.unitkerja b ON a.id_unitkerja = b.id_unitkerja
+            WHERE b.nm_unitkerja LIKE 'Kec%'
+            AND a.nama_bidang != 'Sekretariat'")->result_array();
+
+            $list_id = [];
+            foreach($data as $d){
+                $list_id[] = $d['id'];
+            }
+            // dd($list_id);
+            // $this->db->where_in('id', $list_id)
+            //         ->update('m_bidang', ['nama_bidang' => 'Sekretariat']);
+        }
 	}
 
 

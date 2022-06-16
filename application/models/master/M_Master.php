@@ -53,6 +53,7 @@
                             ->join('m_bidang b', 'a.id_m_bidang = b.id')
                             ->join('db_pegawai.unitkerja c', 'b.id_unitkerja = c.id_unitkerja')
                             ->where('a.flag_active', 1)
+                            ->where('b.flag_active', 1)
                             ->where('b.id_unitkerja', $id_unitkerja)
                             ->order_by('a.created_date', 'desc')
                             ->get()->result_array();

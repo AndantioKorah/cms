@@ -140,7 +140,7 @@
         }
     </script>
 <?php } else { ?>
-    <?php if($this->general_library->getSubBidangUser() == 0 && $this->general_library->getRoleName != 'kepalabadan'){ ?>
+    <?php if($this->general_library->getSubBidangUser() == 0 && !$this->general_library->isKaban() && !$this->general_library->isWalikota() && !$this->general_library->isSetda()){ ?>
         <div class="col-12 text-center">
             <h6>Akun Anda belum diatur penempatan Bidang / Sub Bidang. Hubungi Administrator <i class="fa fa-exclamation"></i></h6>
         </div>

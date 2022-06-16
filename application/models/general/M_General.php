@@ -201,6 +201,39 @@
                         ->get()->result_array();
         }
 
+        public function getRoleByUnitKerjaMaster($id_m_user){
+            $unitkerja = $this->db->select('*')
+                                ->from('db_pegawai.pegawai a')
+                                ->join('db_pegawai.unitkerja b', 'a.skpd = b.id_unitkerja')
+                                ->join('m_user c', 'a.nipbaru_ws = c.username')
+                                ->where('c.id', $id_m_user)
+                                ->get()->row_array();
+            $ukmsekolah = ['8000000', '8010000', '8020000', '8030000'];
+            $explodeuk = explode(" ", $unitkerja['nm_unitkerja']);
+            
+            $include_role = [];
+            
+            $this->db->select('*')
+                    ->from('m_role')
+                    ->where('flag_active', 1);
+            
+            if(in_array($unitkerja['id_unitkerjamaster'], $ukmsekolah)){
+                $include_role = ['gurusekolah', 'kepalasekolah', 'administrator'];
+            } else if($explodeuk[0] == 'Kecamatan') {
+                $include_role = ['administrator', 'camat', 'sekretarisbadan', 'staffpelaksana', 'kepalabidang', 'subkoordinator'];
+            } else if($explodeuk[0] == 'Kelurahan') {
+                $include_role = ['administrator', 'lurah', 'sekretarisbadan', 'staffpelaksana', 'kepalabidang', 'subkoordinator'];
+            } else {
+                $include_role = ['administrator', 'kepalabadan', 'sekretarisbadan', 'staffpelaksana', 'kepalabidang', 'subkoordinator'];
+            }
+
+            if(!$this->general_library->isProgrammer()){
+                $this->db->where_in('role_name', $include_role);
+            }
+
+            return $this->db->get()->result_array();
+        }
+
         public function logErrorTelegram($data){
             dd($data);
             $data_telegram['message'] = '';

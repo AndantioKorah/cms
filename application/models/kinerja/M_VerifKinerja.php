@@ -56,7 +56,7 @@
                                         ->where('a.flag_active', 1)
                                         ->get()->row_array();
                 $list_role = ['subkoordinator', 'staffpelaksana'];
-                
+
                 $list_pegawai = $this->db->select('*, a.id as id_m_user')
                                         ->from('m_user a')
                                         ->join('m_sub_bidang b', 'a.id_m_sub_bidang = b.id')
@@ -169,7 +169,7 @@
                                             ->group_by('a.id')
                                             ->get()->result_array();
                 } else if($data['filter_walikota'] == 'eselon_dua'){
-                    $list_role = ['kepalabadan', 'setda'];
+                    $list_role = ['kepalabadan', 'setda', 'camat', 'asisten'];
                     $list_pegawai = $this->db->select('*, a.id as id_m_user')
                                             ->from('m_user a')
                                             ->join('m_user_role b', 'a.id = b.id_m_user')
@@ -200,6 +200,32 @@
                                             ->join('m_role c', 'c.id = b.id_m_role')
                                             ->join('db_pegawai.pegawai d', 'a.username = d.nipbaru_ws')
                                             ->where_in('c.role_name', $list_role)
+                                            ->where('d.skpd', $this->general_library->getUnitKerjaPegawai())
+                                            ->where('a.flag_active', 1)
+                                            ->where('b.flag_active', 1)
+                                            ->where('a.flag_active', 1)
+                                            ->group_by('a.id')
+                                            ->get()->result_array();
+            } else if($this->general_library->isLurah()){
+                // $list_role = ['gurusekolah'];
+                $list_pegawai = $this->db->select('*, a.id as id_m_user')
+                                            ->from('m_user a')
+                                            ->join('m_user_role b', 'a.id = b.id_m_user')
+                                            ->join('m_role c', 'c.id = b.id_m_role')
+                                            ->join('db_pegawai.pegawai d', 'a.username = d.nipbaru_ws')
+                                            ->where('d.skpd', $this->general_library->getUnitKerjaPegawai())
+                                            ->where('a.flag_active', 1)
+                                            ->where('b.flag_active', 1)
+                                            ->where('a.flag_active', 1)
+                                            ->group_by('a.id')
+                                            ->get()->result_array();
+            } else if($this->general_library->isCamat()){
+                $list_role = ['lurah'];
+                $list_pegawai = $this->db->select('*, a.id as id_m_user')
+                                            ->from('m_user a')
+                                            ->join('m_user_role b', 'a.id = b.id_m_user')
+                                            ->join('m_role c', 'c.id = b.id_m_role')
+                                            ->join('db_pegawai.pegawai d', 'a.username = d.nipbaru_ws')
                                             ->where('d.skpd', $this->general_library->getUnitKerjaPegawai())
                                             ->where('a.flag_active', 1)
                                             ->where('b.flag_active', 1)
