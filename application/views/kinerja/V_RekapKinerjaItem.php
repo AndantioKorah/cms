@@ -44,11 +44,19 @@
                             <?=$lp['realisasi_target_kuantitas'] == '' ? '0' : $lp['realisasi_target_kuantitas']?></td>
                         <td class="text-left"><?=$lp['satuan']?></td>
                         <td class="text-left">
+                        <div class="progress progress-sm">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="<?=$progress?>" aria-valuemin="0" aria-valuemax="100" style="width: <?=$progress.'%'?>; background-color: <?=getProgressBarColor($progress)?>;">
+                            </div>
+                        </div>
+                        <small style="font-size: 90% !important; font-weight: bold !important;">
+                            <?=$progress.' % selesai'?>
+                        </small>
+                        <!-- 
                         <div class="text-center" style="border: 2px solid #80808082; border-radius: 5px; width: 100%; height: 30px; padding-bottom: 27px;">
                                         <div class="text-center" style="border-radius: 3px; background-color: <?=getProgressBarColor($progress)?>; overflow: show; white-space: nowrap; width: <?=$progress.'%'?>; height: 27px;">
                                             <strong style="font-size: 18px; color: <?=$progress == 25 || $progress == 100 ? 'white' : 'black'?>;"><?=$progress.' %';?></td></strong>
                                         </div>
-                                    </div>
+                                    </div> -->
                         </td>
                     </tr>
                 <?php } ?>
