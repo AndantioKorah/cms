@@ -131,45 +131,56 @@
             <tr>
                 <td style="text-align: center; padding: 5px;">1</td>
                 <td style="padding: 5px;">Efektivitas</td>
-                <td style="padding: 5px;"></td>
+                <td class="text-center" style="padding: 5px;"><?=$nilai_komponen ? $nilai_komponen['efektivitas'] : ''?></td>
             </tr>
             <tr>
                 <td style="text-align: center; padding: 5px;">2</td>
                 <td style="padding: 5px;">Efisiensi</td>
-                <td style="padding: 5px;"></td>
+                <td class="text-center" style="padding: 5px;"><?=$nilai_komponen ? $nilai_komponen['efisiensi'] : ''?></td>
             </tr>
             <tr>
                 <td style="text-align: center; padding: 5px;">3</td>
                 <td style="padding: 5px;">Inovasi</td>
-                <td style="padding: 5px;"></td>
+                <td class="text-center" style="padding: 5px;"><?=$nilai_komponen ? $nilai_komponen['inovasi'] : ''?></td>
             </tr>
             <tr>
                 <td style="text-align: center; padding: 5px;">4</td>
                 <td style="padding: 5px;">Kerjasama</td>
-                <td style="padding: 5px;"></td>
+                <td class="text-center" style="padding: 5px;"><?=$nilai_komponen ? $nilai_komponen['kerjasama'] : ''?></td>
             </tr>
             <tr>
                 <td style="text-align: center; padding: 5px;">5</td>
                 <td style="padding: 5px;">Kecepatan</td>
-                <td style="padding: 5px;"></td>
+                <td class="text-center" style="padding: 5px;"><?=$nilai_komponen ? $nilai_komponen['kecepatan'] : ''?></td>
             </tr>
             <tr>
                 <td style="text-align: center; padding: 5px;">6</td>
                 <td style="padding: 5px;">Tanggung jawab</td>
-                <td style="padding: 5px;"></td>
+                <td class="text-center" style="padding: 5px;"><?=$nilai_komponen ? $nilai_komponen['tanggungjawab'] : ''?></td>
             </tr>
             <tr>
                 <td style="text-align: center; padding: 5px;">7</td>
                 <td style="padding: 5px;">Ketaatan</td>
-                <td style="padding: 5px;"></td>
+                <td class="text-center" style="padding: 5px;"><?=$nilai_komponen ? $nilai_komponen['ketaatan'] : ''?></td>
             </tr>
+            <?php
+                $capaian = null;
+                $pembobotan = null;
+                if($nilai_komponen){
+                    list($capaian, $pembobotan) = countNilaiKomponen($nilai_komponen);
+                    // $pembobotan = $pembobotan * 100;
+                    // dd($p['created_by']);
+                    // dd($this->general_library->getId());
+                    $pembobotan = (formatTwoMaxDecimal($pembobotan)).'%';
+                }
+            ?>
             <tr>
                 <td colspan=2 style="padding: 5px; text-align: right;"><strong>JUMLAH NILAI CAPAIAN</strong></td>
-                <td style="padding: 5px;"></td>
+                <td class="text-center" style="padding: 5px; font-size: 18px; font-weight: bold;"><?=$capaian?></td>
             </tr>
             <tr>
                 <td colspan=2 style="padding: 5px; text-align: right;"><i>HASIL PEMBOBOTAN</i></td>
-                <td style="padding: 5px;"></td>
+                <td class="text-center" style="padding: 5px; font-size: 18px; font-weight: bold;"><i><?=$pembobotan?></i></td>
             </tr>
         </table>
     </div>

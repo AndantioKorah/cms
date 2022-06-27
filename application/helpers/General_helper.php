@@ -50,8 +50,9 @@ function countNilaiKomponen($data){
         $bobot = 0;
     } else if ($capaian > 350 && $capaian < 679){
         $bobot = ($capaian / 700) * 0.3;
+        $bobot = $bobot * 100;
     }
-
+    
     return [$capaian, $bobot];
 }
 

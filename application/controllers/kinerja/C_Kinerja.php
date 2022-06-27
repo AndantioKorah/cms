@@ -281,13 +281,17 @@ class C_Kinerja extends CI_Controller
 
     public function createSkpBulanan(){
         $data['periode'] = $this->input->post();
-        list($data['pegawai'], $data['atasan_pegawai'], $data['rencana_kinerja'], $data['kepala_pd']) = $this->kinerja->createSkpBulanan($this->input->post());
+        list($data['pegawai'], $data['atasan_pegawai'], $data['rencana_kinerja'], $data['kepala_pd'], $data['nilai_komponen']) = $this->kinerja->createSkpBulanan($this->input->post());
         $this->session->set_userdata(['data_skp' => $data]);
         $this->load->view('kinerja/V_SkpBulananCreate', $data);
     }
 
     public function komponenKinerja(){
         render('kinerja/V_KomponenKinerja', '', '', null);
+    }
+
+    public function deleteNilaiKomponen($id){
+        echo json_encode($this->verifkinerja->deleteNilaiKomponen($id));
     }
 
     public function loadPegawaiKomponenKinerja(){

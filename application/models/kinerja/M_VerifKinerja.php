@@ -541,7 +541,7 @@
                                 ->get()->result_array();
 
                 if($result){
-                    $data_komponen = $this->db->select('*')
+                    $data_komponen = $this->db->select('*, a.id as id_t_komponen_kinerja')
                                         ->from('t_komponen_kinerja a')
                                         ->join('m_user b', 'a.id_m_user = b.id')
                                         ->where_in('a.id_m_user', $list_id_pegawai)
@@ -609,6 +609,21 @@
 
             $res['data']['capaian'] = $capaian;
             $res['data']['bobot'] = $bobot;
+
+            return $res;
+        }
+
+        public function deleteNilaiKomponen($id){
+            $res['code'] = 0;
+            $res['message'] = 'OK';
+            
+            $this->db->where('id', $id)
+                    ->update('t_komponen_kinerja', ['flag_active' => 0]);
+                    
+            if($this->db->trans_status() == FALSE){
+                $rs['code'] = 1;
+                $rs['message'] = 'Terjadi Kesalahan';
+            }
 
             return $res;
         }

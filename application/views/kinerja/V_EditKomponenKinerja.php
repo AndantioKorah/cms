@@ -88,9 +88,13 @@
                     <td class="text-center" style="padding: 5px;"><i><span style="font-weight:bold; font-size: 18px;" id="bobot"></span></i></td>
                 </tr>
                 <tr>
-                    <td colspan="3" class="text-right">
-                        <button id="btn_submit" type="submit" class="btn btn-sm btn-navy"><i class="fa fa-save"></i> Simpan Nilai Komponen</button>
-                        <button id="btn_loading" style="display: none;" disabled class="btn btn-sm btn-navy"><i class="fa fa-spin fa-spinner"></i> Menyimpan....</button>
+                    <td colspan="3">
+                        <?php if($result){ ?>
+                            <button type="button" id="btn_delete" onclick="deleteNilai('<?=$result['id']?>')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Hapus Nilai Komponen</button>
+                            <button id="btn_loading_delete" style="display: none;" disabled class="btn btn-sm btn-danger"><i class="fa fa-spin fa-spinner"></i> Menyimpan....</button>
+                        <?php } ?>
+                        <button id="btn_submit" type="submit" class="float-right text-right btn btn-sm btn-navy"><i class="fa fa-save"></i> Simpan Nilai Komponen</button>
+                        <button id="btn_loading" style="display: none;" disabled class="float-right text-right btn btn-sm btn-navy"><i class="fa fa-spin fa-spinner"></i> Menyimpan....</button>
                     </td>
                 </tr>
             </table>
@@ -114,6 +118,32 @@
         $('#bobot').html(countBobotNilaiKomponenKinerja(capaian).toFixed(2)+'%')
     }
 
+    function deleteNilai(id){
+        if (confirm('Apakah Anda yakin ingin menghapus data?')){
+            $('#btn_delete').hide()
+            $('#btn_loading_delete').show()
+            $.ajax({
+                url: '<?=base_url("kinerja/C_Kinerja/deleteNilaiKomponen")?>'+'/'+id,
+                method: 'post',
+                data: null,
+                success: function(data){
+                    let res = JSON.parse(data)
+                    if(res.code != 0){
+                        errortoast(res.message)
+                    } else {
+                        successtoast('Data berhasil dihapus')
+                        $('#capaian_<?=$pegawai['id_m_user']?>').html('')
+                        $('#pembobotan_<?=$pegawai['id_m_user']?>').html('')
+                        $('#btn_delete_'+id).hide()
+                        $('#btn_loading_delete').hide()
+                    }
+                }, error: function(e){
+                    errortoast('Terjadi Kesalahan')
+                }
+            })
+        }
+    }
+
     $('#form_nilai_komponen').on('submit', function(e){
         $('#btn_submit').hide()
         $('#btn_loading').show()
@@ -132,6 +162,7 @@
                     $('#pembobotan_<?=$pegawai['id_m_user']?>').html(countBobotNilaiKomponenKinerja(res.data.capaian).toFixed(2)+'%')
                     $('#btn_submit').show()
                     $('#btn_loading').hide()
+                    $('#modal_edit_data_nilai').modal('hide')
                 }
             }, error: function(e){
                 errortoast('Terjadi Kesalahan')

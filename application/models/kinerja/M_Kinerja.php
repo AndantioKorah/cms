@@ -628,7 +628,15 @@
                                 ->order_by('a.created_date')
                                 ->get()->result_array();
         
-        return [$pegawai, $atasan_pegawai, $rencana_kinerja, $kepala_pd];
+        $komponen_kinerja = $this->db->select('*')
+                                    ->from('t_komponen_kinerja a')
+                                    ->where('a.id_m_user', $pegawai['id'])
+                                    ->where('a.bulan', floatval($data['bulan']))
+                                    ->where('a.tahun', floatval($data['tahun']))
+                                    ->where('a.flag_active', 1)
+                                    ->get()->row_array();
+
+        return [$pegawai, $atasan_pegawai, $rencana_kinerja, $kepala_pd, $komponen_kinerja];
     }
 
 
