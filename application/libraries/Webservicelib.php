@@ -60,5 +60,41 @@ class Webservicelib extends CI_Model{
 
         return $res;
     }
+
+    public function request_ws($url, $method = "GET", $data = null){
+        $completeUrl = $url;
+        $session = curl_init($completeUrl);
+        $arrheader =  array(
+            'Accept: application/json',
+            // 'x-token: '.encrypt('nikita', $data['kode_merchant'])
+        );
+        curl_setopt($session, CURLOPT_HTTPHEADER, $arrheader);
+        curl_setopt($session, CURLOPT_RETURNTRANSFER, TRUE); 
+        curl_setopt($session, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($session, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($session, CURLOPT_POSTFIELDS, json_encode($data)); 
+
+        $result = curl_exec($session);
+
+        $message = null;
+        if(!$result){
+            $message = curl_error($session);
+        } else {
+            $result = json_decode($result, true);
+        }
+        curl_close($session);
+
+        $res['result'] = $result;
+        $res['message'] = $message;
+
+        // $log['url'] = $completeUrl;
+        // $log['request'] = json_encode($data);
+        // $log['response'] = json_encode($res);
+        // $log['username'] = $data['username'];
+        // $log['ip_address'] = get_client_ip();
+        // $this->nikita->m_general->insert('t_ws_log', $log);
+
+        return $res;
+    }
 }
 

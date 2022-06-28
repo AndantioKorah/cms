@@ -88,22 +88,23 @@
                     <td style="padding: 5px;" class="text-center"><?=formatTwoMaxDecimal($nilai_capaian)?>%</td>
                 </tr>
             <?php } }
-                $rata_rata = 0;
-                if(count($rencana_kinerja) != 0){
-                    $rata_rata = floatval($akumulasi_nilai_capaian) / count($rencana_kinerja);
-                }
-                $bobot = $rata_rata * 0.3;
-                if($bobot > 30){
-                    $bobot = 30;
-                }
+                // $rata_rata = 0;
+                // if(count($rencana_kinerja) != 0){
+                //     $rata_rata = floatval($akumulasi_nilai_capaian) / count($rencana_kinerja);
+                // }
+                // $bobot = $rata_rata * 0.3;
+                // if($bobot > 30){
+                //     $bobot = 30;
+                // }
+                $kinerja = countNilaiSkp($rencana_kinerja); 
             ?>
             <tr>
                 <td style="padding: 5px; text-align: right;" class="text-right;" colspan=7>CAPAIAN SASARAN KINERJA RATA-RATA</td>
-                <td style="padding: 5px; text-align: center;" class="text-center;" colspan=1><strong><?=formatTwoMaxDecimal($rata_rata)?>%</strong></td>
+                <td style="padding: 5px; text-align: center;" class="text-center;" colspan=1><strong><?=formatTwoMaxDecimal($kinerja['capaian'])?>%</strong></td>
             </tr>
             <tr>
                 <td style="padding: 5px; text-align: right;" class="text-right;" colspan=7>BOBOT CAPAIAN</td>
-                <td style="padding: 5px; text-align: center;" class="text-center;" colspan=1><strong><?=formatTwoMaxDecimal($bobot)?>%</strong></td>
+                <td style="padding: 5px; text-align: center;" class="text-center;" colspan=1><strong><?=formatTwoMaxDecimal($kinerja['bobot'])?>%</strong></td>
             </tr>
         </table>
     </div>

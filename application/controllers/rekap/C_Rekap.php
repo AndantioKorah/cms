@@ -11,6 +11,8 @@ class C_Rekap extends CI_Controller
         parent::__construct();
         $this->load->model('general/M_General', 'general');
         $this->load->model('kinerja/M_Kinerja', 'kinerja');
+        $this->load->model('user/M_User', 'user');
+        $this->load->model('rekap/M_Rekap', 'rekap');
         $this->load->helper('url_helper');
         $this->load->helper('form');
         if(!$this->general_library->isNotMenu()){
@@ -101,6 +103,50 @@ class C_Rekap extends CI_Controller
         }
 
         $this->load->view('rekap/V_RekapAbsensiResult', $data);
+    }
+
+    public function rekapPenilaian(){
+        $data['list_skpd'] = $this->user->getAllSkpd();
+        render('rekap/V_RekapPenilaian', '', '', $data);
+    }
+
+    public function rekapPenilaianSearch($flag_print = 0){
+        $data['parameter'] = $this->input->post();
+        $data['flag_print'] = $flag_print;
+        if($flag_print == 1){
+            $data['result'] = $this->session->userdata('data_penilaian_produktivitas_kerja');
+            $data['parameter'] = $this->session->userdata('parameter_data_penilaian_produktivitas_kerja');
+        } else {
+            $data['result'] = $this->rekap->rekapPenilaianSearch($this->input->post());
+            $this->session->set_userdata('data_penilaian_produktivitas_kerja', $data['result']);
+            $this->session->set_userdata('parameter_data_penilaian_produktivitas_kerja', $data['parameter']);
+        }
+        $this->load->view('rekap/V_RekapPenilaianResult', $data);
+    }
+
+    public function rekapDisiplin(){
+        $data['list_skpd'] = $this->user->getAllSkpd();
+        render('rekap/V_RekapDisiplin', '', '', $data);
+    }
+
+    public function rekapDisiplinSearch($flag_print = 0){
+        $data['parameter'] = $this->input->post();
+        $data['flag_print'] = $flag_print;
+        if($flag_print == 1){
+            $data['result'] = $this->session->userdata('data_penilaian_disiplin_kerja');
+            $data['parameter'] = $this->session->userdata('parameter_data_disiplin_kerja');
+        } else {
+            $data['result'] = $this->rekap->rekapDisiplinSearch($this->input->post());
+            $this->session->set_userdata('data_penilaian_disiplin_kerja', $data['result']);
+            $this->session->set_userdata('parameter_data_disiplin_kerja', $data['parameter']);
+        }
+        $this->load->view('rekap/V_RekapDisiplinResult', $data);
+    }
+
+    public function saveExcelDisiplin(){
+        $data['result'] = $this->session->userdata('data_penilaian_disiplin_kerja');
+        $data['parameter'] = $this->session->userdata('parameter_data_disiplin_kerja');
+        $this->load->view('rekap/V_RekapDisiplinExcel', $data);
     }
 
 }

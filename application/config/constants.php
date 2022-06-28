@@ -128,3 +128,8 @@ define('ROW_PER_PAGE_CETAK_TINDAKAN', 45);
 
 define('VONAGE_API_KEY', 'b9e13f92');
 define('VONAGE_API_SECRET', 'd9b1754f4da78a5a');
+
+define('TARGET_BOBOT_PRODUKTIVITAS_KERJA', 60);
+define('URL_API_HARI_LIBUR', 'https://api-harilibur.vercel.app/api');
+define('LIST_UNIT_KERJA_KHUSUS', [4011000, 4026000, 4012000, 4018000, 1010400, 1030750, 1020500, 7005010, 7005020]);
+define('LIST_ROLE_KHUSUS', ['lurah', 'camat']);

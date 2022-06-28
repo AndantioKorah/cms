@@ -5,6 +5,7 @@
         {
             parent::__construct();
             $this->db = $this->load->database('main', true);
+            $this->load->library('Webservicelib', 'webservicelib');
         }
 
         public function insert($tablename, $data){
@@ -218,6 +219,76 @@
                 echo "done ".$u['nm_unitkerja']. "\n <br><br> \n";
             }
             echo "selesai";
+        }
+
+        public function downloadApiHariLibur(){
+            $res['code'] = 0;
+            $res['message'] = '';
+
+            $req = $this->webservicelib->request_ws(URL_API_HARI_LIBUR);
+            if($req){
+                $insert_data = null;
+                $i = 0;
+                foreach($req['result'] as $r){
+                    $explode = explode('-', $r['holiday_date']);
+                    $exists = $this->db->select('*')
+                                        ->from('t_hari_libur')
+                                        ->where('bulan', floatval($explode[1]))
+                                        ->where('tahun', $explode[0])
+                                        ->where('tanggal', $r['holiday_date'])
+                                        ->where('keterangan', $r['holiday_name'])
+                                        ->where('flag_active', 1)
+                                        ->get()->row_array();
+                    if(!$exists){
+                        $insert_data[$i]['tanggal'] = $r['holiday_date'];
+                        $insert_data[$i]['tahun'] = $explode[0];
+                        $insert_data[$i]['bulan'] = floatval($explode[1]);
+                        $insert_data[$i]['keterangan'] = $r['holiday_name']; 
+                        $insert_data[$i]['flag_hari_libur_nasional'] = $r['is_national_holiday'] ? 1 : 0; 
+                        $i++;
+                    }
+                }
+                if($insert_data){
+                    $this->db->insert_batch('t_hari_libur', $insert_data);
+                }
+            }
+            return $res;
+        }
+
+        public function deleteApiHariLibur($id){
+            $this->db->where('id', $id)
+                    ->update('t_hari_libur', ['flag_active' => 0]);
+        }
+
+        public function tambahHariLibur(){
+            $data = $this->input->post();
+            $explode = explode("-", $data['range_periode']);
+            $list_tanggal = getDateBetweenDates(trim($explode[0]), trim($explode[1]));
+            if($list_tanggal){
+                $insert_data = null;
+                $i = 0;
+                foreach($list_tanggal as $l){
+                    $explode = explode('-', $l);
+                    $exists = $this->db->select('*')
+                                        ->from('t_hari_libur')
+                                        ->where('bulan', floatval($explode[1]))
+                                        ->where('tahun', $explode[0])
+                                        ->where('tanggal', $l)
+                                        ->where('keterangan', $data['keterangan'])
+                                        ->where('flag_active', 1)
+                                        ->get()->row_array();
+                    if(!$exists){
+                        $insert_data[$i]['tanggal'] = $l;
+                        $insert_data[$i]['tahun'] = $explode[0];
+                        $insert_data[$i]['bulan'] = floatval($explode[1]);
+                        $insert_data[$i]['keterangan'] = $data['keterangan']; 
+                        $i++;
+                    }
+                }
+                if($insert_data){
+                    $this->db->insert_batch('t_hari_libur', $insert_data);
+                }
+            }
         }
 	}
 ?>

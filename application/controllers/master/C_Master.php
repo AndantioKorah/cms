@@ -127,4 +127,25 @@ class C_Master extends CI_Controller
         $this->master->importAllBidangByUnitKerja($page);
     }
 
+    public function hariLibur(){
+        render('master/V_HariLibur', '', '', null);
+    }
+
+    public function downloadApiHariLibur(){
+        echo json_encode($this->master->downloadApiHariLibur());
+    }
+
+    public function loadHariLibur(){
+        $data['result'] = $this->general->getAllWithOrder('t_hari_libur', 'tanggal', 'asc');
+        $this->load->view('master/V_HariLiburResult', $data);
+    }
+
+    public function deleteApiHariLibur($id){
+        echo json_encode($this->master->deleteApiHariLibur($id));
+    }
+
+    public function tambahHariLibur(){
+        echo json_encode($this->master->tambahHariLibur());
+    }
+
 }

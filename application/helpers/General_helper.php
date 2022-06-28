@@ -56,6 +56,46 @@ function countNilaiKomponen($data){
     return [$capaian, $bobot];
 }
 
+function countNilaiSkp($data){
+    $result['capaian'] = 0;
+    $result['bobot'] = 0;
+    if($data){
+        $akumulasi_nilai_capaian = 0;
+        foreach($data as $d){
+            $nilai_capaian = 0;
+            if(floatval($d['total_realisasi']) > 0){
+                $nilai_capaian = (floatval($d['total_realisasi']) / floatval($d['target_kuantitas'])) * 100;
+            }
+            $akumulasi_nilai_capaian += $nilai_capaian;
+        }
+
+        if(count($data) != 0){
+            $result['capaian'] = floatval($akumulasi_nilai_capaian) / count($data);
+        }
+        $result['bobot'] = $result['capaian'] * 0.3;
+        if($result['bobot'] > 30){
+            $result['bobot'] = 30;
+        }
+    }
+    return $result;
+}
+
+function getDateBetweenDates($startDate, $endDate){
+        $rangArray = [];
+            
+        $startDate = strtotime($startDate);
+        $endDate = strtotime($endDate);
+             
+        for ($currentDate = $startDate; $currentDate <= $endDate; 
+                                        $currentDate += (86400)) {
+                                                
+            $date = date('Y-m-d', $currentDate);
+            $rangArray[] = $date;
+        }
+  
+        return $rangArray;
+    }
+
 function explodeRangeDate($date){
     $tanggal = explode("-", $date);
     $awal = explode("/", $tanggal[0]);    
@@ -230,6 +270,29 @@ function getNamaBulan($bulan){
         case 12 : return 'Desember'; break;
         default: return '';
     }
+}
+
+function getJumlahHariDalamBulan($m, $y){
+    $kalendar = CAL_GREGORIAN;
+    return cal_days_in_month($kalendar, $m, $y);
+}
+
+function getNamaHariFromNumber($hari){
+    switch($hari){
+        case 0 : return 'Minggu'; break;
+        case 1 : return 'Senin'; break;
+        case 2 : return 'Selasa'; break;
+        case 3 : return 'Rabu'; break;
+        case 4 : return 'Kamis'; break;
+        case 5 : return 'Jumat'; break;
+        case 6 : return 'Sabtu'; break;
+        default: return 'invalid';
+    }
+}
+
+function getNamaHari($date){
+    $dayofweek = date('w', strtotime($date));
+    return getNamaHariFromNumber($dayofweek);
 }
 
 function countDiffDateLengkap($date1, $date2, $params = ''){
