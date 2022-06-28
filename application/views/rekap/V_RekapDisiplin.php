@@ -1,6 +1,6 @@
 <div class="card card-default">
     <div class="card-header"  style="display: block;">
-        <h3 class="card-title">Rekapitulasi Penilaian Produktivitas Kerja</h3>
+        <h3 class="card-title">Rekapitulasi Penilaian Disiplin Kerja</h3>
     </div>
     <div class="card-body" style="display: block;">
         <!-- <form id="form_upload_file" enctype="multipart/form-data" method="post"> -->
