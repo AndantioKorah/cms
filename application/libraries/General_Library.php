@@ -54,7 +54,8 @@ class General_library
     }
 
     public function getProfilePicture(){
-        $photo = 'assets/img/default-user-icon.jpg';
+        // $photo = 'assets/img/default-user-icon.jpg';
+        $photo = 'assets/img/default-user-icon.png';
         if($this->userLoggedIn['profile_picture']){
             $photo = 'assets/profile_picture/'.$this->userLoggedIn['profile_picture'];
         }
@@ -120,50 +121,6 @@ class General_library
 
     public function isKaban(){
         return $this->getActiveRoleName() == 'kepalabadan';
-    }
-
-    public function isKabid(){
-        return $this->getActiveRoleName() == 'kepalabidang';
-    }
-
-    public function isSetda(){
-        return $this->getActiveRoleName() == 'setda';
-    }
-
-    public function isWalikota(){
-        return $this->getActiveRoleName() == 'walikota';
-    }
-
-    public function isKepalaSekolah(){
-        return $this->getActiveRoleName() == 'kepalasekolah';
-    }
-
-    public function isGuruStaffSekolah(){
-        return $this->getActiveRoleName() == 'gurusekolah';
-    }
-
-    public function isPelaksana(){
-        return $this->getActiveRoleName() == 'staffpelaksana';
-    }
-
-    public function isKasub(){
-        return $this->getActiveRoleName() == 'subkoordinator';
-    }
-
-    public function isSekban(){
-        return $this->getActiveRoleName() == 'sekretarisbadan';
-    }
-
-    public function isCamat(){
-        return $this->getActiveRoleName() == 'camat';
-    }
-
-    public function isLurah(){
-        return $this->getActiveRoleName() == 'lurah';
-    }
-
-    public function getUnitKerjaPegawai(){
-        return $this->nikita->session->userdata('pegawai')['skpd'];
     }
 
     public function setActiveRole($id_role){
@@ -314,12 +271,6 @@ class General_library
     public function getId(){
         // $this->userLoggedIn = $this->nikita->session->userdata('user_logged_in');
         return $this->userLoggedIn['id'];
-    }
-
-    public function getSubBidangUser(){
-        // $this->userLoggedIn = $this->nikita->session->userdata('user_logged_in');
-        // $this->refreshUserLoggedInData();
-        return $this->userLoggedIn['id_m_sub_bidang'];
     }
 
     public function test(){

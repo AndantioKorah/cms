@@ -175,70 +175,12 @@
             return ['code' => 0];
         }
 
-        public function getDataPegawai($nip){
-            return $this->db->select('*')
-                            ->from('db_pegawai.pegawai')
-                            ->where('nipbaru_ws', $nip)
-                            ->get()->row_array();
-        }
-
         public function getUserForSetting($id){
             return $this->db->select('*, a.id as id_m_user')
                             ->from('m_user a')
-                            ->join('m_sub_bidang b', 'a.id_m_sub_bidang = b.id', 'left')
-                            ->join('m_bidang c', 'b.id_m_bidang = c.id', 'left')
-                            ->join('db_pegawai.pegawai d', 'a.username = d.nipbaru_ws')
                             ->where('a.flag_active',1)
                             ->where('a.id', $id)
                             ->get()->row_array();
         }
-
-        public function getAllSubBidang(){
-            return $this->db->select('b.*, a.nama_bidang, b.id as id_m_sub_bidang')
-                        ->from('m_bidang a')
-                        ->join('m_sub_bidang b', 'a.id = b.id_m_bidang')
-                        ->where('a.flag_active', 1)
-                        ->get()->result_array();
-        }
-
-        public function getRoleByUnitKerjaMaster($id_m_user){
-            $unitkerja = $this->db->select('*')
-                                ->from('db_pegawai.pegawai a')
-                                ->join('db_pegawai.unitkerja b', 'a.skpd = b.id_unitkerja')
-                                ->join('m_user c', 'a.nipbaru_ws = c.username')
-                                ->where('c.id', $id_m_user)
-                                ->get()->row_array();
-            $ukmsekolah = ['8000000', '8010000', '8020000', '8030000'];
-            $explodeuk = explode(" ", $unitkerja['nm_unitkerja']);
-            
-            $include_role = [];
-            
-            $this->db->select('*')
-                    ->from('m_role')
-                    ->where('flag_active', 1);
-            
-            if(in_array($unitkerja['id_unitkerjamaster'], $ukmsekolah)){
-                $include_role = ['gurusekolah', 'kepalasekolah', 'administrator'];
-            } else if($explodeuk[0] == 'Kecamatan') {
-                $include_role = ['administrator', 'camat', 'sekretarisbadan', 'staffpelaksana', 'kepalabidang', 'subkoordinator'];
-            } else if($explodeuk[0] == 'Kelurahan') {
-                $include_role = ['administrator', 'lurah', 'sekretarisbadan', 'staffpelaksana', 'kepalabidang', 'subkoordinator'];
-            } else {
-                $include_role = ['administrator', 'kepalabadan', 'sekretarisbadan', 'staffpelaksana', 'kepalabidang', 'subkoordinator'];
-            }
-
-            if(!$this->general_library->isProgrammer()){
-                $this->db->where_in('role_name', $include_role);
-            }
-
-            return $this->db->get()->result_array();
-        }
-
-        public function logErrorTelegram($data){
-            dd($data);
-            $data_telegram['message'] = '';
-            $req = $this->telegramlib->send_curl_exec('GET', 'sendMessage', '713399901', $data_telegram);
-        }
-
 	}
 ?>

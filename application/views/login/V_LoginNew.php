@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title><?=TITLES?></title>
+	<title><?=TITLES_ADMIN?></title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
-	<link rel="shortcut icon" href="<?=base_url('assets/new_login/images/logo-bidik-2.png')?>" />
+	<link rel="shortcut icon" href="<?=base_url('assets/new_login/images/circle-logo-navy-white-with-text.png')?>" />
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="assets/new_login/vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
@@ -93,18 +93,19 @@
 					<form class="login100-form validate-form" action="<?=base_url('login/C_Login/authenticateAdmin')?>" method="post">
 						<div style="width: 100%;">
 							<center>
-								<span class="login100-form-title p-b-59">
-									Selamat Datang!
-								</span>
 								<!-- <span class="login100-form-title p-b-59">
 									APLIKASI PENILAIAN KINERJA PEGAWAI
 								</span> -->
-								<img class="img_login_logo" src="assets/new_login/images/logo-bidik-2.png" 
+								<img class="img_login_logo" src="assets/new_login/images/circle-logo-navy-white-with-text.png" 
 								style="height: 200px; 
-									width: 400px;
+									width: 200px;
 									margin-left: -20px;
+									margin-bottom: 20px;
 									"/>
-
+								<span class="login100-form-title p-b-59" style="text-align: center !important;">
+									Selamat Datang! <br>
+									di Admin CMS
+								</span>
 							</center>
 						</div>
 

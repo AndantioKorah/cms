@@ -5,24 +5,20 @@
                 <th class="text-center">No</th>
                 <th>Nama</th>
                 <th>Username</th>
-                <th>Bidang</th>
-                <th>Sub Bidang</th>
                 <th>Pilihan</th>
             </thead>
             <tbody>
                 <?php $no = 1; foreach($result as $rs){ ?>
                     <tr>
                         <td align="center"><?=$no++;?></td>
-                        <td><?=$rs['nama_user'];?></td>
+                        <td><?=$rs['nama'];?></td>
                         <td><?=$rs['username'];?></td>
-                        <td><a id="label_bidang_<?=$rs['id']?>"><?=$rs['nama_bidang'];?></a></td>
-                        <td><a id="label_sub_bidang_<?=$rs['id']?>"><?=$rs['nama_sub_bidang'];?></a></td>
                         <td>
                             <button type="button" data-toggle="modal" href="#add_role_modal" onclick="openAddRoleModal('<?=$rs['id']?>')" class="btn btn-sm btn-info"
                             data-tooltip="tooltip" title="Pengaturan"><i class="fa fa-cog"></i> Pengaturan</button>
                             <?php if($this->general_library->getId() != $rs['id']){ ?>
-                                <!-- <button type="button" onclick="hapus('<?=$rs['id']?>')" class="btn btn-sm btn-danger"
-                                data-tooltip="tooltip" title="Hapus"><i class="fa fa-trash"></i> Hapus</button> -->
+                                <button type="button" onclick="hapus('<?=$rs['id']?>')" class="btn btn-sm btn-danger"
+                                data-tooltip="tooltip" title="Hapus"><i class="fa fa-trash"></i> Hapus</button>
                             <?php } ?>
                         </td>
                     </tr>

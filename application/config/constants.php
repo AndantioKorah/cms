@@ -90,20 +90,15 @@ define('DEVELOPMENT_MODE', '1');
 define('DB_HOST', 'localhost');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
-define('DB_NAME', 'db_efort');
-
-
-define('KODE_TRANSAKSI', '01');
-define('KODE_TRANSAKSI_PEMBAYARAN', '02');
-define('KODE_TRANSAKSI_UANG_MUKA', '03');
+define('DB_NAME', 'db_cms');
 
 define('VERSION', 'Version 1.0');
-define('TITLES', 'BIDIK - ASN Juara | BKPSDM Kota Manado');
-define('TITLE_SECOND', 'BIDIK - ASN Juara');
-define('TITLE_THIRD', 'BIDIK - ASN Juara');
+define('TITLES', 'BTKLPP Kelas I Manado');
+define('TITLES_ADMIN', 'Admin CMS | BTKLPP Kelas I Manado');
+define('TITLE_SECOND', 'BTKLPP Kelas I Manado');
+define('TITLE_THIRD', 'BTKLPP Kelas I Manado');
 define('PROGRAMMER_PHONE', '00000000');
-define('COPYRIGHT', 'Copyright &copy; 2022 <strong>BKPSDM Manado</strong>');
-// define('COPYRIGHT', 'Copyright &copy; '.date('Y').' <strong>PATRA LAB</strong>');
+define('COPYRIGHT', 'Copyright &copy; 2022 <strong>BTKLPP Kelas I Manado</strong>');
 define('TRANSAKSI_TABLE_VIEW', 1);
 define('USE_PRINT', '0');
 define('URI_UPLOAD', './assets/'); //local with xampp
@@ -111,25 +106,3 @@ define('DB_BACKUP_FOLDER', 'db/backup/'); //local with xampp
 define('DB_RESTORE_FOLDER', 'db/restore/'); //local with xampp
 
 define('DEVELOPER', 'nikita');
-
-define('START_CELL', 'B23');
-define('HEADER_CELL', 'A21:AG22');
-define('START_ROW_NUM', '23');
-define('SKPD_CELL', 'C19');
-define('PERIODE_CELL', 'C20');
-
-define('IMPORT_UNIT_KERJA', '4018000');
-
-define('MARGIN_TOP_CETAKAN', '150px');
-define('PADDING_CETAKAN', '10px');
-define('FONT_CETAKAN', 'Verdana');
-define('ROW_PER_PAGE_CETAK_TAGIHAN', 55);
-define('ROW_PER_PAGE_CETAK_TINDAKAN', 45);
-
-define('VONAGE_API_KEY', 'b9e13f92');
-define('VONAGE_API_SECRET', 'd9b1754f4da78a5a');
-
-define('TARGET_BOBOT_PRODUKTIVITAS_KERJA', 60);
-define('URL_API_HARI_LIBUR', 'https://api-harilibur.vercel.app/api');
-define('LIST_UNIT_KERJA_KHUSUS', [4011000, 4026000, 4012000, 4018000, 1010400, 1030750, 1020500, 7005010, 7005020]);
-define('LIST_ROLE_KHUSUS', ['lurah', 'camat']);

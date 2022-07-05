@@ -54,10 +54,10 @@
 
        </style>
        <!-- tyle="height: 150px; width: 400px; margin-bottom:20px;" -->
-        <h3>Welcome to</h3>
+        <h3>Welcome to Admin CMS !</h3>
         <center>
-							<img class="logo" src="assets/new_login/images/logo-bidik-2.png" />
-						</center>
+          <!-- <img class="logo" style="width: 150px; width: 150px;" src="assets/new_login/images/circle-logo-navy-white-with-text.png" /> -->
+        </center>
         <h4><strong class="nmuser"><?=$this->general_library->getNamaUser();?></strong></h4>
         <img class="img-circle elevation-2" id="profile_pict" style="max-width: 150px; max-height: 150px;" src="<?=$this->general_library->getProfilePicture()?>" alt="User Image">
     </div>

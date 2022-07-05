@@ -52,7 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'welcome';
+$route['default_controller'] = 'C_Main';
 $route['404_override'] = 'login/C_Login/notFoundOverride';
 $route['translate_uri_dashes'] = FALSE;
 
@@ -62,8 +62,4 @@ $route['logout'] = 'login/C_Login/logout';
 
 // admin
 $route['welcome'] = 'login/C_Login/welcomePage';
-$route['kinerja/realisasi'] = 'kinerja/C_Kinerja/Kinerja';
-$route['kinerja/rencana'] = 'kinerja/C_Kinerja/rencanaKinerja';
-$route['kinerja/rekap'] = 'kinerja/C_Kinerja/rekapKinerja';
-$route['users/mutasi'] = 'user/C_User/mutasiPegawai';
-
+$route[''] = 'login/C_Login/login';

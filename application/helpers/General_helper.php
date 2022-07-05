@@ -27,59 +27,6 @@ function formatNip($nip){
     return $formatted_nip;
 }
 
-function generateNorm($last_norm){
-    if($last_norm){
-        $cur_count_norm = ltrim($last_norm, '0');
-        $cur_count_norm = floatval($cur_count_norm) + 1;
-    } else {
-        $cur_count_norm = 1;
-    }
-    return str_pad($cur_count_norm, 7, '0', STR_PAD_LEFT);
-}
-
-function countNilaiKomponen($data){
-    $capaian = floatval($data['efektivitas']) +
-                floatval($data['efisiensi']) +
-                floatval($data['inovasi']) +
-                floatval($data['kerjasama']) +
-                floatval($data['kecepatan']) +
-                floatval($data['tanggungjawab']) +
-                floatval($data['ketaatan']);
-    $bobot = 30;
-    if($capaian < 350){
-        $bobot = 0;
-    } else if ($capaian > 350 && $capaian < 679){
-        $bobot = ($capaian / 700) * 0.3;
-        $bobot = $bobot * 100;
-    }
-    
-    return [$capaian, $bobot];
-}
-
-function countNilaiSkp($data){
-    $result['capaian'] = 0;
-    $result['bobot'] = 0;
-    if($data){
-        $akumulasi_nilai_capaian = 0;
-        foreach($data as $d){
-            $nilai_capaian = 0;
-            if(floatval($d['total_realisasi']) > 0){
-                $nilai_capaian = (floatval($d['total_realisasi']) / floatval($d['target_kuantitas'])) * 100;
-            }
-            $akumulasi_nilai_capaian += $nilai_capaian;
-        }
-
-        if(count($data) != 0){
-            $result['capaian'] = floatval($akumulasi_nilai_capaian) / count($data);
-        }
-        $result['bobot'] = $result['capaian'] * 0.3;
-        if($result['bobot'] > 30){
-            $result['bobot'] = 30;
-        }
-    }
-    return $result;
-}
-
 function getDateBetweenDates($startDate, $endDate){
         $rangArray = [];
             
@@ -104,19 +51,6 @@ function explodeRangeDate($date){
     $start_date = trim($awal[2]).'-'.trim($awal[1]).'-'.trim($awal[0]);
     $end_date = trim($akhir[2]).'-'.trim($akhir[1]).'-'.trim($akhir[0]);
     return [$start_date, $end_date];
-}
-
-function getStatusTransaksi($status){
-    switch($status){
-        case 1:
-            return 'Aktif'; break;
-        case 2:
-            return 'Lunas'; break;
-        case 3:
-            return 'Belum Lunas'; break;
-        default:
-            return '';
-    }
 }
 
 function generateRandomString($length = 10) {
@@ -391,7 +325,7 @@ function get_client_ip() {
 }
 
 function encrypt($string1, $string2){
-    $key = 'nikitalab'.DEVELOPER;
+    $key = 'nikitacms'.DEVELOPER;
     $userKey = substr($string1, -3);
     $passKey = substr($string2, -3);
     $generatedForHash = strtoupper($userKey).$string1.$key.strtoupper($passKey).$string2;

@@ -9,6 +9,10 @@ class C_Login extends CI_Controller
         $this->load->model('user/M_User', 'user');
     }
 
+    public function index(){
+        dd('asd');
+    }
+
     public function login(){
         // $userLoggedIn = $this->session->userdata('user_logged_in');
         // if($userLoggedIn){
@@ -36,16 +40,8 @@ class C_Login extends CI_Controller
 
     public function authenticateAdmin()
     { 
-       
-        if($this->input->post('username') == 'prog' && $this->input->post('password') == '123Tes.'){
-            redirect('developer');
-        }
         $username = $this->input->post('username');
-        // $username = 'prog';
         $password = $this->general_library->encrypt($username, $this->input->post('password'));
-        // dd($password);
-        // var_dump($password);
-        // die();
         $result = $this->m_general->authenticate($username, $password);
         
         if($result != null){
@@ -55,9 +51,6 @@ class C_Login extends CI_Controller
             $list_role = $this->user->getListRoleForUser($result[0]['id']);
             $active_role = null;
             $list_exist_url = null;
-            $pegawai = $this->m_general->getDataPegawai($result[0]['username']);
-            // $sub_bidang = $this->m_general->getAllSubBidang();
-            $list_sub_bidang = null;
             if($list_role){
                 $active_role = $list_role[0];
                 $list_menu = $this->general_library->getListMenu($active_role['id'], $active_role['role_name']);
@@ -95,9 +88,6 @@ class C_Login extends CI_Controller
                 'active_role_id' =>  $active_role['id'],
                 'active_role_name' =>  $active_role['role_name'],
                 'landing_page' =>  $active_role['landing_page'],
-                'pegawai' => $pegawai,
-                // 'getBidangBySub' => $list_sub_bidang,
-                'ID_PENDAFTARAN_PASIEN' =>  null,
             ]);
             if($params){
                 foreach($params as $p){

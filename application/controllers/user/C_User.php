@@ -27,10 +27,7 @@ class C_User extends CI_Controller
     }
 
     public function users(){
-        // $data['roles'] = $this->general->getAllWithOrder('m_role', 'nama', 'asc');
-        $data['list_skpd'] = $this->user->getAllSkpd();
-        $data['pegawai'] = $this->session->userdata('pegawai');
-        render('user/V_Users', 'user_management', 'users', $data);
+        render('user/V_Users', 'user_management', 'users', null);
     }
 
     public function loadPegawaiBySkpd($id_unitkerja){
@@ -46,66 +43,9 @@ class C_User extends CI_Controller
         $this->user->resetPassword($id);
     }
 
-    public function tambahVerifBidang(){
-        echo json_encode($this->user->tambahVerifBidang($this->input->post()));
-    }
-
-    public function tambahVerifPegawai(){
-        echo json_encode($this->user->tambahVerifPegawai($this->input->post()));
-    }
-
-    public function getVerifBidang($id){
-        $data['result'] = $this->user->getVerifBidang($id);
-        $this->load->view('user/V_VerifBidangItem', $data);
-    }
-
-    public function getVerifPegawai($id){
-        $data['result'] = $this->user->getVerifPegawai($id);
-        $this->load->view('user/V_VerifPegawaiItem', $data);
-    }
-
-    public function deleteVerifBidang($id){
-        $this->general->update('id', $id, 't_verif_tambahan', ['flag_active' => 0]);
-    }
-
-    public function deleteVerifPegawai($id){
-        $this->general->update('id', $id, 't_verif_tambahan', ['flag_active' => 0]);
-    }
-
-    // public function importPegawaiByUnitKerja(){
-    //     $this->user->importPegawaiByUnitKerja(IMPORT_UNIT_KERJA);
-    // }
-
-    public function importPegawaiByUnitKerja($id_unitkerja){
-        // dd($id_unitkerja);
-        echo json_encode ($this->user->importPegawaiByUnitKerja($id_unitkerja));
-    }
-
-    public function tambahSubBidangUser(){
-        $data = $this->input->post();
-        $update_user['id_m_sub_bidang'] = $data['id_m_sub_bidang'];
-        $update_user['updated_by'] = $this->general_library->getId();
-        $this->general->update('id', $data['id_m_user'], 'm_user', $update_user);
-        echo json_encode($this->user->getSubBidangUser($data['id_m_user']));
-    }
-
-    public function refreshSubBidang($id_m_user){
-        $data['rs'] = $this->user->getSubBidangUser($id_m_user);
-        $this->load->view('user/V_UserBidangItem', $data);
-    }
-
-    public function deleteUserBidang($id_m_user){
-        $update_user['id_m_sub_bidang'] = 0;
-        $update_user['updated_by'] = $this->general_library->getId();
-        $this->general->update('id', $id_m_user, 'm_user', $update_user);
-    }
-
     public function openAddRoleModal($id_m_user){
         $data['user'] = $this->general->getUserForSetting($id_m_user);
-        $data['roles'] = $this->general->getRoleByUnitKerjaMaster($id_m_user);
-        // $data['sub_bidang'] = $this->general->getAllWithOrder('m_sub_bidang', 'nama_sub_bidang', 'asc');
-        $data['sub_bidang'] = $this->master->loadMasterSubBidangByUnitKerja($data['user']['skpd']);
-        $data['pegawai'] = $this->user->getListPegawaiSkpd($data['user']['skpd'], $id_m_user);
+        $data['roles'] = $this->general->getAllWithOrder('m_role', 'nama', 'asc');
         $this->load->view('user/V_AddRoleModal', $data);
     }
 
@@ -123,8 +63,8 @@ class C_User extends CI_Controller
         echo json_encode($this->user->addRoleForUser($this->input->post()));
     }
 
-    public function loadUsers($id_unitkerja){
-        $data['result'] = $this->user->getAllUsersBySkpd($id_unitkerja);
+    public function loadUsers(){
+        $data['result'] = $this->user->getAllUsers();
         $this->load->view('user/V_UsersItem', $data);
     }
 
@@ -246,55 +186,5 @@ class C_User extends CI_Controller
     public function cancelGeneralMenu($id){
         $update = ['flag_general_menu' => 0];
         $this->general->update('id', $id, 'm_menu', $update);
-    }
-    
-    public function mutasiPegawai(){
-
-        $data['list_skpd'] = $this->user->getAllSkpd();
-        $data['pegawai'] = $this->session->userdata('pegawai');
-
-        render('user/V_MutasiPegawai', 'user_management', 'users', $data);
-    }
-
-
-    public function loadPegawai($id_unitkerja){
-        // $data['result'] = $this->user->getAllUsersBySkpd($id_unitkerja);
-        $data['result'] = $this->user->getAllPegawaiBySkpd($id_unitkerja);
-        $this->load->view('user/V_UsersItemMutasi', $data);
-    }
-
-    public function openMutasiPegawaiModal($id_peg){
-        
-        $data['pegawai'] = $this->user->getListPegawaiSkpdMutasi($id_peg);
-        $data['list_skpd'] = $this->user->getAllSkpd();
-        // dd($data['pegawai']);
-        $this->load->view('user/V_MutasiPegawaiModal', $data);
-    }
-
-    public function mutasiPegawaiSubmit(){
-        echo json_encode($this->user->mutasiPegawaiSubmit($this->input->post()));
-    }
-
-
-    public function openRiwayatMutasiModal($id_peg){
-        $data['riwayat'] = $this->user->getRiwayatMutasiPegawai($id_peg);
-        $this->load->view('user/V_RiwayatMutasiModal', $data);
-    }
-    public function loadDataPegawaiFromNewDb(){
-        $data['list_pegawai_export'] = $this->user->loadDataPegawaiFromNewDb();
-        // $this->session->set_userdata(['list_pegawai_export' => $data['list_pegawai_export']]);
-        $this->load->view('user/V_ImportPegawaiFromNewDb', $data);
-    }
-
-    public function exportOne($id){
-        echo json_encode($this->user->exportOne($id));
-    }
-
-    public function exportAll(){
-        echo json_encode($this->user->exportAll());
-    }
-
-    public function runQuery(){
-        $this->user->runQuery();
     }
 }
