@@ -56,10 +56,20 @@ $route['default_controller'] = 'C_Main';
 $route['404_override'] = 'login/C_Login/notFoundOverride';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['login'] = 'login/C_Login/login';
-$route['logout'] = 'login/C_Login/logout';
+// $route['login'] = 'login/C_Login/login';
+// $route['logout'] = 'login/C_Login/logout';
 
+//admin
+$route['admin'] = 'login/C_Login/login';
+$route['admin/welcome'] = 'login/C_Login/welcomePage';
+$route['admin/users'] = 'user/C_User/users';
+$route['admin/user/setting'] = 'user/C_User/userSetting';
+$route['admin/roles'] = 'user/C_User/roles';
+$route['admin/menu'] = 'user/C_User/menu';
+// $route['dashboard'] = 'dashboard/C_Dashboard/dashboard';
 
-// admin
-$route['welcome'] = 'login/C_Login/welcomePage';
-$route[''] = 'login/C_Login/login';
+// =============================================================
+
+//web company profile
+$route['language/switch/(:any)'] = 'C_Main/switchLanguage/$1';
+

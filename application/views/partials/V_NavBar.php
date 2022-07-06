@@ -173,11 +173,11 @@
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#" style="font-weight: bold; color: white;">
             <img src="<?=$this->general_library->getProfilePicture()?>" style="height: 25px; width:25px; margin-right: 1px;" class="img-circle elevation-2" alt="User Image">
-           <span  class="nmuser"><?=$this->general_library->getNamaUser()?></span>
+           <span class="nmuser"><?=$this->general_library->getNamaUser()?></span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <!-- <div class="dropdown-divider"></div> -->
-              <a href="<?=base_url('user/setting')?>" class="dropdown-item">
+              <a href="<?=base_url('admin/user/setting')?>" class="dropdown-item">
                   <i class="fa fa-users mr-2"></i> Account
               </a>
               <div class="dropdown-divider"></div>

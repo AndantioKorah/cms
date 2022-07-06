@@ -14,6 +14,15 @@ function render($pageContent, $parent_active, $active, $data)
     $CI->load->view('base/V_BaseLayout', $data);
 }
 
+function renderwebcp($pageContent, $parent_active, $active, $data)
+{
+    $CI = &get_instance();
+    $data['page_content'] = $pageContent;
+    $data['parent_active'] = $parent_active;
+    $data['active'] = $active;
+    $CI->load->view('webcp/base/V_BaseLayout', $data);
+}
+
 function formatNip($nip){
     $str = strlen($nip);
     $formatted_nip = '';

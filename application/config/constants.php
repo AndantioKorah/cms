@@ -106,3 +106,6 @@ define('DB_BACKUP_FOLDER', 'db/backup/'); //local with xampp
 define('DB_RESTORE_FOLDER', 'db/restore/'); //local with xampp
 
 define('DEVELOPER', 'nikita');
+
+//webcp
+define('DEFAULT_LANG', 'indonesia');
