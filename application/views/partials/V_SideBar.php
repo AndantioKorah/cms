@@ -30,7 +30,7 @@
         <img src="<?=$this->general_library->getProfilePicture()?>" style="height: 33px;" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a style="font-size: 14px !important;" href="<?=base_url('user/setting')?>" class="d-block"><?=$this->general_library->getNamaUser();?></a>
+        <a style="font-weight: bold !important;" href="<?=base_url('user/setting')?>" class="d-block"><?=$this->general_library->getNamaUser();?></a>
       </div>
     </div>
     <?php 

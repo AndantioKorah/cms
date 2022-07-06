@@ -86,7 +86,7 @@
 	
 	<div class="limiter">
 		<div class="container-login100">
-			<div class="login100-more" style="background-image: url('assets/new_login/images/bg-efort.jpg');"></div>
+			<div class="login100-more"s tyle="background-image: url('assets/new_login/images/bg-admin.jpg');"></div>
 
 			<div class="wrap-login100">
 				<div class="login-container">

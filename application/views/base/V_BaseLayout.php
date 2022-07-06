@@ -21,6 +21,7 @@
 	<link rel="stylesheet" href="<?=base_url('assets/css/responsive.dataTables.min.css')?>">
 	<link rel="stylesheet" href="<?=base_url('assets/css/datatable.bootstrap.min.css')?>">
 
+
 	<script src="<?=base_url('plugins/jquery/jquery.js')?>"></script>
 	<script src="<?=base_url('plugins/jquery-ui/jquery-ui.js')?>"></script>
   <script src="<?=base_url('plugins/inputmask/inputmask/inputmask.js')?>"></script>
@@ -78,11 +79,24 @@
     .content-header{
       padding: 8px !important;
     }
+
+    #bodyloader{
+      position: fixed;
+      left: 0px;
+      top: 0px;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      background-color: white;
+    }
   </style>
 </head>
 <?php
   $params_exp_app = $this->general_library->getParams('PARAM_EXP_APP');
 ?>
+<div id="bodyloader">
+  <?php $this->load->view('loader/loaderLogoSpin') ?>
+</div>
 <body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
 <div class="wrapper">
   <?php $this->load->view('partials/V_NavBar')?>      
@@ -155,6 +169,7 @@
     startTime()
     startRealTimeDate()
     startCountDownExpireApp()
+    $('#bodyloader').fadeOut("slow")
 
     $('.format_currency_this').on('keypress', function(event){
         if(event.charCode >= 48 && event.charCode <= 57){
