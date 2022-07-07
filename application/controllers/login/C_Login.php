@@ -28,12 +28,12 @@ class C_Login extends CI_Controller
         $this->session->set_flashdata('message', $this->session->userdata('apps_error'));
         $this->session->set_userdata(['apps_error' => null]);
         $this->session->set_userdata(['user_logged_in' => null, 'test' => null, 'params' => null]);
-        redirect('login');
+        redirect('admin');
     }
 
     public function welcomePage(){
         if(!$this->general_library->isNotMenu()){
-            redirect('logout');
+            redirect('admin/logout');
         };
         render('login/V_Welcome', '', '', null);
     }

@@ -183,6 +183,7 @@
                     ->where('b.id_m_role', $id_role)    
                     ->where('a.flag_active', 1)
                     ->where('b.flag_active', 1)    
+                    ->where('a.flag_menu_admin', 1)
                     ->order_by('a.nama_menu', 'asc')
                     ->group_by('a.id');
                     
@@ -194,6 +195,7 @@
                     ->from('m_menu a')
                     ->where('a.id_m_menu_parent', 0)
                     ->where('a.flag_active', 1)
+                    ->where('a.flag_menu_admin', 1)
                     // ->or_where('a.flag_general_menu = 1 AND a.id_m_menu_parent = 0')
                     ->order_by('a.created_date', 'desc')
                     ->group_by('a.id');
@@ -212,6 +214,7 @@
                         ->from('m_menu a')
                         ->where('a.id_m_menu_parent', $l['id'])
                         ->where('a.flag_active', 1)
+                        ->where('a.flag_menu_admin', 1)
                         // ->or_where('a.flag_general_menu = 1 AND a.id_m_menu_parent = "'.$l["id"].'"')
                         ->group_by('a.id')
                         ->order_by('a.created_date', 'asc');

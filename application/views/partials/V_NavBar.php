@@ -181,7 +181,7 @@
                   <i class="fa fa-users mr-2"></i> Account
               </a>
               <div class="dropdown-divider"></div>
-              <a href="<?=base_url('logout')?>" class="dropdown-item">
+              <a href="<?=base_url('admin/logout')?>" class="dropdown-item">
                   <i class="fa fa-sign-out-alt mr-2"></i> Keluar
               </a>
         </div>

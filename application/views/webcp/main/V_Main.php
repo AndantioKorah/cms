@@ -2,517 +2,390 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <title><?=TITLES?></title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <!-- Favicon -->
-    <!-- <link href="<?=base_url('assets/webcp/img/favicon.ico')?>" rel="icon"> -->
+  <title><?=TITLES?></title>
+  <link rel="shortcut icon" href="<?=base_url('assets/webcp/assets/img/logo-kemenkes-only.png')?>" />
+  <meta content="" name="description">
+  <meta content="" name="keywords">
 
-    <!-- Google Web Fonts -->
-    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap" rel="stylesheet">  -->
+  <!-- Favicons -->
+  <!-- <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon"> -->
 
-	<!-- Icon Font Stylesheet -->
-	<link rel="stylesheet" href="<?=base_url('plugins/fontawesome-free/css/all.min.css')?>">
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet"> -->
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
-    <link href="<?=base_url('assets/webcp/lib/animate/animate.min.css')?>" rel="stylesheet">
-    <link href="<?=base_url('assets/webcp/lib/owlcarousel/assets/owl.carousel.min.css')?>" rel="stylesheet">
+  <!-- Vendor CSS Files -->
+  <link href="<?=base_url('assets/webcp/assets/vendor/animate.css/animate.min.css')?>" rel="stylesheet">
+  <link href="<?=base_url('assets/webcp/assets/vendor/bootstrap/css/bootstrap.min.css')?>" rel="stylesheet">
+  <link href="<?=base_url('assets/webcp/assets/vendor/bootstrap-icons/bootstrap-icons.css')?>" rel="stylesheet">
+  <link href="<?=base_url('assets/webcp/assets/vendor/boxicons/css/boxicons.min.css')?>" rel="stylesheet">
+  <link href="<?=base_url('assets/webcp/assets/vendor/glightbox/css/glightbox.min.css')?>" rel="stylesheet">
+  <link href="<?=base_url('assets/webcp/assets/vendor/swiper/swiper-bundle.min.css')?>" rel="stylesheet">
 
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="<?=base_url('assets/webcp/css/bootstrap.min.css')?>" rel="stylesheet">
+  <!-- Template Main CSS File -->
+  <link href="<?=base_url('assets/webcp/assets/css/style.css')?>" rel="stylesheet">
 
-    <!-- Template Stylesheet -->
-    <link href="<?=base_url('assets/webcp/css/style.css')?>" rel="stylesheet">
+  <!-- =======================================================
+  * Template Name: Sailor - v4.7.0
+  * Template URL: https://bootstrapmade.com/sailor-free-bootstrap-theme/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
 </head>
 
 <body>
-    <div class="container-xxl bg-white p-0">
-        <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div>
-        <!-- Spinner End -->
 
+  <!-- ======= Header ======= -->
+  
+  <?php
+    $data['menu'] = $menu;
+    $this->load->view('webcp/partials/V_Navbar', $data) 
+  ?>
+  <!-- End Header -->
 
-        <!-- Navbar & Hero Start -->
-        <?php $this->load->view('webcp/partials/V_NavBar'); ?>
-        <!-- Navbar & Hero End -->
+  <!-- ======= Hero Section ======= -->
+  <section id="hero">
+    <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
 
+      <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
 
-        <!-- About Start -->
-        <div class="container-xxl py-6">
+      <div class="carousel-inner" role="listbox">
+
+        <!-- Slide 1 -->
+        <div class="carousel-item active" style="background-image: url('<?=base_url("assets/webcp/assets/img/slide/slide-1.jpg")?>')">
+          <div class="carousel-container">
             <div class="container">
-                <div class="row g-5 align-items-center">
-                    <div class="col-lg-6 wow zoomIn" data-wow-delay="0.1s">
-                        <img class="img-fluid" src="<?=base_url('assets/webcp/img/about.png')?>">
-                    </div>
-                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="d-inline-block border rounded-pill text-primary px-4 mb-3">About Us</div>
-                        <h2 class="mb-4">Award Wining Consultancy Agency For Your Business</h2>
-                        <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit. Sanctus clita duo justo et tempor eirmod</p>
-                        <div class="row g-3 mb-4">
-                            <div class="col-12 d-flex">
-                                <div class="flex-shrink-0 btn-lg-square rounded-circle bg-primary">
-                                    <i class="fa fa-user-tie text-white"></i>
-                                </div>
-                                <div class="ms-4">
-                                    <h6>Business Planning</h6>
-                                    <span>Tempor erat elitr rebum at clita. Diam dolor ipsum amet eos erat ipsum lorem et sit sed stet lorem sit clita duo</span>
-                                </div>
-                            </div>
-                            <div class="col-12 d-flex">
-                                <div class="flex-shrink-0 btn-lg-square rounded-circle bg-primary">
-                                    <i class="fa fa-chart-line text-white"></i>
-                                </div>
-                                <div class="ms-4">
-                                    <h6>Financial Analaysis</h6>
-                                    <span>Tempor erat elitr rebum at clita. Diam dolor ipsum amet eos erat ipsum lorem et sit sed stet lorem sit clita duo</span>
-                                </div>
-                            </div>
-                        </div>
-                        <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" href="">Read More</a>
-                    </div>
-                </div>
+              <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Sailor</span></h2>
+              <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+              <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
             </div>
+          </div>
         </div>
-        <!-- About End -->
 
-
-        <!-- Newsletter Start -->
-        <div class="container-xxl bg-primary my-6 wow fadeInUp" data-wow-delay="0.1s">
-            <div class="container px-lg-5">
-                <div class="row align-items-center" style="height: 250px;">
-                    <div class="col-12 col-md-6">
-                        <h3 class="text-white">Ready to get started</h3>
-                        <small class="text-white">Diam elitr est dolore at sanctus nonumy.</small>
-                        <div class="position-relative w-100 mt-3">
-                            <input class="form-control border-0 rounded-pill w-100 ps-4 pe-5" type="text" placeholder="Enter Your Email" style="height: 48px;">
-                            <button type="button" class="btn shadow-none position-absolute top-0 end-0 mt-1 me-2"><i class="fa fa-paper-plane text-primary fs-4"></i></button>
-                        </div>
-                    </div>
-                    <div class="col-md-6 text-center mb-n5 d-none d-md-block">
-                        <img class="img-fluid mt-5" style="max-height: 250px;" src="<?=base_url('assets/webcp/img/newsletter.png')?>">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Newsletter End -->
-
-
-        <!-- Service Start -->
-        <div class="container-xxl py-6">
+        <!-- Slide 2 -->
+        <div class="carousel-item" style="background-image: url('<?=base_url("assets/webcp/assets/img/slide/slide-2.jpg")?>')">
+          <div class="carousel-container">
             <div class="container">
-                <div class="mx-auto text-center wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                    <div class="d-inline-block border rounded-pill text-primary px-4 mb-3">Our Services</div>
-                    <h2 class="mb-5">We Provide Solutions On Your Business</h2>
-                </div>
-                <div class="row g-4">
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="service-item rounded h-100">
-                            <div class="d-flex justify-content-between">
-                                <div class="service-icon">
-                                    <i class="fa fa-user-tie fa-2x"></i>
-                                </div>
-                                <a class="service-btn" href="">
-                                    <i class="fa fa-link fa-2x"></i>
-                                </a>
-                            </div>
-                            <div class="p-5">
-                                <h5 class="mb-3">Business Research</h5>
-                                <span>Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="service-item rounded h-100">
-                            <div class="d-flex justify-content-between">
-                                <div class="service-icon">
-                                    <i class="fa fa-chart-pie fa-2x"></i>
-                                </div>
-                                <a class="service-btn" href="">
-                                    <i class="fa fa-link fa-2x"></i>
-                                </a>
-                            </div>
-                            <div class="p-5">
-                                <h5 class="mb-3">Stretagic Planning</h5>
-                                <span>Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-                        <div class="service-item rounded h-100">
-                            <div class="d-flex justify-content-between">
-                                <div class="service-icon">
-                                    <i class="fa fa-chart-line fa-2x"></i>
-                                </div>
-                                <a class="service-btn" href="">
-                                    <i class="fa fa-link fa-2x"></i>
-                                </a>
-                            </div>
-                            <div class="p-5">
-                                <h5 class="mb-3">Market Analysis</h5>
-                                <span>Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="service-item rounded h-100">
-                            <div class="d-flex justify-content-between">
-                                <div class="service-icon">
-                                    <i class="fa fa-chart-area fa-2x"></i>
-                                </div>
-                                <a class="service-btn" href="">
-                                    <i class="fa fa-link fa-2x"></i>
-                                </a>
-                            </div>
-                            <div class="p-5">
-                                <h5 class="mb-3">Financial Analaysis</h5>
-                                <span>Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="service-item rounded h-100">
-                            <div class="d-flex justify-content-between">
-                                <div class="service-icon">
-                                    <i class="fa fa-balance-scale fa-2x"></i>
-                                </div>
-                                <a class="service-btn" href="">
-                                    <i class="fa fa-link fa-2x"></i>
-                                </a>
-                            </div>
-                            <div class="p-5">
-                                <h5 class="mb-3">legal Advisory</h5>
-                                <span>Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-                        <div class="service-item rounded h-100">
-                            <div class="d-flex justify-content-between">
-                                <div class="service-icon">
-                                    <i class="fa fa-house-damage fa-2x"></i>
-                                </div>
-                                <a class="service-btn" href="">
-                                    <i class="fa fa-link fa-2x"></i>
-                                </a>
-                            </div>
-                            <div class="p-5">
-                                <h5 class="mb-3">Tax & Insurance</h5>
-                                <span>Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              <h2 class="animate__animated animate__fadeInDown">Lorem Ipsum Dolor</h2>
+              <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+              <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
             </div>
+          </div>
         </div>
-        <!-- Service End -->
 
-
-        <!-- Features Start -->
-        <div class="container-xxl py-6">
+        <!-- Slide 3 -->
+        <div class="carousel-item" style="background-image: url('<?=base_url("assets/webcp/assets/img/slide/slide-3.jpg")?>')">
+          <div class="carousel-container">
             <div class="container">
-                <div class="row g-5">
-                    <div class="col-lg-5 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="d-inline-block border rounded-pill text-primary px-4 mb-3">Features</div>
-                        <h2 class="mb-4">Why People Choose Us? We Are Trusted & Award Wining Agency</h2>
-                        <p>Clita nonumy sanctus nonumy et clita tempor, et sea amet ut et sadipscing rebum amet takimata amet, sed accusam eos eos dolores dolore et. Et ea ea dolor rebum invidunt clita eos. Sea accusam stet stet ipsum, sit ipsum et ipsum kasd</p>
-                        <p>Et ea ea dolor rebum invidunt clita eos. Sea accusam stet stet ipsum, sit ipsum et ipsum kasd</p>
-                        <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" href="">Read More</a>
-                    </div>
-                    <div class="col-lg-7">
-                        <div class="row g-5">
-                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.1s">
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3">
-                                        <i class="fa fa-cubes text-white"></i>
-                                    </div>
-                                    <h6 class="mb-0">Best In Industry</h6>
-                                </div>
-                                <span>Magna sea eos sit dolor, ipsum amet ipsum lorem diam eos diam dolor</span>
-                            </div>
-                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.2s">
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3">
-                                        <i class="fa fa-percent text-white"></i>
-                                    </div>
-                                    <h6 class="mb-0">99% Success Rate</h6>
-                                </div>
-                                <span>Magna sea eos sit dolor, ipsum amet ipsum lorem diam eos diam dolor</span>
-                            </div>
-                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.3s">
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3">
-                                        <i class="fa fa-award text-white"></i>
-                                    </div>
-                                    <h6 class="mb-0">Award Winning</h6>
-                                </div>
-                                <span>Magna sea eos sit dolor, ipsum amet ipsum lorem diam eos diam dolor</span>
-                            </div>
-                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.4s">
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3">
-                                        <i class="fa fa-smile-beam text-white"></i>
-                                    </div>
-                                    <h6 class="mb-0">100% Happy Client</h6>
-                                </div>
-                                <span>Magna sea eos sit dolor, ipsum amet ipsum lorem diam eos diam dolor</span>
-                            </div>
-                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.5s">
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3">
-                                        <i class="fa fa-user-tie text-white"></i>
-                                    </div>
-                                    <h6 class="mb-0">Professional Advisors</h6>
-                                </div>
-                                <span>Magna sea eos sit dolor, ipsum amet ipsum lorem diam eos diam dolor</span>
-                            </div>
-                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.6s">
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3">
-                                        <i class="fa fa-headset text-white"></i>
-                                    </div>
-                                    <h6 class="mb-0">24/7 Customer Support</h6>
-                                </div>
-                                <span>Magna sea eos sit dolor, ipsum amet ipsum lorem diam eos diam dolor</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              <h2 class="animate__animated animate__fadeInDown">Sequi ea ut et est quaerat</h2>
+              <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+              <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
             </div>
+          </div>
         </div>
-        <!-- Features End -->
 
+      </div>
 
-        <!-- Client Start -->
-        <div class="container-xxl bg-primary my-6 py-5 wow fadeInUp" data-wow-delay="0.1s">
-            <div class="container">
-                <div class="owl-carousel client-carousel">
-                    <a href="#"><img class="img-fluid" src="<?=base_url('assets/webcp/img/logo-1.png')?>" alt=""></a>
-                    <a href="#"><img class="img-fluid" src="<?=base_url('assets/webcp/img/logo-2.png')?>" alt=""></a>
-                    <a href="#"><img class="img-fluid" src="<?=base_url('assets/webcp/img/logo-3.png')?>" alt=""></a>
-                    <a href="#"><img class="img-fluid" src="<?=base_url('assets/webcp/img/logo-4.png')?>" alt=""></a>
-                    <a href="#"><img class="img-fluid" src="<?=base_url('assets/webcp/img/logo-5.png')?>" alt=""></a>
-                    <a href="#"><img class="img-fluid" src="<?=base_url('assets/webcp/img/logo-6.png')?>" alt=""></a>
-                    <a href="#"><img class="img-fluid" src="<?=base_url('assets/webcp/img/logo-7.png')?>" alt=""></a>
-                    <a href="#"><img class="img-fluid" src="<?=base_url('assets/webcp/img/logo-8.png')?>" alt=""></a>
-                </div>
-            </div>
-        </div>
-        <!-- Client End -->
+      <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
+      </a>
 
+      <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
+      </a>
 
-        <!-- Testimonial Start -->
-        <div class="container-xxl py-6">
-            <div class="container">
-                <div class="mx-auto text-center wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                    <div class="d-inline-block border rounded-pill text-primary px-4 mb-3">Testimonial</div>
-                    <h2 class="mb-5">What Our Clients Say!</h2>
-                </div>
-                <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="testimonial-item rounded p-4">
-                        <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-                        <p>Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>
-                        <div class="d-flex align-items-center">
-                            <img class="img-fluid flex-shrink-0 rounded-circle" src="<?=base_url('assets/webcp/img/testimonial-1.jpg')?>">
-                            <div class="ps-3">
-                                <h6 class="mb-1">Client Name</h6>
-                                <small>Profession</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-item rounded p-4">
-                        <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-                        <p>Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>
-                        <div class="d-flex align-items-center">
-                            <img class="img-fluid flex-shrink-0 rounded-circle" src="<?=base_url('assets/webcp/img/testimonial-2.jpg')?>">
-                            <div class="ps-3">
-                                <h6 class="mb-1">Client Name</h6>
-                                <small>Profession</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-item rounded p-4">
-                        <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-                        <p>Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>
-                        <div class="d-flex align-items-center">
-                            <img class="img-fluid flex-shrink-0 rounded-circle" src="<?=base_url('assets/webcp/img/testimonial-3.jpg')?>">
-                            <div class="ps-3">
-                                <h6 class="mb-1">Client Name</h6>
-                                <small>Profession</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-item rounded p-4">
-                        <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-                        <p>Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>
-                        <div class="d-flex align-items-center">
-                            <img class="img-fluid flex-shrink-0 rounded-circle" src="<?=base_url('assets/webcp/img/testimonial-4.jpg')?>">
-                            <div class="ps-3">
-                                <h6 class="mb-1">Client Name</h6>
-                                <small>Profession</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Testimonial End -->
-
-
-        <!-- Team Start -->
-        <div class="container-xxl py-6">
-            <div class="container">
-                <div class="mx-auto text-center wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                    <div class="d-inline-block border rounded-pill text-primary px-4 mb-3">Our Team</div>
-                    <h2 class="mb-5">Meet Our Team Members</h2>
-                </div>
-                <div class="row g-4">
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="team-item">
-                            <h5>Full Name</h5>
-                            <p class="mb-4">Designation</p>
-                            <img class="img-fluid rounded-circle w-100 mb-4" src="<?=base_url('assets/webcp/img/team-1.jpg')?>" alt="">
-                            <div class="d-flex justify-content-center">
-                                <a class="btn btn-square text-primary bg-white m-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square text-primary bg-white m-1" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-square text-primary bg-white m-1" href=""><i class="fab fa-linkedin-in"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="team-item">
-                            <h5>Full Name</h5>
-                            <p class="mb-4">Designation</p>
-                            <img class="img-fluid rounded-circle w-100 mb-4" src="<?=base_url('assets/webcp/img/team-2.jpg')?>" alt="">
-                            <div class="d-flex justify-content-center">
-                                <a class="btn btn-square text-primary bg-white m-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square text-primary bg-white m-1" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-square text-primary bg-white m-1" href=""><i class="fab fa-linkedin-in"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <div class="team-item">
-                            <h5>Full Name</h5>
-                            <p class="mb-4">Designation</p>
-                            <img class="img-fluid rounded-circle w-100 mb-4" src="<?=base_url('assets/webcp/img/team-3.jpg')?>" alt="">
-                            <div class="d-flex justify-content-center">
-                                <a class="btn btn-square text-primary bg-white m-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square text-primary bg-white m-1" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-square text-primary bg-white m-1" href=""><i class="fab fa-linkedin-in"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                        <div class="team-item">
-                            <h5>Full Name</h5>
-                            <p class="mb-4">Designation</p>
-                            <img class="img-fluid rounded-circle w-100 mb-4" src="<?=base_url('assets/webcp/img/team-4.jpg')?>" alt="">
-                            <div class="d-flex justify-content-center">
-                                <a class="btn btn-square text-primary bg-white m-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square text-primary bg-white m-1" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-square text-primary bg-white m-1" href=""><i class="fab fa-linkedin-in"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Team End -->
-        
-
-        <!-- Footer Start -->
-        <div class="container-fluid bg-dark text-light footer pt-5 wow fadeIn" data-wow-delay="0.1s" style="margin-top: 6rem;">
-            <div class="container py-5">
-                <div class="row g-5">
-                    <div class="col-md-6 col-lg-3">
-                        <h5 class="text-white mb-4">Get In Touch</h5>
-                        <p><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
-                        <p><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                        <p><i class="fa fa-envelope me-3"></i>info@example.com</p>
-                        <div class="d-flex pt-2">
-                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
-                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-instagram"></i></a>
-                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <h5 class="text-white mb-4">Quick Link</h5>
-                        <a class="btn btn-link" href="">About Us</a>
-                        <a class="btn btn-link" href="">Contact Us</a>
-                        <a class="btn btn-link" href="">Privacy Policy</a>
-                        <a class="btn btn-link" href="">Terms & Condition</a>
-                        <a class="btn btn-link" href="">Career</a>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <h5 class="text-white mb-4">Popular Link</h5>
-                        <a class="btn btn-link" href="">About Us</a>
-                        <a class="btn btn-link" href="">Contact Us</a>
-                        <a class="btn btn-link" href="">Privacy Policy</a>
-                        <a class="btn btn-link" href="">Terms & Condition</a>
-                        <a class="btn btn-link" href="">Career</a>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <h5 class="text-white mb-4">Newsletter</h5>
-                        <p>Lorem ipsum dolor sit amet elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non vulpu</p>
-                        <div class="position-relative w-100 mt-3">
-                            <input class="form-control border-0 rounded-pill w-100 ps-4 pe-5" type="text" placeholder="Your Email" style="height: 48px;">
-                            <button type="button" class="btn shadow-none position-absolute top-0 end-0 mt-1 me-2"><i class="fa fa-paper-plane text-primary fs-4"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="copyright">
-                    <div class="row">
-                        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                            &copy; <a class="border-bottom" href="#">Your Site Name</a>, All Right Reserved. 
-							
-							<!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-							Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
-                            <br>Distributed By: <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
-                        </div>
-                        <div class="col-md-6 text-center text-md-end">
-                            <div class="footer-menu">
-                                <a href="">Home</a>
-                                <a href="">Cookies</a>
-                                <a href="">Help</a>
-                                <a href="">FQAs</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Footer End -->
-
-
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>
     </div>
+  </section><!-- End Hero -->
 
-    <!-- JavaScript Libraries -->
-	<!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
-	<script src="<?=base_url('plugins/jquery/jquery.js')?>"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script> -->
-    <script src="<?=base_url('assets/webcp/lib/wow/wow.min.js')?>"></script>
-    <script src="<?=base_url('assets/webcp/lib/easing/easing.min.js')?>"></script>
-    <script src="<?=base_url('assets/webcp/lib/waypoints/waypoints.min.js')?>"></script>
-    <script src="<?=base_url('assets/webcp/lib/owlcarousel/owl.carousel.min.js')?>"></script>
+  <main id="main">
 
-    <!-- Template Javascript -->
-    <script src="<?=base_url('assets/webcp/js/main.js')?>"></script>
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container">
+
+        <div class="row content">
+          <div class="col-lg-6">
+            <h2>Eum ipsam laborum deleniti velitena</h2>
+            <h3>Voluptatem dignissimos provident quasi corporis voluptates sit assum perenda sruen jonee trave</h3>
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0">
+            <p>
+              Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+              culpa qui officia deserunt mollit anim id est laborum
+            </p>
+            <ul>
+              <li><i class="ri-check-double-line"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequa</li>
+              <li><i class="ri-check-double-line"></i> Duis aute irure dolor in reprehenderit in voluptate velit</li>
+              <li><i class="ri-check-double-line"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in</li>
+            </ul>
+            <p class="fst-italic">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+              magna aliqua.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+    <!-- ======= Clients Section ======= -->
+    <section id="clients" class="clients section-bg">
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <img src="<?=base_url('assets/webcp/assets/img/clients/client-1.png')?>" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <img src="<?=base_url('assets/webcp/assets/img/clients/client-2.png')?>" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <img src="<?=base_url('assets/webcp/assets/img/clients/client-3.png')?>" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <img src="<?=base_url('assets/webcp/assets/img/clients/client-4.png')?>" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <img src="<?=base_url('assets/webcp/assets/img/clients/client-5.png')?>" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <img src="<?=base_url('assets/webcp/assets/img/clients/client-6.png')?>" class="img-fluid" alt="">
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Clients Section -->
+
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="icon-box">
+              <i class="bi bi-briefcase"></i>
+              <h4><a href="#">Lorem Ipsum</a></h4>
+              <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+            </div>
+          </div>
+          <div class="col-md-6 mt-4 mt-md-0">
+            <div class="icon-box">
+              <i class="bi bi-card-checklist"></i>
+              <h4><a href="#">Dolor Sitema</a></h4>
+              <p>Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
+            </div>
+          </div>
+          <div class="col-md-6 mt-4 mt-md-0">
+            <div class="icon-box">
+              <i class="bi bi-bar-chart"></i>
+              <h4><a href="#">Sed ut perspiciatis</a></h4>
+              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+            </div>
+          </div>
+          <div class="col-md-6 mt-4 mt-md-0">
+            <div class="icon-box">
+              <i class="bi bi-binoculars"></i>
+              <h4><a href="#">Nemo Enim</a></h4>
+              <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+            </div>
+          </div>
+          <div class="col-md-6 mt-4 mt-md-0">
+            <div class="icon-box">
+              <i class="bi bi-brightness-high"></i>
+              <h4><a href="#">Magni Dolore</a></h4>
+              <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
+            </div>
+          </div>
+          <div class="col-md-6 mt-4 mt-md-0">
+            <div class="icon-box">
+              <i class="bi bi-calendar4-week"></i>
+              <h4><a href="#">Eiusmod Tempor</a></h4>
+              <p>Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Services Section -->
+
+    <!-- ======= Portfolio Section ======= -->
+    <section id="portfolio" class="portfolio">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-12 d-flex justify-content-center">
+            <ul id="portfolio-flters">
+              <li data-filter="*" class="filter-active">All</li>
+              <li data-filter=".filter-app">App</li>
+              <li data-filter=".filter-card">Card</li>
+              <li data-filter=".filter-web">Web</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row portfolio-container">
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-wrap">
+              <img src="<?=base_url('assets/webcp/assets/img/portfolio/portfolio-1.jpg')?>" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>App 1</h4>
+                <p>App</p>
+                <div class="portfolio-links">
+                  <a href="<?=base_url('assets/webcp/assets/img/portfolio/portfolio-1.jpg')?>" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i class="bx bx-plus"></i></a>
+                  <a href="portfolio-details.html" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+            <div class="portfolio-wrap">
+              <img src="<?=base_url('assets/webcp/assets/img/portfolio/portfolio-2.jpg')?>" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>Web 3</h4>
+                <p>Web</p>
+                <div class="portfolio-links">
+                  <a href="<?=base_url('assets/webcp/assets/img/portfolio/portfolio-2.jpg')?>" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a>
+                  <a href="portfolio-details.html" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-wrap">
+              <img src="<?=base_url('assets/webcp/assets/img/portfolio/portfolio-3.jpg')?>" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>App 2</h4>
+                <p>App</p>
+                <div class="portfolio-links">
+                  <a href="<?=base_url('assets/webcp/assets/img/portfolio/portfolio-3.jpg')?>" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 2"><i class="bx bx-plus"></i></a>
+                  <a href="portfolio-details.html" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+            <div class="portfolio-wrap">
+              <img src="<?=base_url('assets/webcp/assets/img/portfolio/portfolio-4.jpg')?>" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>Card 2</h4>
+                <p>Card</p>
+                <div class="portfolio-links">
+                  <a href="<?=base_url('assets/webcp/assets/img/portfolio/portfolio-4.jpg')?>" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 2"><i class="bx bx-plus"></i></a>
+                  <a href="portfolio-details.html" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+            <div class="portfolio-wrap">
+              <img src="<?=base_url('assets/webcp/assets/img/portfolio/portfolio-5.jpg')?>" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>Web 2</h4>
+                <p>Web</p>
+                <div class="portfolio-links">
+                  <a href="<?=base_url('assets/webcp/assets/img/portfolio/portfolio-5.jpg')?>" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 2"><i class="bx bx-plus"></i></a>
+                  <a href="portfolio-details.html" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-wrap">
+              <img src="<?=base_url('assets/webcp/assets/img/portfolio/portfolio-6.jpg')?>" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>App 3</h4>
+                <p>App</p>
+                <div class="portfolio-links">
+                  <a href="<?=base_url('assets/webcp/assets/img/portfolio/portfolio-6.jpg')?>" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 3"><i class="bx bx-plus"></i></a>
+                  <a href="portfolio-details.html" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+            <div class="portfolio-wrap">
+              <img src="<?=base_url('assets/webcp/assets/img/portfolio/portfolio-7.jpg')?>" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>Card 1</h4>
+                <p>Card</p>
+                <div class="portfolio-links">
+                  <a href="<?=base_url('assets/webcp/assets/img/portfolio/portfolio-7.jpg')?>" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 1"><i class="bx bx-plus"></i></a>
+                  <a href="portfolio-details.html" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+            <div class="portfolio-wrap">
+              <img src="<?=base_url('assets/webcp/assets/img/portfolio/portfolio-8.jpg')?>" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>Card 3</h4>
+                <p>Card</p>
+                <div class="portfolio-links">
+                  <a href="<?=base_url('assets/webcp/assets/img/portfolio/portfolio-8.jpg')?>" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i class="bx bx-plus"></i></a>
+                  <a href="portfolio-details.html" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+            <div class="portfolio-wrap">
+              <img src="<?=base_url('assets/webcp/assets/img/portfolio/portfolio-9.jpg')?>" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>Web 3</h4>
+                <p>Web</p>
+                <div class="portfolio-links">
+                  <a href="<?=base_url('assets/webcp/assets/img/portfolio/portfolio-9.jpg')?>" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a>
+                  <a href="portfolio-details.html" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <?php $this->load->view('webcp/partials/V_Footer') ?>
+  <!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="<?=base_url('assets/webcp/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
+  <script src="<?=base_url('assets/webcp/assets/vendor/glightbox/js/glightbox.min.js')?>"></script>
+  <script src="<?=base_url('assets/webcp/assets/vendor/isotope-layout/isotope.pkgd.min.js')?>"></script>
+  <script src="<?=base_url('assets/webcp/assets/vendor/waypoints/noframework.waypoints.js')?>"></script>
+  <script src="<?=base_url('assets/webcp/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
+  <script src="<?=base_url('assets/webcp/assets/vendor/php-email-form/validate.js')?>"></script>
+
+  <!-- Template Main JS File -->
+  <script src="<?=base_url('assets/webcp/assets/js/main.js')?>"></script>
+
 </body>
 
 </html>

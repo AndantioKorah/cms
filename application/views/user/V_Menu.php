@@ -23,13 +23,13 @@
                         <input class="form-control form-control-sm" autocomplete="off" name="icon" id="icon"/>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-3">
+                <div class="col-lg-2 col-md-2">
                     <div class="form-group">
                         <label class="bmd-label-floating">Keterangan</label>
                         <input class="form-control form-control-sm" autocomplete="off" name="keterangan" id="keterangan"/>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4">
+                <div class="col-lg-3 col-md-3">
                     <div class="form-group">
                         <label class="bmd-label-floating">Parent</label>
                         <select class="form-control form-control-sm select2_this select2-navy" data-dropdown-css-class="select2-navy" name="id_m_menu_parent" id="id_m_menu_parent">
@@ -40,10 +40,24 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-9"></div>
-                <div class="col-8"></div>
-                <div class="col-4 text-right mt-2">
-                    <button class="btn btn-sm btn-navy" type="submit"><i class="fa fa-save"></i> SIMPAN</button>
+                <div class="col-lg-1 col-md-1">
+                    <div class="form-group">
+                        <label class="bmd-label-floating">Menu Admin?</label>
+                        <select class="form-control form-control-sm select2_this select2-navy" data-dropdown-css-class="select2-navy" name="flag_menu_admin" id="flag_menu_admin">
+                            <option value="1" selected>Ya</option>
+                            <option value="0">Tidak</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-1 col-md-1" id="language_div" style="display: none;">
+                    <div class="form-group">
+                        <label class="bmd-label-floating">Language</label>
+                        <input class="form-control form-control-sm" autocomplete="off" name="site_lang" id="site_lang"/>
+                    </div>
+                </div>
+                <div class="col-10"></div>
+                <div class="col-2 text-right mt-2">
+                    <button class="btn btn-block btn-navy" type="submit"><i class="fa fa-save"></i> SIMPAN</button>
                 </div>
             </div>
         </form>
@@ -63,6 +77,14 @@
 <script>
     $(function(){
         loadMenu()
+    })
+
+    $('#flag_menu_admin').on('change', function(){
+        if($(this).val() == '0'){
+            $('#language_div').show()
+        } else {
+            $('#language_div').hide()
+        }
     })
 
     function loadMenu(){

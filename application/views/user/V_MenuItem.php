@@ -7,6 +7,7 @@
                 <th>URL</th>
                 <th>Parent</th>
                 <th>Icon</th>
+                <th>Menu Admin</th>
                 <th>Keterangan</th>
                 <?php if($this->general_library->isProgrammer()) { ?>
                     <th>Pilihan</th>
@@ -20,6 +21,7 @@
                         <td><?=$rs['url'];?></td>
                         <td><?=$rs['nama_menu_parent'];?></td>
                         <td><i class="<?=$rs['icon'] ? $rs['icon'] : 'far fa-circle'?>"></i> <?=$rs['icon'] ? $rs['icon'] : 'default-icon';?></td>
+                        <td><?=$rs['flag_menu_admin'] == 1 ? 'Ya' : 'Tidak';?></td>
                         <td><?=$rs['keterangan'];?></td>
                         <?php if($this->general_library->isProgrammer()) { ?>
                             <td>

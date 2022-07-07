@@ -61,6 +61,7 @@ $route['translate_uri_dashes'] = FALSE;
 
 //admin
 $route['admin'] = 'login/C_Login/login';
+$route['admin/logout'] = 'login/C_Login/logout';
 $route['admin/welcome'] = 'login/C_Login/welcomePage';
 $route['admin/users'] = 'user/C_User/users';
 $route['admin/user/setting'] = 'user/C_User/userSetting';
@@ -71,5 +72,6 @@ $route['admin/menu'] = 'user/C_User/menu';
 // =============================================================
 
 //web company profile
+$route[''] = 'C_Main/index';
 $route['language/switch/(:any)'] = 'C_Main/switchLanguage/$1';
 
