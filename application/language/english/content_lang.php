@@ -5,7 +5,7 @@ $lang['message'] = 'Our mission is to provide professional and highly creative w
                     services and other related services to a wide range of potential customers all over the globe.';
 
 // navbar
-$lang['home'] = 'Beranda';
+$lang['home'] = 'Home';
 $lang['profile'] = 'Profile';
 $lang['news'] = 'News';
 $lang['gallery'] = 'Gallery';
