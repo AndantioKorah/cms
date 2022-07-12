@@ -67,6 +67,7 @@ $route['admin/users'] = 'user/C_User/users';
 $route['admin/user/setting'] = 'user/C_User/userSetting';
 $route['admin/roles'] = 'user/C_User/roles';
 $route['admin/menu'] = 'user/C_User/menu';
+$route['admin/konten'] = 'admin/C_Admin';
 // $route['dashboard'] = 'dashboard/C_Dashboard/dashboard';
 
 // =============================================================

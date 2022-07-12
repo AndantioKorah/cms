@@ -8,6 +8,7 @@ function dd($var)
 function render($pageContent, $parent_active, $active, $data)
 {
     $CI = &get_instance();
+    
     $data['page_content'] = $pageContent;
     $data['parent_active'] = $parent_active;
     $data['active'] = $active;
