@@ -6,18 +6,28 @@ class C_Admin extends CI_Controller
     {
         parent::__construct();
         $this->load->model('admin/M_Admin', 'admin');
+        $this->load->model('general/M_General', 'general');
+        $this->load->model('user/M_User', 'user');
+        $this->load->model('master/M_Master', 'master');
     }
 
-    public function index(){
-        render('admin/V_Admin', '', '', null);
-        
-    }
-
-    public function admin(){
+ 
+    public function konten(){
        
-            $data['result'] = "";
-            $this->load->view('admin/V_Admin', $data);
+        $this->general_library->refreshMenu();
+        $data['list_menu'] = $this->general->getAllWithOrder('m_menu', 'nama_menu', 'asc');
+        render('admin/V_AdminKonten', 'admin', 'konten', $data);
         
+    }
+
+    public function loadFormProfil(){
+        $data['profil'] = "";
+        $this->load->view('admin/V_FormProfil', $data);
+    }
+
+    public function loadFormBerita(){
+        $data['berita'] = "";
+        $this->load->view('admin/V_FormBerita', $data);
     }
 
     public function switchLanguage($lang = DEFAULT_LANG){
