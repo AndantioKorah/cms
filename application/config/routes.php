@@ -56,7 +56,7 @@ $route['default_controller'] = 'C_Main';
 $route['404_override'] = 'login/C_Login/notFoundOverride';
 $route['translate_uri_dashes'] = FALSE;
 
-// $route['login'] = 'login/C_Login/login';
+$route['login'] = 'login/C_Login/login';
 // $route['logout'] = 'login/C_Login/logout';
 
 //admin
@@ -67,6 +67,7 @@ $route['admin/users'] = 'user/C_User/users';
 $route['admin/user/setting'] = 'user/C_User/userSetting';
 $route['admin/roles'] = 'user/C_User/roles';
 $route['admin/menu'] = 'user/C_User/menu';
+$route['admin/konten'] = 'admin/C_Admin/konten';
 // $route['dashboard'] = 'dashboard/C_Dashboard/dashboard';
 
 // =============================================================
