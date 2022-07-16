@@ -376,13 +376,13 @@ $('.datepickerthis').datepicker({
     todayHighlight: true
 });
 
-$('.datepicker').datepicker({
-    format: 'yyyy',
-    viewMode: "years", 
-    minViewMode: "years",
-    orientation: 'bottom',
-    autoclose: true
-});
+// $('.datepicker').datepicker({
+//     format: 'yyyy',
+//     viewMode: "years", 
+//     minViewMode: "years",
+//     orientation: 'bottom',
+//     autoclose: true
+// });
 
   $('.datetimepickerthis').datetimepicker({
     format: 'yyyy-mm-dd hh:ii:ss',
