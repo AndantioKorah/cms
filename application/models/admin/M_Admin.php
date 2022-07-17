@@ -53,5 +53,43 @@
         }
 
 
+        function loadProfil(){
+            $query = $this->db->select('*')
+                            ->from('t_profil a')
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+            return $query; 
+        }
+
+        public function submitKontenProfil($new_name){
+
+            $exist = $this->db->select('*')
+                                ->from('t_profil')
+                                ->where('flag_active', 1)
+                                ->get()->row_array();
+            if($exist) {
+                $datapost = $this->input->post();
+                $data["visi"] = $datapost["profil_visi"];
+                $data["misi"] = $datapost["profil_misi"];
+                $data["motto"] = $datapost["profil_motto"];
+                $data["tupoksi"] = $datapost["profil_tupoksi"];
+                // $data["struktur_organisasi"] = $new_name;
+                $this->db->where('id', 3)
+                ->update('t_profil', $data);
+            } else {
+                $datapost = $this->input->post();
+                $data["visi"] = $datapost["profil_visi"];
+                $data["misi"] = $datapost["profil_misi"];
+                $data["motto"] = $datapost["profil_motto"];
+                $data["tupoksi"] = $datapost["profil_tupoksi"];
+                $data["struktur_organisasi"] = $new_name;
+                $this->db->insert('t_profil', $data);
+                return $this->db->insert_id();
+            }
+
+           
+        }
+
+
 	}
 ?>

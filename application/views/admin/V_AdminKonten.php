@@ -14,7 +14,7 @@
                         <div class="form-group">
                             <label class="bmd-label-floating">Jenis Konten</label>
                             <select onchange="getval(this)" required class="form-control form-control-sm select2_this select2-navy" data-dropdown-css-class="select2-navy" name="jenis_konten" id="jenis_konten">
-                            <!-- <option value="">-</option> -->
+                            <option value="">-</option>
                             <option value="1">Profil</option>
                             <option value="2">Berita</option>
                             <option value="3">Galeri</option>
