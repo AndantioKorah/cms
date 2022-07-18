@@ -21,7 +21,7 @@ class C_Admin extends CI_Controller
     }
 
     public function loadFormProfil(){
-        $data['profil'] = "";
+        $data['profil'] = $this->admin->loadProfil();
         $this->load->view('admin/V_FormProfil', $data);
     }
 
@@ -45,13 +45,7 @@ class C_Admin extends CI_Controller
 
             );
         $this->load->library('upload', $config);
-        // $dataPost = $this->input->post();
-        // $dataFile = $this->upload->data(); 
-       
-        // $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
-        // $res2 = array('msg' => 'Data gagal disimpan', 'success' => true);
-        
-      
+              
         if($this->upload->do_upload())
         {
             dd(1);
@@ -65,37 +59,95 @@ class C_Admin extends CI_Controller
          dd($error);
         }
         }
+        
+        function submitKontenBerita(){
 
-        function ajax_upload()  
+      
+            $new_name = time().$_FILES["berita_gambar"]['name'];
+            $data = $this->admin->submitKontenBerita($new_name);
+            // dd($new_name);
+
+            if(isset($_FILES["berita_gambar"]["name"])){ 
+                $path="./assets/berita";
+                $konten="berita_gambar";
+                $this->ajax_upload($path,$konten,$new_name);
+            }
+
+            // if(isset($_FILES["thumbnail_berita"]["name"])){  
+            //     $path="./assets/thumbnail";
+            //     $konten = "thumbnail_berita";
+            //     $this->ajax_upload2($path,$konten);  
+            // }
+            $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
+            echo json_encode($res);
+        }
+
+        function submitKontenProfil(){
+
+      
+            $new_name = time().$_FILES["profil_struktur_organisasi"]['name'];
+            $data = $this->admin->submitKontenProfil($new_name);
+            // dd($new_name);
+
+            if(isset($_FILES["profil_struktur_organisasi"]["name"])){ 
+                $path="./assets/profil";
+                $konten="profil_struktur_organisasi";
+                $this->ajax_upload($path,$konten,$new_name);
+            }
+
+            $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
+            echo json_encode($res);
+        }
+
+        function ajax_upload($path,$konten,$new_name)  
         {  
-             if(isset($_FILES["berita_dokumen"]["name"]))  
-             {  
-                  $config['upload_path'] = './assets/berita';  
+                  $config['file_name'] = $new_name;
+                  $config['upload_path'] = $path;  
                   $config['allowed_types'] = 'jpg|jpeg|png|gif';  
                   $this->load->library('upload', $config);  
-                  if(!$this->upload->do_upload('berita_dokumen'))  
+                  $this->upload->overwrite = true;
+                  if(!$this->upload->do_upload($konten))  
                   {  
                        echo $this->upload->display_errors();  
                   }  
-                  else  
-                  {  
-                    if(isset($_FILES["thumbnail_berita"]["name"]))  
-                    {  
-                         $config['upload_path'] = './assets/thumbnail';  
-                         $config['allowed_types'] = 'jpg|jpeg|png|gif';  
-                         $this->load->library('upload', $config);  
-                         if(!$this->upload->do_upload('thumbnail_berita'))  
-                         {  
-                              echo $this->upload->display_errors();  
-                         }  
-                        
-                    }
-                    $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
-                    echo json_encode($res);
-                  }  
-             }  
+                  
+        }
 
-  
+        function ajax_upload2($path,$konten)  
+        {  
+            
+                  $config['upload_path'] = $path;  
+                  $config['allowed_types'] = 'jpg|jpeg|png|gif';  
+                  $this->upload->initialize($config);
+                  if(!$this->upload->do_upload($konten))  
+                  {  
+                       echo $this->upload->display_errors();  
+                  }  
+                
+        }
+
+        public function loadListBerita(){
+            $data['list_berita'] = $this->admin->loadListBerita();
+            $this->load->view('admin/V_ListBerita', $data);
+        }
+
+        function updateKontenBerita(){
+
+           
+            $new_name = $this->input->post('nama_gambar_lama');
+            if(isset($_FILES["image_file"]["name"])){ 
+                $path="./assets/berita";
+                $konten="image_file";
+                $this->ajax_upload($path,$konten,$new_name);
+            }
+
+            $data = $this->admin->updateKontenBerita();
+            $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
+            echo json_encode($res);
+        }
+
+        public function deleteBerita($id){
+            $this->general->delete('id', $id, 't_berita');
         }
         
 }

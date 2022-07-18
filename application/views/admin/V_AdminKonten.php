@@ -34,11 +34,21 @@
             </form>
         </div>
         <!-- form  -->
-        <div id="form-kontainer" class="card-body">
+        <div id="" class="card-body" >
         </div>
+
+      
         <!-- form -->
 
     </div>
+
+    <!-- form berita -->
+    
+    <div  id="form-container">
+       
+    </div>
+     <!-- form berita -->
+    
 <?php } ?>
 
 <script>
@@ -46,17 +56,17 @@
     if(sel.value == 1){
         // $('#form-profil').show('fast');
         // $('#form-berita').hide('fast');
-        $('#form-kontainer').html('')
-        $('#form-kontainer').append(divLoaderNavy)
-        $('#form-kontainer').load('<?=base_url("admin/C_Admin/loadFormProfil")?>', function(){
+        $('#form-container').html('')
+        $('#form-container').append(divLoaderNavy)
+        $('#form-container').load('<?=base_url("admin/C_Admin/loadFormProfil")?>', function(){
             $('#loader').hide()
         })
     }else if(sel.value == 2){
         // $('#form-profil').hide('fast');
         // $('#form-berita').show('fast');
-        $('#form-kontainer').html('')
-        $('#form-kontainer').append(divLoaderNavy)
-        $('#form-kontainer').load('<?=base_url("admin/C_Admin/loadFormBerita")?>', function(){
+        $('#form-container').html('')
+        $('#form-container').append(divLoaderNavy)
+        $('#form-container').load('<?=base_url("admin/C_Admin/loadFormBerita")?>', function(){
             $('#loader').hide()
         })
     }
