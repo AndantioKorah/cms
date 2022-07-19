@@ -26,6 +26,10 @@
   <link href="<?=base_url('assets/webcp/assets/vendor/glightbox/css/glightbox.min.css')?>" rel="stylesheet">
   <link href="<?=base_url('assets/webcp/assets/vendor/swiper/swiper-bundle.min.css')?>" rel="stylesheet">
 
+  <!-- JS -->
+  <script src="<?=base_url('plugins/jquery/jquery.js')?>"></script>
+	<script src="<?=base_url('plugins/jquery-ui/jquery-ui.js')?>"></script>
+
   <!-- Template Main CSS File -->
   <link href="<?=base_url('assets/webcp/assets/css/style.css')?>" rel="stylesheet">
 
@@ -54,6 +58,12 @@
     <!-- End Footer -->
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <script>
+        function divLoaderNavy(message = 'Loading'){
+          return '<div class="col-12 text-center" style="height: 100%; id="loader"> <i style="color: #001f3f;" class="fas fa-3x fa-spin fa-sync-alt"></i> </div>'
+        }
+    </script>
 
     <!-- Vendor JS Files -->
     <script src="<?=base_url('assets/webcp/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')?>"></script>

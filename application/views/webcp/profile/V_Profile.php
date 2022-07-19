@@ -46,8 +46,8 @@
           <table>
             <?php $i = 1; foreach($misi as $m) { ?>
               <tr valign="top">
-                <td><p><?=$i++;?>.</p></td>
-                <td><p><?=$m;?></p></td>
+                <td><h4 style="line-height: 40px;"><?=$i++;?>.</h4></td>
+                <td><h4 style="line-height: 40px;"><?=$m;?></h4></td>
               </tr>
             <?php } ?>
           </table>

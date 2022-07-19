@@ -62,6 +62,7 @@ $route['login'] = 'login/C_Login/login';
 //admin
 $route['admin'] = 'login/C_Login/login';
 $route['admin/logout'] = 'login/C_Login/logout';
+$route['admin/master/parameter'] = 'master/C_Master/masterParameter';
 $route['admin/welcome'] = 'login/C_Login/welcomePage';
 $route['admin/users'] = 'user/C_User/users';
 $route['admin/user/setting'] = 'user/C_User/userSetting';
@@ -76,3 +77,4 @@ $route['admin/konten'] = 'admin/C_Admin/konten';
 $route[''] = 'C_Main/index';
 $route['language/switch/(:any)'] = 'C_Main/switchLanguage/$1';
 $route['profile'] = 'webcp/profile/C_Profile/index';
+$route['news'] = 'webcp/news/C_News/index';
