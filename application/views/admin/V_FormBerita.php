@@ -1,4 +1,33 @@
 <!-- form input -->
+<script src="//cdn.ckeditor.com/4.19.0/standard/ckeditor.js"></script>
+	<style>
+        body{
+	background: #fcfcfc;
+}
+h1{
+	text-align: center;
+	font-family: sans-serif;
+	font-weight: 300;
+	color: #fff;
+}
+ 
+.tombol{
+	padding: 8px 15px;
+	border-radius: 3px;
+	background: #ECF0F1;
+	border: none;
+	color: #232323;
+	font-size: 12pt;
+}
+ 
+.kotak{
+	margin: 20px auto;
+	background: #1ABC9C;
+	width: 900px;	
+	padding: 20px 50px 50px 50px;
+	border-radius: 3px;
+}
+    </style>
 <div class="card card-default">
 <div class="card-header">
             <div class="row">
@@ -45,11 +74,39 @@
                     <div class="col-lg-12 col-md-3">
                         <div class="form-group text-left">
                             <label class="bmd-label-floating">Isi Berita</label>
-                            <textarea type="file" rows="10"  class="form-control" autocomplete="off" name="isi_berita" id="isi_berita"></textarea>
+                            <textarea type="file" rows="10"  class="form-control ckeditor"  autocomplete="off" name="isi_berita" id="isi_berita"></textarea>
                         </div>
                     </div>
-                
-                    
+                    <style>
+                        
+                        /* body{
+	background: #fcfcfc;
+}
+h1{
+	text-align: center;
+	font-family: sans-serif;
+	font-weight: 300;
+	color: #fff;
+}
+ 
+.tombol{
+	padding: 8px 15px;
+	border-radius: 3px;
+	background: #ECF0F1;
+	border: none;
+	color: #232323;
+	font-size: 12pt;
+}
+ 
+.kotak{
+	margin: 20px auto;
+	background: #1ABC9C;
+	width: 900px;	
+	padding: 20px 50px 50px 50px;
+	border-radius: 3px;
+} */
+                    </style>
+                  
                   
                     <div class="col-lg-12 col-md-8"></div>
                     <div class="col-lg-12 col-md-4 text-right mt-2">
