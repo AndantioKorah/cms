@@ -75,4 +75,4 @@ $route['admin/konten'] = 'admin/C_Admin/konten';
 //web company profile
 $route[''] = 'C_Main/index';
 $route['language/switch/(:any)'] = 'C_Main/switchLanguage/$1';
-
+$route['profile'] = 'webcp/profile/C_Profile/index';
