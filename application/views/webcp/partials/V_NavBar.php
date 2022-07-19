@@ -12,6 +12,17 @@
                     <a href="<?=base_url($m['url'])?>"><?=$this->lang->line($m['site_lang'])?></a>
                 </li>
             <?php } }  ?>
+            <li>
+              <li class="dropdown"><a href="#"><span><?=ucfirst($this->session->userdata('site_lang'))?></span> <i class="bi bi-chevron-right"></i></a>
+                <ul>
+                  <?php
+                    foreach(LANG_AVAIL as $l){
+                  ?>
+                    <li><a href="<?= base_url('language/switch/'.$l) ?>"><?=$l?></a></li>
+                    <?php } ?>
+                </ul>
+              </li>
+            </li>
           <!-- <li><a href="<?=base_url('')?>" class="active"><?=$this->lang->line('home')?></a></li>
           <li class="dropdown"><a href="#"><span>About</span> <i class="bi bi-chevron-down"></i></a>
             <ul>

@@ -18,6 +18,7 @@ class General_library
         date_default_timezone_set("Asia/Singapore");
         $this->nikita->load->model('general/M_General', 'm_general');
         $this->nikita->load->model('user/M_User', 'm_user');
+        $this->nikita->load->model('webcp/M_Main', 'main');
     }
 
     public function logErrorTelegram($data){
@@ -348,6 +349,16 @@ class General_library
         // imagedestroy($source);
         // $image['file_name'] = $resize_image;
         return ['code' => '0', 'data' => $image];
+    }
+
+    //webcp
+
+    public function refreshMenuWebcp(){
+       $menu = $this->nikita->session->userdata('menu_webcp');
+        if(!$menu){
+           $menu = $this->nikita->main->getListMenu();
+        }
+        return $menu;
     }
 }
 ?>
