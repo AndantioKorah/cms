@@ -14,25 +14,17 @@
         public function getAllNews($page = 1, $limit = 10){
             $result = null;
             $total = $this->db->select('count(*) as total')
-                                ->from('pegawai')
-                                // ->where('flag_active', 1)
+                                ->from('t_berita')
+                                ->where('flag_active', 1)
                                 ->get()->row_array();
-            // dd($total);
             $total_page = 0;
             if($total['total'] > 0){
                 $total_page = intval($total['total'] / $limit);
-                if(fmod($total_page, $limit) != 0){
+                if(fmod($total['total'], $limit) != 0){
                     $total_page++;
                 }
             }
             $active_page = $page;
-            // $limit = $page.','.$limit;
-            // $data =  $this->db->select('*')
-            //             ->from('m_menus')
-            //             ->where('flag_active', 1)
-            //             ->order_by('created_date', 'desc')
-            //             ->limit($page, $limit)
-            //             ->get()->result_array();
             $data = $this->getNewsByPage($page, $limit);
 
 
@@ -40,6 +32,21 @@
         }
 
         public function getNewsByPage($page = 1, $limit = 10){
+            // $dum = $this->db->select('a.nm_unitkerja')
+            //                 ->from('db_pegawai.unitkerja a')
+            //                 ->join('db_pegawai.unitkerjamaster b', 'a.id_unitkerjamaster = b.id_unitkerjamaster')
+            //                 ->where('a.id_unitkerjamaster', 4000000)
+            //                 ->order_by('a.nm_unitkerja')
+            //                 ->get()->result_array();
+            // $i = 1;
+            // while($i <= 2){
+            //     foreach($dum as $d){
+            //         echo $d['nm_unitkerja'].'<br>';
+            //     }
+            //     $i++;
+            // }
+            // die();                            
+
             if($page == 1){
                 $page = 0;
             } else {
@@ -48,8 +55,9 @@
 
             return $this->db->query("
             SELECT *
-            FROM pegawai
-            ORDER BY nama DESC
+            FROM t_berita
+            WHERE flag_active = 1
+            ORDER BY created_date DESC
             LIMIT ".$page.",".$limit)->result_array();
         }
 
