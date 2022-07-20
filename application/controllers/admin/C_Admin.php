@@ -62,7 +62,7 @@ class C_Admin extends CI_Controller
         
         function submitKontenBerita(){
 
-      
+            // dd($this->input->post());
             $new_name = time().$_FILES["berita_gambar"]['name'];
             $data = $this->admin->submitKontenBerita($new_name);
             // dd($new_name);
