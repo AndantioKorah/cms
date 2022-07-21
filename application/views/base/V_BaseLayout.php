@@ -36,6 +36,8 @@
   <script src="<?=base_url('assets/js/bootstrap-datetimepicker.js')?>"></script>
   <script src="<?=base_url('assets/js/bootstrap-datepicker.js')?>"></script>
   <link rel="stylesheet" href="<?=base_url('plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')?>">
+  <link rel="stylesheet" href="<?=base_url('assets/css/image-uploader.css')?>">
+  <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 
   <style>
@@ -473,7 +475,9 @@ $('.datepickerthis').datepicker({
 <!-- <script src="<?=base_url('assets/js/demo.js')?>"></script> -->
 <script src="<?=base_url('assets/js/jquery.dataTables.min.js')?>"></script>
 <script src="<?=base_url('plugins/sweetalert2/sweetalert2.min.js')?>"></script>
-
+<script src="<?=base_url('assets/js/bootstrap-datetimepicker.js')?>"></script>
+<script src="<?=base_url('assets/js/image-uploader.min.js')?>"></script>
+<script src="<?=base_url('assets/js/image-uploader.js')?>"></script>
   
 </body>
 </html>
