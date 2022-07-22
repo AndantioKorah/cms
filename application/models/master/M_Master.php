@@ -12,140 +12,67 @@
             $this->db->insert($tablename, $data);
         }
 
-        public function getAllUnitKerja(){
+        public function getAllParameter(){
             return $this->db->select('*')
-                            ->from('db_pegawai.unitkerja')
-                            ->order_by('nm_unitkerja', 'asc')
-                            ->get()->result_array();
-        }
-
-        public function loadMasterBidang(){
-            return $this->db->select('*')
-                            ->from('m_bidang a')
-                            ->join('db_pegawai.unitkerja b', 'a.id_unitkerja = b.id_unitkerja')
-                            ->where('a.flag_active', 1)
-                            ->order_by('a.nama_bidang', 'asc')
-                            ->get()->result_array();
-        }
-
-        public function loadMasterBidangByUnitKerja($id_unitkerja){
-            return $this->db->select('*')
-                            ->from('m_bidang a')
-                            ->join('db_pegawai.unitkerja b', 'a.id_unitkerja = b.id_unitkerja')
-                            ->where('a.id_unitkerja', $id_unitkerja)
-                            ->where('a.flag_active', 1)
-                            ->order_by('a.nama_bidang', 'asc')
-                            ->get()->result_array();
-        }
-
-        public function loadMasterSubBidang(){
-            return $this->db->select('*, a.id as id_m_sub_bidang')
-                            ->from('m_sub_bidang a')
-                            ->join('m_bidang b', 'a.id_m_bidang = b.id')
-                            ->join('db_pegawai.unitkerja c', 'b.id_unitkerja = c.id_unitkerja')
-                            ->where('a.flag_active', 1)
-                            ->order_by('a.created_date', 'desc')
-                            ->get()->result_array();
-        }
-
-        public function loadMasterSubBidangByUnitKerja($id_unitkerja){
-            return $this->db->select('*, a.id as id_m_sub_bidang')
-                            ->from('m_sub_bidang a')
-                            ->join('m_bidang b', 'a.id_m_bidang = b.id')
-                            ->join('db_pegawai.unitkerja c', 'b.id_unitkerja = c.id_unitkerja')
-                            ->where('a.flag_active', 1)
-                            ->where('b.flag_active', 1)
-                            ->where('b.id_unitkerja', $id_unitkerja)
-                            ->order_by('a.created_date', 'desc')
-                            ->get()->result_array();
-        }
-
-        public function searchPegawaiBySkpd($data){
-            return $this->db->select('a.nipbaru, a.nama, a.gelar1, a.gelar2, b.nm_pangkat, a.tmtpangkat, a.tmtcpns, d.nm_unitkerja, a.nipbaru_ws,
-            (select c.nm_jabatan from db_pegawai.pegjabatan as c where c.id_pegawai = a.id_peg ORDER BY tglsk desc limit 1) as jabatan')
-                            ->from('db_pegawai.pegawai a')
-                            ->join('db_pegawai.pangkat b', 'a.pangkat = b.id_pangkat')
-                            ->join('db_pegawai.unitkerja d', 'a.skpd = d.id_unitkerja')
-                            ->where('a.skpd', 4012000)
-                            ->order_by('a.nama', 'asc')
-                            ->get()->result_array();
-        }
-
-        public function getSubBidangByBidang($id){
-            return $this->db->select('*')
-                            ->from('m_sub_bidang')
-                            ->where('id_m_bidang', $id)
+                            ->from('m_parameter')
                             ->where('flag_active', 1)
+                            ->order_by('created_date', 'desc')
                             ->get()->result_array();
         }
 
-        public function getBidangBySubBidang($id){
-            return $this->db->select('*, b.id as id_m_bidang')
-                            ->from('m_sub_bidang a')
-                            ->join('m_bidang b', 'a.id_m_bidang = b.id')
-                            ->where('a.flag_active', 1)
-                            ->where('b.flag_active', 1)
-                            ->where('a.id', $id)
+        public function deleteMasterParameter($id){
+            $this->db->where('id', $id)
+                    ->update('m_parameter', ['flag_active' => 0, 'updated_by' => $this->general_library->getId()]);
+        }
+
+        public function insertMasterParameter($data){
+            $rs['code'] = 0;
+            $rs['message'] = 0;
+
+            $exists = $this->db->select('*')
+                                ->from('m_parameter')   
+                                ->where('parameter_name', $data['parameter_name'])
+                                ->where('flag_active', 1)
+                                ->get()->row_array();
+            if($exists){
+                $rs['code'] = 1;
+                $rs['message'] = 'Parameter dengan nama '.$data['parameter_name'].' sudah ada';
+            } else {
+                $data['created_by'] = $this->general_library->getId();
+                $this->db->insert('m_parameter', $data);
+            }
+
+            return $rs;
+        }
+
+        public function loadDetailParameter($id){
+            return $this->db->select('*')
+                            ->from('m_parameter')
+                            ->where('id', $id)
+                            ->where('flag_active', 1)
                             ->get()->row_array();
         }
 
-        public function importBidangSubBidangByUnitKerja($id_unitkerja){
-            $data = $this->db->select('a.*, b.nm_unitkerja, b.id_unitkerja')
-                            ->from('db_pegawai.jabatan a')
-                            ->join('db_pegawai.unitkerja b', 'a.id_unitkerja = b.id_unitkerja')
-                            ->where('a.id_unitkerja', $id_unitkerja)
-                            ->get()->result_array();
+        public function editMasterParameter($data){
+            $rs['code'] = 0;
+            $rs['message'] = 0;
 
-            $rs = null;
-            $skpd = null;
-            $id_skpd = null;
-            $counter_kabid = 0;
-            $counter_sub = 0;
-            $rs[0]['nama_bidang'] = "Sekretariat";
-            if($data){
-                $skpd = $data[0]['nm_unitkerja'];
-                $id_skpd = $data[0]['id_unitkerja'];
-                foreach($data as $d){
-                    $explode = explode(" ", $d['eselon']);
-                    $bidang = explode(" ", $d['nama_jabatan']);
-                    if(strcasecmp($explode[0], "III") == 0){
-                        if(strcasecmp($bidang[0], "sekretaris") == 0){
-                            $rs[$counter_kabid]['sub_bidang'][$counter_sub] = $bidang[0]." ".$bidang[1];
-                        } else {
-                            $counter_kabid += 1;
-                            $counter_sub = 0;
-                            $i = 0;
-                            $rs[$counter_kabid]['nama_bidang'] = '';
-                            foreach($bidang as $b){
-                                if($i != 0){
-                                    $rs[$counter_kabid]['nama_bidang'] .= " ".$b;
-                                }
-                                $i++;
-                            }
-                            $rs[$counter_kabid]['nama_bidang'] = trim($rs[$counter_kabid]['nama_bidang']);
-                            if($counter_sub == 0){
-                                $rs[$counter_kabid]['sub_bidang'][$counter_sub] = $rs[$counter_kabid]['nama_bidang'];
-                            }
-                        }
-                        $counter_sub ++;
-                    } else if(strcasecmp($explode[0], "IV") == 0){
-                        // if($counter_sub == 0){
-                        //     $rs[$counter_kabid]['sub_bidang'] = [];
-                        // }
-                        $i = 0;
-                        $rs[$counter_kabid]['sub_bidang'][$counter_sub] = '';
-                        foreach($bidang as $sb){
-                            if($i != 0){
-                                $rs[$counter_kabid]['sub_bidang'][$counter_sub] .= " ".$sb;
-                            }
-                            $i++;
-                        }
-                        $rs[$counter_kabid]['sub_bidang'][$counter_sub] = trim($rs[$counter_kabid]['sub_bidang'][$counter_sub]);
-                        $counter_sub++;
-                    }
-                }
+            $exists = $this->db->select('*')
+                                ->from('m_parameter')   
+                                ->where('id', $data['id'])
+                                ->where('flag_active', 1)
+                                ->get()->row_array();
+            if(!$exists){
+                $rs['code'] = 1;
+                $rs['message'] = 'Data tidak ditemukan';
+            } else {
+                $data['updated_by'] = $this->general_library->getId();
+                $id = $data['id'];
+                $this->db->where('id', $id)
+                        ->update('m_parameter', $data);
             }
-            return [$rs, $skpd, $id_skpd];
+
+            return $rs;
         }
 
         public function saveImportBidang($data, $id_skpd){
@@ -196,99 +123,5 @@
 
             return $res;
         }
-
-        public function importAllBidangByUnitKerja($page){
-            // $unitkerja = $this->db->select('id_unitkerja, nm_unitkerja')
-            //                         ->from('db_pegawai.unitkerja')
-            //                         // ->limit($page, 10)
-            //                         ->get()->result_array();
-            $unitkerja = $this->db->get('db_pegawai.unitkerja', 50, $page)->result_array();
-            // dd($unitkerja);
-            foreach($unitkerja as $u){
-                if($u['id_unitkerja'] != '1000001'){
-                    echo "on working ".$u['nm_unitkerja']."\n <br>";
-                    list($data, $skpd, $id) = $this->importBidangSubBidangByUnitKerja($u['id_unitkerja']);
-                    // dd(json_encode($data));
-                    $res = $this->saveImportBidang($data, $u['id_unitkerja']);
-                    if($res['code'] == 1){
-                        echo "canceled <br> \n";
-                        echo $res['message']."<br> \n";
-                        break;
-                    }
-                }
-                echo "done ".$u['nm_unitkerja']. "\n <br><br> \n";
-            }
-            echo "selesai";
-        }
-
-        public function downloadApiHariLibur(){
-            $res['code'] = 0;
-            $res['message'] = '';
-
-            $req = $this->webservicelib->request_ws(URL_API_HARI_LIBUR);
-            if($req){
-                $insert_data = null;
-                $i = 0;
-                foreach($req['result'] as $r){
-                    $explode = explode('-', $r['holiday_date']);
-                    $exists = $this->db->select('*')
-                                        ->from('t_hari_libur')
-                                        ->where('bulan', floatval($explode[1]))
-                                        ->where('tahun', $explode[0])
-                                        ->where('tanggal', $r['holiday_date'])
-                                        ->where('keterangan', $r['holiday_name'])
-                                        ->where('flag_active', 1)
-                                        ->get()->row_array();
-                    if(!$exists){
-                        $insert_data[$i]['tanggal'] = $r['holiday_date'];
-                        $insert_data[$i]['tahun'] = $explode[0];
-                        $insert_data[$i]['bulan'] = floatval($explode[1]);
-                        $insert_data[$i]['keterangan'] = $r['holiday_name']; 
-                        $insert_data[$i]['flag_hari_libur_nasional'] = $r['is_national_holiday'] ? 1 : 0; 
-                        $i++;
-                    }
-                }
-                if($insert_data){
-                    $this->db->insert_batch('t_hari_libur', $insert_data);
-                }
-            }
-            return $res;
-        }
-
-        public function deleteApiHariLibur($id){
-            $this->db->where('id', $id)
-                    ->update('t_hari_libur', ['flag_active' => 0]);
-        }
-
-        public function tambahHariLibur(){
-            $data = $this->input->post();
-            $explode = explode("-", $data['range_periode']);
-            $list_tanggal = getDateBetweenDates(trim($explode[0]), trim($explode[1]));
-            if($list_tanggal){
-                $insert_data = null;
-                $i = 0;
-                foreach($list_tanggal as $l){
-                    $explode = explode('-', $l);
-                    $exists = $this->db->select('*')
-                                        ->from('t_hari_libur')
-                                        ->where('bulan', floatval($explode[1]))
-                                        ->where('tahun', $explode[0])
-                                        ->where('tanggal', $l)
-                                        ->where('keterangan', $data['keterangan'])
-                                        ->where('flag_active', 1)
-                                        ->get()->row_array();
-                    if(!$exists){
-                        $insert_data[$i]['tanggal'] = $l;
-                        $insert_data[$i]['tahun'] = $explode[0];
-                        $insert_data[$i]['bulan'] = floatval($explode[1]);
-                        $insert_data[$i]['keterangan'] = $data['keterangan']; 
-                        $i++;
-                    }
-                }
-                if($insert_data){
-                    $this->db->insert_batch('t_hari_libur', $insert_data);
-                }
-            }
-        }
-	}
+    }
 ?>

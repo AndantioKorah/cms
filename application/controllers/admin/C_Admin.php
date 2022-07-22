@@ -61,17 +61,51 @@ class C_Admin extends CI_Controller
         }
         
         function submitKontenBerita(){
-
+            // dd($this->input->post($_FILES['berita_gambar']['name']));
+           
+            $countfiles = count($_FILES['berita_gambar']['name']);
+            // dd($countfiles);
+            for($i=0;$i<$countfiles;$i++){
+            if(!empty($_FILES['berita_gambar']['name'][$i])){
       
-            $new_name = time().$_FILES["berita_gambar"]['name'];
+                // Define new $_FILES array - $_FILES['file']
+                $_FILES['file']['name'] = $_FILES['berita_gambar']['name'][$i];
+                $_FILES['file']['type'] = $_FILES['berita_gambar']['type'][$i];
+                $_FILES['file']['tmp_name'] = $_FILES['berita_gambar']['tmp_name'][$i];
+                $_FILES['file']['error'] = $_FILES['berita_gambar']['error'][$i];
+                $_FILES['file']['size'] = $_FILES['berita_gambar']['size'][$i];
+              
+              //   if($_FILES['file']['size'] > 1048576){
+              //     $ress = 0;
+              //     $res = array('msg' => 'File tidak boleh lebih dari 1 MB', 'success' => false);
+              //     break;
+              //   }
+             
+                // Set preference
+                $config['upload_path'] = './assets/berita'; 
+                $config['allowed_types'] = 'jpg|jpeg|png';
+                // $config['max_size'] = '5000'; 
+              //   $config['file_name'] = $this->getUserName().'_'.$_FILES['file']['name'];
+               
+                //Load upload library
+                $this->load->library('upload',$config); 
+                if($this->upload->do_upload('file')){
+                    $data = $this->upload->data(); 
+                   }
+              }
+           
+            $nama_file[] = $data['file_name'];
+             }
+           
+            $new_name = json_encode($nama_file); 
             $data = $this->admin->submitKontenBerita($new_name);
-            // dd($new_name);
+          
 
-            if(isset($_FILES["berita_gambar"]["name"])){ 
-                $path="./assets/berita";
-                $konten="berita_gambar";
-                $this->ajax_upload($path,$konten,$new_name);
-            }
+            // if(isset($_FILES["berita_gambar"]["name"])){ 
+            //     $path="./assets/berita";
+            //     $konten="berita_gambar";
+            //     $this->ajax_upload($path,$konten,$new_name);
+            // }
 
             // if(isset($_FILES["thumbnail_berita"]["name"])){  
             //     $path="./assets/thumbnail";
@@ -79,7 +113,10 @@ class C_Admin extends CI_Controller
             //     $this->ajax_upload2($path,$konten);  
             // }
             $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
-            echo json_encode($res);
+            // echo json_encode($res);
+           
+            redirect('admin/konten');
+           
         }
 
         function submitKontenProfil(){
@@ -148,5 +185,14 @@ class C_Admin extends CI_Controller
         public function deleteBerita($id){
             $this->general->delete('id', $id, 't_berita');
         }
+
+        
+
+        public function loadDetailBerita($id){
+            $data['berita'] = $this->admin->getBeritaDetail($id);
+            // dd($data['berita']);
+            $this->load->view('admin/V_DetailBerita', $data);
+        }
+    
         
 }

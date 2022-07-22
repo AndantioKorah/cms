@@ -20,8 +20,9 @@
         public function submitKontenBerita($new_name){
 
             $datapost = $this->input->post();
+            // dd($datapost);
             $data["judul_ina"] = $datapost["berita_judul_ina"];
-            $data["judul_eng"] = $datapost["berita_judul_eng"];
+            // $data["judul_eng"] = $datapost["berita_judul_eng"];
             $data["tanggal_berita"] = $datapost["tanggal_berita"];
             $data["isi_berita"] = $datapost["isi_berita"];
             $data["gambar"] = $new_name;
@@ -89,6 +90,16 @@
             }
 
            
+        }
+
+
+        public function getBeritaDetail($id){
+            return $this->db->select('*')
+                            ->from('t_berita a')
+                            ->where('a.id', $id)
+                            ->where('a.flag_active', 1)
+                            ->limit(1)
+                            ->get()->row_array();
         }
 
 

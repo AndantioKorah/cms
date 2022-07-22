@@ -109,3 +109,4 @@ define('DEVELOPER', 'nikita');
 
 //webcp
 define('DEFAULT_LANG', 'indonesia');
+define('LANG_AVAIL', ['Indonesia', 'English']);
