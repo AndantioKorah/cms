@@ -78,3 +78,4 @@ $route[''] = 'C_Main/index';
 $route['language/switch/(:any)'] = 'C_Main/switchLanguage/$1';
 $route['profile'] = 'webcp/profile/C_Profile/index';
 $route['news'] = 'webcp/news/C_News/index';
+$route['news/detail/(:any)'] = 'webcp/news/C_News/detailNews/$1';

@@ -11,7 +11,7 @@
             $this->db->insert($tablename, $data);
         }
 
-        public function getAllNews($page = 1, $limit = 10){
+        public function getAllNews($page = 1, $limit = 6){
             $result = null;
             $total = $this->db->select('count(*) as total')
                                 ->from('t_berita')
@@ -31,11 +31,12 @@
             return [$data, $total_page, $active_page];
         }
 
-        public function getNewsByPage($page = 1, $limit = 10){
+        public function getNewsByPage($page = 1, $limit = 6){
             // $dum = $this->db->select('a.nm_unitkerja')
             //                 ->from('db_pegawai.unitkerja a')
             //                 ->join('db_pegawai.unitkerjamaster b', 'a.id_unitkerjamaster = b.id_unitkerjamaster')
-            //                 ->where('a.id_unitkerjamaster', 4000000)
+            //                 // ->where('a.id_unitkerjamaster', 5011001)
+            //                 ->like('a.nm_unitkerja', 'Kecamatan')
             //                 ->order_by('a.nm_unitkerja')
             //                 ->get()->result_array();
             // $i = 1;
@@ -54,12 +55,30 @@
             }
 
             return $this->db->query("
-            SELECT *
-            FROM t_berita
-            WHERE flag_active = 1
-            ORDER BY created_date DESC
+            SELECT a.*, b.nama
+            FROM t_berita a
+            JOIN m_user b ON a.created_by = b.id
+            WHERE a.flag_active = 1
+            ORDER BY a.tanggal_berita DESC
             LIMIT ".$page.",".$limit)->result_array();
         }
 
+        public function getDetailNews($id){
+            return $this->db->select('a.*, b.nama')
+                            ->from('t_berita a')
+                            ->join('m_user b', 'a.created_by = b.id')
+                            ->where('a.id', $id)
+                            ->get()->row_array();
+        }
+
+        public function getOtherNews($id){
+            return $this->db->select('a.*, b.nama')
+                            ->from('t_berita a')
+                            ->join('m_user b', 'a.created_by = b.id')
+                            ->where('a.id !=', $id)
+                            ->order_by('a.tanggal_berita', 'desc')
+                            ->limit(5)
+                            ->get()->result_array();
+        }
 	}
 ?>
