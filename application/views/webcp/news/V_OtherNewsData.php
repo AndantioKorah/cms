@@ -1,16 +1,16 @@
 <style>
-  .image-berita{
+  .image-berita-other{
     width: 100%;
     position: relative;
   }
 
-  .header_news{
-    font-size: 18px;
+  .header_news_other{
+    font-size: 14px;
     font-weight: bold;
   }
 
-  .judul-berita{
-    height: 85px;
+  .judul-berita-other{
+    height: 80px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -18,7 +18,7 @@
     -webkit-box-orient: vertical;
   }
 
-  .judul-berita:hover{
+  .judul-berita-other:hover{
     color: var(--primary); 
     transition: .3s;
   }
@@ -30,35 +30,35 @@
     transition: .3s;
   }
 
-  .isi-berita{
-    height: 115px;
+  .isi-berita-other{
+    height: 70px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    font-size: 14px;
+    font-size: 12px;
     font-family: "Open Sans";
     text-align: justify;
   }
 </style>
 <div class="row">
   <?php foreach($news as $n){ ?>
-    <div onclick="openDetailNews('<?=$n['id']?>')" class="col-lg-6 col-md-12 news-data mb-3">
+    <div onclick="openDetailNews('<?=$n['id']?>')" class="col-lg-12 col-md-12 news-data mb-3">
       <div class="card card-default">
         <div class="card-body news-data-body">
           <span class="badge badge-berita mb-2" style="float: right;"><?=formatDateNamaBulanWT($n['tanggal_berita'])?></span>
           <span class="badge badge-berita mb-2" style="float: left;"><?=$n['nama']?></span>
           <div class="image">
-            <img class="image-berita" src="<?=base_url('assets/img/login.jpg')?>" />
+            <img class="image-berita-other" src="<?=base_url('assets/img/login.jpg')?>" />
           </div>
-          <div class="judul-berita">
+          <div class="judul-berita-other">
             <hr>
-            <span class="header_news" title="<?=$n['judul_ina']?>"><?=$n['judul_ina']?></span>
+            <span class="header_news_other" title="<?=$n['judul_ina']?>"><?=$n['judul_ina']?></span>
           </div>
           <div class="footer-berita">
             <div class="row align-items-center justify-content-center">
-              <div class="col-lg-12 col-md-12 isi-berita mb-2">
+              <div class="col-lg-12 col-md-12 isi-berita-other mb-2">
                 <hr>
                 <?=$n['isi_berita']?>
               </div>

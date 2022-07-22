@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
 
-        <div class="col-lg-3 col-md-6">
+        <div class="col-lg-3 col-md-12">
           <div class="footer-info">
             <h3><?=TITLES?></h3>
             <p>
@@ -21,8 +21,19 @@
             </div>
           </div>
         </div>
-
-        <div class="col-lg-2 col-md-6 footer-links">
+        <div class="col-lg-9 col-md-12">
+          <div class="d-none">
+            <div class="mapouter"><div class="gmap_canvas"><iframe width="1000" height="250" id="gmap_canvas" src="https://maps.google.com/maps?q=btklpp%20kelas%201%20manado&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://123movies-to.org"></a><br><style>.mapouter{position:relative;text-align:right;height:250px;width:1000px;}</style><a href="https://www.embedgooglemap.net">embed code for google map</a><style>.gmap_canvas {overflow:hidden;background:none!important;height:250px;width:1000px;}</style></div></div>
+          </div>
+          <div class="d-none">
+            <div class="mapouter"><div class="gmap_canvas"><iframe width="500" height="250" id="gmap_canvas" src="https://maps.google.com/maps?q=btklpp%20kelas%201%20manado&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://123movies-to.org"></a><br><style>.mapouter{position:relative;text-align:right;height:250px;width:500px;}</style><a href="https://www.embedgooglemap.net">embed code for google map</a><style>.gmap_canvas {overflow:hidden;background:none!important;height:250px;width:500px;}</style></div></div>
+          </div>
+          <div class="d-none">
+            <div class="mapouter"><div class="gmap_canvas"><iframe width="250" height="250" id="gmap_canvas" src="https://maps.google.com/maps?q=btklpp%20kelas%201%20manado&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://123movies-to.org"></a><br><style>.mapouter{position:relative;text-align:right;height:250px;width:250px;}</style><a href="https://www.embedgooglemap.net">embed code for google map</a><style>.gmap_canvas {overflow:hidden;background:none!important;height:250px;width:250px;}</style></div></div>
+          </div>
+        </div>
+       
+        <!-- <div class="col-lg-9 col-md-12 footer-links">
           <h4>Useful Links</h4>
           <ul>
             <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
@@ -51,7 +62,7 @@
             <input type="email" name="email"><input type="submit" value="Subscribe">
           </form>
 
-        </div>
+        </div> -->
 
       </div>
     </div>

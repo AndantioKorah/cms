@@ -17,4 +17,10 @@ class C_News extends CI_Controller
         $data['news'] = $this->news->getNewsByPage($page);
         $this->load->view('webcp/news/V_NewsData', $data);
     }
+
+    public function detailNews($id){
+        $data['result'] = $this->news->getDetailNews($id);
+        $data['other_news'] = $this->news->getOtherNews($id);
+        renderwebcp('webcp/news/V_NewsDetail', '', '', $data);
+    }
 }
