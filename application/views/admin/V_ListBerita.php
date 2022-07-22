@@ -119,6 +119,7 @@
             
         $('#edit-data').on('show.bs.modal', function (event) {
             $('#gambar_lama').html('');
+            $('#uploadPreview').html('');
             var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
             var modal          = $(this)
 
@@ -130,7 +131,7 @@
             modal.find('#detail_tanggal_berita').attr("value",div.data('tanggal_berita'));
             modal.find('#nama_gambar_lama').attr("value",div.data('gambar'));
             console.log(div.data('gambar'))
-            $('#gambar_lama').append('<img class="img-fluid" alt="Responsive image" style="width:1100px;height:500px;" src="<?php echo base_url();?>/assets/berita/'+div.data('gambar')+'" class="thumb">');
+            $('#gambar_lama').append('<img class="img-fluid" alt="Responsive image" style="width:1100px;height:500px;" src="<?php echo base_url();?>/assets/berita/'+div.data('gambar')+'?=t'+new Date().getTime()+'" class="thumb">');
             
         });
     });

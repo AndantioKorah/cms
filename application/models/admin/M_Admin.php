@@ -73,9 +73,10 @@
                 $data["misi"] = $datapost["profil_misi"];
                 $data["motto"] = $datapost["profil_motto"];
                 $data["tupoksi"] = $datapost["profil_tupoksi"];
-                // $data["struktur_organisasi"] = $new_name;
+                $data["struktur_organisasi"] = $new_name;
                 $this->db->where('id', 3)
                 ->update('t_profil', $data);
+                return 0;
             } else {
                 $datapost = $this->input->post();
                 $data["visi"] = $datapost["profil_visi"];

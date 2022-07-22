@@ -87,14 +87,13 @@ class C_Admin extends CI_Controller
       
             $new_name = time().$_FILES["profil_struktur_organisasi"]['name'];
             $data = $this->admin->submitKontenProfil($new_name);
-            // dd($new_name);
-
-            if(isset($_FILES["profil_struktur_organisasi"]["name"])){ 
+            
+            if($_FILES["profil_struktur_organisasi"]["name"] != ""){ 
                 $path="./assets/profil";
                 $konten="profil_struktur_organisasi";
                 $this->ajax_upload($path,$konten,$new_name);
             }
-
+          
             $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
             echo json_encode($res);
         }

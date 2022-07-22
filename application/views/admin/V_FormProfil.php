@@ -25,7 +25,7 @@
                     <div class="col-lg-12 col-md-3">
                         <div class="form-group">
                             <label class="bmd-label-floating">Misi</label>
-                            <textarea class="form-control" name="profil_misi" id="profil_misi" rows="5"><?php if($profil) echo $profil[0]['misi']; ?></textarea>
+                            <textarea class="form-control" name="profil_misi" id="profil_misi" rows="8"><?php if($profil) echo $profil[0]['misi']; ?></textarea>
                             <!-- <input required class="form-control" autocomplete="off" name="" id=""/> -->
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                     <div class="col-lg-12 col-md-3">
                         <div class="form-group">
                             <label class="bmd-label-floating">Tugas dan Pokok dan Fungsi</label>
-                            <textarea class="form-control" name="profil_tupoksi" id="profil_tupoksi" rows="6"><?php if($profil) echo $profil[0]['tupoksi']; ?></textarea>
+                            <textarea class="form-control" name="profil_tupoksi" id="profil_tupoksi" rows="10"><?php if($profil) echo $profil[0]['tupoksi']; ?></textarea>
                             <!-- <input required class="form-control" autocomplete="off" name="" id=""/> -->
                         </div>
                     </div>
@@ -50,11 +50,11 @@
                   
                     <div class="col-lg-12 col-md-3">
                         <div class="form-group">
-                            <label class="bmd-label-floating">Struktur Organisasi </label>
+                            <label class="bmd-label-floating">Struktur Organisasi <?php echo base_url('/assets/profil/');?><?php if($profil) echo $profil[0]['struktur_organisasi']; ?></label>
                             <input type="file"  class="form-control"  name="profil_struktur_organisasi" id="profil_struktur_organisasi"/>
                             <div id="uploadPreview"></div>
                             <div id="gambar_lama">
-                         <img src="<?php echo base_url();?>/assets/profil/<?php if($profil) echo $profil[0]['struktur_organisasi']; ?>" class="img-fluid" alt="Responsive image">
+                         <img src="<?php echo base_url();?>/assets/profil/<?php if($profil) echo $profil[0]['struktur_organisasi']; ?>?t=<?=time();?>" class="img-fluid" alt="Responsive image">
                         </div>
                         </div>
                     </div>
@@ -119,12 +119,13 @@
         image.onload = function() {
             console.log('ukuran');
             console.log(this.width + 'x' + this.height);
-        var w = 1000,
-        h = 500,
+        var w = this.width,
+        h = this.width,
         t = file.type, // ext only: // file.type.split('/')[1],
         n = file.name,
         s = ~~(file.size/1024) +'KB';
-        $('#uploadPreview').append('<img class="img-fluid" alt="Responsive image" style="width:1100px;height:500px;" src="' + this.src + '" class="thumb">');
+        // $('#uploadPreview').append('<img class="img-fluid" alt="Responsive image" style="width:1100px;height:500px;" src="' + this.src + '" class="thumb">');
+        $('#uploadPreview').append('<img class="img-fluid" alt="Responsive image" src="' + this.src + '" class="thumb">');
         };
         // image.onerror= function() {
         // alert('Invalid file type: '+ file.type);
