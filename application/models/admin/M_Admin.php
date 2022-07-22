@@ -21,7 +21,7 @@
 
             $datapost = $this->input->post();
             $data["judul_ina"] = $datapost["berita_judul_ina"];
-            $data["judul_eng"] = $datapost["berita_judul_eng"];
+            // $data["judul_eng"] = $datapost["berita_judul_eng"];
             $data["tanggal_berita"] = $datapost["tanggal_berita"];
             $data["isi_berita"] = $datapost["isi_berita"];
             $data["gambar"] = $new_name;

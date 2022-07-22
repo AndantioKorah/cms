@@ -27,7 +27,19 @@ h1{
 	padding: 20px 50px 50px 50px;
 	border-radius: 3px;
 }
-    </style>
+
+.thumb{
+  margin: 24px 5px 20px 0;
+  width: 150px;
+  float: left;
+}
+#blah {
+  border: 2px solid;
+  display: block;
+  background-color: white;
+  border-radius: 5px;
+}
+</style>
 <div class="card card-default">
 <div class="card-header">
             <div class="row">
@@ -43,38 +55,64 @@ h1{
                         <div class="form-group">
                         <form method="post" id="form_berita" align="center" enctype="multipart/form-data">  
                     <div class="row" >
-                    <div class="col-lg-6 col-md-3">
+                    <div class="col-lg-12 col-md-3">
                         <div class="form-group">
                             <label class="bmd-label-floating">Judul (Indonesia)</label>
-                            <textarea class="form-control" name="berita_judul_ina" id="berita_judul_ina" rows="3"></textarea>
+                            <textarea class="form-control" name="berita_judul_ina" id="berita_judul_ina" rows="3" required></textarea>
                             <!-- <input required class="form-control" autocomplete="off" name="berita_judul" id="berita_judul"/> -->
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-3">
+                    <!-- <div class="col-lg-6 col-md-3">
                         <div class="form-group">
                             <label class="bmd-label-floating">Judul (English)</label>
                             <textarea class="form-control" name="berita_judul_eng" id="berita_judul_eng" rows="3"></textarea>
-                            <!-- <input required class="form-control" autocomplete="off" name="" id=""/> -->
                         </div>
-                    </div>
+                    </div> -->
 
-                    <div class="col-lg-6 col-md-3">
+                    <div class="col-lg-12 col-md-3">
                         <div class="form-group">
                             <label class="bmd-label-floating">Tanggal Berita</label>
-                            <input  class="form-control datetimepickerthis"  name="tanggal_berita" id="tanggal_berita" autocomplete="off"/>
+                            <input  class="form-control datetimepickerthis"  name="tanggal_berita" id="tanggal_berita" autocomplete="off" required/>
                         </div>
                     </div>
                   
-                    <div class="col-lg-6 col-md-3">
+                    <!-- <div class="col-lg-6 col-md-3">
                         <div class="form-group">
-                            <label class="bmd-label-floating">Gambar</label>
+                            <label class="bmd-label-floating">Thumbnail</label>
                             <input type="file"  class="form-control"  name="berita_gambar" id="berita_gambar"/>
                         </div>
+                    </div> -->
+                     
+                    <div class="col-lg-12 col-md-3">
+                        <div class="form-group">
+                            <label class="bmd-label-floating">Gambar Berita</label> 
+                            <input type="file"   onclick="resetUploadPreview()"  class="form-control"  name="berita_gambar[]" id="berita_gambar" multiple="multiple"/>
+                            <br>
+                         <div id="uploadPreview1"></div>
+                        </div>
                     </div>
+
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                           
+                            <br>
+                         <div id="uploadPreview1"></div>
+                        </div>
+                    </div>
+                   
+                    <!-- <div class="col-lg-12 col-md-3">
+                    <div class="form-group">
+                        <label>Dokumen Bukti Kegiatan</label>
+                        <input onclick="getDok()" class="form-control" type="file" id="image_file" name="files[]" multiple="multiple" />
+                        <br>
+                        <div id="uploadPreview"></div>
+                    </div>
+                    </div> -->
+
                     <div class="col-lg-12 col-md-3">
                         <div class="form-group text-left">
                             <label class="bmd-label-floating">Isi Berita</label>
-                            <textarea type="file" rows="10"  class="form-control ckeditor"  autocomplete="off" name="isi_berita" id="isi_berita"></textarea>
+                            <textarea type="file" rows="10"  class="form-control ckeditor"  autocomplete="off" name="isi_berita" id="isi_berita" required></textarea>
                         </div>
                     </div>
                     <style>
@@ -211,5 +249,39 @@ h1{
     todayBtn: true
   })
 
+  function readImage2(file) {
+        // $('#uploadPreview1').html('');
+        var reader = new FileReader();
+        var image  = new Image();
+        reader.readAsDataURL(file);  
+        reader.onload = function(_file) {
+        image.src = _file.target.result; // url.createObjectURL(file);
+        image.onload = function() {
+        var w = this.width,
+        h = this.height,
+        t = file.type, // ext only: // file.type.split('/')[1],
+        n = file.name,
+        s = ~~(file.size/1024) +'KB';
+        $('#uploadPreview1').append('<img src="' + this.src + '" class="thumb">');
+        };
+        // image.onerror= function() {
+        // alert('Invalid file type: '+ file.type);
+        // };      
+        };
+        }
+        $("#berita_gambar").change(function (e) {
+        if(this.disabled) {
+        return alert('File upload not supported!');
+        }
+        var F = this.files;
+        if (F && F[0]) {
+        for (var i = 0; i < F.length; i++) {
+        readImage2(F[i]);
+        }
+        }
+        });
+
+
+    
 
  </script> 
