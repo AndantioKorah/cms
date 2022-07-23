@@ -28,7 +28,8 @@
 
   <!-- JS -->
   <script src="<?=base_url('plugins/jquery/jquery.js')?>"></script>
-	<script src="<?=base_url('plugins/jquery-ui/jquery-ui.js')?>"></script>
+  <script src="<?=base_url('plugins/jquery-ui/jquery-ui.js')?>"></script>
+  <script src="<?=base_url('assets/webcp/assets/js/blazy-master/blazy.js')?>"></script>
 
   <!-- Template Main CSS File -->
   <link href="<?=base_url('assets/webcp/assets/css/style.css')?>" rel="stylesheet">
@@ -72,6 +73,8 @@
     <script src="<?=base_url('assets/webcp/assets/vendor/waypoints/noframework.waypoints.js')?>"></script>
     <script src="<?=base_url('assets/webcp/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
     <script src="<?=base_url('assets/webcp/assets/vendor/php-email-form/validate.js')?>"></script>
+    <script src="<?=base_url('assets/webcp/assets/js/blazy-master/blazy.js')?>"></script>
+    <script src="<?=base_url('assets/webcp/assets/js/blazy-master/polyfills/closest.js')?>"></script>
 
     <!-- Template Main JS File -->
     <script src="<?=base_url('assets/webcp/assets/js/main.js')?>"></script>

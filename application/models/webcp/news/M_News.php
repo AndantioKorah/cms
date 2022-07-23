@@ -11,7 +11,7 @@
             $this->db->insert($tablename, $data);
         }
 
-        public function getAllNews($page = 1, $limit = 6){
+        public function getAllNews($page = 1, $limit = LIMIT_NEWS){
             $result = null;
             $total = $this->db->select('count(*) as total')
                                 ->from('t_berita')
@@ -31,7 +31,7 @@
             return [$data, $total_page, $active_page];
         }
 
-        public function getNewsByPage($page = 1, $limit = 6){
+        public function getNewsByPage($page = 1, $limit = LIMIT_NEWS){
             // $dum = $this->db->select('a.nm_unitkerja')
             //                 ->from('db_pegawai.unitkerja a')
             //                 ->join('db_pegawai.unitkerjamaster b', 'a.id_unitkerjamaster = b.id_unitkerjamaster')
@@ -64,11 +64,20 @@
         }
 
         public function getDetailNews($id){
-            return $this->db->select('a.*, b.nama')
+            
+
+            $data = $this->db->select('a.*, b.nama')
                             ->from('t_berita a')
                             ->join('m_user b', 'a.created_by = b.id')
                             ->where('a.id', $id)
                             ->get()->row_array();
+            if($data){
+                $data['seen_count'] += 1;
+                $this->db->where('id', $id)
+                        ->update('t_berita', ['seen_count' => $data['seen_count']]);
+            }
+
+            return $data;
         }
 
         public function getOtherNews($id){
@@ -78,6 +87,16 @@
                             ->where('a.id !=', $id)
                             ->order_by('a.tanggal_berita', 'desc')
                             ->limit(5)
+                            ->get()->result_array();
+        }
+
+        public function searchNews($data){
+            return $this->db->select('a.*, b.nama')
+                            ->from('t_berita a')
+                            ->join('m_user b', 'a.created_by = b.id')
+                            ->like('a.judul_ina', $data['input_search'])
+                            ->order_by('a.tanggal_berita', 'desc')
+                            ->limit(LIMIT_NEWS)
                             ->get()->result_array();
         }
 	}

@@ -54,6 +54,14 @@ class General_library
         }
     }
 
+    public function getBeritaImage($gambar){
+        $img_src = base_url('assets/webcp/assets/img/image-not-found.png');
+        if($gambar && file_exists(URI_BERITA.$gambar)){
+            $img_src = base_url(URI_BERITA.$gambar);
+          }
+        return $img_src;
+    }
+
     public function getProfilePicture(){
         // $photo = 'assets/img/default-user-icon.jpg';
         $photo = 'assets/img/default-user-icon.png';
