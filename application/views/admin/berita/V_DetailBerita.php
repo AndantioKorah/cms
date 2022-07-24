@@ -144,9 +144,9 @@
                             foreach($image as $image_name)
                                 {
                                         if($ng==1){
-                                            echo "<div style='display: inline-block;'><img style='width:800;height:500px;' src=".base_url('assets/berita/'.$image_name.'')." style='width:100%'></div>";
+                                            echo "<div style='display: inline-block;'><img style='width:800;height:500px;' src=".base_url('assets/admin/berita/'.$image_name.'')." style='width:100%'></div>";
                                         } else {
-                                            echo "<div ><img style='width:800;height:500px;' src=".base_url('assets/berita/'.$image_name.'')." style='width:100%'></div>";
+                                            echo "<div ><img style='width:800;height:500px;' src=".base_url('assets/admin/berita/'.$image_name.'')." style='width:100%'></div>";
                                         }
                                    $ng++;
                                 } 
