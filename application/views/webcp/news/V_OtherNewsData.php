@@ -50,7 +50,7 @@
           <span class="badge badge-berita mb-2" style="float: right;"><?=formatDateNamaBulanWT($n['tanggal_berita'])?></span>
           <span class="badge badge-berita mb-2" style="float: left;"><?=$n['nama']?></span>
           <div class="image">
-            <img class="image-berita-other" src="<?=base_url('assets/img/login.jpg')?>" />
+            <img class="image-berita-other b-lazy" src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="<?=$this->general_library->getBeritaImage($n['gambar'])?>" alt="Lazy load images example 3 image 1" />
           </div>
           <div class="judul-berita-other">
             <hr>
@@ -76,4 +76,11 @@
     function openDetailNews(id){
       location.href= "<?=base_url('news/detail')?>"+'/'+id;
     }
+
+    window.bLazy = new Blazy({
+      container: '.container',
+      success: function(element){
+        console.log("Element loaded: ", element.nodeName);
+      }
+    });
 </script>

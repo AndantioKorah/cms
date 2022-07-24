@@ -1,9 +1,14 @@
+<style>
+  .footer-section{
+    border-right: 2px white solid;
+  }
+</style>
+
 <footer id="footer">
   <div class="footer-top">
     <div class="container">
       <div class="row">
-
-        <div class="col-lg-3 col-md-12">
+        <div class="footer-section col-lg-3 col-md-12">
           <div class="footer-info">
             <h3><?=TITLES?></h3>
             <p>
@@ -12,6 +17,24 @@
               <strong>Phone:</strong> +1 5589 55488 55<br>
               <strong>Email:</strong> info@example.com<br>
             </p>
+          </div>
+        </div>
+        <div class="footer-section col-lg-6 col-md-12">
+          <center>
+            <!-- <div class="map-lg">
+              <div class="mapouter"><div class="gmap_canvas"><iframe width="1000" height="250" id="gmap_canvas" src="https://maps.google.com/maps?q=btklpp%20kelas%201%20manado&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://123movies-to.org"></a><br><style>.mapouter{position:relative;text-align:right;height:250px;width:1000px;}</style><a href="https://www.embedgooglemap.net">embed code for google map</a><style>.gmap_canvas {overflow:hidden;background:none!important;height:250px;width:1000px;}</style></div></div>
+            </div> -->
+            <div class="map-md">
+              <div class="mapouter"><div class="gmap_canvas"><iframe width="500" height="250" id="gmap_canvas" src="https://maps.google.com/maps?q=btklpp%20kelas%201%20manado&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://123movies-to.org"></a><br><style>.mapouter{position:relative;text-align:right;height:250px;width:500px;}</style><a href="https://www.embedgooglemap.net">embed code for google map</a><style>.gmap_canvas {overflow:hidden;background:none!important;height:250px;width:500px;}</style></div></div>
+            </div>
+            <!-- <div class="map-sm">
+              <div class="mapouter"><div class="gmap_canvas"><iframe width="250" height="250" id="gmap_canvas" src="https://maps.google.com/maps?q=btklpp%20kelas%201%20manado&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://123movies-to.org"></a><br><style>.mapouter{position:relative;text-align:right;height:250px;width:250px;}</style><a href="https://www.embedgooglemap.net">embed code for google map</a><style>.gmap_canvas {overflow:hidden;background:none!important;height:250px;width:250px;}</style></div></div>
+            </div> -->
+          </center>
+        </div>
+        <div class="col-lg-3 col-md-12">
+          <div class="footer-info">
+            <h3>Sosial Media</h3>
             <div class="social-links mt-3">
               <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
               <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
@@ -19,17 +42,6 @@
               <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
               <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
             </div>
-          </div>
-        </div>
-        <div class="col-lg-9 col-md-12">
-          <div class="d-none">
-            <div class="mapouter"><div class="gmap_canvas"><iframe width="1000" height="250" id="gmap_canvas" src="https://maps.google.com/maps?q=btklpp%20kelas%201%20manado&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://123movies-to.org"></a><br><style>.mapouter{position:relative;text-align:right;height:250px;width:1000px;}</style><a href="https://www.embedgooglemap.net">embed code for google map</a><style>.gmap_canvas {overflow:hidden;background:none!important;height:250px;width:1000px;}</style></div></div>
-          </div>
-          <div class="d-none">
-            <div class="mapouter"><div class="gmap_canvas"><iframe width="500" height="250" id="gmap_canvas" src="https://maps.google.com/maps?q=btklpp%20kelas%201%20manado&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://123movies-to.org"></a><br><style>.mapouter{position:relative;text-align:right;height:250px;width:500px;}</style><a href="https://www.embedgooglemap.net">embed code for google map</a><style>.gmap_canvas {overflow:hidden;background:none!important;height:250px;width:500px;}</style></div></div>
-          </div>
-          <div class="d-none">
-            <div class="mapouter"><div class="gmap_canvas"><iframe width="250" height="250" id="gmap_canvas" src="https://maps.google.com/maps?q=btklpp%20kelas%201%20manado&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://123movies-to.org"></a><br><style>.mapouter{position:relative;text-align:right;height:250px;width:250px;}</style><a href="https://www.embedgooglemap.net">embed code for google map</a><style>.gmap_canvas {overflow:hidden;background:none!important;height:250px;width:250px;}</style></div></div>
           </div>
         </div>
        

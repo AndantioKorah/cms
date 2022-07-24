@@ -61,10 +61,10 @@
                   <span class="badge-berita badge"><i class="fa fa-pen"></i> <?=($rs['nama'])?></span>
                   <span class="badge-berita badge"><i class="fa fa-calendar"></i> <?=formatDateNamaBulanWT($rs['tanggal_berita'])?></span>
                   <span class="badge-berita badge"><i class="fa fa-tags"></i></span>
-                  <span class="badge-berita badge"><i class="fa fa-eye"></i></span>
+                  <span class="badge-berita badge"><i class="fa fa-eye"></i> <?=formatCurrencyWithoutRp($rs['seen_count'])?> kali dilihat</span>
                 </div>
                 <div class="image">
-                  <img class="image-berita" src="<?=base_url('assets/img/login.jpg')?>" />
+                  <img class="image-berita" src="<?=$this->general_library->getBeritaImage($rs['gambar'])?>" />
                 </div>
                 <div style="text-align: justify;" class="judul-berita mt-3">
                   <span class="header_news" title="<?=$rs['judul_ina']?>"><?=$rs['judul_ina']?></span>

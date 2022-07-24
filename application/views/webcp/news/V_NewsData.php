@@ -1,6 +1,7 @@
 <style>
   .image-berita{
     width: 100%;
+    max-height: 338px;
     position: relative;
   }
 
@@ -50,7 +51,9 @@
           <span class="badge badge-berita mb-2" style="float: right;"><?=formatDateNamaBulanWT($n['tanggal_berita'])?></span>
           <span class="badge badge-berita mb-2" style="float: left;"><?=$n['nama']?></span>
           <div class="image">
-            <img class="image-berita" src="<?=base_url('assets/img/login.jpg')?>" />
+            <!-- <img class="image-berita b-lazy" src="<?=$this->general_library->getBeritaImage($n['gambar'])?>" /> -->
+            <!-- <img class="image-berita b-lazy" src="<?=$this->general_library->getBeritaImage($n['gambar'])?>" /> -->
+            <img class="image-berita b-lazy" src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="<?=$this->general_library->getBeritaImage($n['gambar'])?>" alt="Lazy load images example 3 image 1" />
           </div>
           <div class="judul-berita">
             <hr>
@@ -73,7 +76,34 @@
   <?php } ?>
 </div>
 <script>
-    function openDetailNews(id){
-      location.href= "<?=base_url('news/detail')?>"+'/'+id;
+  $(function(){
+    <?php if($flag_refresh_paging == 1){ ?>
+      refreshPaging()
+    <?php } ?>
+  })
+
+  function openDetailNews(id){
+    location.href= "<?=base_url('news/detail')?>"+'/'+id;
+  }
+
+  window.bLazy = new Blazy({
+    container: '.container',
+    success: function(element){
+      console.log("Element loaded: ", element.nodeName);
     }
+  });
+
+  function refreshPaging(){
+    $('.div_news_paging_top').html('')
+    $('.div_news_paging_top').append(divLoaderNavy)
+    $('.div_news_paging_top').load('<?=base_url('webcp/news/C_News/refreshPaging')?>'+'/'+'<?=$limit?>', function(){
+      $('#loader').hide()
+    })
+
+    $('.div_news_paging_bottom').html('')
+    $('.div_news_paging_bottom').append(divLoaderNavy)
+    $('.div_news_paging_bottom').load('<?=base_url('webcp/news/C_News/refreshPaging')?>'+'/'+'<?=$limit?>', function(){
+      $('#loader').hide()
+    })
+  } 
 </script>

@@ -1,3 +1,9 @@
+<style>
+  .navbar .active-navbar {
+    color: var(--primary);
+  }
+</style>
+
 <header id="header" class="fixed-top d-flex align-items-center">
     <div class="container-fluid d-flex align-items-center">
 
@@ -7,9 +13,12 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-            <?php if($menu){ foreach($menu as $m) { ?>
+            <?php if($menu){ foreach($menu as $m) { 
+              $url = $_SERVER['REQUEST_URI'];
+              $url = explode('/', $url);
+            ?>
                 <li>
-                    <a href="<?=base_url($m['url'])?>"><?=$this->lang->line($m['site_lang'])?></a>
+                    <a class="<?=$url[2] == $m['url'] ? 'active-navbar' : ''?>" href="<?=base_url($m['url'])?>"><?=$this->lang->line($m['site_lang'])?></a>
                 </li>
             <?php } }  ?>
             <li>
