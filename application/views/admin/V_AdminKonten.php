@@ -56,19 +56,23 @@
     if(sel.value == 1){
         // $('#form-profil').show('fast');
         // $('#form-berita').hide('fast');
+        window.location.href = "<?=base_url("admin/C_Admin/profil")?>";
         $('#form-container').html('')
         $('#form-container').append(divLoaderNavy)
         $('#form-container').load('<?=base_url("admin/C_Admin/loadFormProfil")?>', function(){
             $('#loader').hide()
         })
     }else if(sel.value == 2){
+        window.location.href = "<?=base_url("admin/C_Admin/berita")?>";
         // $('#form-profil').hide('fast');
         // $('#form-berita').show('fast');
-        $('#form-container').html('')
-        $('#form-container').append(divLoaderNavy)
-        $('#form-container').load('<?=base_url("admin/C_Admin/loadFormBerita")?>', function(){
-            $('#loader').hide()
-        })
+        // $('#form-container').html('')
+        // $('#form-container').append(divLoaderNavy)
+        // $('#form-container').load('<?=base_url("admin/C_Admin/loadFormBerita")?>', function(){
+        //     $('#loader').hide()
+        // })
+    } else if(sel.value == 3){
+        window.location.href = "<?=base_url("admin/C_Admin/galeri")?>";
     }
     }
 </script>

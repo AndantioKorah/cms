@@ -1,6 +1,7 @@
 <!-- form input -->
 <!-- <script src="//cdn.ckeditor.com/4.19.0/standard/ckeditor.js"></script> -->
-<script src="<?=base_url('assets/js/ckeditor.js')?>"></script>
+
+
 	<style>
         body{
 	background: #fcfcfc;
@@ -41,6 +42,71 @@ h1{
   border-radius: 5px;
 }
 
+/*
+ * bootstrap-tagsinput v0.8.0
+ * 
+ */
+
+.bootstrap-tagsinput {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  /* display: inline-block; */
+  padding: 4px 6px;
+  color: #555;
+  vertical-align: middle;
+  border-radius: 4px;
+  max-width: 100%;
+  line-height: 22px;
+  
+  cursor: text;
+}
+.bootstrap-tagsinput input {
+  border: none;
+  box-shadow: none;
+  outline: none;
+  background-color: transparent;
+  padding: 0 6px;
+  margin: 0;
+  width: auto;
+  max-width: inherit;
+  height: 28px;
+}
+.bootstrap-tagsinput.form-control input::-moz-placeholder {
+  color: #777;
+  opacity: 1;
+}
+.bootstrap-tagsinput.form-control input:-ms-input-placeholder {
+  color: #777;
+}
+.bootstrap-tagsinput.form-control input::-webkit-input-placeholder {
+  color: #777;
+}
+.bootstrap-tagsinput input:focus {
+  border: none;
+  box-shadow: none;
+}
+.bootstrap-tagsinput .tag {
+  margin-right: 2px;
+  color: dark;
+  background-color: aqua;
+  border-radius: inherit
+}
+.bootstrap-tagsinput .tag [data-role="remove"] {
+  margin-left: 8px;
+  cursor: pointer;
+}
+.bootstrap-tagsinput .tag [data-role="remove"]:after {
+  content: "x";
+  padding: 0px 2px;
+}
+.bootstrap-tagsinput .tag [data-role="remove"]:hover {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.bootstrap-tagsinput .tag [data-role="remove"]:hover:active {
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
 </style>
 <div class="card card-default">
 <div class="card-header">
@@ -52,6 +118,7 @@ h1{
         </div>
         <div class="card-body">
      
+
 
 
         <form action="<?=base_url("admin/C_Admin/submitKontenBerita")?>" method="post" id="" align="center" enctype="multipart/form-data">  
@@ -76,19 +143,27 @@ h1{
                         </div>
                     </div>
 
-                  
-                  
+                    <div class="col-lg-6 col-md-3">
+                        <div class="form-group text-left">
+                            <label class="bmd-label-floating">Tag Berita</label>
+                            <!-- <input id="input" type="text"  data-role="tagsinput" class="form-control" /> -->
+                            <input  class="form-control "  data-role="tagsinput"    name="tag_berita" id="tag_berita" autocomplete="off" required/>
+                        </div>
+                    </div>
+
+                
                     <!-- <div class="col-lg-6 col-md-3">
                         <div class="form-group">
-                            <label class="bmd-label-floating">Thumbnail</label>
-                            <input type="file"  class="form-control"  name="berita_gambar" id="berita_gambar"/>
+                            <label class="bmd-label-floating">Tag</label>
+                            <input id="input" type="text"  data-role="tagsinput" class="form-control" />
+
                         </div>
                     </div> -->
                      
                     <div class="col-lg-12 col-md-3">
                         <div class="form-group text-left">
-                            <label class="bmd-label-floating">Gambar Berita</label> 
-                            <input type="file"   onclick="resetUploadPreview()"  class="form-control"  name="berita_gambar[]" id="berita_gambar" multiple="multiple"/>
+                            <label class="bmd-label-floating">Gambar Berita <a onclick="resetUploadPreview()" href="#"><i class="fa fa-undo" aria-hidden="true"></i></a> </label> 
+                            <input type="file"     class="form-control"  name="berita_gambar[]" id="berita_gambar" multiple="multiple"/>
                             <br>
                          <div id="uploadPreview1"></div>
                         </div>
@@ -106,7 +181,7 @@ h1{
                     <div class="col-lg-12 col-md-3">
                         <div class="form-group text-left">
                             <label class="bmd-label-floating">Isi Berita</label>
-                            <textarea  onkeyup="sendCode()" type="file" rows="10"  class="form-control"  autocomplete="off" name="isi_berita" id="editor" ></textarea>
+                            <textarea  onkeyup="sendCode()" type="file" rows="10"  class="form-control "  autocomplete="off" name="isi_berita" id="editor" ></textarea>
                         </div>
                     </div>
                
@@ -165,8 +240,9 @@ h1{
         })
     }
 
-    function tes(){
-        alert()
+    function resetUploadPreview(){
+        $('#uploadPreview1').html('');
+         $('#berita_gambar').val('');
     }
 
  $('#form_berita').on('submit', function(e){  
@@ -268,3 +344,4 @@ h1{
     
        
  </script> 
+ 

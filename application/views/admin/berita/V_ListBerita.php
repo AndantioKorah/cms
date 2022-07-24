@@ -4,8 +4,8 @@
             <tr>
                 <th>No</th>
                 <th>Judul Berita (Indonesia)</th>
-                <th>Judul Berita (English)</th>
                 <th>Tanggal Berita</th>
+                <th>Tag</th>
                 <th>Isi Berita</th>
                 <th></th>
             </tr>
@@ -15,8 +15,8 @@
                    <tr>
                     <td><?=$no++;?></td>
                     <td><?=$lb['judul_ina'];?></td>
-                    <td><?=$lb['judul_eng'];?></td>
                     <td><?=$lb['tanggal_berita'];?></td>
+                    <td><i class="fa fa-tag" aria-hidden="true"></i><?= str_replace( array( '\'', '"','[',']'), ' ', $lb['tag_berita']) ?></td>
                     <td><?=
                     substr($lb['isi_berita'], 0, 450);?>...
                     <p style="margin-top:10px;">
@@ -33,7 +33,7 @@
                 </a>
                 </p>
                     </td>
-                  <td> <button onclick="deleteKegiatan('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
+                  <td> <button onclick="deleteBerita('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
                    </tr>
                 <?php } ?>
            
@@ -53,11 +53,7 @@
                      
                      
                  </div>
-                 <div class="modal-footer">
-              
-                     <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
-                     <button class="btn btn-info" type="submit"> Ubah Data&nbsp;</button>
-                 </div>
+                
                
             </div>
         </div>
@@ -98,36 +94,9 @@
     });
 
 
-    $('#form_update_berita').on('submit', function(e){ 
-      
-           e.preventDefault();  
-                $.ajax({  
-                    url:"<?=base_url("admin/C_Admin/updateKontenBerita")?>",  
-                     //base_url() = http://localhost/tutorial/codeigniter  
-                     method:"POST",  
-                     data:new FormData(this),  
-                     contentType: false,  
-                     cache: false,  
-                     processData:false,  
-                     success:function(res)  
-                     {  
-                        
-                        var result = JSON.parse(res); 
-                        if(result.success == true){
-                            successtoast(result.msg)
-                            $('#edit-data').modal('hide')
-                            const myTimeout = setTimeout(loadListBerita, 500);                    
-                        } else {
-                            errortoast(result.msg)
-                            return false;
-                        }
-                     }  
-                });  
-             
-      }); 
+    
 
-
-      function deleteKegiatan(id){
+      function deleteBerita(id){
            
            if(confirm('Apakah Anda yakin ingin menghapus data?')){
                $.ajax({
