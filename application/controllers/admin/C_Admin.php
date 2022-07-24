@@ -103,33 +103,23 @@ class C_Admin extends CI_Controller
                 $this->load->library('upload',$config); 
                 if($this->upload->do_upload('file')){
                     $data = $this->upload->data(); 
-                    // dd($data);
-                    // $insert['name'] = $data['file_name'];
-                    // $config4['image_library'] = 'gd2';
-                    // $config4['source_image'] = 'http://localhost/cms/assets/berita/Picture25.png';
-                    // $config4['create_thumb'] = FALSE;
-                    // $config4['maintain_ratio'] = FALSE;
-                    
-                $config4['image_library'] = 'gd2';
-                $config4['source_image'] = './assets/admin/berita/'.$data["file_name"];
-                //  $config4['source_image'] = 'assets/berita/Picture22.png';
-                $config4['create_thumb'] = TRUE;
-                $config4['maintain_ratio'] = TRUE;
-                $config4['width']         = 300;
-                $config4['height']       = 300;
-                $config4['new_image']= './assets/admin/berita/'.$data['file_name'];
-                $this->load->library('image_lib', $config4);
-
-
-              $res = $this->image_lib->resize();
-                if ( ! $this->image_lib->resize())
-            {
-                    //  dd($this->image_lib->display_errors());
-            }
-                // dd($res);
-                $this->image_lib->clear();
-              
-                   }
+                
+                    if($data["file_size"] > 500){
+                        $config4['image_library'] = 'gd2';
+                        $config4['source_image'] = './assets/admin/berita/'.$data["file_name"];
+                        $config4['create_thumb'] = FALSE;
+                        $config4['maintain_ratio'] = TRUE;
+                        $config4['width']         = 1024;
+                        $config4['height']       = 576;
+                        $config4['new_image']= './assets/admin/berita/'.$data['file_name'];
+                        $this->load->library('image_lib');
+                        $this->image_lib->initialize($config4);
+                        if (!$this->image_lib->resize()) {
+                            echo $this->image_lib->display_errors();
+                        }
+                        $this->image_lib->clear();
+                      }
+                    }
               }
            
             $nama_file[] = $data['file_name'];
