@@ -17,13 +17,8 @@
                                 ->from('t_berita')
                                 ->where('flag_active', 1)
                                 ->get()->row_array();
-            $total_page = 0;
-            if($total['total'] > 0){
-                $total_page = intval($total['total'] / $limit);
-                if(fmod($total['total'], $limit) != 0){
-                    $total_page++;
-                }
-            }
+
+            $total_page = countTotalPage($total['total'], $limit);
             $active_page = $page;
             $data = $this->getNewsByPage($page, $limit);
 
@@ -80,14 +75,18 @@
             return $data;
         }
 
-        public function getOtherNews($id){
-            return $this->db->select('a.*, b.nama')
+        public function getOtherNews($exclude_id = 0, $limit = 5){
+            $this->db->select('a.*, b.nama')
                             ->from('t_berita a')
                             ->join('m_user b', 'a.created_by = b.id')
-                            ->where('a.id !=', $id)
                             ->order_by('a.tanggal_berita', 'desc')
-                            ->limit(5)
-                            ->get()->result_array();
+                            ->limit($limit);
+                            
+            if($exclude_id != 0){
+                $this->db->where('a.id !=', $exclude_id);
+            }
+
+            return $this->db->get()->result_array();
         }
 
         public function searchNews($data){

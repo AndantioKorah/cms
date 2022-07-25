@@ -45,7 +45,7 @@
 </style>
 <div class="row">
   <?php foreach($news as $n){ ?>
-    <div onclick="openDetailNews('<?=$n['id']?>')" class="col-lg-6 col-md-12 news-data mb-3">
+    <div onclick="openDetailNews('<?=$n['id']?>')" class="col-lg-3 col-md-6 news-data mb-3">
       <div class="card card-default">
         <div class="card-body news-data-body">
           <span class="badge badge-berita mb-2" style="float: right;"><?=formatDateNamaBulanWT($n['tanggal_berita'])?></span>
@@ -75,9 +75,7 @@
 </div>
 <script>
   $(function(){
-    <?php if($flag_refresh_paging == 1){ ?>
-      refreshPaging()
-    <?php } ?>
+    
   })
 
   function openDetailNews(id){
@@ -90,18 +88,4 @@
       console.log("Element loaded: ", element.nodeName);
     }
   });
-
-  function refreshPaging(){
-    $('.div_news_paging_top').html('')
-    $('.div_news_paging_top').append(divLoaderNavy)
-    $('.div_news_paging_top').load('<?=base_url('webcp/news/C_News/refreshPaging')?>'+'/'+'<?=$limit?>', function(){
-      $('#loader').hide()
-    })
-
-    $('.div_news_paging_bottom').html('')
-    $('.div_news_paging_bottom').append(divLoaderNavy)
-    $('.div_news_paging_bottom').load('<?=base_url('webcp/news/C_News/refreshPaging')?>'+'/'+'<?=$limit?>', function(){
-      $('#loader').hide()
-    })
-  } 
 </script>

@@ -40,6 +40,20 @@ body {
   background: var(--primary); 
 }
 
+.title-section::after {
+  content: "";
+  width: 120px;
+  height: 3px;
+  display: inline-block;
+  background: var(--primary);
+  margin: 10px 10px;
+}
+
+.title-section:hover{
+  color: var(--primary-hover);
+  cursor: pointer;
+}
+
 .v-divider{
   height: 100%;
   width: 100px;
@@ -473,10 +487,27 @@ h1, h2, h3, h4, h5, h6 {
   #hero h2 {
     font-size: 28px;
   }
+
+  .paging_number{
+    font-size: 14px !important;
+  }
+
+  .paging_title h4{
+    font-size: 20px !important;
+  }
+
+  .d-paging span{
+    padding: 4px !important;
+  }
 }
 @media (min-width: 1024px) {
   #hero .carousel-control-prev, #hero .carousel-control-next {
     width: 5%;
+  }
+}
+@media (max-width: 1223px) {
+  .breadcrumbs{
+    margin-top: 123px !important;
   }
 }
 @media (max-height: 500px) {

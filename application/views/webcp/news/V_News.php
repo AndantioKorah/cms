@@ -1,37 +1,7 @@
 <style>
-    .d-paging{
-      text-align: right;
-    }
-
-    .active{
-      background-color: var(--primary) !important;
-      cursor: pointer;
-      color: white !important;
-    }
-
-    .disabled {
-      display: none;
-    }
-
-    .d-paging span{
-      padding: 8px;
-      border-radius: 3px;
-      border: 1px var(--primary) solid;
-      color: #556270;
-      margin: 0;
-    }
-
-
-    .d-paging span:hover{
-      background-color: var(--primary);
-      color: white;
-      transition: .4s;
-      cursor: pointer;
-    }
-
-    .content{
-      min-height: 300px;
-    }
+  .content{
+    min-height: 300px;
+  }
 </style>
 <main id="main">
   <section id="breadcrumbs" class="breadcrumbs">
@@ -40,7 +10,7 @@
       <div class="d-flex justify-content-between align-items-center">
         <h2><?=$this->lang->line('news')?></h2>
         <ol>
-          <li><a href="<?=base_url('home')?>"><?=$this->lang->line('home')?></a></li>
+          <li><a href="<?=base_url('')?>"><?=$this->lang->line('home')?></a></li>
           <li><a><?=$this->lang->line('news')?></a></li>
         </ol>
       </div>
@@ -78,6 +48,7 @@
           <?php 
             $data['total_page'] = $total_page;
             $data['active_page'] = $active_page;
+            $data['page_content'] = 'news';
             $this->load->view('webcp/news/V_NewsPaging', $data);
           ?>
         </div>
@@ -136,6 +107,14 @@
       })
     }
   })
+
+  function refreshNewsContent(ap){
+    $('.content-news').html('')
+    $('.content-news').append(divLoaderNavy)
+    $('.content-news').load('<?=base_url('webcp/news/C_News/getNewsByPage')?>'+'/'+ap+'/'+$('#data_per_page').val(), function(){
+      $('#loader').hide()
+    })
+  }
 
   $('#data_per_page').on('change', function(){
     $('.d-paging').show()

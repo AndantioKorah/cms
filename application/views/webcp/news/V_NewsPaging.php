@@ -1,28 +1,74 @@
-<div class="d-paging" class="col-lg-12 col-md-12">
-  <hr>
-  <span onclick="pagingClick('back')" class="<?=$active_page == 1 ? 'disabled' : '' ?>; prev_page"><i class="fa fa-angle-left"></i></span>
-  <?php for($i = 1; $i <= $total_page ; $i++){
-    $display = '';
-    if($total_page > 10){
-      if($i == $total_page && $total_page > 10){
-      } else {
-        $display = 'none';
-      }
-    }
-  ?>
-    <?php if($total_page > 12 && $i == 2){ ?>
-      <span style="display: none;" id="span_choose_page_left" class="span_choose_page">...</span>
-    <?php } ?>
-    <?php if($total_page > 11 && $i == $total_page){ ?>
-      <span id="span_choose_page_right" class="span_choose_page">...</span>
-    <?php } ?>
-    <span style="display: <?=$i > 10 ? $display : '' ?>" onclick="pagingClick('<?=$i?>')" class="<?=$active_page == $i ? 'active' : ''?> span_page page_<?=$i?>"><?=$i?></span>
-  <?php } ?>
-  <span onclick="pagingClick('next')" class="<?=$active_page == $total_page ? 'disabled' : '' ?>; next_page"><i class="fa fa-angle-right"></i></span>
-  <hr>
+<style>
+  .d-paging{
+    display: inline;
+  }
+
+  .paging_number{
+    text-align: right;
+  }
+
+  .active{
+    background-color: var(--primary) !important;
+    cursor: pointer;
+    color: white !important;
+  }
+
+  .disabled {
+    display: none;
+  }
+
+  .d-paging span{
+    padding: 8px;
+    border-radius: 3px;
+    border: 1px var(--primary) solid;
+    color: #556270;
+    margin: 0;
+  }
+
+  .d-paging span:hover{
+    background-color: var(--primary);
+    color: white;
+    transition: .4s;
+    cursor: pointer;
+  }
+</style>
+
+<div class="d-paging align-items-center" class="col-lg-12 col-md-12">
+  <div class="row">
+    <hr>
+      <div class="paging_title col-4">
+        <?= isset($title)? '<h4>'.$title.'</h4>' : ''?>
+      </div>
+      <div class="paging_number col-8">
+        <span onclick="pagingClick('back')" class="<?=$active_page == 1 ? 'disabled' : '' ?>; prev_page"><i class="fa fa-angle-left"></i></span>
+        <?php for($i = 1; $i <= $total_page ; $i++){
+          $display = '';
+          if($total_page > 10){
+            if($i == $total_page && $total_page > 10){
+            } else {
+              $display = 'none';
+            }
+          }
+        ?>
+          <?php if($total_page > 12 && $i == 2){ ?>
+            <span style="display: none;" id="span_choose_page_left" class="span_choose_page">...</span>
+          <?php } ?>
+          <?php if($total_page > 11 && $i == $total_page){ ?>
+            <span id="span_choose_page_right" class="span_choose_page">...</span>
+          <?php } ?>
+          <span style="display: <?=$i > 10 ? $display : '' ?>" onclick="pagingClick('<?=$i?>')" class="<?=$active_page == $i ? 'active' : ''?> span_page page_<?=$i?>"><?=$i?></span>
+        <?php } ?>
+        <?php if($total_page > 1){ ?>
+          <span onclick="pagingClick('next')" class="<?=$active_page == $total_page ? 'disabled' : '' ?>; next_page"><i class="fa fa-angle-right"></i></span>
+        <?php } ?>
+      </div>
+    <hr>
+  </div>
+  
 </div>
 
 <script>
+  let page_content = '<?=$page_content?>'
   $(function(){
     active_page = '<?=$active_page?>'
     total_page = '<?=$total_page?>'
@@ -57,14 +103,11 @@
         $('.next_page').show()
       }
 
-      // if(active_page == 1 && total_page == 1){
-      //   console.log('123')
-      //   $('.next_page').hide()
-      //   $('.prev_page').hide()
-      // }
-
       setVisiblePage(active_page)
-      refreshNewsContent(active_page)
+      switch(page_content){
+        case 'news' : refreshNewsContent(active_page)
+        case 'gallery-image' : refreshImageGalleryContent(active_page)
+      }
     }
   }
 
@@ -110,14 +153,10 @@
       $('#span_choose_page_right').show()
     }
 
-    console.log(visible_page)
-  }
-
-  function refreshNewsContent(ap){
-    $('.content-news').html('')
-    $('.content-news').append(divLoaderNavy)
-    $('.content-news').load('<?=base_url('webcp/news/C_News/getNewsByPage')?>'+'/'+ap+'/'+$('#data_per_page').val(), function(){
-      $('#loader').hide()
-    })
+    console.log(total_page)
+    if(total_page == 1){
+      $('.next_page').hide()
+      $('.prev_page').hide()
+    }
   }
 </script>

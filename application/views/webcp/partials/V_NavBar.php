@@ -13,15 +13,53 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-            <?php if($menu){ foreach($menu as $m) { 
+            <?php //if($menu){ foreach($menu as $m) { 
+              //$url = $_SERVER['REQUEST_URI'];
+              //$url = explode('/', $url);
+            ?>
+                <!-- <li>
+                    <a class="<?=$url[2] == $m['url'] ? 'active-navbar' : ''?>" href="<?=base_url($m['url'])?>"><?=$this->lang->line($m['site_lang'])?></a>
+                </li> -->
+            <?php // } }  ?>
+            <?php 
               $url = $_SERVER['REQUEST_URI'];
               $url = explode('/', $url);
             ?>
-                <li>
-                    <a class="<?=$url[2] == $m['url'] ? 'active-navbar' : ''?>" href="<?=base_url($m['url'])?>"><?=$this->lang->line($m['site_lang'])?></a>
-                </li>
-            <?php } }  ?>
             <li>
+                <a class="<?=$url[2] == '' ? 'active-navbar' : ''?>" href="<?=base_url('')?>"><?=$this->lang->line('home')?></a>
+            </li>
+            <li>
+                <a class="<?=$url[2] == 'profile' ? 'active-navbar' : ''?>" href="<?=base_url('profile')?>"><?=$this->lang->line('profile')?></a>
+            </li>
+            <li>
+                <a class="<?=$url[2] == 'news' ? 'active-navbar' : ''?>" href="<?=base_url('news')?>"><?=$this->lang->line('news')?></a>
+            </li>
+            <li>
+                <a class="<?=$url[2] == 'gallery' ? 'active-navbar' : ''?>" href="<?=base_url('gallery')?>"><?=$this->lang->line('gallery')?></a>
+            </li>
+            <li>
+                <a class="<?=$url[2] == 'ppid' ? 'active-navbar' : ''?>" href="<?=base_url('ppid')?>"><?=$this->lang->line('ppid')?></a>
+            </li>
+            <li>
+                <a class="<?=$url[2] == 'service' ? 'active-navbar' : ''?>" href="<?=base_url('service')?>"><?=$this->lang->line('service')?></a>
+            </li>
+            <li>
+                <a class="<?=$url[2] == 'announcement' ? 'active-navbar' : ''?>" href="<?=base_url('announcement')?>"><?=$this->lang->line('announcement')?></a>
+            </li>
+            <li>
+                <a class="<?=$url[2] == 'contact' ? 'active-navbar' : ''?>" href="<?=base_url('contact')?>"><?=$this->lang->line('contact')?></a>
+            </li>
+            <li>
+                <a class="<?=$url[2] == 'wbs' ? 'active-navbar' : ''?>" href="<?=base_url('wbs')?>"><?=$this->lang->line('wbs')?></a>
+            </li>
+            <li>
+                <a class="<?=$url[2] == 'ttg' ? 'active-navbar' : ''?>" href="<?=base_url('ttg')?>"><?=$this->lang->line('ttg')?></a>
+            </li>
+            <li>
+                <a class="<?=$url[2] == 'covid' ? 'active-navbar' : ''?>" href="<?=base_url('covid')?>"><?=$this->lang->line('covid')?></a>
+            </li>
+
+            <!-- <li>
               <li class="dropdown"><a href="#"><span><?=ucfirst($this->session->userdata('site_lang'))?></span> <i class="bi bi-chevron-right"></i></a>
                 <ul>
                   <?php
@@ -31,7 +69,7 @@
                     <?php } ?>
                 </ul>
               </li>
-            </li>
+            </li> -->
           <!-- <li><a href="<?=base_url('')?>" class="active"><?=$this->lang->line('home')?></a></li>
           <li class="dropdown"><a href="#"><span>About</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
@@ -59,7 +97,7 @@
           <!-- <li><a href="index.html" class="getstarted">Get Started</a></li> -->
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
+      </nav>
 
     </div>
 </header>
