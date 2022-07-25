@@ -121,7 +121,7 @@ h1{
 
 
 
-        <form action="<?=base_url("admin/C_Admin/submitKontenBerita")?>" method="post" id="" align="center" enctype="multipart/form-data">  
+        <form action="<?=base_url("admin/C_Admin/submitKontenBerita")?>" method="post" id="form_berita" align="center" enctype="multipart/form-data">  
                 <div class="row">
                     <div class="col-lg-12 col-md-3">
                         <div class="form-group">
@@ -188,7 +188,7 @@ h1{
                   
                     <div class="col-lg-12 col-md-8"></div>
                     <div class="col-lg-12 col-md-4 text-right mt-2">
-                    <input type="submit" name="upload" id="upload" value="Simpan" class="btn btn-block btn-info" />
+                    <button type="submit" class="btn btn-block btn-navy " id="btn_upload"><i class="fa fa-save"></i> SIMPAN</button>
                     </div>
                 </div>
                 <!-- <input type="submit" name="upload" id="upload" value="Upload" class="btn btn-info" />   -->
@@ -245,41 +245,75 @@ h1{
          $('#berita_gambar').val('');
     }
 
- $('#form_berita').on('submit', function(e){  
-   
-    alert($('#editor').val())
-    return false;
-           e.preventDefault();  
+  
+        $( "#btn_upload" ).click(function() {
+
+           if($('#berita_judul_ina').val() == '')  
+           {  
+            errortoast(" Judul masih kosong"); 
+                document.getElementById(berita_judul_ina).focus(); 
+                return false;
+           }
+           if($('#tag_berita').val() == '')  
+           {  
+            errortoast("Tag masih kosong"); 
+                document.getElementById(berita_tag).focus();  
+                return false;
+           }
+           if($('#tanggal_berita').val() == '')  
+           {  
+                errortoast("Tanggal berita masih kosong");  
+                document.getElementById(tanggal_berita).focus(); 
+                return false;
+           }
            if($('#berita_gambar').val() == '')  
            {  
-                alert("Please Select the File");  
-           }  
-           else  
-           {  
-                $.ajax({  
-                    url:"<?=base_url("admin/C_Admin/submitKontenBerita")?>",  
-                     //base_url() = http://localhost/tutorial/codeigniter  
-                     method:"POST",  
-                     data:new FormData(this),  
-                     contentType: false,  
-                     cache: false,  
-                     processData:false,  
-                     success:function(res)  
-                     {  
+                errortoast("Please Select the File"); 
+                document.getElementById(berita_gambar).focus();  
+                return false;
+           } 
+
+           
+            $('#btn_upload').prop('disabled', true);
+            $('#btn_upload').html('SIMPAN.. <i class="fas fa-spinner fa-spin"></i>')
+            document.getElementById("form_berita").submit();
+        });
+
+
+ $('#form_berita').on('submit', function(e){  
+     return false;
+    document.getElementById("form_berita").submit();
+        //    e.preventDefault();  
+        //    if($('#berita_gambar').val() == '')  
+        //    {  
+        //         alert("Please Select the File");  
+        //    }  
+        //    else  
+        //    {  
+        //         $.ajax({  
+        //             url:"<?=base_url("admin/C_Admin/submitKontenBerita")?>",  
+        //              //base_url() = http://localhost/tutorial/codeigniter  
+        //              method:"POST",  
+        //              data:new FormData(this),  
+        //              contentType: false,  
+        //              cache: false,  
+        //              processData:false,  
+        //              success:function(res)  
+        //              {  
                         
-                        var result = JSON.parse(res); 
+        //                 var result = JSON.parse(res); 
                      
-                        if(result.success == true){
-                            successtoast(result.msg)
-                            document.getElementById("form_berita").reset();  
-                            loadListBerita()                          
-                        } else {
-                            errortoast(result.msg)
-                            return false;
-                        }
-                     }  
-                });  
-           }  
+        //                 if(result.success == true){
+        //                     successtoast(result.msg)
+        //                     document.getElementById("form_berita").reset();  
+        //                     loadListBerita()                          
+        //                 } else {
+        //                     errortoast(result.msg)
+        //                     return false;
+        //                 }
+        //              }  
+        //         });  
+        //    }  
       });  
 
  $('.datepicker').datepicker({
@@ -332,7 +366,7 @@ h1{
 
         ClassicEditor
 		.create( document.querySelector( '#editor' ), {
-			// toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
+			// toolbar: [ 'heading', '|','bold', 'italic', '|', 'undo', 'redo', '-', 'numberedList', 'bulletedList' ]
 		} )
 		.then( editor => {
 			window.editor = editor;
@@ -344,4 +378,20 @@ h1{
     
        
  </script> 
- 
+ <!-- toolbar: {
+    items: [
+        'heading', '|',
+        'fontfamily', 'fontsize', '|',
+        'alignment', '|',
+        'fontColor', 'fontBackgroundColor', '|',
+        'bold', 'italic', 'strikethrough', 'underline', 'subscript', 'superscript', '|',
+        'link', '|',
+        'outdent', 'indent', '|',
+        'bulletedList', 'numberedList', 'todoList', '|',
+        'code', 'codeBlock', '|',
+        'insertTable', '|',
+        'uploadImage', 'blockQuote', '|',
+        'undo', 'redo'
+    ],
+    shouldNotGroupWhenFull: true
+} -->

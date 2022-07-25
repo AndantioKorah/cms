@@ -1,4 +1,5 @@
 <?php if($list_berita){ ?>
+    <div class="table-responsive">
     <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
@@ -39,7 +40,7 @@
            
         </tfoot>
     </table>
-   
+        </div>
         <!-- Modal Ubah -->
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="edit-data" class="modal fade">
     <div class="modal-dialog modal-xl">

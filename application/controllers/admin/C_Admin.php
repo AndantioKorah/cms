@@ -108,9 +108,43 @@ class C_Admin extends CI_Controller
                         $config4['image_library'] = 'gd2';
                         $config4['source_image'] = './assets/admin/berita/'.$data["file_name"];
                         $config4['create_thumb'] = FALSE;
-                        $config4['maintain_ratio'] = TRUE;
+                        $config4['maintain_ratio'] = FALSE;
                         $config4['width']         = 1024;
                         $config4['height']       = 576;
+                        $config4['new_image']= './assets/admin/berita/'.$data['file_name'];
+                        $this->load->library('image_lib');
+                        $this->image_lib->initialize($config4);
+                        if (!$this->image_lib->resize()) {
+                            echo $this->image_lib->display_errors();
+                        }
+                        $this->image_lib->clear();
+                      } else {
+                        // dd($data);
+                        $w_i = $data["image_width"];
+                        $h_i = $data["image_height"];
+
+                          //calculating 16:9 ratio
+                        $w_o = $w_i;
+                        $h_o = 9 * $w_o / 16;
+
+                        //if output height is longer then width
+                        if ($h_i < $h_o) {
+                            $h_o = $h_i;
+                            $w_o = 16 * $h_o / 9;
+                        }
+
+                        $x_o = $w_i - $w_o;
+                        $y_o = $h_i - $h_o;
+                        // dd($x_o);
+
+                        $config4['image_library'] = 'gd2';
+                        $config4['source_image'] = './assets/admin/berita/'.$data["file_name"];
+                        $config4['create_thumb'] = FALSE;
+                        $config4['maintain_ratio'] = FALSE;
+                        $config4['width']         = 1024;
+                        $config4['height']       = 570;
+                        //   $config4['width']         = $x_o;
+                        // $config4['height']       = $y_o;
                         $config4['new_image']= './assets/admin/berita/'.$data['file_name'];
                         $this->load->library('image_lib');
                         $this->image_lib->initialize($config4);
@@ -236,14 +270,18 @@ class C_Admin extends CI_Controller
         function submitKontenGaleri(){
 
       
-            $new_name = time().$_FILES["gambar"]['name'];
+            // $new_name = time().$_FILES["gambar"]['name'];
+            $new_name = str_replace(array( '-',' ',']'), ' ', $_FILES["gambar"]['name']);
+            $nm_gambar = $string = str_replace(' ', '', $_FILES["gambar"]['name']);
+        //   dd($nm_gambar);
 
+            $config['file_name'] = $nm_gambar;
             $config['upload_path']   = './assets/admin/galeri/'; 
             $config['allowed_types'] = 'gif|jpg|png'; 
             // $config['max_size']      = 1024;
             $this->load->library('upload', $config);
 
-            // $data = $this->admin->submitKontenGaleri($new_name);
+            $data = $this->admin->submitKontenGaleri($nm_gambar);
 
       
             if($_FILES["gambar"]["name"] != ""){ 
@@ -251,44 +289,63 @@ class C_Admin extends CI_Controller
                 $konten="gambar";
                 // $this->ajax_upload($path,$konten,$new_name);
             }
-            $config['file_name'] = $new_name;
+          
+            
             $config['upload_path'] = $path;  
-            $config['allowed_types'] = 'jpg|jpeg|png|gif';  
+            $config['allowed_types'] = 'jpg|jpeg|png|gif'; 
+
+           
+            
             $this->load->library('upload', $config);  
             $this->upload->overwrite = true;
+            
             if(!$this->upload->do_upload($konten))  
             {  
                  echo $this->upload->display_errors();  
-            }
-            $uploadedImage = $this->upload->data();
-            $this->resizeImage($uploadedImage['file_name']);  
-        }
-
-        public function resizeImage($filename)
-            {
-                $source_path =  'http://localhost/cms/assets/admin/galeri/' . $filename;
-                // dd($source_path);
-                $target_path = 'http://localhost/cms/assets/admin/galeri/';
-                $config_manip = array(
-                    'image_library' => 'gd2',
-                    'source_image' => $source_path,
-                    'new_image' => $target_path,
-                    'maintain_ratio' => TRUE,
-                    'width' => 500,
-                );
-            
-                $this->load->library('image_lib', $config_manip);
+            } else {
+                $data = $this->upload->data();
+                
+                $config4['image_library'] = 'gd2';
+                $config4['source_image'] = './assets/admin/galeri/'.$data["file_name"];
+                $config4['create_thumb'] = FALSE;
+                $config4['maintain_ratio'] = FALSE;
+                $config4['width']         = 1024;
+                $config4['height']       = 576;
+                $config4['file_name'] = $nm_gambar;
+                $config4['new_image'] = './assets/admin/galeri/'.$data['file_name'];
+                $this->load->library('image_lib');
+                $this->image_lib->initialize($config4);
                 if (!$this->image_lib->resize()) {
                     echo $this->image_lib->display_errors();
                 }
-            
-                $this->image_lib->clear();
+                $this->image_lib->clear();; 
+                
             }
+
+
+            // redirect('admin/galeri');
+            $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
+            echo json_encode($res);
+        }
+
+        function submitKontenGaleriVideo(){
+            $data = $this->admin->submitKontenGaleriVideo();
+            $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
+            echo json_encode($res);
+        }
+
+
 
         public function loadListGaleri(){
             $data['list_galeri'] = $this->admin->loadListGaleri();
             $this->load->view('admin/galeri/V_ListGaleri', $data);
         }
+
+        public function loadListGaleriVideo(){
+            $data['list_galeri_video'] = $this->admin->loadListGaleriVideo();
+            $this->load->view('admin/galeri/V_ListGaleriVideo', $data);
+        }
+    
     
 
         public function deleteGaleri($id){
