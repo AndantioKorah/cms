@@ -76,7 +76,8 @@
   margin-right: 2px;
   color: dark;
   background-color: aqua;
-  border-radius: inherit
+  border-radius: inherit;
+  padding: 3px;
 }
 .bootstrap-tagsinput .tag [data-role="remove"] {
   margin-left: 8px;
@@ -135,8 +136,8 @@
                        
                         <br>
                         <section class="demo">
-                        <input style="position: absolute;" type="button" class="next" value="Next"></input>
-                        <input style="position: absolute;" type="button" class="prev" value="Previous"></input>
+                        <input style="position: absolute;" type="button" class="next btn btn-info" value="Next"></input>
+                        <input style="position: absolute;" type="button" class="prev btn btn-info" value="Previous"></input>
                         <div class="container">
                         <?php   
                             $image = json_decode($berita['gambar']);

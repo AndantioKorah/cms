@@ -123,18 +123,37 @@
            
                 $datapost = $this->input->post();
                 $data["nama"] = $datapost["judul_gambar"];
-                $data["gambar"] = $new_name;
+                $data["isi_galeri"] = $new_name;
+                $data["jenis"] = 1;
                 $this->db->insert('t_galeri', $data);
-                return $this->db->insert_id();
-            
+                return $this->db->insert_id(); 
+        }
+
+        public function submitKontenGaleriVideo(){
 
            
-        }
+            $datapost = $this->input->post();
+            $data["nama"] = $datapost["judul_video"];
+            $data["isi_galeri"] =  $datapost["link_video"];
+            $data["jenis"] = 2;
+            $this->db->insert('t_galeri', $data);
+            return $this->db->insert_id(); 
+    }
 
 
         function loadListGaleri(){
             $query = $this->db->select('*')
                             ->from('t_galeri a')
+                            ->where('a.jenis', 1)
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+            return $query; 
+        }
+
+        function loadListGaleriVideo(){
+            $query = $this->db->select('*')
+                            ->from('t_galeri a')
+                            ->where('a.jenis', 2)
                             ->where('a.flag_active', 1)
                             ->get()->result_array();
             return $query; 

@@ -1,26 +1,26 @@
-<?php if($list_galeri){ ?>
+<?php if($list_galeri_video){ ?>
     <div class="table-responsive">
     <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
                 <th>No</th>
-                <th>Judul Gambar</th>
-                <th>Gambar</th>
+                <th>Judul Video</th>
+                <th>Link Video</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-        <?php $no=1; foreach($list_galeri as $lb){ ?>
+        <?php $no=1; foreach($list_galeri_video as $lb){ ?>
                    <tr>
                     <td><?=$no++;?></td>
                     <td><?=$lb['nama'];?></td>
-                    <td> <img style='width:800;height:300px;' src="<?=base_url('assets/admin/galeri/'.$lb['isi_galeri'].'')?>"> </td>
+                    <td><a href="<?=$lb['isi_galeri'];?>" target="_blank"><h5><span class="badge badge-primary"><?=$lb['isi_galeri'];?></span></h5></a> </td>
                   <td> <button onclick="deleteGaleri('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
                    </tr>
                 <?php } ?>
         </tfoot>
     </table>
-    </div>
+        </div>
         <!-- Modal Ubah -->
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="edit-data" class="modal fade">
     <div class="modal-dialog modal-xl">
@@ -58,7 +58,7 @@
                    data: null,
                    success: function(){
                        successtoast('Data sudah terhapus')
-                       loadListGaleri()
+                       loadListGaleriVideo()
                    }, error: function(e){
                        errortoast('Terjadi Kesalahan')
                    }
