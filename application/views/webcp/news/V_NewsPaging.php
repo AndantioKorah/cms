@@ -68,11 +68,11 @@
 </div>
 
 <script>
-  let page_content = '<?=$page_content?>'
   $(function(){
     active_page = '<?=$active_page?>'
     total_page = '<?=$total_page?>'
     visible_page = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    page_content = '<?=$page_content?>'
     $('.prev_page').hide();
   })
 
@@ -104,9 +104,13 @@
       }
 
       setVisiblePage(active_page)
-      switch(page_content){
-        case 'news' : refreshNewsContent(active_page)
-        case 'gallery-image' : refreshImageGalleryContent(active_page)
+      console.log(page_content)
+      if(page_content == 'news'){
+        refreshNewsContent(active_page)
+      } else if(page_content == 'gallery-image'){
+        refreshImageGalleryContent(active_page)
+      } else if(page_content == 'gallery-video'){
+        refreshVideoGalleryContent(active_page)
       }
     }
   }

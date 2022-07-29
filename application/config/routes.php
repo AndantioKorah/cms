@@ -85,6 +85,8 @@ $route['news'] = 'webcp/news/C_News/index';
 $route['news/detail/(:any)'] = 'webcp/news/C_News/detailNews/$1';
 
 $route['gallery'] = 'webcp/gallery/C_Gallery/index';
+$route['gallery/image'] = 'webcp/gallery/C_Gallery/indexGambar';
+$route['gallery/video'] = 'webcp/gallery/C_Gallery/indexVideo';
 
 $route['ppid'] = 'webcp/ppid/C_Ppid/index';
 

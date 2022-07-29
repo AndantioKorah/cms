@@ -18,32 +18,33 @@
         <ol>
           <li><a href="<?=base_url('')?>"><?=$this->lang->line('home')?></a></li>
           <li><a><?=$this->lang->line('gallery')?></a></li>
-          <li><a>Gambar</a></li>
+          <li><a>Video</a></li>
         </ol>
       </div>
     </div>
   </section>
 
-  <section id="gallery-image" class="gallery-image">
+  <section id="gallery-video" class="gallery-video">
     <div class="container">
       <?php 
-        $data['total_page'] = $total_page_gambar;
+        $data['total_page'] = $total_page_video;
         $data['active_page'] = 1;
-        $data['page_content'] = 'gallery-image';
-        $data['title'] = 'GAMBAR';
+        $data['page_content'] = 'gallery-video';
+        $data['title'] = 'VIDEO';
         $this->load->view('webcp/news/V_NewsPaging', $data);
       ?>
-      <div id="div_gallery_image" class="row">
+      <div id="div_gallery_video" class="row">
         <?php
-          $data['gambar'] = $gambar;
-          $this->load->view('webcp/gallery/V_GalleryImageData', $data);
+          $data['video'] = $video;
+          $this->load->view('webcp/gallery/V_GalleryVideoData', $data);
         ?>
       </div>
     </div>
   </section>
 
+  
 </main>
-<div class="modal fade" id="modal_image_preview" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="modal_image_preview" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div style="float: right; text-align: right; color: white; cursor: pointer;">
       <i class="fa fa-2x fa-times"></i>
@@ -53,14 +54,14 @@
       <span id="img_name"></span>
     </center>
   </div>
-</div>
+</div> -->
 <script>
   let page_content;
 
-  function refreshImageGalleryContent(ap){
-    $('#div_gallery_image').html('')
-    $('#div_gallery_image').append(divLoaderNavy)
-    $('#div_gallery_image').load('<?=base_url('webcp/gallery/C_Gallery/getGambarByPage')?>'+'/'+ap, function(){
+  function refreshVideoGalleryContent(ap){
+    $('#div_gallery_video').html('')
+    $('#div_gallery_video').append(divLoaderNavy)
+    $('#div_gallery_video').load('<?=base_url('webcp/gallery/C_Gallery/getVideoByPage')?>'+'/'+ap, function(){
       $('#loader').hide()
     })
   }

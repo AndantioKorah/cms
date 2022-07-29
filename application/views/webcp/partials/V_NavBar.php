@@ -34,8 +34,12 @@
             <li>
                 <a class="<?=$url[2] == 'news' ? 'active-navbar' : ''?>" href="<?=base_url('news')?>"><?=$this->lang->line('news')?></a>
             </li>
-            <li>
-                <a class="<?=$url[2] == 'gallery' ? 'active-navbar' : ''?>" href="<?=base_url('gallery')?>"><?=$this->lang->line('gallery')?></a>
+            <li class="dropdown">
+                <a class="<?=$url[2] == 'gallery' ? 'active-navbar' : ''?>"><?=$this->lang->line('gallery')?></a>
+                <ul>
+                  <li><a href="<?=base_url('gallery/image')?>">Gambar</a></li>
+                  <li><a href="<?=base_url('gallery/video')?>">Video</a></li>
+                </ul>
             </li>
             <li>
                 <a class="<?=$url[2] == 'ppid' ? 'active-navbar' : ''?>" href="<?=base_url('ppid')?>"><?=$this->lang->line('ppid')?></a>

@@ -102,8 +102,8 @@ define('COPYRIGHT', 'Copyright &copy; 2022 <strong>BTKLPP Kelas I Manado</strong
 define('TRANSAKSI_TABLE_VIEW', 1);
 define('USE_PRINT', '0');
 define('URI_UPLOAD', './assets/'); //local with xampp
-define('URI_BERITA', './assets/berita/'); //local with xampp
-define('URI_GALLERY', './assets/admin/galeri'); //local with xampp
+define('URI_BERITA', './assets/admin/berita/'); //local with xampp
+define('URI_GALLERY', './assets/admin/galeri/'); //local with xampp
 define('DB_BACKUP_FOLDER', 'db/backup/'); //local with xampp
 define('DB_RESTORE_FOLDER', 'db/restore/'); //local with xampp
 
@@ -113,3 +113,4 @@ define('DEVELOPER', 'nikita');
 define('DEFAULT_LANG', 'indonesia');
 define('LANG_AVAIL', ['Indonesia', 'English']);
 define('LIMIT_NEWS', 6);
+define('LIMIT_GALLERY', 6);

@@ -22,5 +22,47 @@
 
             return $this->db->get()->result_array();
         }
+
+        public function getImageGallery($page = 1, $limit = LIMIT_GALLERY){
+            if($page == 1){
+                $page = 0;
+            } else {
+                $page = (floatval($page) - 1) * $limit;
+            }
+
+            $rs =  $this->db->query("
+            SELECT a.*, b.nama as created_by
+            FROM t_galeri a
+            JOIN m_user b ON a.created_by = b.id
+            WHERE a.flag_active = 1
+            AND a.jenis = 1
+            ORDER BY a.created_date DESC
+            LIMIT ".$page.",".$limit)->result_array();
+
+            $all = $this->getGallery(1);
+
+            return [$rs, countTotalPage(count($all), LIMIT_GALLERY)];
+        }
+
+        public function getVideoGallery($page = 1, $limit = LIMIT_GALLERY){
+            if($page == 1){
+                $page = 0;
+            } else {
+                $page = (floatval($page) - 1) * $limit;
+            }
+
+            $rs =  $this->db->query("
+            SELECT a.*, b.nama as created_by
+            FROM t_galeri a
+            JOIN m_user b ON a.created_by = b.id
+            WHERE a.flag_active = 1
+            AND a.jenis = 2
+            ORDER BY a.created_date DESC
+            LIMIT ".$page.",".$limit)->result_array();
+
+            $all = $this->getGallery(2);
+
+            return [$rs, countTotalPage(count($all), LIMIT_GALLERY)];
+        }
 	}
 ?>

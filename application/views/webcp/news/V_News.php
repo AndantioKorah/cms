@@ -48,6 +48,7 @@
           <?php 
             $data['total_page'] = $total_page;
             $data['active_page'] = $active_page;
+            $data['title'] = 'LIST BERITA';
             $data['page_content'] = 'news';
             $this->load->view('webcp/news/V_NewsPaging', $data);
           ?>
@@ -79,6 +80,7 @@
   let visible_page;
   let minpage;
   let maxpage;
+  let page_content;
   $('#input_search').on('input', function(){
     if($(this).val() == ''){
       $('.div_search').removeClass('mb-3')
