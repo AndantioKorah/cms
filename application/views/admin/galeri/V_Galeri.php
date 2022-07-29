@@ -1,5 +1,37 @@
 
+<style>
 
+ 
+.tombol{
+	padding: 8px 15px;
+	border-radius: 3px;
+	background: #ECF0F1;
+	border: none;
+	color: #232323;
+	font-size: 12pt;
+}
+ 
+.kotak{
+	margin: 20px auto;
+	background: #1ABC9C;
+	width: 900px;	
+	padding: 20px 50px 50px 50px;
+	border-radius: 3px;
+}
+
+.thumb{
+  margin: 24px 5px 20px 0;
+  width: 150px;
+  float: left;
+}
+#blah {
+  border: 2px solid;
+  display: block;
+  background-color: white;
+  border-radius: 5px;
+}
+
+</style>
 <div class="card card-default">
 <div class="card-header">
             <div class="row">
@@ -32,7 +64,7 @@
   <label class="bmd-label-floating">Gambar </label> 
  <input type="file"class="form-control"  name="gambar" id="gambar"/>
         <br>
-    <div id="uploadPreview1"></div>
+    <div id="uploadPreview2"></div>
   </div>
 
   <div class="col-lg-12 col-md-4 text-right mt-2">
@@ -95,7 +127,7 @@
 
 
  $('#form_galeri').on('submit', function(e){  
-        $('#btn_upload').prop('disabled', true);
+          $('#btn_upload').prop('disabled', true);
           $('#btn_upload').html('SIMPAN.. <i class="fas fa-spinner fa-spin"></i>')
           e.preventDefault();  
           if($('#gambar').val() == '')  
@@ -119,6 +151,7 @@
                        if(result.success == true){
                            successtoast(result.msg)
                            document.getElementById("form_galeri").reset();  
+                           $('#btn_upload').prop('disabled', false);
                            $('#btn_upload').html('<i class="fa fa-save"></i>  SIMPAN')
                            loadListGaleri()                          
                        } else {
@@ -148,7 +181,8 @@
                     
                        if(result.success == true){
                            successtoast(result.msg)
-                           document.getElementById("form_galeri").reset();  
+                           document.getElementById("form_galeri_video").reset();  
+                           $('#uploadPreview2').html('');
                            $('#btn_upload').html('<i class="fa fa-save"></i>  SIMPAN')
                            loadListGaleriVideo()                          
                        } else {
@@ -175,6 +209,39 @@
             $('#loader').hide()
         })
     }
+
+
+    function readImage2(file) {
+        $('#uploadPreview2').html('');
+        var reader = new FileReader();
+        var image  = new Image();
+        reader.readAsDataURL(file);  
+        reader.onload = function(_file) {
+        image.src = _file.target.result; // url.createObjectURL(file);
+        image.onload = function() {
+        var w = this.width,
+        h = this.height,
+        t = file.type, // ext only: // file.type.split('/')[1],
+        n = file.name,
+        s = ~~(file.size/1024) +'KB';
+        $('#uploadPreview2').append('<img src="' + this.src + '" class="thumb">');
+        };
+        // image.onerror= function() {
+        // alert('Invalid file type: '+ file.type);
+        // };      
+        };
+        }
+        $("#gambar").change(function (e) {
+        if(this.disabled) {
+        return alert('File upload not supported!');
+        }
+        var F = this.files;
+        if (F && F[0]) {
+        for (var i = 0; i < F.length; i++) {
+        readImage2(F[i]);
+        }
+        }
+        });
 
     
     </script> 

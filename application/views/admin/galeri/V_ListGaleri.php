@@ -1,6 +1,6 @@
 <?php if($list_galeri){ ?>
     <div class="table-responsive">
-    <table id="example" class="table table-striped table-bordered" style="width:100%">
+    <table id="datatable" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
                 <th>No</th>
@@ -49,6 +49,11 @@
     </div>
 <?php } ?>
 <script>
+
+$(document).ready(function() {
+        $('#datatable').DataTable();
+    });
+
         function deleteGaleri(id){
            
            if(confirm('Apakah Anda yakin ingin menghapus data?')){

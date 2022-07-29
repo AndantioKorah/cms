@@ -1,6 +1,6 @@
 <?php if($list_galeri_video){ ?>
     <div class="table-responsive">
-    <table id="example" class="table table-striped table-bordered" style="width:100%">
+    <table id="datatable2" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
                 <th>No</th>
@@ -14,7 +14,7 @@
                    <tr>
                     <td><?=$no++;?></td>
                     <td><?=$lb['nama'];?></td>
-                    <td><a href="<?=$lb['isi_galeri'];?>" target="_blank"><h5><span class="badge badge-primary"><?=$lb['isi_galeri'];?></span></h5></a> </td>
+                    <td><a href="<?=$lb['isi_galeri'];?>" target="_blank"><h5><span class="badge badge-secondary"><i class="fas fa-link"></i> <?=$lb['isi_galeri'];?></span></h5></a> </td>
                   <td> <button onclick="deleteGaleri('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
                    </tr>
                 <?php } ?>
@@ -49,6 +49,9 @@
     </div>
 <?php } ?>
 <script>
+    $(document).ready(function() {
+        $('#datatable2').DataTable();
+    });
         function deleteGaleri(id){
            
            if(confirm('Apakah Anda yakin ingin menghapus data?')){
