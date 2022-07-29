@@ -72,7 +72,9 @@
         //     $('#loader').hide()
         // })
     } else if(sel.value == 3){
-        window.location.href = "<?=base_url("admin/C_Admin/galeri")?>";
+        window.location.href = "<?=base_url("admin/galeri")?>";
+    }else if(sel.value == 4){
+        window.location.href = "<?=base_url("admin/ppid")?>";
     }
     }
 </script>

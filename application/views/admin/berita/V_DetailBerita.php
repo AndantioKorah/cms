@@ -74,8 +74,8 @@
 }
 .bootstrap-tagsinput .tag {
   margin-right: 2px;
-  color: dark;
-  background-color: aqua;
+  color: #fff;
+  background-color: #17a2b8;
   border-radius: inherit;
   padding: 3px;
 }

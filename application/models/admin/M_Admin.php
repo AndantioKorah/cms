@@ -160,5 +160,24 @@
         }
 
 
+        public function submitKontenPpid($new_name){
+
+           
+            $datapost = $this->input->post();
+            $data["judul"] = $datapost["judul_ppid"];
+            $data["file"] = $new_name;
+            $this->db->insert('t_ppid', $data);
+            return $this->db->insert_id(); 
+    }
+
+    function loadListPpid(){
+        $query = $this->db->select('*')
+                        ->from('t_ppid a')
+                        ->where('a.flag_active', 1)
+                        ->get()->result_array();
+        return $query; 
+    }
+
+
 	}
 ?>

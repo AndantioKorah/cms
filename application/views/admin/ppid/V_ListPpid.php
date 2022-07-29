@@ -1,26 +1,26 @@
-<?php if($list_galeri_video){ ?>
+<?php if($list_ppid){ ?>
     <div class="table-responsive">
-    <table id="datatable2" class="table table-striped table-bordered" style="width:100%">
+    <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
                 <th>No</th>
-                <th>Judul Video</th>
-                <th>Link Video</th>
+                <th>Judul </th>
+                <th>File</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-        <?php $no=1; foreach($list_galeri_video as $lb){ ?>
+        <?php $no=1; foreach($list_ppid as $lb){ ?>
                    <tr>
                     <td><?=$no++;?></td>
-                    <td><?=$lb['nama'];?></td>
-                    <td><a href="<?=$lb['isi_galeri'];?>" target="_blank"><h5><span class="badge badge-secondary"><i class="fas fa-link"></i> <?=$lb['isi_galeri'];?></span></h5></a> </td>
-                  <td> <button onclick="deleteGaleri('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
+                    <td><?=$lb['judul'];?></td>
+                    <td> <a style='width:800;height:300px;' href="<?=base_url('assets/admin/ppid/'.$lb['file'].'')?>" target="_blank"><?=base_url('assets/admin/galeri/'.$lb['file'].'')?></a> </td>
+                  <td> <button onclick="deletePpid('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
                    </tr>
                 <?php } ?>
         </tfoot>
     </table>
-        </div>
+    </div>
         <!-- Modal Ubah -->
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="edit-data" class="modal fade">
     <div class="modal-dialog modal-xl">
@@ -49,19 +49,16 @@
     </div>
 <?php } ?>
 <script>
-    $(document).ready(function() {
-        $('#datatable2').DataTable();
-    });
-        function deleteGaleri(id){
+        function deletePpid(id){
            
            if(confirm('Apakah Anda yakin ingin menghapus data?')){
                $.ajax({
-                   url: '<?=base_url("admin/C_admin/deleteGaleri/")?>'+id,
+                   url: '<?=base_url("admin/C_admin/deletePpid/")?>'+id,
                    method: 'post',
                    data: null,
                    success: function(){
                        successtoast('Data sudah terhapus')
-                       loadListGaleriVideo()
+                       loadListPpid()
                    }, error: function(e){
                        errortoast('Terjadi Kesalahan')
                    }
