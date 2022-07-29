@@ -1,7 +1,7 @@
 <style>
   .gallery-video-data{
     width: 100%;
-    max-height: 338px;
+    height: 338px;
     position: relative;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;

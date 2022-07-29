@@ -36,6 +36,7 @@ class C_News extends CI_Controller
 
     public function refreshPaging($limit){
         list($data['news'], $data['total_page'], $data['active_page']) = $this->news->getAllNews(1, $limit);
+        $data['page_content'] = 'news';
         $this->load->view('webcp/news/V_NewsPaging', $data);
     }
 }

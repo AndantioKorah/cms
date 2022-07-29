@@ -37,7 +37,7 @@
   <div class="row">
     <hr>
       <div class="paging_title col-4">
-        <?= isset($title)? '<h4>'.$title.'</h4>' : ''?>
+        <?= isset($title)? '<h4>'.$title.'</h4>' : '<h4 style="color: white;">.</h4>'?>
       </div>
       <div class="paging_number col-8">
         <span onclick="pagingClick('back')" class="<?=$active_page == 1 ? 'disabled' : '' ?>; prev_page"><i class="fa fa-angle-left"></i></span>

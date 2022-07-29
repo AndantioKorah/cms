@@ -48,7 +48,7 @@
           <?php 
             $data['total_page'] = $total_page;
             $data['active_page'] = $active_page;
-            $data['title'] = 'LIST BERITA';
+            // $data['title'] = '';
             $data['page_content'] = 'news';
             $this->load->view('webcp/news/V_NewsPaging', $data);
           ?>
