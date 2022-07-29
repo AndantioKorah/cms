@@ -51,8 +51,6 @@
           <span class="badge badge-berita mb-2" style="float: right;"><?=formatDateNamaBulanWT($n['tanggal_berita'])?></span>
           <span class="badge badge-berita mb-2" style="float: left;"><?=$n['nama']?></span>
           <div class="image">
-            <!-- <img class="image-berita b-lazy" src="<?=$this->general_library->getBeritaImage($n['gambar'])?>" /> -->
-            <!-- <img class="image-berita b-lazy" src="<?=$this->general_library->getBeritaImage($n['gambar'])?>" /> -->
             <img class="image-berita b-lazy" src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="<?=$this->general_library->getBeritaImage($n['gambar'])?>" alt="Lazy load images example 3 image 1" />
           </div>
           <div class="judul-berita">

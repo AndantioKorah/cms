@@ -62,6 +62,14 @@ class General_library
         return $img_src;
     }
 
+    public function getGalleryImage($gambar){
+        $img_src = base_url('assets/webcp/assets/img/image-not-found.png');
+        if($gambar && file_exists(URI_GALLERY.$gambar)){
+            $img_src = base_url(URI_GALLERY.$gambar);
+          }
+        return $img_src;
+    }
+
     public function getProfilePicture(){
         // $photo = 'assets/img/default-user-icon.jpg';
         $photo = 'assets/img/default-user-icon.png';

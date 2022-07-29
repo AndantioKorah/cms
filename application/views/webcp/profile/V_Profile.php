@@ -19,7 +19,7 @@
       <div class="d-flex justify-content-between align-items-center">
         <h2><?=$this->lang->line('profile')?></h2>
         <ol>
-          <li><a href="<?=base_url('home')?>"><?=$this->lang->line('home')?></a></li>
+          <li><a href="<?=base_url('')?>"><?=$this->lang->line('home')?></a></li>
           <li><a><?=$this->lang->line('profile')?></a></li>
         </ol>
       </div>

@@ -71,6 +71,7 @@ $route['admin/menu'] = 'user/C_User/menu';
 $route['admin/konten'] = 'admin/C_Admin/konten';
 $route['admin/berita'] = 'admin/C_Admin/berita';
 $route['admin/galeri'] = 'admin/C_Admin/galeri';
+$route['admin/ppid'] = 'admin/C_Admin/ppid';
 // $route['dashboard'] = 'dashboard/C_Dashboard/dashboard';
 
 // =============================================================
@@ -78,6 +79,24 @@ $route['admin/galeri'] = 'admin/C_Admin/galeri';
 //web company profile
 $route[''] = 'C_Main/index';
 $route['language/switch/(:any)'] = 'C_Main/switchLanguage/$1';
+
 $route['profile'] = 'webcp/profile/C_Profile/index';
+
 $route['news'] = 'webcp/news/C_News/index';
 $route['news/detail/(:any)'] = 'webcp/news/C_News/detailNews/$1';
+
+$route['gallery'] = 'webcp/gallery/C_Gallery/index';
+
+$route['ppid'] = 'webcp/ppid/C_Ppid/index';
+
+$route['service'] = 'webcp/service/C_Service/index';
+
+$route['announcement'] = 'webcp/announcement/C_Announcement/index';
+
+$route['contact'] = 'webcp/contact/C_Contact/index';
+
+$route['wbs'] = 'webcp/wbs/C_Wbs/index';
+
+$route['ttg'] = 'webcp/ttg/C_Ttg/index';
+
+$route['covid'] = 'webcp/covid/C_Covid/index';

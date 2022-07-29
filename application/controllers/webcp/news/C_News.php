@@ -30,6 +30,7 @@ class C_News extends CI_Controller
         $data['news'] = $this->news->searchNews($this->input->post());
         $data['total_data'] = count($data['news']);
         $data['flag_refresh_paging'] = 0;
+        $data['limit'] = '';
         $this->load->view('webcp/news/V_NewsData', $data);
     }
 

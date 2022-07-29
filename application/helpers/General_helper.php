@@ -193,6 +193,17 @@ function formatDateNamaBulanWT($data){
     return $explode[0].' '.getNamaBulan($explode[1]).' '.$explode[2];
 }
 
+function countTotalPage($nData, $limit){
+    $total_page = 1;
+    if($nData > 0){
+        $total_page = intval($nData / $limit);
+        if(fmod($nData, $limit) != 0){
+            $total_page++;
+        }
+    }
+    return $total_page;
+}
+
 function getNamaPegawaiFull($pegawai){
     return trim($pegawai['gelar1']).' '.trim($pegawai['nama']).' '.trim($pegawai['gelar2']);
 }

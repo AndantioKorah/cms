@@ -103,6 +103,7 @@ define('TRANSAKSI_TABLE_VIEW', 1);
 define('USE_PRINT', '0');
 define('URI_UPLOAD', './assets/'); //local with xampp
 define('URI_BERITA', './assets/berita/'); //local with xampp
+define('URI_GALLERY', './assets/admin/galeri'); //local with xampp
 define('DB_BACKUP_FOLDER', 'db/backup/'); //local with xampp
 define('DB_RESTORE_FOLDER', 'db/restore/'); //local with xampp
 

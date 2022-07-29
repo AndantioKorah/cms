@@ -275,11 +275,14 @@ class C_Admin extends CI_Controller
             $nm_gambar = $string = str_replace(' ', '', $_FILES["gambar"]['name']);
             $status = 0;
 
-            $config['file_name'] = $nm_gambar;
-            $config['upload_path']   = './assets/admin/galeri/'; 
-            $config['allowed_types'] = 'gif|jpg|png'; 
+           
+            // $config['upload_path']   = './assets/admin/galeri/'; 
+            // $config['allowed_types'] = 'gif|jpg|png'; 
             // $config['max_size']      = 1024;
-            $this->load->library('upload', $config);
+            // $this->load->library('upload', $config);
+
+            $data = $this->admin->submitKontenGaleri($nm_gambar);
+
       
             if($_FILES["gambar"]["name"] != ""){ 
                 $path="./assets/admin/galeri/";
@@ -287,7 +290,7 @@ class C_Admin extends CI_Controller
                 // $this->ajax_upload($path,$konten,$new_name);
             }
           
-            
+            $config['file_name'] = $nm_gambar;
             $config['upload_path'] = $path;  
             $config['allowed_types'] = 'jpg|jpeg|png|gif'; 
 
@@ -354,6 +357,65 @@ class C_Admin extends CI_Controller
 
         public function deleteGaleri($id){
             $this->general->delete('id', $id, 't_galeri');
+        }
+
+
+
+        //PPID
+        public function ppid(){
+            $this->general_library->refreshMenu();
+            $data['list_menu'] = $this->general->getAllWithOrder('m_menu', 'nama_menu', 'asc');
+            render('admin/ppid/V_Ppid', 'admin', 'konten', $data);
+            
+        }
+
+        function submitKontenPpid(){
+
+      
+            // $new_name = time().$_FILES["gambar"]['name'];
+            $new_name = $_FILES["ppid_file"]['name'];
+            // $nm_gambar = $string = str_replace(' ', '', $_FILES["ppid_file"]['name']);
+        //   dd($nm_gambar);
+
+
+
+      
+            if($_FILES["ppid_file"]["name"] != ""){ 
+                $path="./assets/admin/ppid/";
+                $konten="ppid_file";
+                // $this->ajax_upload($path,$konten,$new_name);
+            }
+          
+            $config_ppid['file_name'] = $new_name;
+            $config_ppid['upload_path'] = $path;  
+            $config_ppid['allowed_types'] = 'jpg|jpeg|png|pdf'; 
+
+           
+            
+            $this->load->library('upload', $config_ppid);  
+            $this->upload->overwrite = true;
+            
+            if(!$this->upload->do_upload($konten))  
+            {  
+                 echo $this->upload->display_errors();  
+            } 
+
+            
+            $data = $this->admin->submitKontenPpid($new_name);
+
+
+            // redirect('admin/galeri');
+            $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
+            echo json_encode($res);
+        }
+
+        public function loadListPpid(){
+            $data['list_ppid'] = $this->admin->loadListPpid();
+            $this->load->view('admin/ppid/V_ListPpid', $data);
+        }
+
+        public function deletePpid($id){
+            $this->general->delete('id', $id, 't_ppid');
         }
 
         
