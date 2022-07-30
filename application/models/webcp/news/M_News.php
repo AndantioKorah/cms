@@ -22,7 +22,6 @@
             $active_page = $page;
             $data = $this->getNewsByPage($page, $limit);
 
-
             return [$data, $total_page, $active_page];
         }
 
@@ -79,6 +78,7 @@
             $this->db->select('a.*, b.nama')
                             ->from('t_berita a')
                             ->join('m_user b', 'a.created_by = b.id')
+                            ->where('a.flag_active', 1)
                             ->order_by('a.tanggal_berita', 'desc')
                             ->limit($limit);
                             
@@ -94,6 +94,7 @@
                             ->from('t_berita a')
                             ->join('m_user b', 'a.created_by = b.id')
                             ->like('a.judul_ina', $data['input_search'])
+                            ->where('a.flag_active', 1)
                             ->order_by('a.tanggal_berita', 'desc')
                             ->limit(LIMIT_NEWS)
                             ->get()->result_array();

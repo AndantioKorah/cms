@@ -20,7 +20,7 @@
   <section id="news" class="news">
     <div class="container">
       <div class="content">
-        <div class="row">
+        <div class="row mb-3">
           <div class="col-lg-3 col-md-3 mb-3">
             <div class="input-group input-group-sm div_data_per_page">
               <div class="input-group-prepend">
