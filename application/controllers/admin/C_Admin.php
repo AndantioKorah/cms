@@ -281,7 +281,6 @@ class C_Admin extends CI_Controller
             // $config['max_size']      = 1024;
             // $this->load->library('upload', $config);
 
-            $data = $this->admin->submitKontenGaleri($nm_gambar);
 
       
             if($_FILES["gambar"]["name"] != ""){ 
@@ -371,7 +370,6 @@ class C_Admin extends CI_Controller
 
         function submitKontenPpid(){
 
-      
             // $new_name = time().$_FILES["gambar"]['name'];
             $new_name = $_FILES["ppid_file"]['name'];
             // $nm_gambar = $string = str_replace(' ', '', $_FILES["ppid_file"]['name']);
@@ -416,6 +414,110 @@ class C_Admin extends CI_Controller
 
         public function deletePpid($id){
             $this->general->delete('id', $id, 't_ppid');
+        }
+
+
+        //PELAYANAN
+
+        public function pelayanan(){
+            $this->general_library->refreshMenu();
+            $data['list_menu'] = $this->general->getAllWithOrder('m_menu', 'nama_menu', 'asc');
+            render('admin/pelayanan/V_Pelayanan', 'admin', 'konten', $data);
+            
+        }
+
+        function submitKontenPelayanan(){
+
+            $new_name = $_FILES["pelayanan_file"]['name'];
+            
+            if($_FILES["pelayanan_file"]["name"] != ""){ 
+                $path="./assets/admin/pelayanan/";
+                $konten="pelayanan_file";
+            }
+          
+            $config_ppid['file_name'] = $new_name;
+            $config_ppid['upload_path'] = $path;  
+            $config_ppid['allowed_types'] = 'jpg|jpeg|png|pdf'; 
+
+           
+            
+            $this->load->library('upload', $config_ppid);  
+            $this->upload->overwrite = true;
+            
+            if(!$this->upload->do_upload($konten))  
+            {  
+                 echo $this->upload->display_errors();  
+            } 
+
+            
+            $data = $this->admin->submitKontenPelayanan($new_name);
+
+
+            // redirect('admin/galeri');
+            $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
+            echo json_encode($res);
+        }
+
+
+        
+        public function loadListPelayanan(){
+            $data['list_pelayanan'] = $this->admin->loadListPelayanan();
+            $this->load->view('admin/pelayanan/V_ListPelayanan', $data);
+        }
+
+        public function deletePelayanan($id){
+            $this->general->delete('id', $id, 't_pelayanan');
+        }
+
+        //PENGUMUMAN
+        public function pengumuman(){
+            $this->general_library->refreshMenu();
+            $data['list_menu'] = $this->general->getAllWithOrder('m_menu', 'nama_menu', 'asc');
+            render('admin/pengumuman/V_Pengumuman', 'admin', 'konten', $data);
+            
+        }
+
+        function submitKontenPengumuman(){
+
+            $new_name = $_FILES["pengumuman_file"]['name'];
+            
+            if($_FILES["pengumuman_file"]["name"] != ""){ 
+                $path="./assets/admin/pengumuman/";
+                $konten="pengumuman_file";
+            }
+          
+            $config_ppid['file_name'] = $new_name;
+            $config_ppid['upload_path'] = $path;  
+            $config_ppid['allowed_types'] = 'jpg|jpeg|png|pdf'; 
+
+           
+            
+            $this->load->library('upload', $config_ppid);  
+            $this->upload->overwrite = true;
+            
+            if(!$this->upload->do_upload($konten))  
+            {  
+                 echo $this->upload->display_errors();  
+            } 
+
+            
+            $data = $this->admin->submitKontenPengumuman($new_name);
+
+
+            // redirect('admin/galeri');
+            $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
+            echo json_encode($res);
+        }
+
+
+        
+        public function loadListPengumuman(){
+            $data['list_pengumuman'] = $this->admin->loadListPengumuman();
+            $this->load->view('admin/pengumuman/V_ListPengumuman', $data);
+        }
+
+        public function deletePengumuman($id){
+            $this->general->delete('id', $id, 't_pengumuman');
         }
 
         

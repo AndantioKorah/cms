@@ -32,6 +32,7 @@
             $data["tanggal_berita"] = $datapost["tanggal_berita"];
             $data["isi_berita"] = $datapost["isi_berita"];
             $data["gambar"] = $new_name;
+            $data['created_by'] = $this->general_library->getId();
             $this->db->insert('t_berita', $data);
             return $this->db->insert_id();
         }
@@ -124,7 +125,10 @@
                 $datapost = $this->input->post();
                 $data["nama"] = $datapost["judul_gambar"];
                 $data["isi_galeri"] = $new_name;
+                $data["tanggal"] =  $datapost["tanggal_gambar"];
                 $data["jenis"] = 1;
+                $data['created_by'] = $this->general_library->getId();
+                $this->general_library->getId();
                 $this->db->insert('t_galeri', $data);
                 return $this->db->insert_id(); 
         }
@@ -135,7 +139,9 @@
             $datapost = $this->input->post();
             $data["nama"] = $datapost["judul_video"];
             $data["isi_galeri"] =  $datapost["link_video"];
+            $data["tanggal"] =  $datapost["tanggal_video"];
             $data["jenis"] = 2;
+            $data['created_by'] = $this->general_library->getId();
             $this->db->insert('t_galeri', $data);
             return $this->db->insert_id(); 
     }
@@ -165,7 +171,9 @@
            
             $datapost = $this->input->post();
             $data["judul"] = $datapost["judul_ppid"];
+            $data["keterangan"] = $datapost["ketarangan_ppid"];
             $data["file"] = $new_name;
+            $data['created_by'] = $this->general_library->getId();
             $this->db->insert('t_ppid', $data);
             return $this->db->insert_id(); 
     }
@@ -177,6 +185,49 @@
                         ->get()->result_array();
         return $query; 
     }
+
+
+    public function submitKontenPelayanan($new_name){
+
+           
+        $datapost = $this->input->post();
+        $data["judul"] = $datapost["judul_pelayanan"];
+        $data["keterangan"] = $datapost["ketarangan_pelayanan"];
+        $data["file"] = $new_name;
+        $data['created_by'] = $this->general_library->getId();
+        $this->db->insert('t_pengumuman', $data);
+        return $this->db->insert_id(); 
+        }
+
+        function loadListPelayanan(){
+            $query = $this->db->select('*')
+                            ->from('t_pengumuman a')
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+            return $query; 
+        }
+
+
+        public function submitKontenPengumuman($new_name){
+
+           
+            $datapost = $this->input->post();
+            $data["judul"] = $datapost["judul_pengumuman"];
+            $data["keterangan"] = $datapost["ketarangan_pengumuman"];
+            $data["file"] = $new_name;
+            $data['created_by'] = $this->general_library->getId();
+            $this->db->insert('t_pengumuman', $data);
+            return $this->db->insert_id(); 
+            }
+
+            function loadListPengumuman(){
+                $query = $this->db->select('*')
+                                ->from('t_pengumuman a')
+                                ->where('a.flag_active', 1)
+                                ->get()->result_array();
+                return $query; 
+            }
+    
 
 
 	}

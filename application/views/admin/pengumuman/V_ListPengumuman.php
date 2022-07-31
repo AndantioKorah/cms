@@ -1,30 +1,28 @@
-<?php if($list_galeri_video){ ?>
+<?php if($list_pengumuman){ ?>
     <div class="table-responsive">
-    <table id="datatable2" class="table table-striped table-bordered" style="width:100%">
+    <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
                 <th>No</th>
-                <th>Judul Video</th>
-                <th>Tanggal</th>
-                <th>Link Video</th>
+                <th>Judul </th>
+                <th>Keterangan</th>
+                <th>File</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-        <?php $no=1; foreach($list_galeri_video as $lb){ ?>
+        <?php $no=1; foreach($list_pengumuman as $lb){ ?>
                    <tr>
                     <td><?=$no++;?></td>
-                    <td><?=$lb['nama'];?></td>
-                    <td><?= formatDateOnly($lb['tanggal']);?></td>
-                    <td><a href="<?=$lb['isi_galeri'];?>" target="_blank"><h5><span class="badge badge-secondary"><i class="fas fa-link"></i> <?=$lb['isi_galeri'];?></span></h5></a> 
-                <?= preg_replace("/\s*[a-zA-Z\/\/:\.]*youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i","<iframe width=\"420\" height=\"315\" src=\"//www.youtube.com/embed/$1\" frameborder=\"0\" allowfullscreen></iframe>",$lb['isi_galeri']); ?>
-                </td>
-                  <td> <button onclick="deleteGaleri('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
+                    <td><?=$lb['judul'];?></td>
+                    <td><?=$lb['keterangan'];?></td>
+                    <td> <a style='width:800;height:300px;' href="<?=base_url('assets/admin/pengumuman/'.$lb['file'].'')?>" target="_blank"><?=base_url('assets/admin/pengumuman/'.$lb['file'].'')?></a> </td>
+                  <td> <button onclick="deletePengumuman('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
                    </tr>
                 <?php } ?>
         </tfoot>
     </table>
-        </div>
+    </div>
         <!-- Modal Ubah -->
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="edit-data" class="modal fade">
     <div class="modal-dialog modal-xl">
@@ -53,19 +51,16 @@
     </div>
 <?php } ?>
 <script>
-    $(document).ready(function() {
-        $('#datatable2').DataTable();
-    });
-        function deleteGaleri(id){
+        function deletePengumuman(id){
            
            if(confirm('Apakah Anda yakin ingin menghapus data?')){
                $.ajax({
-                   url: '<?=base_url("admin/C_admin/deleteGaleri/")?>'+id,
+                   url: '<?=base_url("admin/C_admin/deletePengumuman/")?>'+id,
                    method: 'post',
                    data: null,
                    success: function(){
                        successtoast('Data sudah terhapus')
-                       loadListGaleriVideo()
+                       loadListPengumuman()
                    }, error: function(e){
                        errortoast('Terjadi Kesalahan')
                    }

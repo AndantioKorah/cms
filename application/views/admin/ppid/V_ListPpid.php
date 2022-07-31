@@ -5,6 +5,7 @@
             <tr>
                 <th>No</th>
                 <th>Judul </th>
+                <th>Keterangan</th>
                 <th>File</th>
                 <th></th>
             </tr>
@@ -14,7 +15,8 @@
                    <tr>
                     <td><?=$no++;?></td>
                     <td><?=$lb['judul'];?></td>
-                    <td> <a style='width:800;height:300px;' href="<?=base_url('assets/admin/ppid/'.$lb['file'].'')?>" target="_blank"><?=base_url('assets/admin/galeri/'.$lb['file'].'')?></a> </td>
+                    <td><?=$lb['keterangan'];?></td>
+                    <td> <a style='width:800;height:300px;' href="<?=base_url('assets/admin/ppid/'.$lb['file'].'')?>" target="_blank"><?=base_url('assets/admin/ppid/'.$lb['file'].'')?></a> </td>
                   <td> <button onclick="deletePpid('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
                    </tr>
                 <?php } ?>
@@ -53,7 +55,7 @@
            
            if(confirm('Apakah Anda yakin ingin menghapus data?')){
                $.ajax({
-                   url: '<?=base_url("admin/C_admin/deletePpid/")?>'+id,
+                   url: '<?=base_url("admin/C_admin/deletePelayanan/")?>'+id,
                    method: 'post',
                    data: null,
                    success: function(){

@@ -60,6 +60,12 @@
   <label class="bmd-label-floating">Judul Gambar</label>
     <textarea class="form-control" name="judul_gambar" id="judul_gambar" rows="3" required></textarea>
   </div>
+
+  <div class="form-group text-left">
+  <label class="bmd-label-floating">Tanggal</label>
+    <input class="form-control datepicker" name="tanggal_gambar" id="tanggal_gambar"  autocomplete="off" required/>
+  </div>
+  
   <div class="form-group text-left">
   <label class="bmd-label-floating">Gambar </label> 
  <input type="file"class="form-control"  name="gambar" id="gambar"/>
@@ -91,13 +97,20 @@
   <label class="bmd-label-floating">Judul Video</label>
     <textarea class="form-control" name="judul_video" id="judul_video" rows="3" required></textarea>
   </div>
+
+  <div class="form-group text-left">
+  <label class="bmd-label-floating">Tanggal</label>
+    <input class="form-control datepicker" name="tanggal_video" id="tanggal_video" autocomplete="off" required/>
+  </div>
+  
+
   <div class="form-group text-left">
   <label class="bmd-label-floating">Link Video </label> 
-    <input class="form-control"  name="link_video" id="link_video" autocomplete="off"/> 
+    <input class="form-control"  name="link_video" id="link_video" autocomplete="off" required/> 
   </div>
 
   <div class="col-lg-12 col-md-4 text-right mt-2">
-    <button class="btn btn-block btn-navy" id="btn_upload"><i class="fa fa-save"></i> SIMPAN</button>
+    <button class="btn btn-block btn-navy" id="btn_upload_video"><i class="fa fa-save"></i> SIMPAN</button>
     </div>
 </form>
 <div class="card card-default" style="margin-top:20px;">
@@ -150,7 +163,8 @@
                     
                        if(result.success == true){
                            successtoast(result.msg)
-                           document.getElementById("form_galeri").reset();  
+                           document.getElementById("form_galeri").reset();
+                           $('#uploadPreview2').html('');
                            $('#btn_upload').prop('disabled', false);
                            $('#btn_upload').html('<i class="fa fa-save"></i>  SIMPAN')
                            loadListGaleri()                          
@@ -164,7 +178,7 @@
      });
 
      $('#form_galeri_video').on('submit', function(e){  
-          $('input[type="submit"]').attr('disabled','disabled');
+      $('#btn_upload_video').prop('disabled', true);
           $('#btn_upload').html('SIMPAN.. <i class="fas fa-spinner fa-spin"></i>')
           e.preventDefault();    
                $.ajax({  
@@ -182,7 +196,7 @@
                        if(result.success == true){
                            successtoast(result.msg)
                            document.getElementById("form_galeri_video").reset();  
-                           $('#uploadPreview2').html('');
+                           $('#btn_upload_video').prop('disabled', false);
                            $('#btn_upload').html('<i class="fa fa-save"></i>  SIMPAN')
                            loadListGaleriVideo()                          
                        } else {
@@ -243,5 +257,12 @@
         }
         });
 
-    
+        $('.datepicker').datepicker({
+        todayHighlight: true,
+        todayBtn: "linked",
+        keyboardNavigation:true,
+        autoclose: true,
+        format: 'yyyy-mm-dd',
+    })
+
     </script> 

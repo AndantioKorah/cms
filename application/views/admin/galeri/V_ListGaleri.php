@@ -5,15 +5,17 @@
             <tr>
                 <th>No</th>
                 <th>Judul Gambar</th>
+                <th>Tanggal</th>
                 <th>Gambar</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-        <?php $no=1; foreach($list_galeri as $lb){ ?>
+        <?php $no=1; $link = "https://www.youtube.com/watch?v=dlFA0Zq1k2A&list=RDwinCuC8dYdA&index=8&ab_channel=KANABOONVEVO"; foreach($list_galeri as $lb){ ?>
                    <tr>
-                    <td><?=$no++;?></td>
+                    <td><?= $no++;?> </td>
                     <td><?=$lb['nama'];?></td>
+                    <td><?= formatDateOnly($lb['tanggal']);?></td>
                     <td> <img style='width:800;height:300px;' src="<?=base_url('assets/admin/galeri/'.$lb['isi_galeri'].'')?>"> </td>
                   <td> <button onclick="deleteGaleri('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
                    </tr>

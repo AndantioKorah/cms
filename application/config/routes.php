@@ -72,6 +72,9 @@ $route['admin/konten'] = 'admin/C_Admin/konten';
 $route['admin/berita'] = 'admin/C_Admin/berita';
 $route['admin/galeri'] = 'admin/C_Admin/galeri';
 $route['admin/ppid'] = 'admin/C_Admin/ppid';
+$route['admin/pelayanan'] = 'admin/C_Admin/pelayanan';
+$route['admin/pengumuman'] = 'admin/C_Admin/pengumuman';
+
 // $route['dashboard'] = 'dashboard/C_Dashboard/dashboard';
 
 // =============================================================

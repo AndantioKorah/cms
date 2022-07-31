@@ -75,6 +75,10 @@
         window.location.href = "<?=base_url("admin/galeri")?>";
     }else if(sel.value == 4){
         window.location.href = "<?=base_url("admin/ppid")?>";
+    } else if(sel.value == 5){
+        window.location.href = "<?=base_url("admin/pelayanan")?>";
+    } else if(sel.value == 6){
+        window.location.href = "<?=base_url("admin/pengumuman")?>";
     }
     }
 </script>
