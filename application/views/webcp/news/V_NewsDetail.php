@@ -7,7 +7,7 @@
     border-right: 1px var(--primary) solid;
   }
 
-  .image-berita{
+  .image-berita-detail{
     width: 100%;
     position: relative;
   }
@@ -64,7 +64,11 @@
                   <span class="badge-berita badge"><i class="fa fa-eye"></i> <?=formatCurrencyWithoutRp($rs['seen_count'])?> kali dilihat</span>
                 </div>
                 <div class="image">
-                  <img class="image-berita" src="<?=$this->general_library->getBeritaImage($rs['gambar'])?>" />
+                  <?php
+                    $data['gambar'] = json_decode($rs['gambar'], true);
+                    $this->load->view('webcp/partials/V_ImageVerticalSlider.php', $data);
+                  ?>
+                  <!-- <img class="image-berita-detail" src="<?=$this->general_library->getBeritaImage($rs['gambar'])?>" /> -->
                 </div>
                 <div style="text-align: justify;" class="judul-berita mt-3">
                   <span class="header_news" title="<?=$rs['judul_ina']?>"><?=$rs['judul_ina']?></span>

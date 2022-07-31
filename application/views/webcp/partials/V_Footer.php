@@ -5,9 +5,9 @@
   <div class="footer-top">
     <div class="container">
       <div class="row">
-        <div class="footer-section col-lg-3 col-md-12">
+        <div class="footer-section col-lg-6 col-md-12">
           <div class="map-sm">
-            <div class="mapouter"><div class="gmap_canvas"><iframe width="300" height="200" id="gmap_canvas" src="https://maps.google.com/maps?q=btklpp%20kelas%201%20manado&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://123movies-to.org"></a><br><style>.mapouter{position:relative;text-align:right;height:200px;width:300px;}</style><a href="https://www.embedgooglemap.net">copy google map</a><style>.gmap_canvas {overflow:hidden;background:none!important;height:200px;width:300px;}</style></div></div>
+            <div class="mapouter"><div class="gmap_canvas"><iframe width="100%" height="200" id="gmap_canvas" src="https://maps.google.com/maps?q=btklpp%20kelas%201%20manado&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://123movies-to.org"></a><br><style>.mapouter{position:relative;text-align:right;height:200px;width:100%;}</style><a href="https://www.embedgooglemap.net">copy google map</a><style>.gmap_canvas {overflow:hidden;background:none!important;height:200px;width:100%;}</style></div></div>
           </div>
         </div>
         <div class="footer-section col-lg-3 col-md-12">
@@ -20,8 +20,6 @@
               <strong>Email:</strong> info@example.com<br>
             </p>
           </div>
-        </div>
-        <div class="col-lg-3 col-md-12">
         </div>
         <div class="col-lg-3 col-md-12">
           <div class="footer-info">

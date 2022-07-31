@@ -516,6 +516,38 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/*  
+# Sections News
+*/
+
+.image-berita{
+  width: 100%;
+  position: relative;
+}
+
+@media (min-width: 1400px) {
+  .image-berita{
+    max-height: 214px;
+  }
+}
+
+@media (max-width: 1399px) {
+  .image-berita{
+    max-height: 181px;
+  }
+}
+
+@media (max-width: 1199px) {
+  .image-berita{
+    max-height: 147px;
+  }
+}
+
+@media (max-width: 991px) {
+  .image-berita{
+    max-height: 373px;
+  }
+}
 /*--------------------------------------------------------------
 # Sections General
 --------------------------------------------------------------*/
