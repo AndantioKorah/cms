@@ -19,6 +19,10 @@
     <textarea class="form-control" name="ketarangan_pengumuman" id="ketarangan_pengumuman" rows="3" required></textarea>
   </div>
   <div class="form-group text-left">
+  <label class="bmd-label-floating">Tanggal</label>
+    <input class="form-control datepicker" name="tanggal_pengumuman" id="tanggal_pengumuman"  autocomplete="off" required/>
+  </div>
+  <div class="form-group text-left">
   <label class="bmd-label-floating">File </label> 
  <input type="file"class="form-control"  name="pengumuman_file" id="pengumuman_file"/>
         <br>
@@ -59,7 +63,7 @@
 
 
      $('#form_pengumuman').on('submit', function(e){  
-        // $('#btn_upload').prop('disabled', true);
+        $('#btn_upload').prop('disabled', true);
           $('#btn_upload').html('SIMPAN.. <i class="fas fa-spinner fa-spin"></i>')
           e.preventDefault();  
           if($('#file_ppid').val() == '')  
@@ -82,7 +86,8 @@
                     
                        if(result.success == true){
                            successtoast(result.msg)
-                           document.getElementById("form_pelayanan").reset();  
+                           document.getElementById("form_pengumuman").reset(); 
+                           $('#btn_upload').prop('disabled', false); 
                            $('#btn_upload').html('<i class="fa fa-save"></i>  SIMPAN')
                            loadListPengumuman()                          
                        } else {
@@ -93,4 +98,12 @@
                });  
           }  
      });
+
+     $('.datepicker').datepicker({
+        todayHighlight: true,
+        todayBtn: "linked",
+        keyboardNavigation:true,
+        autoclose: true,
+        format: 'yyyy-mm-dd',
+    })
 </script>

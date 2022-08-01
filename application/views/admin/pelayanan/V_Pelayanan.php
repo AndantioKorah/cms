@@ -19,6 +19,10 @@
     <textarea class="form-control" name="ketarangan_pelayanan" id="ketarangan_pelayanan" rows="3" required></textarea>
   </div>
   <div class="form-group text-left">
+  <label class="bmd-label-floating">Tanggal</label>
+    <input class="form-control datepicker" name="tanggal_pelayanan" id="tanggal_pelayanan"  autocomplete="off" required/>
+  </div>
+  <div class="form-group text-left">
   <label class="bmd-label-floating">File </label> 
  <input type="file"class="form-control"  name="pelayanan_file" id="pelayanan_file"/>
         <br>
@@ -93,4 +97,13 @@
                });  
           }  
      });
+
+
+     $('.datepicker').datepicker({
+        todayHighlight: true,
+        todayBtn: "linked",
+        keyboardNavigation:true,
+        autoclose: true,
+        format: 'yyyy-mm-dd',
+    })
 </script>

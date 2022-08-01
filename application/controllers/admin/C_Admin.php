@@ -371,9 +371,9 @@ class C_Admin extends CI_Controller
         function submitKontenPpid(){
 
             // $new_name = time().$_FILES["gambar"]['name'];
-            $new_name = $_FILES["ppid_file"]['name'];
-            // $nm_gambar = $string = str_replace(' ', '', $_FILES["ppid_file"]['name']);
-        //   dd($nm_gambar);
+            $new_name = str_replace(array( '-',' ',']'), ' ', $_FILES["ppid_file"]['name']);
+            $new_name = $string = str_replace(' ', '', $_FILES["ppid_file"]['name']);
+        //   dd($new_name);
 
 
 
@@ -428,7 +428,9 @@ class C_Admin extends CI_Controller
 
         function submitKontenPelayanan(){
 
-            $new_name = $_FILES["pelayanan_file"]['name'];
+
+             $new_name = str_replace(array( '-',' ',']'), ' ', $_FILES["pelayanan_file"]['name']);
+             $new_name = $string = str_replace(' ', '', $_FILES["pelayanan_file"]['name']);
             
             if($_FILES["pelayanan_file"]["name"] != ""){ 
                 $path="./assets/admin/pelayanan/";

@@ -19,7 +19,7 @@
                     <td><?=$lb['tanggal_berita'];?></td>
                     <td><i class="fa fa-tag" aria-hidden="true"></i><?= str_replace( array( '\'', '"','[',']'), ' ', $lb['tag_berita']) ?></td>
                     <td><?=
-                    substr($lb['isi_berita'], 0, 450);?>...
+                    substr($lb['isi_berita'], 0, 450);?>
                     <p style="margin-top:10px;">
                     <a 
                     href="javascript:;"

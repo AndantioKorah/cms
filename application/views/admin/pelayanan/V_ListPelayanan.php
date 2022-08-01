@@ -6,6 +6,7 @@
                 <th>No</th>
                 <th>Judul </th>
                 <th>Keterangan</th>
+                <th>Tanggal</th>
                 <th>File</th>
                 <th></th>
             </tr>
@@ -16,6 +17,8 @@
                     <td><?=$no++;?></td>
                     <td><?=$lb['judul'];?></td>
                     <td><?=$lb['keterangan'];?></td>
+                    <td><?= formatDateOnly($lb['tanggal']);?></td>
+
                     <td> <a style='width:800;height:300px;' href="<?=base_url('assets/admin/pelayanan/'.$lb['file'].'')?>" target="_blank"><?=base_url('assets/admin/pelayanan/'.$lb['file'].'')?></a> </td>
                   <td> <button onclick="deletePelayanan('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
                    </tr>
@@ -55,7 +58,7 @@
            
            if(confirm('Apakah Anda yakin ingin menghapus data?')){
                $.ajax({
-                   url: '<?=base_url("admin/C_admin/deletePlayanan/")?>'+id,
+                   url: '<?=base_url("admin/C_admin/deletePelayanan/")?>'+id,
                    method: 'post',
                    data: null,
                    success: function(){

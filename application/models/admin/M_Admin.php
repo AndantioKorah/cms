@@ -173,6 +173,7 @@
             $data["judul"] = $datapost["judul_ppid"];
             $data["keterangan"] = $datapost["ketarangan_ppid"];
             $data["file"] = $new_name;
+            $data["tanggal"] =  $datapost["tanggal_ppid"];
             $data['created_by'] = $this->general_library->getId();
             $this->db->insert('t_ppid', $data);
             return $this->db->insert_id(); 
@@ -193,15 +194,16 @@
         $datapost = $this->input->post();
         $data["judul"] = $datapost["judul_pelayanan"];
         $data["keterangan"] = $datapost["ketarangan_pelayanan"];
+        $data["tanggal"] =  $datapost["tanggal_pelayanan"];
         $data["file"] = $new_name;
         $data['created_by'] = $this->general_library->getId();
-        $this->db->insert('t_pengumuman', $data);
+        $this->db->insert('t_pelayanan', $data);
         return $this->db->insert_id(); 
         }
 
         function loadListPelayanan(){
             $query = $this->db->select('*')
-                            ->from('t_pengumuman a')
+                            ->from('t_pelayanan a')
                             ->where('a.flag_active', 1)
                             ->get()->result_array();
             return $query; 
@@ -214,6 +216,7 @@
             $datapost = $this->input->post();
             $data["judul"] = $datapost["judul_pengumuman"];
             $data["keterangan"] = $datapost["ketarangan_pengumuman"];
+            $data["tanggal"] =  $datapost["tanggal_pengumuman"];
             $data["file"] = $new_name;
             $data['created_by'] = $this->general_library->getId();
             $this->db->insert('t_pengumuman', $data);
