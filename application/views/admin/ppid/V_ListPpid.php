@@ -6,7 +6,7 @@
                 <th>No</th>
                 <th>Judul </th>
                 <th>Keterangan</th>
-                <th>Ketegori</th>
+                <th>Kategori</th>
                 <th>Jenis</th>
                 <th>Tanggal</th>
                 <th>File</th>
@@ -57,6 +57,7 @@
     </div>
 <?php } ?>
 <script>
+     $('#example').DataTable();
         function deletePpid(id){
            
            if(confirm('Apakah Anda yakin ingin menghapus data?')){

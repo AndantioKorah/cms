@@ -60,7 +60,7 @@
             <div class="card-header">
                         <div class="row">
                             <div class="col-12">
-                                <h3 class="card-title">LIST FILE</h3>
+                                <h3 class="card-title">LIST PPID</h3>
                             </div>
                         </div>
                     <div class="card-body" id="list_ppid">

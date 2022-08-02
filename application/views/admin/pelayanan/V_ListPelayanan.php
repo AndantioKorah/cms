@@ -19,7 +19,7 @@
                     <td><?=$lb['keterangan'];?></td>
                     <td><?= formatDateOnly($lb['tanggal']);?></td>
 
-                    <td> <a style='width:800;height:300px;' href="<?=base_url('assets/admin/pelayanan/'.$lb['file'].'')?>" target="_blank"><?=base_url('assets/admin/pelayanan/'.$lb['file'].'')?></a> </td>
+                    <td> <a style='width:800;height:300px;' href="<?=base_url('assets/admin/pelayanan/'.$lb['file'].'')?>" target="_blank"><i class="fa fa-file" aria-hidden="true"></i></a> </td>
                   <td> <button onclick="deletePelayanan('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
                    </tr>
                 <?php } ?>
@@ -54,6 +54,7 @@
     </div>
 <?php } ?>
 <script>
+     $('#example').DataTable();
         function deletePelayanan(id){
            
            if(confirm('Apakah Anda yakin ingin menghapus data?')){
