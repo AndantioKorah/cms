@@ -37,4 +37,49 @@ class C_Master extends CI_Controller
     public function editMasterParameter(){
         echo json_encode($this->master->editMasterParameter($this->input->post()));
     }
+
+
+    public function masterKategoriPpid(){
+     
+        render('master/V_MasterKatergoriPpid', '', '', $data);
+    }
+
+    function submitMasterKategoriPpid(){
+        $data = $this->master->submitMasterKategoriPpid();
+       
+        echo json_encode($data);
+    }
+
+    function loadListMasterKategoriPpid(){
+        $data['list_master_kategori_ppid'] = $this->master->loadListMasterKategoriPpid();
+        $this->load->view('master/V_ListMasterKategoriPpid', $data);
+    }
+
+    public function deleteMasterKategoriPpid($id){
+        $this->general->delete('id', $id, 'm_kategori_ppid');
+    }
+
+
+    public function masterJenisPpid(){
+        $data['list_master_kategori_ppid'] = $this->master->getMasterKategoriPpid();
+        render('master/V_MasterJenisPpid', '', '', $data);
+    }
+
+    function submitMasterJenisPpid(){
+        $data = $this->master->submitMasterJenisPpid();
+       
+        echo json_encode($data);
+    }
+
+    function loadListMasterJenisPpid(){
+        $data['list_master_jenis_ppid'] = $this->master->loadListMasterJenisPpid();
+        $this->load->view('master/V_ListMasterJenisPpid', $data);
+    }
+
+    public function deleteMasterJenisPpid($id){
+        $this->general->delete('id', $id, 'm_jenis_ppid');
+    }
+
+    
+
 }

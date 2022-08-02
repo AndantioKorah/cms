@@ -1,29 +1,21 @@
-<?php if($list_ppid){ ?>
+<?php if($list_master_jenis_ppid){ ?>
     <div class="table-responsive">
     <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
                 <th>No</th>
-                <th>Judul </th>
-                <th>Keterangan</th>
-                <th>Ketegori</th>
-                <th>Jenis</th>
-                <th>Tanggal</th>
-                <th>File</th>
+                <th>Nama Jenis PPID</th>
+                <th>Nama Kategori PPID </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-        <?php $no=1; foreach($list_ppid as $lb){ ?>
+        <?php $no=1; foreach($list_master_jenis_ppid as $lb){ ?>
                    <tr>
                     <td><?=$no++;?></td>
-                    <td><?=$lb['judul'];?></td>
-                    <td><?=$lb['keterangan'];?></td>
-                    <td><?=$lb['nama_kategori'];?></td>
                     <td><?=$lb['nama_jenis'];?></td>
-                    <td><?= formatDateOnly($lb['tanggal']);?></td>
-                    <td> <a style='width:800;height:300px;' href="<?=base_url('assets/admin/ppid/'.$lb['file'].'')?>" target="_blank"><i class="fa fa-file" aria-hidden="true"></i></a> </td>
-                  <td> <button onclick="deletePpid('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
+                    <td><?=$lb['nama_kategori'];?></td>
+                    <td> <button onclick="deleteMasterJenisPpid('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
                    </tr>
                 <?php } ?>
         </tfoot>
@@ -57,16 +49,17 @@
     </div>
 <?php } ?>
 <script>
-        function deletePpid(id){
+     $('#example').DataTable();
+        function deleteMasterJenisPpid(id){
            
            if(confirm('Apakah Anda yakin ingin menghapus data?')){
                $.ajax({
-                   url: '<?=base_url("admin/C_admin/deletePpid/")?>'+id,
+                   url: '<?=base_url("master/C_Master/deleteMasterJenisPpid/")?>'+id,
                    method: 'post',
                    data: null,
                    success: function(){
                        successtoast('Data sudah terhapus')
-                       loadListPpid()
+                       loadListMasterJenisPpid()
                    }, error: function(e){
                        errortoast('Terjadi Kesalahan')
                    }

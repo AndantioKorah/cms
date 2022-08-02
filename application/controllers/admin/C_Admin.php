@@ -364,6 +364,7 @@ class C_Admin extends CI_Controller
         public function ppid(){
             $this->general_library->refreshMenu();
             $data['list_menu'] = $this->general->getAllWithOrder('m_menu', 'nama_menu', 'asc');
+            $data['list_master_kategori_ppid'] = $this->admin->getMasterKategoriPpid();
             render('admin/ppid/V_Ppid', 'admin', 'konten', $data);
             
         }
@@ -520,6 +521,12 @@ class C_Admin extends CI_Controller
 
         public function deletePengumuman($id){
             $this->general->delete('id', $id, 't_pengumuman');
+        }
+
+        function getMasterJenisPpid(){
+            $id=$this->input->post('id');
+            $data=$this->admin->getMasterJenisPpid($id);
+            echo json_encode($data);
         }
 
         

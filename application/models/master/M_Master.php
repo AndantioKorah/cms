@@ -123,5 +123,59 @@
 
             return $res;
         }
+
+
+        public function submitMasterKategoriPpid(){
+
+           
+            $datapost = $this->input->post();
+            $data["nama_kategori"] = $datapost["nama_kategori_ppid"];
+            $data['created_by'] = $this->general_library->getId();
+            $this->db->insert('m_kategori_ppid', $data);
+            $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
+            return $res;
+            }
+
+            function loadListMasterKategoriPpid(){
+                $query = $this->db->select('*')
+                                ->from('m_kategori_ppid a')
+                                ->where('a.flag_active', 1)
+                                ->get()->result_array();
+            return $query; 
+            }
+
+
+            public function submitMasterJenisPpid(){
+
+           
+                $datapost = $this->input->post();
+                $data["nama_jenis"] = $datapost["nama_jenis_ppid"];
+                $data["id_kategori_ppid"] = $datapost["id_kategori_ppid"];
+                
+                $data['created_by'] = $this->general_library->getId();
+                $this->db->insert('m_jenis_ppid', $data);
+                $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
+                return $res;
+                }
+    
+                function loadListMasterJenisPpid(){
+                    $query = $this->db->select('*')
+                                    ->from('m_jenis_ppid a')
+                                    ->join('m_kategori_ppid b', 'a.id_kategori_ppid = b.id')
+                                    ->where('a.flag_active', 1)
+                                    ->get()->result_array();
+                return $query; 
+                }
+
+                    
+            public function getMasterKategoriPpid(){
+
+                return $this->db->select('*')
+                                ->from('m_kategori_ppid as a')
+                                ->where('a.flag_active', 1)
+                                ->get()->result_array();
+            }
+    
+
     }
 ?>

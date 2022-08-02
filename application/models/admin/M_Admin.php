@@ -174,6 +174,8 @@
             $data["keterangan"] = $datapost["ketarangan_ppid"];
             $data["file"] = $new_name;
             $data["tanggal"] =  $datapost["tanggal_ppid"];
+            $data["kategori"] =  $datapost["kategori_ppid"];
+            $data["jenis"] =  $datapost["jenis_ppid"];
             $data['created_by'] = $this->general_library->getId();
             $this->db->insert('t_ppid', $data);
             return $this->db->insert_id(); 
@@ -182,6 +184,8 @@
     function loadListPpid(){
         $query = $this->db->select('*')
                         ->from('t_ppid a')
+                        ->join('m_kategori_ppid b', 'a.kategori = b.id')
+                        ->join('m_jenis_ppid c', 'a.jenis = c.id')
                         ->where('a.flag_active', 1)
                         ->get()->result_array();
         return $query; 
@@ -230,6 +234,24 @@
                                 ->get()->result_array();
                 return $query; 
             }
+
+            public function getMasterKategoriPpid(){
+
+                return $this->db->select('*')
+                                ->from('m_kategori_ppid as a')
+                                ->where('a.flag_active', 1)
+                                ->get()->result_array();
+            }
+
+            public function getMasterJenisPpid($id){
+
+                return $this->db->select('*')
+                                ->from('m_jenis_ppid as a')
+                                ->where('a.id_kategori_ppid', $id)
+                                ->where('a.flag_active', 1)
+                                ->get()->result_array();
+            }
+
     
 
 

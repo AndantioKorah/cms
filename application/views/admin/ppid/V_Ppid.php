@@ -16,11 +16,33 @@
   </div>
   <div class="form-group text-left">
   <label class="bmd-label-floating">Keterangan</label>
-    <textarea class="form-control" name="ketarangan_ppid" id="ketarangan_ppid" rows="3" required></textarea>
+    <textarea class="form-control" name="ketarangan_ppid" id="ketarangan_ppid" rows="3" ></textarea>
   </div>
   <div class="form-group text-left">
   <label class="bmd-label-floating">Tanggal</label>
     <input class="form-control datepicker" name="tanggal_ppid" id="tanggal_ppid"  autocomplete="off" required/>
+  </div>
+
+  <div class="form-group text-left">
+  <label class="bmd-label-floating">Kategori</label>
+  <select class="form-control select2-navy" style="width: 100%"
+                 id="kategori_ppid" data-dropdown-css-class="select2-navy" name="kategori_ppid" required>
+                 <option value="" selected>- Pilih Kategori -</option>
+                 <?php if($list_master_kategori_ppid){
+                                foreach($list_master_kategori_ppid as $ljp){
+                                ?>
+                                <option value="<?=$ljp['id']?>">
+                                    <?=$ljp['nama_kategori']?>
+                                </option>
+                            <?php } } ?>
+                 </select>
+  </div>
+
+  <div class="form-group text-left">
+  <label class="bmd-label-floating">Jenis</label>
+    <select name="jenis_ppid" class="subkategori form-control"  id="jenis_ppid"  autocomplete="off">
+                           
+                        </select>
   </div>
   
   <div class="form-group text-left">
@@ -64,7 +86,7 @@
 
 
      $('#form_ppid').on('submit', function(e){  
-        // $('#btn_upload').prop('disabled', true);
+        $('#btn_upload').prop('disabled', true);
           $('#btn_upload').html('SIMPAN.. <i class="fas fa-spinner fa-spin"></i>')
           e.preventDefault();  
           if($('#file_ppid').val() == '')  
@@ -88,6 +110,7 @@
                        if(result.success == true){
                            successtoast(result.msg)
                            document.getElementById("form_ppid").reset();  
+                           $('#btn_upload').prop('disabled', false);
                            $('#btn_upload').html('<i class="fa fa-save"></i>  SIMPAN')
                            loadListPpid()                          
                        } else {
@@ -106,5 +129,27 @@
         autoclose: true,
         format: 'yyyy-mm-dd',
     })
+
+
+     $('#kategori_ppid').change(function(){
+     
+            var id=$(this).val();
+            $.ajax({
+                url : "<?php echo base_url();?>admin/C_Admin/getMasterJenisPpid",
+                method : "POST",
+                data : {id: id},
+                async : false,
+                dataType : 'json',
+                success: function(data){
+                    var html = '';
+                    var i;
+                    for(i=0; i<data.length; i++){
+                        html += '<option value='+data[i].id+'>'+data[i].nama_jenis+'</option>';
+                    }
+                    $('.subkategori').html(html);
+                     
+                }
+            });
+        });
 
 </script>
