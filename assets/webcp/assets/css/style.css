@@ -527,25 +527,37 @@ h1, h2, h3, h4, h5, h6 {
 
 @media (min-width: 1400px) {
   .image-berita{
-    max-height: 214px;
+    height: 214px;
   }
 }
 
 @media (max-width: 1399px) {
   .image-berita{
-    max-height: 181px;
+    height: 181px;
   }
 }
 
 @media (max-width: 1199px) {
   .image-berita{
-    max-height: 147px;
+    height: 147px;
   }
 }
 
 @media (max-width: 991px) {
   .image-berita{
-    max-height: 373px;
+    height: 373px;
+  }
+}
+
+@media (max-width: 767px) {
+  .image-berita{
+    height: 276px;
+  }
+}
+
+@media (max-width: 576px) {
+  .image-berita{
+    height: 186px;
   }
 }
 /*--------------------------------------------------------------
