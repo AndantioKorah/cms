@@ -31,6 +31,16 @@
   border-radius: 5px;
 }
 
+
+  #img_preview_modal{
+    width: 100%;
+    max-height: 600px;
+  }
+
+  #img_name{
+    font-size: 30px;
+    color: white;
+  }
 </style>
 <div class="card card-default">
 <div class="card-header">
@@ -47,8 +57,9 @@
     <a data-toggle="tab" class="nav-link active" href="#home">Gambar</a>
   </li>
   <li class="nav-item">
-    <a data-toggle="tab" class="nav-link" href="#menu1">Video</a>
+    <a id="video" data-toggle="tab" class="nav-link" href="#menu1">Video</a>
   </li>
+
 
 
 </ul>
@@ -63,7 +74,7 @@
 
   <div class="form-group text-left">
   <label class="bmd-label-floating">Tanggal</label>
-    <input class="form-control datepicker" name="tanggal_gambar" id="tanggal_gambar"  autocomplete="off" required/>
+    <input class="form-control datetimepickerthis" name="tanggal_gambar" id="tanggal_gambar"  autocomplete="off" required/>
   </div>
   
   <div class="form-group text-left">
@@ -100,7 +111,7 @@
 
   <div class="form-group text-left">
   <label class="bmd-label-floating">Tanggal</label>
-    <input class="form-control datepicker" name="tanggal_video" id="tanggal_video" autocomplete="off" required/>
+    <input class="form-control datetimepickerthis" name="tanggal_video" id="tanggal_video" autocomplete="off" required/>
   </div>
   
 
@@ -130,12 +141,24 @@
   </div>
 
 
+  <div class="modal fade" id="modal_image_preview" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div style="float: right; text-align: right; color: white; cursor: pointer;">
+      <i class="fa fa-2x fa-times"></i>
+    </div>
+    <center>
+     
+      <img id="img_preview_modal"/>
+      <span id="img_name"></span>
+    </center>
+  </div>
+</div>
 
 
     <script>  
     $(document).ready(function(){  
         loadListGaleri()
-        loadListGaleriVideo()
+       
  });  
 
 
@@ -210,7 +233,7 @@
 
  function loadListGaleri(){
         $('#list_galeri').html('')
-        // $('#list_berita').append(divLoaderNavy)
+        $('#list_berita').append(divLoaderNavy)
         $('#list_galeri').load('<?=base_url("admin/C_Admin/loadListGaleri/")?>', function(){
             $('#loader').hide()
         })
@@ -218,7 +241,7 @@
 
     function loadListGaleriVideo(){
         $('#list_galeri_video').html('')
-        // $('#list_berita').append(divLoaderNavy)
+        $('#list_berita').append(divLoaderNavy)
         $('#list_galeri_video').load('<?=base_url("admin/C_Admin/loadListGaleriVideo/")?>', function(){
             $('#loader').hide()
         })
@@ -264,5 +287,18 @@
         autoclose: true,
         format: 'yyyy-mm-dd',
     })
+
+    $('.datetimepickerthis').datetimepicker({
+    format: 'yyyy-mm-dd hh:ii:ss',
+    autoclose: true,
+    todayHighlight: true,
+    todayBtn: true
+  })
+
+
+  $('#video').click(function(e) {  
+    loadListGaleriVideo()
+});
+
 
     </script> 

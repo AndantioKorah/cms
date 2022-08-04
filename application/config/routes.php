@@ -76,7 +76,7 @@ $route['admin/pelayanan'] = 'admin/C_Admin/pelayanan';
 $route['admin/pengumuman'] = 'admin/C_Admin/pengumuman';
 $route['master/ketegorippid'] = 'master/C_Master/masterKategoriPpid';
 $route['master/jenisppid'] = 'master/C_Master/masterJenisPpid';
-
+$route['admin/covid19'] = 'admin/C_Admin/covid19';
 // $route['dashboard'] = 'dashboard/C_Dashboard/dashboard';
 
 // =============================================================

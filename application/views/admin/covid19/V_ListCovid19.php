@@ -1,26 +1,25 @@
-<?php if($list_pelayanan){ ?>
+<?php if($list_covid19){ ?>
     <div class="table-responsive">
     <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
                 <th>No</th>
                 <th>Judul </th>
-                <th>Keterangan</th>
+                <th>Kategori</th>
                 <th>Tanggal</th>
                 <th>File</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-        <?php $no=1; foreach($list_pelayanan as $lb){ ?>
+        <?php $no=1; foreach($list_covid19 as $lb){ ?>
                    <tr>
                     <td><?=$no++;?></td>
                     <td><?=$lb['judul'];?></td>
-                    <td><?=$lb['keterangan'];?></td>
-                    <td><?= formatDate($lb['tanggal']);?></td>
-
-                    <td> <a style='width:800;height:300px;' href="<?=base_url('assets/admin/pelayanan/'.$lb['file'].'')?>" target="_blank"><i class="fa fa-file" aria-hidden="true"></i></a> </td>
-                  <td> <button onclick="deletePelayanan('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
+                    <td><?php if($lb['kategori'] == 1) echo "Regulasi"; else if($lb['kategori'] == 2) echo "Edukasi"; else echo "Infografis";?></td>
+                    <td><?= formatDateOnly($lb['tanggal']);?></td>
+                    <td> <a style='width:800;height:300px;' href="<?=base_url('assets/admin/covid19/'.$lb['file'].'')?>" target="_blank"><i class="fa fa-file" aria-hidden="true"></i></a> </td>
+                  <td> <button onclick="deleteCovid19('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
                    </tr>
                 <?php } ?>
         </tfoot>
@@ -55,16 +54,16 @@
 <?php } ?>
 <script>
      $('#example').DataTable();
-        function deletePelayanan(id){
+        function deleteCovid19(id){
            
            if(confirm('Apakah Anda yakin ingin menghapus data?')){
                $.ajax({
-                   url: '<?=base_url("admin/C_admin/deletePelayanan/")?>'+id,
+                   url: '<?=base_url("admin/C_admin/deleteCovid19/")?>'+id,
                    method: 'post',
                    data: null,
                    success: function(){
                        successtoast('Data sudah terhapus')
-                       loadListPelayanan()
+                       loadListCovid19()
                    }, error: function(e){
                        errortoast('Terjadi Kesalahan')
                    }

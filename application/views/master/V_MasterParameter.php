@@ -3,7 +3,7 @@
         <h3 class="card-title">MASTER PARAMETER</h3>
     </div>
     <div class="card-body" style="display: block;">
-        <form id="form_tambah_master_parameter">
+        <form id="form_tambah_master_parameter" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-lg-5 col-md-12">
                     <div class="form-group">
@@ -11,14 +11,22 @@
                         <input class="form-control" autocomplete="off" name="parameter_name" id="parameter_name" required/>
                     </div>
                 </div>
+
                 <div class="col-lg-5 col-md-12">
+                    <div class="form-group">
+                        <label class="bmd-label-floating">File</label>
+                        <input type="file" class="form-control" autocomplete="off" name="parameter_file" id="parameter_file"/>
+                    </div>
+                </div>
+
+                <div class="col-lg-10 col-md-12">
                     <div class="form-group">
                         <label class="bmd-label-floating">Value Parameter</label>
                         <input class="form-control" autocomplete="off" name="parameter_value" id="parameter_value" required/>
                     </div>
                 </div>
                 
-                <div class="col-lg-2 col-md-12 text-left">
+                <div class="col-lg-10 col-md-12 text-left">
                     <label class="bmd-label-floating" style="color: white;">..</label>
                     <button id="btn_save" class="btn btn-block btn-navy" type="submit"><i class="fa fa-save"></i> SIMPAN</button>
                     <button style="display: none;" disabled id="btn_save_loading" class="btn btn-block btn-navy" type="submit"><i class="fa fa-spin fa-spinner"></i> Menyimpan...</button>
@@ -63,7 +71,10 @@
         $.ajax({
             url: '<?=base_url("master/C_Master/insertMasterParameter")?>',
             method: 'post',
-            data: $(this).serialize(),
+            data:new FormData(this),  
+                    contentType: false,  
+                    cache: false,  
+                    processData:false,
             success: function(res){
                 let rs = JSON.parse(res)
                 if(rs.code == 0){
