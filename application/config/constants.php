@@ -114,3 +114,4 @@ define('DEFAULT_LANG', 'indonesia');
 define('LANG_AVAIL', ['Indonesia', 'English']);
 define('LIMIT_NEWS', 6);
 define('LIMIT_GALLERY', 6);
+define('LIMIT_ANNOUNCEMENT', 2);

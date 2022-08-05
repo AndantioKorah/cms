@@ -14,13 +14,35 @@
     </div>
   </section>
 
-  <section id="announcement" class="announcement">
+  <section id="announcement" class="services">
     <div class="container">
-      
+    <?php 
+        $data['total_page'] = $total_page;
+        $data['active_page'] = 1;
+        $data['page_content'] = 'announcement';
+        $data['title'] = $this->lang->line('announcement');
+        $this->load->view('webcp/news/V_NewsPaging', $data);
+      ?>
+      <div id="div_announcement" class="row">
+        
+      </div>
     </div>
   </section>
 
 </main>
 
 <script>
+  let page_content;
+
+  $(function(){
+    refreshAnnouncementContent(1)
+  })
+
+  function refreshAnnouncementContent(ap){
+    $('#div_announcement').html('')
+    $('#div_announcement').append(divLoaderNavy)
+    $('#div_announcement').load('<?=base_url('webcp/announcement/C_Announcement/getAnnouncementByPage')?>'+'/'+ap, function(){
+      $('#loader').hide()
+    })
+  }
 </script>
