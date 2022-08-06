@@ -1,4 +1,7 @@
 <style>
+  #div_announcement{
+    min-height: 300px;
+  }
 </style>
 <main id="main">
   <section id="breadcrumbs" class="breadcrumbs">

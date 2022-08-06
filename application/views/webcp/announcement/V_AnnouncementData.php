@@ -108,7 +108,7 @@
               <span class="data-announcement"><i class="fa fa-clock"></i> <?=formatDateNamaBulanWT($rs['tanggal'])?></span>
             </div>
             <div class="col-lg-4 col-md-12" style="text-align: right;">
-              <a href="#" class="btn btn-sm btn-primary-color">Selengkapnya</a>
+              <a href="#" class="btn btn-sm btn-primary-color">Selengkapnya <i class="fa fa-angle-right"></i></a>
             </div>
           </div>
         </div>
