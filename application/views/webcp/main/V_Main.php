@@ -1,13 +1,15 @@
 <style>
   .img-pimpinan{
-    width: 400px;
+    width: 80%;
+    border-radius: 10px;
+    max-height: 80%
   }
 
-  @media (max-width: 447px) {
+  /* @media (max-width: 447px) {
     .img-pimpinan{
       width: 300px;
     }
-  }
+  } */
 </style> 
 
 <!-- ======= Hero Section ======= -->
@@ -67,15 +69,19 @@
 <main id="main">
   <section id="pimpinan" class="pimpinan">
     <div class="container">
+      <!-- <h2 class="title-section">PIMPINAN KAMI</h2> -->
       <div class="row content">
         <div class="col-lg-6">
           <center>
-            <img src="<?=base_url('assets/webcp/assets/img/foto-pimpinan.png')?>" class="img-pimpinan" alt="">
+            <img src="<?=base_url('assets/admin/profil/foto-pimpinan-btkl.jfif')?>" class="img-pimpinan b-lazy" alt="">
           </center>
-          <h2>Dr. dr. Maxi Rein Rondonuwu, DHSM, MARS</h2>
-          <h6>Direktur Jendral Pencegahan dan Pengendalian Penyakit KEMENKES RI</h6>
+          <!-- <h6>Direktur Jendral Pencegahan dan Pengendalian Penyakit KEMENKES RI</h6> -->
         </div>
         <div class="col-lg-6 pt-4 pt-lg-0">
+          <h1><?=getParams('PARAM_NAMA_KEPALA')?></h1>
+          <h4><?=getParams('PARAM_NAMA_JABATAN_KEPALA')?></h4>
+        </div>
+        <!-- <div class="col-lg-6 pt-4 pt-lg-0">
           <p>
             Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
             velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
@@ -90,7 +96,7 @@
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
             magna aliqua.
           </p>
-        </div>
+        </div> -->
       </div>
     </div>
   </section>
@@ -118,4 +124,11 @@
   function openNews(){
     location.href= "<?=base_url('news')?>";
   }
+
+  window.bLazy = new Blazy({
+    container: '.container',
+    success: function(element){
+      console.log("Element loaded: ", element.nodeName);
+    }
+  }); 
 </script>

@@ -4,83 +4,66 @@
     position: relative;
   }
 
-  .header_news_other{
-    font-size: 14px;
-    font-weight: bold;
+  .sidebar-title:hover{
+    color: var(--primary) !important;
+    transition: .3s;
   }
 
   .judul-berita-other{
-    height: 80px;
+    height: 35px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-  }
-
-  .judul-berita-other:hover{
-    color: var(--primary); 
-    transition: .3s;
-  }
-
-  .news-data-body:hover{
-    background-color: #f5f5f5;  
-    border-radius: 3px;
-    cursor: pointer;
-    transition: .3s;
-  }
-
-  .isi-berita-other{
-    height: 70px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    font-size: 12px;
-    font-family: "Open Sans";
-    text-align: justify;
   }
 </style>
-<div class="row">
-  <?php foreach($news as $n){ ?>
-    <div onclick="openDetailNews('<?=$n['id']?>')" class="col-lg-12 col-md-12 news-data mb-3">
-      <div class="card card-default">
-        <div class="card-body news-data-body">
-          <span class="badge badge-berita mb-2" style="float: right;"><?=formatDateNamaBulanWT($n['tanggal_berita'])?></span>
-          <span class="badge badge-berita mb-2" style="float: left;"><?=$n['nama']?></span>
-          <div class="image">
-            <img class="image-berita-other b-lazy" src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="<?=$this->general_library->getBeritaImage($n['gambar'])?>" alt="Lazy load images example 3 image 1" />
-          </div>
-          <div class="judul-berita-other">
-            <hr>
-            <span class="header_news_other" title="<?=$n['judul_ina']?>"><?=$n['judul_ina']?></span>
-          </div>
-          <div class="footer-berita">
-            <div class="row align-items-center justify-content-center">
-              <div class="col-lg-12 col-md-12 isi-berita-other mb-2">
-                <hr>
-                <?=$n['isi_berita']?>
-              </div>
-              <div class="col-lg-12 col-md-12" style="text-align: right;">
-                <button onclick="openDetailNews('<?=$n['id']?>')" class="btn btn-selengkapnya-berita btn-sm">Selengkapnya <i class="fas fa-angle-double-right"></i></button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
+<div class="blog">
+  <div class="sidebar">
+    <!-- <h3 class="sidebar-title">Search</h3>
+    <div class="sidebar-item search-form">
+      <form action="">
+        <input type="text">
+        <button type="submit"><i class="bi bi-search"></i></button>
+      </form>
     </div>
-  <?php } ?>
+
+    <h3 class="sidebar-title">Categories</h3>
+    <div class="sidebar-item categories">
+      <ul>
+        <li><a href="#">General <span>(25)</span></a></li>
+        <li><a href="#">Lifestyle <span>(12)</span></a></li>
+        <li><a href="#">Travel <span>(5)</span></a></li>
+        <li><a href="#">Design <span>(22)</span></a></li>
+        <li><a href="#">Creative <span>(8)</span></a></li>
+        <li><a href="#">Educaion <span>(14)</span></a></li>
+      </ul>
+    </div>End sidebar categories -->
+
+    <a href="<?=base_url('news')?>"><h3 class="sidebar-title">Berita Terbaru Lainnya</h3></a>
+    <div class="sidebar-item recent-posts">
+      <?php foreach($news as $n){
+        $gambar = json_decode($n['gambar']);  
+        if($gambar){
+          $gambar = $gambar[0];
+        }
+      ?>
+        <div class="post-item clearfix">
+          <img class="image-berita-other b-lazy" src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== 
+          data-src="<?=$this->general_library->getBeritaImage($gambar)?>" alt="Lazy load images example 3 image 1" />
+          <h4 class="judul-berita-other"><a href="<?=base_url('news/detail/'.$n['id'])?>"><?=$n['judul_ina']?></a></h4>
+          <time><?=formatDateOnly($n['tanggal_berita'])?></time>
+        </div>
+      <?php } ?>
+    </div>
+  </div>
 </div>
 <script>
-    function openDetailNews(id){
-      location.href= "<?=base_url('news/detail')?>"+'/'+id;
+  window.bLazy = new Blazy({
+    container: '.container',
+    success: function(element){
+      console.log("Element loaded: ", element.nodeName);
     }
-
-    window.bLazy = new Blazy({
-      container: '.container',
-      success: function(element){
-        console.log("Element loaded: ", element.nodeName);
-      }
-    });
+  });
 </script>

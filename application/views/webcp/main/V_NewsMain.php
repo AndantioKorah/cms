@@ -1,9 +1,9 @@
 <style>
-  .image-berita{
+  /* .image-berita-main{
     width: 100%;
     max-height: 338px;
     position: relative;
-  }
+  } */
 
   .header_news{
     font-size: 18px;
@@ -44,14 +44,19 @@
   }
 </style>
 <div class="row">
-  <?php foreach($news as $n){ ?>
+  <?php foreach($news as $n){
+    $gambar = json_decode($n['gambar']);  
+    if($gambar){
+      $gambar = $gambar[0];
+    }
+  ?>
     <div onclick="openDetailNews('<?=$n['id']?>')" class="col-lg-3 col-md-6 news-data mb-3">
       <div class="card card-default">
         <div class="card-body news-data-body">
-          <span class="badge badge-berita mb-2" style="float: right;"><?=formatDateNamaBulanWT($n['tanggal_berita'])?></span>
-          <span class="badge badge-berita mb-2" style="float: left;"><?=$n['nama']?></span>
+          <span class="badge badge-berita-main mb-2" style="float: right;"><?=formatDateNamaBulanWT($n['tanggal_berita'])?></span>
+          <span class="badge badge-berita-main mb-2" style="float: left;"><?=$n['nama']?></span>
           <div class="image">
-            <img class="image-berita b-lazy" src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="<?=$this->general_library->getBeritaImage($n['gambar'])?>" alt="Lazy load images example 3 image 1" />
+            <img class="image-berita-main b-lazy" src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="<?=$this->general_library->getBeritaImage($gambar)?>" alt="Lazy load images example 3 image 1" />
           </div>
           <div class="judul-berita">
             <hr>

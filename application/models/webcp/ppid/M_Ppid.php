@@ -10,5 +10,14 @@
         public function insert($tablename, $data){
             $this->db->insert($tablename, $data);
         }
+
+        public function getJenisPpid($kategori){
+            return $this->db->select('*')
+                            ->from('m_jenis_ppid')
+                            ->where('id_kategori_ppid', $kategori)
+                            ->where('flag_active', 1)
+                            ->order_by('nama_jenis')
+                            ->get()->result_array();
+        }
 	}
 ?>

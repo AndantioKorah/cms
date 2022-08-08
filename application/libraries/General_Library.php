@@ -80,6 +80,9 @@ class General_library
     }
 
     public function getParams($parameter_name = ''){
+        if(!$this->nikita->session->userdata($parameter_name)){
+            $this->refreshParams();
+        }
         return $this->nikita->session->userdata($parameter_name);
         // $this->params = $this->nikita->session->userdata('params');
         // if($parameter_name != ''){

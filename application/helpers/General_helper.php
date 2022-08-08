@@ -160,6 +160,11 @@ function getProgressBarColor($progress, $use_important = true){
     return $bgcolor;
 }
 
+function getParams($params_name){
+    $CI = &get_instance();
+    return $CI->general_library->getParams($params_name)['parameter_value'];
+}
+
 function formatTwoMaxDecimal($data){
     $dt = explode(".", $data);
     $rs = $dt[0];

@@ -6,12 +6,13 @@
     }
 
     .judul-berita{
-      height: 85px;
+      height: 70px;
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
+      text-align: justify;
     }
 
     .judul-berita:hover{
@@ -45,31 +46,36 @@
         $gambar = $gambar[0];
       }
     ?>
-      <div onclick="openDetailNews('<?=$n['id']?>')" class="col-lg-4 col-md-12 news-data mb-3">
-        <div class="card card-default">
-          <div class="card-body news-data-body">
-            <span class="badge badge-berita mb-2" style="float: right;"><?=formatDateNamaBulanWT($n['tanggal_berita'])?></span>
-            <span class="badge badge-berita mb-2" style="float: left;"><?=$n['nama']?></span>
-            <div class="image">
-              <img class="image-berita b-lazy" src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="<?=$this->general_library->getBeritaImage($gambar)?>" alt="Lazy load images example 3 image 1" />
+      <div onclick="openDetailNews('<?=$n['id']?>')" class="col-lg-4 col-md-12 news-data">
+        <article class="entry news-data-body">
+          <div class="entry-img">
+            <img class="image-berita img-fluid b-lazy" src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="<?=$this->general_library->getBeritaImage($gambar)?>" alt="Lazy load images example 3 image 1" />
+          </div>
+
+          <h2 class="entry-title judul-berita">
+            <a href="<?=base_url('news/detail/'.$n['id'])?>" title="<?=$n['judul_ina']?>" class="header_news"><?=$n['judul_ina']?></a>
+          </h2>
+
+          <div class="entry-meta">
+            <ul>
+              <li class="d-flex align-items-center"><i class="fa fa-user"></i> <a><?=$n['nama']?></a></li>
+              <li class="d-flex align-items-center"><i class="fa fa-clock"></i> <a><time datetime="<?=$n['tanggal_berita']?>"><?=formatDateNamaBulanWT($n['tanggal_berita'])?></time></a></li>
+              <li class="d-flex align-items-center"><i class="fa fa-eye"></i> <a><?=$n['seen_count']?></a></li>
+            </ul>
+          </div>
+
+          <div class="entry-content">
+            <div class="isi-berita">
+              <p>
+                <?=$n['isi_berita']?>
+              </p>
             </div>
-            <div class="judul-berita">
-              <hr>
-              <span class="header_news" title="<?=$n['judul_ina']?>"><?=$n['judul_ina']?></span>
-            </div>
-            <div class="footer-berita">
-              <div class="row align-items-center justify-content-center">
-                <div class="col-lg-12 col-md-12 isi-berita mb-2">
-                  <hr>
-                  <?=$n['isi_berita']?>
-                </div>
-                <div class="col-lg-12 col-md-12" style="text-align: right;">
-                  <button onclick="openDetailNews('<?=$n['id']?>')" class="btn btn-selengkapnya-berita btn-sm">Selengkapnya <i class="fas fa-angle-double-right"></i></button>
-                </div>
-              </div>
+            <div class="read-more mt-2">
+              <a href="<?=base_url('news/detail/'.$n['id'])?>">Selengkapnya</a>
             </div>
           </div>
-        </div>
+
+        </article>      
       </div>
     <?php } ?>
   </div>

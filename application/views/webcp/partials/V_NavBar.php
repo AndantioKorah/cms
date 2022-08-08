@@ -28,9 +28,11 @@
             <li>
                 <a class="<?=$url[2] == '' ? 'active-navbar' : ''?>" href="<?=base_url('')?>"><?=$this->lang->line('home')?></a>
             </li>
+
             <li>
                 <a class="<?=$url[2] == 'profile' ? 'active-navbar' : ''?>" href="<?=base_url('profile')?>"><?=$this->lang->line('profile')?></a>
             </li>
+
             <li>
                 <a class="<?=$url[2] == 'news' ? 'active-navbar' : ''?>" href="<?=base_url('news')?>"><?=$this->lang->line('news')?></a>
             </li>
@@ -41,24 +43,36 @@
                   <li><a href="<?=base_url('gallery/video')?>">Video</a></li>
                 </ul>
             </li>
-            <li>
-                <a class="<?=$url[2] == 'ppid' ? 'active-navbar' : ''?>" href="<?=base_url('ppid')?>"><?=$this->lang->line('ppid')?></a>
+
+            <li class="dropdown">
+                <a class="<?=$url[2] == 'ppid' ? 'active-navbar' : ''?>"><?=$this->lang->line('ppid')?></a>
+                <ul>
+                  <li><a href="<?=base_url('ppid/berkala')?>">Informasi Berkala</a></li>
+                  <li><a href="<?=base_url('ppid/setiap-saat')?>">Informasi Setiap Saat</a></li>
+                  <li><a href="<?=base_url('ppid/serta-merta')?>">Informasi Serta Merta</a></li>
+                </ul>
             </li>
+
             <li>
                 <a class="<?=$url[2] == 'service' ? 'active-navbar' : ''?>" href="<?=base_url('service')?>"><?=$this->lang->line('service')?></a>
             </li>
+
             <li>
                 <a class="<?=$url[2] == 'announcement' ? 'active-navbar' : ''?>" href="<?=base_url('announcement')?>"><?=$this->lang->line('announcement')?></a>
             </li>
+
             <li>
                 <a class="<?=$url[2] == 'contact' ? 'active-navbar' : ''?>" href="<?=base_url('contact')?>"><?=$this->lang->line('contact')?></a>
             </li>
+
             <li>
                 <a class="<?=$url[2] == 'wbs' ? 'active-navbar' : ''?>" href="<?=base_url('wbs')?>"><?=$this->lang->line('wbs')?></a>
             </li>
+
             <li>
                 <a class="<?=$url[2] == 'ttg' ? 'active-navbar' : ''?>" href="<?=base_url('ttg')?>"><?=$this->lang->line('ttg')?></a>
             </li>
+
             <li>
                 <a class="<?=$url[2] == 'covid' ? 'active-navbar' : ''?>" href="<?=base_url('covid')?>"><?=$this->lang->line('covid')?></a>
             </li>

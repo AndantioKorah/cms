@@ -17,7 +17,7 @@
     </div>
   </section>
 
-  <section id="news" class="news">
+  <section id="news" class="blog">
     <div class="container">
       <div class="content">
         <div class="row mb-3">

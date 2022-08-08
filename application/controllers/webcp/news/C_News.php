@@ -22,7 +22,7 @@ class C_News extends CI_Controller
 
     public function detailNews($id){
         $data['result'] = $this->news->getDetailNews($id);
-        $data['other_news'] = $this->news->getOtherNews($id);
+        $data['other_news'] = $this->news->getOtherNews($id, 10);
         renderwebcp('webcp/news/V_NewsDetail', '', '', $data);
     }
 

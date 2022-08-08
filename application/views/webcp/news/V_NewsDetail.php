@@ -56,11 +56,10 @@
       <div class="content">
           <?php if($result){ $rs = $result; ?>
             <div class="row">
-              <div class="col-lg-9 col-md-9 main-news">
+              <div class="col-lg-8 col-md-12 main-news">
                 <div class="info-berita mb-2">
                   <span class="badge-berita badge"><i class="fa fa-pen"></i> <?=($rs['nama'])?></span>
                   <span class="badge-berita badge"><i class="fa fa-calendar"></i> <?=formatDateNamaBulanWT($rs['tanggal_berita'])?></span>
-                  <span class="badge-berita badge"><i class="fa fa-tags"></i></span>
                   <span class="badge-berita badge"><i class="fa fa-eye"></i> <?=formatCurrencyWithoutRp($rs['seen_count'])?> kali dilihat</span>
                 </div>
                 <div class="image">
@@ -71,19 +70,34 @@
                   <!-- <img class="image-berita-detail" src="<?=$this->general_library->getBeritaImage($rs['gambar'])?>" /> -->
                 </div>
                 <div style="text-align: justify;" class="judul-berita mt-3">
-                  <span class="header_news" title="<?=$rs['judul_ina']?>"><?=$rs['judul_ina']?></span>
+                  <span class="header_news" title="<?=$rs['judul_ina']?>"><?=$rs['judul_ina']?></span><br>
+                  <table>
+                      <tr>
+                        <td style="vertical-align: top;"><span style="color: grey;" class="badge"><i class="fa fa-tags"></i></span></td>
+                        <td>
+                          <?php 
+                            $tags = json_decode($rs['tag_berita'], true); 
+                            if($tags){
+                              $i = 1;
+                              foreach($tags as $t){
+                          ?>
+                            <span style="color: grey;" class="badge"><?=$t?></span>
+                          <?php $i++; } } ?>
+                        </td>
+                      </tr>
+                  </table>
                   <hr>
                   <p><?=($rs['isi_berita'])?></p>
                 </div>
               </div>
-              <div class="col-lg-3 col-md-3">
+              <div class="col-lg-4 col-md-12">
                 <div class="row">
                   <div class="col-lg-12 col-md-12">
                     <div class="d-sm-block d-lg-none d-md-none">
                       <hr>
                     </div>
-                    <a href="<?=base_url('news')?>" class="berita-lainnya">Berita Terbaru Lainnya</a>
-                    <hr>
+                    <!-- <a href="<?=base_url('news')?>" class="berita-lainnya">Berita Terbaru Lainnya</a>
+                    <hr> -->
                     <?php if($other_news){ 
                       $data['news'] = $other_news;
                       $this->load->view('webcp/news/V_OtherNewsData', $data);

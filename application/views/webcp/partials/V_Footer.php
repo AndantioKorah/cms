@@ -7,14 +7,14 @@
       <div class="row">
         <div class="footer-section col-lg-6 col-md-12">
           <div class="map-sm">
-            <div class="mapouter"><div class="gmap_canvas"><iframe width="100%" height="200" id="gmap_canvas" src="https://maps.google.com/maps?q=btklpp%20kelas%201%20manado&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://123movies-to.org"></a><br><style>.mapouter{position:relative;text-align:right;height:200px;width:100%;}</style><a href="https://www.embedgooglemap.net">copy google map</a><style>.gmap_canvas {overflow:hidden;background:none!important;height:200px;width:100%;}</style></div></div>
+            <div class="mapouter"><div class="gmap_canvas"><iframe width="100%" height="200" id="gmap_canvas" src="<?=getParams('PARAM_SRC_GOOGLE_MAPS')?>" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://123movies-to.org"></a><br><style>.mapouter{position:relative;text-align:right;height:200px;width:100%;}</style><a href="https://www.embedgooglemap.net">copy google map</a><style>.gmap_canvas {overflow:hidden;background:none!important;height:200px;width:100%;}</style></div></div>
           </div>
         </div>
-        <div class="footer-section col-lg-3 col-md-12">
+        <div class="footer-section col-lg-3 col-md-12 footer-title">
           <div class="footer-info">
             <h3><?=TITLES?></h3>
             <p>
-              Paniki Bawah, Mapanget, Kota Manado, Sulawesi Utara, Indonesia <br>
+              <?=getParams('PARAM_ALAMAT')?> <br>
               <br><br>
               <strong>Phone:</strong> +1 5589 55488 55<br>
               <strong>Email:</strong> info@example.com<br>
@@ -71,7 +71,7 @@
 
   <div class="container">
     <div class="copyright">
-      &copy; Copyright <strong><span>Sailor</span></strong>. All Rights Reserved
+      &copy; Copyright <strong><span><?=TITLES?></span></strong>. All Rights Reserved
     </div>
     <div class="credits">
       <!-- All the links in the footer should remain intact. -->

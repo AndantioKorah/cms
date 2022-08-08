@@ -11,6 +11,11 @@
   .tupoksi-content h5{
     line-height: 30px;
   }
+
+  .image-struktur-organisasi{
+    width: 100%;
+    height: 100%;
+  }
 </style>
 <main id="main" class="mt-3">
   <section id="breadcrumbs" class="breadcrumbs">
@@ -71,6 +76,20 @@
     <div class="container">
       <div class="section-title">
         <!-- <h2>Team</h2> -->
+        <p>STRUKTUR ORGANISASI</p>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+        <img class="image-struktur-organisasi b-lazy" src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== 
+          data-src="<?=base_url('assets/admin/profil/struktur-organisasi-fix.png')?>" alt="Struktur Organisasi" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- <section id="motto" class="team section-bg">
+    <div class="container">
+      <div class="section-title">
         <p>MOTTO</p>
       </div>
       <div class="row">
@@ -79,7 +98,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
 
   <section id="tupoksi" class="team">
     <div class="container">
@@ -106,3 +125,12 @@
   </section>
 
 </main>
+
+<script>
+  window.bLazy = new Blazy({
+    container: '.container',
+    success: function(element){
+      console.log("Element loaded: ", element.nodeName);
+    }
+  }); 
+</script>

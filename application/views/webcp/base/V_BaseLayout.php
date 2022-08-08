@@ -25,6 +25,10 @@
   <link href="<?=base_url('assets/webcp/assets/vendor/boxicons/css/boxicons.min.css')?>" rel="stylesheet">
   <link href="<?=base_url('assets/webcp/assets/vendor/glightbox/css/glightbox.min.css')?>" rel="stylesheet">
   <link href="<?=base_url('assets/webcp/assets/vendor/swiper/swiper-bundle.min.css')?>" rel="stylesheet">
+  <link rel="stylesheet" href="<?=base_url('assets/css/datatable.css')?>">
+	<link rel="stylesheet" href="<?=base_url('assets/css/jquery.dataTables.min.css')?>">
+	<link rel="stylesheet" href="<?=base_url('assets/css/responsive.dataTables.min.css')?>">
+	<link rel="stylesheet" href="<?=base_url('assets/css/datatable.bootstrap.min.css')?>">
 
   <!-- JS -->
   <script src="<?=base_url('plugins/jquery/jquery.js')?>"></script>
@@ -61,6 +65,10 @@
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
     <script>
+        $(function(){
+          $('.select2_this').select2()
+        })
+        
         function divLoaderNavy(message = 'Loading'){
           return '<div class="col-12 text-center" style="height: 100%; id="loader"> <i style="color: #001f3f;" class="fas fa-3x fa-spin fa-sync-alt"></i> </div>'
         }
@@ -75,10 +83,13 @@
     <script src="<?=base_url('assets/webcp/assets/vendor/php-email-form/validate.js')?>"></script>
     <script src="<?=base_url('assets/webcp/assets/js/blazy-master/blazy.js')?>"></script>
     <script src="<?=base_url('assets/webcp/assets/js/blazy-master/polyfills/closest.js')?>"></script>
+    <script src="<?=base_url('assets/js/select2.min.js')?>"></script>
+    <script src="<?=base_url('assets/js/jquery.dataTables.min.js')?>"></script>
+    
 
     <!-- Template Main JS File -->
+    <link href="<?=base_url('assets/css/select2.min.css')?>" rel="stylesheet" />
     <script src="<?=base_url('assets/webcp/assets/js/main.js')?>"></script>
-
 </body>
 
 </html>
