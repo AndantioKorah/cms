@@ -8,11 +8,11 @@
     <div class="container">
 
       <div class="d-flex justify-content-between align-items-center">
-        <h2><?=$this->lang->line('ppid')?> - Informasi Berkala</h2>
+        <h2><?=$this->lang->line('ppid')?> - Setiap Saat</h2>
         <ol>
           <li><a href="<?=base_url('')?>"><?=$this->lang->line('home')?></a></li>
           <li><a><?=$this->lang->line('ppid')?></a></li>
-          <li><a>Informasi Berkala</a></li>
+          <li><a>Setiap Saat</a></li>
         </ol>
       </div>
     </div>
@@ -23,7 +23,7 @@
       <div class="row content">
         <div class="col-lg-12 col-md-12">
           <div class="section-title">
-            <p>PPID (Informasi Berkala)</p>
+            <p>PPID (Setiap Saat)</p>
           </div>
         </div>
         <div class="col-lg-12 col-md-12">
@@ -50,7 +50,7 @@
   function getDataBerkalaByJenis(){
     $('#result_data').html('')
     $('#result_data').append(divLoaderNavy)
-    $('#result_data').load('<?=base_url("webcp/ppid/C_Ppid/getDataPpid/1/")?>'+$('#select_jenis').val(), function(){
+    $('#result_data').load('<?=base_url("webcp/ppid/C_Ppid/getDataPpid/2/")?>'+$('#select_jenis').val(), function(){
       $('#loader').hide()
     })
   }

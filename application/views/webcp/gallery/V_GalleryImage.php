@@ -8,6 +8,10 @@
     font-size: 30px;
     color: white;
   }
+
+  #gallery-image{
+    min-height: 50vh;
+  }
 </style>
 <main id="main">
   <section id="breadcrumbs" class="breadcrumbs">

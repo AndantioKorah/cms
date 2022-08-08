@@ -19,5 +19,16 @@
                             ->order_by('nama_jenis')
                             ->get()->result_array();
         }
+
+        public function getDataPpid($kategori, $jenis){
+            return $this->db->select('a.*')
+                        ->from('t_ppid a')
+                        ->join('m_user b', 'a.created_by = b.id')
+                        ->where('a.kategori', $kategori)
+                        ->where('a.jenis', $jenis)
+                        ->where('a.flag_active', 1)
+                        ->order_by('a.tanggal')
+                        ->get()->result_array();
+        }
 	}
 ?>

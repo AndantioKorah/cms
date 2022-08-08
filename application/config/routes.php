@@ -96,6 +96,8 @@ $route['gallery/video'] = 'webcp/gallery/C_Gallery/indexVideo';
 
 $route['ppid'] = 'webcp/ppid/C_Ppid/index';
 $route['ppid/berkala'] = 'webcp/ppid/C_Ppid/ppidBerkala';
+$route['ppid/setiap-saat'] = 'webcp/ppid/C_Ppid/ppidSetiapSaat';
+$route['ppid/serta-merta'] = 'webcp/ppid/C_Ppid/ppidSertaMerta';
 
 $route['service'] = 'webcp/service/C_Service/index';
 

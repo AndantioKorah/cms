@@ -107,10 +107,10 @@
     </div>
   </section>
 
-  <section id="berita" class="berita">
+  <section id="berita" class="blog">
     <div class="container">
       <h2 class="title-section" onclick="openNews()">BERITA</h2>
-      <div class="row">
+      <div class="row content">
         <?php
           $data['news'] = $news;
           $this->load->view('webcp/main/V_NewsMain', $data);

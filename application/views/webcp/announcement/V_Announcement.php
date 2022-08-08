@@ -1,6 +1,6 @@
 <style>
-  #div_announcement{
-    min-height: 300px;
+  #announcement{
+    min-height: 50vh;
   }
 </style>
 <main id="main">

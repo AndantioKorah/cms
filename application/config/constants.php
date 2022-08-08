@@ -104,6 +104,7 @@ define('USE_PRINT', '0');
 define('URI_UPLOAD', './assets/'); //local with xampp
 define('URI_BERITA', './assets/admin/berita/'); //local with xampp
 define('URI_GALLERY', './assets/admin/galeri/'); //local with xampp
+define('URI_PPID', './assets/admin/ppid/'); //local with xampp
 define('DB_BACKUP_FOLDER', 'db/backup/'); //local with xampp
 define('DB_RESTORE_FOLDER', 'db/restore/'); //local with xampp
 
@@ -114,4 +115,4 @@ define('DEFAULT_LANG', 'indonesia');
 define('LANG_AVAIL', ['Indonesia', 'English']);
 define('LIMIT_NEWS', 6);
 define('LIMIT_GALLERY', 6);
-define('LIMIT_ANNOUNCEMENT', 2);
+define('LIMIT_ANNOUNCEMENT', 10);

@@ -13,7 +13,7 @@ class C_Main extends CI_Controller
         if(!$this->session->userdata('site_lang')){
             $this->session->set_userdata('site_lang',  DEFAULT_LANG);
         }
-        $data['news'] = $this->news->getOtherNews(0, 4);
+        $data['news'] = $this->news->getOtherNews(0, 3);
         renderwebcp('webcp/main/V_Main', '', '', $data);
     }
 

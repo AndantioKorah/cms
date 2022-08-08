@@ -1,6 +1,6 @@
 <style>
-  .content{
-    min-height: 300px;
+  #news{
+    min-height: 50vh;
   }
 </style>
 <main id="main">
@@ -26,7 +26,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroup-sizing-sm">Data per Halaman</span>
               </div>
-              <select id="data_per_page" class="select2_this form-control">
+              <select id="data_per_page" class="form-control">
                 <option selected value="6">6</option>
                 <option value="15">15</option>
                 <option value="30">30</option>

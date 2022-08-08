@@ -16,4 +16,19 @@ class C_Ppid extends CI_Controller
         $data['result'] = $this->ppid->getJenisPpid(1);
         renderwebcp('webcp/ppid/V_PpidBerkala', '', '', $data);
     }
+
+    public function getDataPpid($kategori, $jenis){
+        $data['result'] = $this->ppid->getDataPpid($kategori, $jenis);
+        $this->load->view('webcp/ppid/V_ResultPpid', $data);
+    }
+
+    public function ppidSetiapSaat(){
+        $data['result'] = $this->ppid->getJenisPpid(2);
+        renderwebcp('webcp/ppid/V_PpidSetiapSaat', '', '', $data);
+    }
+
+    public function ppidSertaMerta(){
+        $data['result'] = $this->ppid->getJenisPpid(3);
+        renderwebcp('webcp/ppid/V_PpidSertaMerta', '', '', $data);
+    }
 }
