@@ -348,6 +348,45 @@
                             ->get()->row_array();
         }
 
+
+        function loadListPojokTtg(){
+            $query = $this->db->select('*')
+                            ->from('t_pojokttg a')
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+            return $query; 
+        }
+
+        public function updateKontenPojokTtg(){
+            $datapost = $this->input->post(); 
+
+        
+            $data["judul"] = $datapost["detail_judul"];
+            $data["tanggal"] = $datapost["detail_tanggal"];
+            $data["isi_informasi"] = $datapost["detail_isi_informasi"];
+            // $data["gambar"] = $_FILES["berita_gambar"]["name"];
+
+            $id =  $datapost["id"];
+
+            $this->db->where('id', $id)
+                ->update('t_pojokttg', $data);
+        }
+
+
+        public function submitKontenPojokTtg($new_name){
+
+            $datapost = $this->input->post();
+     
+            // dd($datapost);
+            $data["judul"] = $datapost["pojokttg_judul"];
+            $data["tanggal"] = $datapost["tanggal_pojokttg"];
+            $data["isi_pojok_ttg"] = $datapost["isi_pojokttg"];
+            $data["gambar"] = $new_name;
+            $data['created_by'] = $this->general_library->getId();
+            $this->db->insert('t_pojokttg', $data);
+            return $this->db->insert_id();
+        }
+
     
 
     

@@ -120,21 +120,21 @@ class C_Admin extends CI_Controller
                         $this->image_lib->clear();
                       } else {
                         // dd($data);
-                        $w_i = $data["image_width"];
-                        $h_i = $data["image_height"];
+                        // $w_i = $data["image_width"];
+                        // $h_i = $data["image_height"];
 
                           //calculating 16:9 ratio
-                        $w_o = $w_i;
-                        $h_o = 9 * $w_o / 16;
+                        // $w_o = $w_i;
+                        // $h_o = 9 * $w_o / 16;
 
                         //if output height is longer then width
-                        if ($h_i < $h_o) {
-                            $h_o = $h_i;
-                            $w_o = 16 * $h_o / 9;
-                        }
+                        // if ($h_i < $h_o) {
+                        //     $h_o = $h_i;
+                        //     $w_o = 16 * $h_o / 9;
+                        // }
 
-                        $x_o = $w_i - $w_o;
-                        $y_o = $h_i - $h_o;
+                        // $x_o = $w_i - $w_o;
+                        // $y_o = $h_i - $h_o;
                         // dd($x_o);
 
                         $config4['image_library'] = 'gd2';
@@ -616,6 +616,128 @@ class C_Admin extends CI_Controller
 
         public function deleteCovid19($id){
             $this->general->delete('id', $id, 't_covid19');
+        }
+
+
+        // POJOK TTG
+        public function pojokttg(){
+       
+            $this->general_library->refreshMenu();
+            $data['list_menu'] = $this->general->getAllWithOrder('m_menu', 'nama_menu', 'asc');
+            render('admin/pojokttg/V_PojokTtg', 'admin', 'konten', $data);
+            
+        }
+
+        function submitKontenPojokTtg(){
+
+            
+            $countfiles = count($_FILES['pojokttg_gambar']['name']);
+            // dd($countfiles);
+            for($i=0;$i<$countfiles;$i++){
+            if(!empty($_FILES['pojokttg_gambar']['name'][$i])){
+      
+                // Define new $_FILES array - $_FILES['file']
+                $_FILES['file']['name'] = $_FILES['pojokttg_gambar']['name'][$i];
+                $_FILES['file']['type'] = $_FILES['pojokttg_gambar']['type'][$i];
+                $_FILES['file']['tmp_name'] = $_FILES['pojokttg_gambar']['tmp_name'][$i];
+                $_FILES['file']['error'] = $_FILES['pojokttg_gambar']['error'][$i];
+                $_FILES['file']['size'] = $_FILES['pojokttg_gambar']['size'][$i];
+              
+                // if($_FILES['file']['size'] > 1048576){
+                //   $ress = 0;
+                //   $res = array('msg' => 'File tidak boleh lebih dari 1 MB', 'success' => false);
+                  
+                //   break;
+                // }
+             
+                // Set preference
+                $config['upload_path'] = './assets/admin/pojokttg'; 
+                $config['allowed_types'] = 'jpg|jpeg|png';
+                // $config['max_size'] = '5000'; 
+              //   $config['file_name'] = $this->getUserName().'_'.$_FILES['file']['name'];
+               
+                //Load upload library
+                $this->load->library('upload',$config); 
+                if($this->upload->do_upload('file')){
+                    $data = $this->upload->data(); 
+                
+                    if($data["file_size"] > 500){
+                        $config4['image_library'] = 'gd2';
+                        $config4['source_image'] = './assets/admin/pojokttg/'.$data["file_name"];
+                        $config4['create_thumb'] = FALSE;
+                        $config4['maintain_ratio'] = FALSE;
+                        $config4['width']         = 1280;
+                        $config4['height']       = 720;
+                        $config4['new_image']= './assets/admin/pojokttg/'.$data['file_name'];
+                        $this->load->library('image_lib');
+                        $this->image_lib->initialize($config4);
+                        if (!$this->image_lib->resize()) {
+                            echo $this->image_lib->display_errors();
+                        }
+                        $this->image_lib->clear();
+                      } else {
+                      
+
+                        $config4['image_library'] = 'gd2';
+                        $config4['source_image'] = './assets/admin/pojokttg/'.$data["file_name"];
+                        $config4['create_thumb'] = FALSE;
+                        $config4['maintain_ratio'] = FALSE;
+                        $config4['width']         = 1024;
+                        $config4['height']       = 570;
+                        //   $config4['width']         = $x_o;
+                        // $config4['height']       = $y_o;
+                        $config4['new_image']= './assets/admin/pojokttg/'.$data['file_name'];
+                        $this->load->library('image_lib');
+                        $this->image_lib->initialize($config4);
+                        if (!$this->image_lib->resize()) {
+                            echo $this->image_lib->display_errors();
+                        }
+                        $this->image_lib->clear();
+                      }
+                    }
+              }
+           
+            $nama_file[] = $data['file_name'];
+             }
+           
+            $new_name = json_encode($nama_file); 
+            $data = $this->admin->submitKontenPojokTtg($new_name);
+               
+            redirect('admin/pojok-ttg');
+           
+        }
+
+        public function loadListPojokTtg(){
+            $data['list_pojokttg'] = $this->admin->loadListPojokTtg();
+            $this->load->view('admin/pojokttg/V_ListPojokTtg', $data);
+        }
+
+        function updateKontenPojokTtg(){
+
+         
+            $new_name = $this->input->post('nama_gambar_lama');
+            if(isset($_FILES["image_file"]["name"])){ 
+                $path="./assets/berita";
+                $konten="image_file";
+                $this->ajax_upload($path,$konten,$new_name);
+            }
+
+            $data = $this->admin->updateKontenPojokTtg();
+            $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
+            // echo json_encode($res);
+            redirect('admin/berita');
+        }
+
+        public function deletePojokTtg($id){
+            $this->general->delete('id', $id, 't_berita');
+        }
+
+        
+
+        public function loadDetailPojokTtg($id){
+            $data['berita'] = $this->admin->getPojokTtgDetail($id);
+            // dd($data['berita']);
+            $this->load->view('admin/pojokttg/V_DetailPojokTtg', $data);
         }
 
         
