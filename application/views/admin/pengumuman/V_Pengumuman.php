@@ -63,15 +63,15 @@
 
 
      $('#form_pengumuman').on('submit', function(e){  
-        $('#btn_upload').prop('disabled', true);
-          $('#btn_upload').html('SIMPAN.. <i class="fas fa-spinner fa-spin"></i>')
+       
           e.preventDefault();  
-          if($('#file_ppid').val() == '')  
-          {  
+          if($('#pengumuman_file').val() == '') {  
                alert("Please Select the File");  
+               return false;
           }  
-          else  
-          {  
+          $('#btn_upload').prop('disabled', true);
+          $('#btn_upload').html('SIMPAN.. <i class="fas fa-spinner fa-spin"></i>')
+           
                $.ajax({  
                    url:"<?=base_url("admin/C_Admin/submitKontenPengumuman")?>",  
                     method:"POST",  
@@ -96,7 +96,7 @@
                        }
                     }  
                });  
-          }  
+            
      });
 
      $('.datepicker').datepicker({
