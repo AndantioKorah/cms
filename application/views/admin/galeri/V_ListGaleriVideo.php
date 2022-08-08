@@ -17,7 +17,7 @@
                     <td><?=$lb['nama'];?></td>
                     <td><?= formatDateOnly($lb['tanggal']);?></td>
                     <td><a href="<?=$lb['isi_galeri'];?>" target="_blank"><h5><span class="badge badge-secondary"><i class="fas fa-link"></i> <?=$lb['isi_galeri'];?></span></h5></a> 
-                <?= preg_replace("/\s*[a-zA-Z\/\/:\.]*youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i","<iframe width=\"420\" height=\"315\" src=\"//www.youtube.com/embed/$1\" frameborder=\"0\" allowfullscreen></iframe>",$lb['isi_galeri']); ?>
+                <?= preg_replace("/\s*[a-zA-Z\/\/:\.]*youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i","<iframe class==\"b-lazy\" width=\"420\" height=\"315\" src=\"//www.youtube.com/embed/$1\" frameborder=\"0\" allowfullscreen></iframe>",$lb['isi_galeri']); ?>
                 </td>
                   <td> <button onclick="deleteGaleri('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
                    </tr>
@@ -53,6 +53,13 @@
     </div>
 <?php } ?>
 <script>
+      window.bLazy = new Blazy({
+    container: '.container',
+    success: function(element){
+      console.log("Element loaded: ", element.nodeName);
+    }
+  }); 
+
     $(document).ready(function() {
         $('#datatable2').DataTable();
     });

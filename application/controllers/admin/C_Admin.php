@@ -260,10 +260,44 @@ class C_Admin extends CI_Controller
 
     // GALERI
         public function galeri(){
+           
             $this->general_library->refreshMenu();
             $data['list_menu'] = $this->general->getAllWithOrder('m_menu', 'nama_menu', 'asc');
             render('admin/galeri/V_Galeri', 'admin', 'konten', $data);
             
+        }
+
+        public function ajax_list()
+        {
+            header('Content-Type: application/json');
+            $list = $this->admin->get_datatables();
+            // dd($list);
+            $data = array();
+            $no = $this->input->post('start');
+            //looping data mahasiswa
+            foreach ($list as $data_galeri) {
+                $src = base_url('assets/admin/galeri/').$data_galeri->isi_galeri;
+                $no++;
+                $row = array();
+                //row pertama akan kita gunakan untuk btn edit dan delete
+                $row[] = $no;
+                $row[] = $data_galeri->nama;
+                $row[] = $data_galeri->tanggal;
+                $row[] = '<div class="col-lg-4 p-3 col-md-6 div_image" data-toggle="modal" href="#modal_image_preview"  onclick="openPreviewModal('.$data_galeri->id.')">  
+                          <img style="width:600;height:100px;" id="'.$data_galeri->id.'" class="target" src="'.$src.'" alt="'.$data_galeri->nama.'" />
+                    </div>';
+                $row[] =  '<button onclick="deleteGaleri('.$data_galeri->id.')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button>';
+                $data[] = $row;
+            }
+            $output = array(
+                "draw" => $this->input->post('draw'),
+                "recordsTotal" => $this->admin->count_all(),
+                "recordsFiltered" => $this->admin->count_filtered(),
+                "data" => $data,
+            );
+            //output to json format
+            // dd($output);
+            $this->output->set_output(json_encode($output));
         }
 
 
@@ -356,6 +390,11 @@ class C_Admin extends CI_Controller
 
         public function deleteGaleri($id){
             $this->general->delete('id', $id, 't_galeri');
+        }
+
+        function getGaleriById($id){
+            $data = $this->admin->getGaleriById($id);
+            echo json_encode($data);
         }
 
 
@@ -528,6 +567,59 @@ class C_Admin extends CI_Controller
             $data=$this->admin->getMasterJenisPpid($id);
             echo json_encode($data);
         }
+
+
+        // COVID19
+
+        public function covid19(){
+            $this->general_library->refreshMenu();
+            $data['list_menu'] = $this->general->getAllWithOrder('m_menu', 'nama_menu', 'asc');
+            render('admin/covid19/V_Covid19', 'admin', 'konten', $data);
+            
+        }
+
+        public function loadListCovid19(){
+            $data['list_covid19'] = $this->admin->loadListCovid19();
+            $this->load->view('admin/covid19/V_ListCovid19', $data);
+        }
+
+        function submitKontenCovid19(){
+
+            $new_name = $_FILES["covid19_file"]['name'];
+            
+            if($_FILES["covid19_file"]["name"] != ""){ 
+                $path="./assets/admin/covid19/";
+                $konten="covid19_file";
+            }
+          
+            $config_ppid['file_name'] = $new_name;
+            $config_ppid['upload_path'] = $path;  
+            $config_ppid['allowed_types'] = 'jpg|jpeg|png|pdf'; 
+
+           
+            
+            $this->load->library('upload', $config_ppid);  
+            $this->upload->overwrite = true;
+            
+            if(!$this->upload->do_upload($konten))  
+            {  
+                 echo $this->upload->display_errors();  
+            } 
+
+            
+            $data = $this->admin->submitKontenCovid19($new_name);
+
+
+            $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
+            echo json_encode($res);
+        }
+
+        public function deleteCovid19($id){
+            $this->general->delete('id', $id, 't_covid19');
+        }
+
+        
+
 
         
 }

@@ -480,6 +480,8 @@ $('.datepickerthis').datepicker({
 <script src="<?=base_url('assets/js/image-uploader.min.js')?>"></script>
 <script src="<?=base_url('assets/js/image-uploader.js')?>"></script>
 <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
+<script src="<?=base_url('assets/js/blazy-master/blazy.js')?>"></script>
+<script src="<?=base_url('assets/js/blazy-master/polyfills/closest.js')?>"></script>
 
 
 </body>

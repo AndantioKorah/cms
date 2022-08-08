@@ -111,6 +111,8 @@
         refreshImageGalleryContent(active_page)
       } else if(page_content == 'gallery-video'){
         refreshVideoGalleryContent(active_page)
+      } else if(page_content == 'announcement'){
+        refreshAnnouncementContent(active_page)
       }
     }
   }

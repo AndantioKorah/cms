@@ -28,7 +28,7 @@
         public function insertMasterParameter($data){
             $rs['code'] = 0;
             $rs['message'] = 0;
-
+           
             $exists = $this->db->select('*')
                                 ->from('m_parameter')   
                                 ->where('parameter_name', $data['parameter_name'])
@@ -40,6 +40,41 @@
             } else {
                 $data['created_by'] = $this->general_library->getId();
                 $this->db->insert('m_parameter', $data);
+                $id = $this->db->insert_id();
+                
+                if($_FILES["parameter_file"]["name"] != ""){ 
+                    
+                    $path="./assets/admin/profil/";
+                    $konten="parameter_file";
+
+                    $new_name = str_replace(array( '-',' ',']'), ' ', $_FILES["parameter_file"]['name']);
+                    $new_name = $string = str_replace(' ', '', $_FILES["parameter_file"]['name']);
+                    
+                    $config_ppid['file_name'] = $new_name;
+                    $config_ppid['upload_path'] = $path;  
+                    $config_ppid['allowed_types'] = 'jpg|jpeg|png|pdf'; 
+                    
+                    $full_path = base_url('/assets/admin/profil/'.$new_name);
+
+                    $this->load->library('upload', $config_ppid);  
+                    $this->upload->overwrite = true;
+                    
+                    if(!$this->upload->do_upload($konten))  
+                    {  
+                         echo $this->upload->display_errors();  
+                    }
+
+                    $data["parameter_value"] = $full_path;
+        
+                 
+        
+                    $this->db->where('id', $id)
+                             ->update('m_parameter', $data);  
+                }
+              
+
+                
+
             }
 
             return $rs;

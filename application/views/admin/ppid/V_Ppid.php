@@ -20,7 +20,7 @@
   </div>
   <div class="form-group text-left">
   <label class="bmd-label-floating">Tanggal</label>
-    <input class="form-control datepicker" name="tanggal_ppid" id="tanggal_ppid"  autocomplete="off" required/>
+    <input class="form-control datetimepickerthis" name="tanggal_ppid" id="tanggal_ppid"  autocomplete="off" required/>
   </div>
 
   <div class="form-group text-left">
@@ -152,4 +152,11 @@
             });
         });
 
+
+$('.datetimepickerthis').datetimepicker({
+    format: 'yyyy-mm-dd hh:ii:ss',
+    autoclose: true,
+    todayHighlight: true,
+    todayBtn: true
+  })
 </script>

@@ -4,30 +4,47 @@
 <div class="card-header">
             <div class="row">
                 <div class="col-12">
-                    <h3 class="card-title">FORM INPUT PENGUMUMAN</h3>
+                    <h3 class="card-title">FORM INPUT PPID</h3>
                 </div>
             </div>
         </div>
         <div class="card-body">
-    <form action="#" method="post" id="form_pengumuman" align="center" enctype="multipart/form-data">  
+    <form action="#" method="post" id="form_ppid" align="center" enctype="multipart/form-data">  
   <div class="form-group text-left">
   <label class="bmd-label-floating">Judul</label>
-    <textarea class="form-control" name="judul_pengumuman" id="judul_pengumuman" rows="3" required></textarea>
+    <textarea class="form-control" name="judul_covid19" id="judul_covid19" rows="3" required></textarea>
   </div>
-  <div class="form-group text-left">
-  <label class="bmd-label-floating">Keterangan</label>
-    <textarea class="form-control" name="ketarangan_pengumuman" id="ketarangan_pengumuman" rows="3" required></textarea>
-  </div>
+
   <div class="form-group text-left">
   <label class="bmd-label-floating">Tanggal</label>
-    <input class="form-control datetimepickerthis" name="tanggal_pengumuman" id="tanggal_pengumuman"  autocomplete="off" required/>
+    <input class="form-control datepicker" name="tanggal_covid19" id="tanggal_covid19"  autocomplete="off" required/>
   </div>
+
+  <div class="form-group text-left">
+  <label class="bmd-label-floating">Kategori</label>
+  <select class="form-control select2-navy" style="width: 100%"
+                 id="kategori_covid19" data-dropdown-css-class="select2-navy" name="kategori_covid19" required>
+                 <option value="" selected>- Pilih Kategori -</option>
+                 <option value="1" >Regulasi</option>
+                 <option value="2" >Edukasi</option>
+                 <option value="3" >Infografis</option>
+                 </select>
+  </div>
+
   <div class="form-group text-left">
   <label class="bmd-label-floating">File </label> 
- <input type="file"class="form-control"  name="pengumuman_file" id="pengumuman_file"/>
+ <input type="file"class="form-control"  name="covid19_file" id="covid19_file"/>
         <br>
     <div id="uploadPreview1"></div>
   </div>
+
+  <div class="form-group text-left">
+  <label class="bmd-label-floating">Link </label> 
+ <input class="form-control"  name="covid19_file" id="covid19_file"/>
+        <br>
+    <div id="uploadPreview1"></div>
+  </div>
+
 
   <div class="col-lg-12 col-md-4 text-right mt-2">
         <button class="btn btn-block btn-navy" id="btn_upload"><i class="fa fa-save"></i> SIMPAN</button>
@@ -37,10 +54,10 @@
             <div class="card-header">
                         <div class="row">
                             <div class="col-12">
-                                <h3 class="card-title">LIST PENGUMUMAN</h3>
+                                <h3 class="card-title">LIST COVID-19</h3>
                             </div>
                         </div>
-                    <div class="card-body" id="list_pengumuman">
+                    <div class="card-body" id="list_covid19">
                     
                                 
                     </div>                
@@ -51,18 +68,18 @@
 
 <script>
         $(document).ready(function(){  
-        loadListPengumuman()
+            loadListCovid19()
  });  
 
- function loadListPengumuman(){
-        $('#list_pengumuman').html('')
-        $('#list_pengumuman').load('<?=base_url("admin/C_Admin/loadListPengumuman/")?>', function(){
+ function loadListCovid19(){
+        $('#list_covid19').html('')
+        $('#list_covid19').load('<?=base_url("admin/C_Admin/loadListCovid19/")?>', function(){
             $('#loader').hide()
         })
     }
 
 
-     $('#form_pengumuman').on('submit', function(e){  
+     $('#form_ppid').on('submit', function(e){  
         $('#btn_upload').prop('disabled', true);
           $('#btn_upload').html('SIMPAN.. <i class="fas fa-spinner fa-spin"></i>')
           e.preventDefault();  
@@ -73,7 +90,7 @@
           else  
           {  
                $.ajax({  
-                   url:"<?=base_url("admin/C_Admin/submitKontenPengumuman")?>",  
+                   url:"<?=base_url("admin/C_Admin/submitKontenCovid19")?>",  
                     method:"POST",  
                     data:new FormData(this),  
                     contentType: false,  
@@ -86,10 +103,10 @@
                     
                        if(result.success == true){
                            successtoast(result.msg)
-                           document.getElementById("form_pengumuman").reset(); 
-                           $('#btn_upload').prop('disabled', false); 
+                           document.getElementById("form_ppid").reset();  
+                           $('#btn_upload').prop('disabled', false);
                            $('#btn_upload').html('<i class="fa fa-save"></i>  SIMPAN')
-                           loadListPengumuman()                          
+                           loadListCovid19()                          
                        } else {
                            errortoast(result.msg)
                            return false;
@@ -107,10 +124,6 @@
         format: 'yyyy-mm-dd',
     })
 
-    $('.datetimepickerthis').datetimepicker({
-    format: 'yyyy-mm-dd hh:ii:ss',
-    autoclose: true,
-    todayHighlight: true,
-    todayBtn: true
-  })
+
+
 </script>

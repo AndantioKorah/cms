@@ -1,6 +1,14 @@
 <?php
 	class M_Admin extends CI_Model
 	{
+        var $column_order = array(null,'nama', 'isi_galeri', 'tanggal');
+
+        var $column_search = array('nama', 'isi_galeri', 'tanggal');
+
+        
+        // default order 
+        var $order = array('id' => 'asc');
+
 		public function __construct()
         {
             parent::__construct();
@@ -156,6 +164,62 @@
             return $query; 
         }
 
+        function get_datatables()
+        {
+            $this->_get_datatables_query();
+            if ($this->input->post('length') != -1)
+                $this->db->limit($this->input->post('length'), $this->input->post('start'));
+            $query = $this->db->get();
+            return $query->result();
+        }
+
+        private function _get_datatables_query()
+        {
+           
+
+            $this->db->from('t_galeri');
+            $this->db->where('t_galeri.flag_active', 1);
+            $i = 0;
+            foreach ($this->column_search as $item) // loop kolom 
+            {
+                if (isset($this->input->post('search')['value'])) // jika datatable mengirim POST untuk search
+                {
+                    if ($i === 0) // looping pertama
+                    {
+                        $this->db->group_start();
+                        $this->db->like($item, $this->input->post('search')['value']);
+                    } else {
+                        $this->db->or_like($item, $this->input->post('search')['value']);
+                    }
+                    if (count($this->column_search) - 1 == $i) //looping terakhir
+                        $this->db->group_end();
+                }
+                $i++;
+            }
+    
+            // jika datatable mengirim POST untuk order
+            if ($this->input->post('order')) {
+                $this->db->order_by($this->column_order[$this->input->post('order')['0']['column']], $this->input->post('order')['0']['dir']);
+            } else if (isset($this->order)) {
+                $order = $this->order;
+                $this->db->order_by(key($order), $order[key($order)]);
+            }
+        }
+
+        function count_filtered()
+        {
+            $this->_get_datatables_query();
+            $query = $this->db->get();
+            return $query->num_rows();
+        }
+    
+        public function count_all()
+        {
+            $this->db->from('t_galeri');
+            $this->db->where('t_galeri.flag_active', 1);
+            return $this->db->count_all_results();
+        }
+
         function loadListGaleriVideo(){
             $query = $this->db->select('*')
                             ->from('t_galeri a')
@@ -251,6 +315,40 @@
                                 ->where('a.flag_active', 1)
                                 ->get()->result_array();
             }
+
+            public function submitKontenCovid19($new_name){
+
+           
+                $datapost = $this->input->post();
+                $data["judul"] = $datapost["judul_covid19"];
+                $data["tanggal"] =  $datapost["tanggal_covid19"];
+                $data["file"] = $new_name;
+                $data["kategori"] =  $datapost["kategori_covid19"];
+                $data['created_by'] = $this->general_library->getId();
+                $this->db->insert('t_covid19', $data);
+                return $this->db->insert_id(); 
+        }
+
+        function loadListCovid19(){
+            $query = $this->db->select('*')
+                            ->from('t_covid19 a')
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+            return $query; 
+        }
+
+
+        
+        public function getGaleriById($id){
+            return $this->db->select('*')
+                            ->from('t_galeri a')
+                            ->where('a.id', $id)
+                            ->where('a.flag_active', 1)
+                            ->limit(1)
+                            ->get()->row_array();
+        }
+
+    
 
     
 
