@@ -136,7 +136,7 @@ h1{
                     </div>
                  
 
-                    <div class="col-lg-6 col-md-3">
+                    <div class="col-lg-12 col-md-3">
                         <div class="form-group text-left">
                             <label class="bmd-label-floating">Tanggal</label>
                             <input  class="form-control datetimepickerthis"  name="tanggal_pojokttg" id="tanggal_pojokttg" autocomplete="off" required/>

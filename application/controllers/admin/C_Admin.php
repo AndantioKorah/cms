@@ -715,28 +715,28 @@ class C_Admin extends CI_Controller
         function updateKontenPojokTtg(){
 
          
-            $new_name = $this->input->post('nama_gambar_lama');
-            if(isset($_FILES["image_file"]["name"])){ 
-                $path="./assets/berita";
-                $konten="image_file";
-                $this->ajax_upload($path,$konten,$new_name);
-            }
+            // $new_name = $this->input->post('nama_gambar_lama');
+            // if(isset($_FILES["image_file"]["name"])){ 
+            //     $path="./assets/pojokttg";
+            //     $konten="image_file";
+            //     $this->ajax_upload($path,$konten,$new_name);
+            // }
 
             $data = $this->admin->updateKontenPojokTtg();
-            $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
+            // $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
             // echo json_encode($res);
             redirect('admin/berita');
         }
 
         public function deletePojokTtg($id){
-            $this->general->delete('id', $id, 't_berita');
+            $this->general->delete('id', $id, 't_pojokttg');
         }
 
         
 
         public function loadDetailPojokTtg($id){
-            $data['berita'] = $this->admin->getPojokTtgDetail($id);
-            // dd($data['berita']);
+            $data['pojokttg'] = $this->admin->getPojokTtgDetail($id);
+            // dd($data['pojokttg']);
             $this->load->view('admin/pojokttg/V_DetailPojokTtg', $data);
         }
 

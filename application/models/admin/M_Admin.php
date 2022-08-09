@@ -387,6 +387,16 @@
             return $this->db->insert_id();
         }
 
+        public function getPojokTtgDetail($id){
+            return $this->db->select('*')
+                            ->from('t_pojokttg a')
+                            ->where('a.id', $id)
+                            ->where('a.flag_active', 1)
+                            ->limit(1)
+                            ->get()->row_array();
+        }
+
+
     
 
     

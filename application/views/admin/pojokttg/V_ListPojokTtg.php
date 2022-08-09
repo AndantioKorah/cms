@@ -25,11 +25,11 @@
                    
                     data-gambar="<?php echo $lb['gambar'] ?>"
                     data-toggle="modal" data-target="#edit-data">
-                    <button onclick="openModalDetailBerita('<?=$lb['id']?>')" openModalDetailBerita  data-toggle="modal" data-target="#ubah-data" class="btn btn-info">Read More</button>
+                    <button onclick="openModalDetailPojokTtg('<?=$lb['id']?>')" openModalDetailBerita  data-toggle="modal" data-target="#ubah-data" class="btn btn-info">Read More</button>
                 </a>
                 </p>
                     </td>
-                  <td> <button onclick="deleteBerita('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
+                  <td> <button onclick="deletePojokTtg('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
                    </tr>
                 <?php } ?>
            
@@ -92,11 +92,11 @@
 
     
 
-      function deleteBerita(id){
+      function deletePojokTtg(id){
            
            if(confirm('Apakah Anda yakin ingin menghapus data?')){
                $.ajax({
-                   url: '<?=base_url("admin/C_admin/deleteBerita/")?>'+id,
+                   url: '<?=base_url("admin/C_admin/deletePojokTtg/")?>'+id,
                    method: 'post',
                    data: null,
                    success: function(){
@@ -145,10 +145,10 @@
         });
 
 
-        function openModalDetailBerita(id = 0){
+        function openModalDetailPojokTtg(id = 0){
             $('#modal_detail_berita').html('')
             // $('#modal_detail_berita').append(divLoaderNavy)
-            $('#modal_detail_berita').load('<?=base_url("admin/C_Admin/loadDetailBerita")?>'+'/'+id, function(){
+            $('#modal_detail_berita').load('<?=base_url("admin/C_Admin/loadDetailPojokTtg")?>'+'/'+id, function(){
             $('#loader').hide()
             })
         }
