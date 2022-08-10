@@ -59,7 +59,7 @@
             $data['limit'] = 6;
             $data['flag_refresh_paging'] = 0;
             $data['total_data'] = count($news);
-            $this->load->view('webcp/news/V_Newsdata', $data);
+            $this->load->view('webcp/news/V_NewsData', $data);
           ?>
         </div>
         <div class="content-news-search">

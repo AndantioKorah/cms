@@ -1,6 +1,6 @@
 <style>
   #ppid-berkala{
-    height: 50vh;
+    min-height: 50vh;
   }
 </style>
 <main id="main">

@@ -1,4 +1,7 @@
 <style>
+  #covid{
+    min-height: 50vh;
+  }
 </style>
 <main id="main">
   <section id="breadcrumbs" class="breadcrumbs">
