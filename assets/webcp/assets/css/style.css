@@ -11,6 +11,8 @@
 :root {
   --primary: #00b9ac;
   --primary-hover: #029b90;
+  --secondary: #d6df22;
+  --black-theme: #4a5562;
 }
 
 body {
@@ -1843,13 +1845,14 @@ section {
 # Footer
 --------------------------------------------------------------*/
 #footer {
-  background: #4a5562;
+  background: var(--black-theme);
   padding: 0 0 30px 0;
   color: #fff;
   font-size: 14px;
 }
 #footer .footer-top {
-  background: #515d6a;
+  /* background: #515d6a; */
+  background: var(--primary);
   padding: 60px 0 30px 0;
 }
 #footer .footer-top .footer-info {
@@ -1872,7 +1875,8 @@ section {
 #footer .footer-top .social-links a {
   font-size: 18px;
   display: inline-block;
-  background: rgba(255, 255, 255, 0.1);
+  /* background: rgba(255, 255, 255, 0.1); */
+  background: var(--black-theme);
   color: #fff;
   line-height: 1;
   padding: 8px 0;

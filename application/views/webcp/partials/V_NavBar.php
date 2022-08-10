@@ -36,6 +36,9 @@
             <li>
                 <a class="<?=$url[2] == 'news' ? 'active-navbar' : ''?>" href="<?=base_url('news')?>"><?=$this->lang->line('news')?></a>
             </li>
+            <li>
+                <a class="<?=$url[2] == 'agenda' ? 'active-navbar' : ''?>" href="<?=base_url('agenda')?>">Agenda</a>
+            </li>
             <li class="dropdown">
                 <a class="<?=$url[2] == 'gallery' ? 'active-navbar' : ''?>"><?=$this->lang->line('gallery')?></a>
                 <ul>
@@ -53,8 +56,13 @@
                 </ul>
             </li>
 
-            <li>
-                <a class="<?=$url[2] == 'service' ? 'active-navbar' : ''?>" href="<?=base_url('service')?>"><?=$this->lang->line('service')?></a>
+            <li class="dropdown">
+                <a class="<?=$url[2] == 'service' ? 'active-navbar' : ''?>" href="#"><?=$this->lang->line('service')?></a>
+                <ul>
+                  <li><a href="#">Jenis Pelayanan</a></li>
+                  <li><a href="#">Jam Pelayanan</a></li>
+                  <li><a href="#">Pola Tarif</a></li>
+                </ul>
             </li>
 
             <li>
