@@ -725,7 +725,7 @@ class C_Admin extends CI_Controller
             $data = $this->admin->updateKontenPojokTtg();
             // $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
             // echo json_encode($res);
-            redirect('admin/berita');
+            redirect('admin/pojok-ttg');
         }
 
         public function deletePojokTtg($id){
@@ -740,7 +740,107 @@ class C_Admin extends CI_Controller
             $this->load->view('admin/pojokttg/V_DetailPojokTtg', $data);
         }
 
+
+        //  AGENDA
+
+        public function AGENDA(){
+       
+            $this->general_library->refreshMenu();
+            $data['list_menu'] = $this->general->getAllWithOrder('m_menu', 'nama_menu', 'asc');
+            render('admin/agenda/V_Agenda', 'admin', 'konten', $data);
+            
+        }
+
+
+        function submitKontenAgenda(){
+
+            
+            $countfiles = count($_FILES['agenda_gambar']['name']);
+            // dd($countfiles);
+            for($i=0;$i<$countfiles;$i++){
+            if(!empty($_FILES['agenda_gambar']['name'][$i])){
+      
+                // Define new $_FILES array - $_FILES['file']
+                $_FILES['file']['name'] = $_FILES['agenda_gambar']['name'][$i];
+                $_FILES['file']['type'] = $_FILES['agenda_gambar']['type'][$i];
+                $_FILES['file']['tmp_name'] = $_FILES['agenda_gambar']['tmp_name'][$i];
+                $_FILES['file']['error'] = $_FILES['agenda_gambar']['error'][$i];
+                $_FILES['file']['size'] = $_FILES['agenda_gambar']['size'][$i];
+              
+     
+                $config['upload_path'] = './assets/admin/agenda'; 
+                $config['allowed_types'] = 'jpg|jpeg|png';
+              
+                $this->load->library('upload',$config); 
+                if($this->upload->do_upload('file')){
+                    $data = $this->upload->data(); 
+                
+                    if($data["file_size"] > 500){
+                        $config4['image_library'] = 'gd2';
+                        $config4['source_image'] = './assets/admin/agenda/'.$data["file_name"];
+                        $config4['create_thumb'] = FALSE;
+                        $config4['maintain_ratio'] = FALSE;
+                        $config4['width']         = 1280;
+                        $config4['height']       = 720;
+                        $config4['new_image']= './assets/admin/agenda/'.$data['file_name'];
+                        $this->load->library('image_lib');
+                        $this->image_lib->initialize($config4);
+                        if (!$this->image_lib->resize()) {
+                            echo $this->image_lib->display_errors();
+                        }
+                        $this->image_lib->clear();
+                      } else {
+                      
+
+                        $config4['image_library'] = 'gd2';
+                        $config4['source_image'] = './assets/admin/agenda/'.$data["file_name"];
+                        $config4['create_thumb'] = FALSE;
+                        $config4['maintain_ratio'] = FALSE;
+                        $config4['width']         = 1024;
+                        $config4['height']       = 570;
+                       
+                        $config4['new_image']= './assets/admin/agenda/'.$data['file_name'];
+                        $this->load->library('image_lib');
+                        $this->image_lib->initialize($config4);
+                        if (!$this->image_lib->resize()) {
+                            echo $this->image_lib->display_errors();
+                        }
+                        $this->image_lib->clear();
+                      }
+                    }
+              }
+           
+            $nama_file[] = $data['file_name'];
+             }
+           
+            $new_name = json_encode($nama_file); 
+            $data = $this->admin->submitKontenAgenda($new_name);
+               
+            redirect('admin/agenda');
+           
+        }
+
+          public function loadListAgenda(){
+            $data['list_agenda'] = $this->admin->loadListAgenda();
+            $this->load->view('admin/agenda/V_ListAgenda', $data);
+        }
+
+        function updateKontenAgenda(){
+            $data = $this->admin->updateKontenAgenda();
+            redirect('admin/agenda');
+        }
+
+        public function deleteAgenda($id){
+            $this->general->delete('id', $id, 't_agenda');
+        }
+
         
+
+        public function loadDetailAgenda($id){
+            $data['agenda'] = $this->admin->getAgendaDetail($id);
+            // dd($data['pojokttg']);
+            $this->load->view('admin/agenda/V_DetailAgenda', $data);
+        }
 
 
         

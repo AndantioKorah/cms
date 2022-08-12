@@ -5,7 +5,7 @@ class General_library
     protected $nikita;
     public $userLoggedIn;
     public $params;
-    public $bios_serial_num;
+    // public $bios_serial_num;
 
     public function __construct()
     {
@@ -14,7 +14,7 @@ class General_library
             $this->userLoggedIn = $this->nikita->session->userdata('user_logged_in')[0];
         }
         $this->params = $this->nikita->session->userdata('params');
-        $this->bios_serial_num = shell_exec('wmic bios get serialnumber 2>&1');
+        // $this->bios_serial_num = shell_exec('wmic bios get serialnumber 2>&1');
         date_default_timezone_set("Asia/Singapore");
         $this->nikita->load->model('general/M_General', 'm_general');
         $this->nikita->load->model('user/M_User', 'm_user');
@@ -25,10 +25,10 @@ class General_library
         $this->nikita->m_general->logErrorTelegram($data);
     }
 
-    public function getBiosSerialNum(){
-        $info = $this->bios_serial_num;
-        return trim($info);
-    }
+    // public function getBiosSerialNum(){
+    //     $info = $this->bios_serial_num;
+    //     return trim($info);
+    // }
 
     public function refreshUserLoggedInData(){
         $this->userLoggedIn = $this->nikita->session->userdata('user_logged_in')[0];
