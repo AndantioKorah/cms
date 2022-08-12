@@ -51,21 +51,21 @@
   }
 
   .div-title{
-    height: 28px;
+    /* height: 28px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
+    -webkit-box-orient: vertical; */
   }
 
   .div-keterangan{
-    height: 25px;
+    /* height: 25px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
+    -webkit-box-orient: vertical; */
   }
 
   .card-title:hover{
@@ -108,7 +108,7 @@
               <span class="data-announcement"><i class="fa fa-clock"></i> <?=formatDateNamaBulanWT($rs['tanggal'])?></span>
             </div>
             <div class="col-lg-4 col-md-12" style="text-align: right;">
-              <a href="#" class="btn btn-sm btn-primary-color">Selengkapnya <i class="fa fa-angle-right"></i></a>
+              <a href="#" class="btn btn-sm btn-primary-color">Download <i class="fa fa-download"></i></a>
             </div>
           </div>
         </div>

@@ -23,14 +23,14 @@
 </style>
 
 <?php if($video){ foreach($video as $v) { ?>
-  <div class="col-lg-4 p-3 col-md-6 div_video">
+  <div class="col-lg-6 p-3 col-md-6 div_video">
     <iframe class="b-lazy gallery-video-data" 
 	    data-src="<?=preg_replace("/\s*[a-zA-Z\/\/:\.]youtube.com\/watch\?v=([a-zA-Z0-9\-]+)([a-zA-Z0-9\/\*\-\\-\_\?\&\;\%\=\.]*)/i",".youtube.com/embed/$1",$v['isi_galeri']);?>" 
 	    frameborder="0" 
 	    allowfullscreen>
     </iframe>
     <div class="video-name">
-      <span><?=$v['nama']?></span>
+      <span title="<?=$v['nama']?>"><?=$v['nama']?></span>
     </div>
   </div>
 <?php } }?>

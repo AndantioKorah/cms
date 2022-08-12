@@ -1,6 +1,6 @@
 <style>
   #ppid-berkala{
-    height: 50vh;
+    min-height: 50vh;
   }
 </style>
 <main id="main">
@@ -34,7 +34,7 @@
           </select>
         </div>
         <div class="col-lg-12 col-md-12 mt-5">
-          <div class="row" id="result_data"></div>
+          <div class="row table-responsive" id="result_data"></div>
         </div>
       </div>
     </div>
