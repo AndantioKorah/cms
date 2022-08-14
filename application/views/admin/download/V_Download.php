@@ -4,47 +4,48 @@
 <div class="card-header">
             <div class="row">
                 <div class="col-12">
-                    <h3 class="card-title">FORM INPUT LOGO</h3>
+                    <h3 class="card-title">FORM INPUT</h3>
                 </div>
             </div>
         </div>
         <div class="card-body">
-    <form action="#" method="post" id="form_ppid" align="center" enctype="multipart/form-data">  
+    <form action="#" method="post" id="form_download" align="center" enctype="multipart/form-data">  
   <div class="form-group text-left">
   <label class="bmd-label-floating">Judul</label>
-    <textarea class="form-control" name="judul_covid19" id="judul_covid19" rows="3" required></textarea>
+    <textarea class="form-control" name="download_judul" id="download_judul" rows="3" required></textarea>
   </div>
-
+  <div class="form-group text-left">
+  <label class="bmd-label-floating">Keterangan</label>
+    <textarea class="form-control" name="download_keterangan" id="download_keterangan" rows="3" ></textarea>
+  </div>
   <div class="form-group text-left">
   <label class="bmd-label-floating">Tanggal</label>
-    <input class="form-control datepicker" name="tanggal_covid19" id="tanggal_covid19"  autocomplete="off" required/>
+    <input class="form-control datetimepickerthis" name="download_tanggal" id="download_tanggal"  autocomplete="off" required/>
   </div>
 
   <div class="form-group text-left">
   <label class="bmd-label-floating">Kategori</label>
   <select class="form-control select2-navy" style="width: 100%"
-                 id="kategori_covid19" data-dropdown-css-class="select2-navy" name="kategori_covid19" required>
-                 <option value="" selected>- Pilih Kategori -</option>
-                 <option value="1" >Regulasi</option>
-                 <option value="2" >Edukasi</option>
-                 <option value="3" >Infografis</option>
+                 id="download_jenis" data-dropdown-css-class="select2-navy" name="download_jenis" required>
+                 <option value="" selected>- Pilih Jenis Download -</option>
+                 <?php if($list_master_download){
+                                foreach($list_master_download as $ljp){
+                                ?>
+                                <option value="<?=$ljp['id']?>">
+                                    <?=$ljp['jenis_download']?>
+                                </option>
+                            <?php } } ?>
                  </select>
   </div>
 
+
+  
   <div class="form-group text-left">
   <label class="bmd-label-floating">File </label> 
- <input type="file"class="form-control"  name="covid19_file" id="covid19_file"/>
+ <input type="file"class="form-control"  name="download_file" id="download_file"/>
         <br>
     <div id="uploadPreview1"></div>
   </div>
-
-  <div class="form-group text-left">
-  <label class="bmd-label-floating">Link </label> 
- <input class="form-control"  name="covid19_file" id="covid19_file"/>
-        <br>
-    <div id="uploadPreview1"></div>
-  </div>
-
 
   <div class="col-lg-12 col-md-4 text-right mt-2">
         <button class="btn btn-block btn-navy" id="btn_upload"><i class="fa fa-save"></i> SIMPAN</button>
@@ -54,10 +55,10 @@
             <div class="card-header">
                         <div class="row">
                             <div class="col-12">
-                                <h3 class="card-title">LIST COVID-19</h3>
+                                <h3 class="card-title">LIST DATA</h3>
                             </div>
                         </div>
-                    <div class="card-body" id="list_covid19">
+                    <div class="card-body" id="list_download">
                     
                                 
                     </div>                
@@ -68,18 +69,18 @@
 
 <script>
         $(document).ready(function(){  
-            loadListCovid19()
+          loadListDownload()
  });  
 
- function loadListCovid19(){
-        $('#list_covid19').html('')
-        $('#list_covid19').load('<?=base_url("admin/C_Admin/loadListCovid19/")?>', function(){
+ function loadListDownload(){
+        $('#list_download').html('')
+        $('#list_download').load('<?=base_url("admin/C_Admin/loadListDownload/")?>', function(){
             $('#loader').hide()
         })
     }
 
 
-     $('#form_ppid').on('submit', function(e){  
+     $('#form_download').on('submit', function(e){  
         $('#btn_upload').prop('disabled', true);
           $('#btn_upload').html('SIMPAN.. <i class="fas fa-spinner fa-spin"></i>')
           e.preventDefault();  
@@ -90,7 +91,7 @@
           else  
           {  
                $.ajax({  
-                   url:"<?=base_url("admin/C_Admin/submitKontenCovid19")?>",  
+                   url:"<?=base_url("admin/C_Admin/submitKontenDownload")?>",  
                     method:"POST",  
                     data:new FormData(this),  
                     contentType: false,  
@@ -103,10 +104,10 @@
                     
                        if(result.success == true){
                            successtoast(result.msg)
-                           document.getElementById("form_ppid").reset();  
+                           document.getElementById("form_download").reset();  
                            $('#btn_upload').prop('disabled', false);
                            $('#btn_upload').html('<i class="fa fa-save"></i>  SIMPAN')
-                           loadListCovid19()                          
+                           loadListPpid()                          
                        } else {
                            errortoast(result.msg)
                            return false;
@@ -125,5 +126,10 @@
     })
 
 
-
+$('.datetimepickerthis').datetimepicker({
+    format: 'yyyy-mm-dd hh:ii:ss',
+    autoclose: true,
+    todayHighlight: true,
+    todayBtn: true
+  })
 </script>

@@ -78,6 +78,12 @@ $route['master/ketegorippid'] = 'master/C_Master/masterKategoriPpid';
 $route['master/jenisppid'] = 'master/C_Master/masterJenisPpid';
 $route['admin/covid19'] = 'admin/C_Admin/covid19';
 $route['admin/pojok-ttg'] = 'admin/C_Admin/pojokttg';
+$route['admin/logo'] = 'admin/C_Admin/logo';
+$route['master/download'] = 'master/C_Master/masterDownload';
+$route['admin/download'] = 'admin/C_Admin/download';
+
+
+
 // $route['dashboard'] = 'dashboard/C_Dashboard/dashboard';
 
 // =============================================================
