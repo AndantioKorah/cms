@@ -42,5 +42,51 @@
             }
             return $list_menu;
         }
+
+        public function getDataStatistic(){
+            $today = date('Y-m-d');
+            $minggu_ini = date('Y-m-d', strtotime("monday this week"));
+            $data['total_hit'] = 0;
+            $data['hari_ini'] = 0;
+            $data['minggu_ini'] = 0;
+            $data['bulan_ini'] = 0;
+            $data['tahun_ini'] = 0;
+
+            $all = $this->db->select('sum(count) as total')
+                    ->from('t_statistik')
+                    ->where('flag_active', 1)
+                    ->get()->row_array();
+
+            if($all){
+                $data['total_hit'] = $all['total'];
+            }
+
+            $res = $this->db->select('*')
+                            ->from('t_statistik')
+                            ->where('YEAR(tanggal) =', date('Y'))
+                            ->order_by('tanggal')
+                            ->where('flag_active', 1)
+                            ->get()->result_array();
+            if($res){
+                foreach($res as $r){
+                    // $curdate = strtotime($r['tanggal']);
+                    $data['tahun_ini'] += $r['count'];
+                    $tmp_tanggal = explode("-", $r['tanggal']);
+                    if($tmp_tanggal[1] == date('m')){
+                        $data['bulan_ini'] += $r['count'];
+                    }
+                    
+                    if(($r['tanggal'] >= $minggu_ini) && ($r['tanggal'] <= $today)){
+                        $data['minggu_ini'] += $r['count'];
+                    }
+
+                    if($r['tanggal'] == date('Y-m-d')){
+                        $data['hari_ini'] = $r['count'];
+                    }
+                }
+            }
+            
+            return $data;
+        }
 	}
 ?>

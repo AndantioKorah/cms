@@ -37,13 +37,13 @@
     <div class="container">
 
       <div class="d-flex justify-content-between align-items-center mt-2">
-        <h2><?=$this->lang->line('news')?></h2>
+        <h2>Agenda</h2>
         <div class="bc-detail-news">
           <ol>
             <li><a href="<?=base_url('home')?>"><?=$this->lang->line('home')?></a></li>
-            <li><a href="<?=base_url('news')?>"><?=$this->lang->line('news')?></a></li>
+            <li><a href="<?=base_url('agenda')?>">Agenda</a></li>
             <?php if($result){ ?>
-              <li class="breadcrumb-judul"><a title="<?=$result['judul_ina']?>"><?=$result['judul_ina']?></a></li>
+              <li class="breadcrumb-judul"><a title="<?=$result['judul']?>"><?=$result['judul']?></a></li>
             <?php } ?>
           </ol>
         </div>
@@ -59,20 +59,20 @@
               <div class="col-lg-8 col-md-12 main-news">
                 <div class="info-berita mb-2">
                   <span class="badge-berita badge"><i class="fa fa-pen"></i> <?=($rs['nama'])?></span>
-                  <span class="badge-berita badge"><i class="fa fa-calendar"></i> <?=formatDateNamaBulanWT($rs['tanggal_berita'])?></span>
+                  <span class="badge-berita badge"><i class="fa fa-calendar"></i> <?=formatDateNamaBulanWT($rs['tanggal'])?></span>
                   <span class="badge-berita badge"><i class="fa fa-eye"></i> <?=formatCurrencyWithoutRp($rs['seen_count'])?> kali dilihat</span>
                 </div>
                 <div class="image">
                   <?php
                     $data['gambar'] = json_decode($rs['gambar'], true);
-                    $data['page'] = 'news';
+                    $data['page'] = 'agenda';
                     $this->load->view('webcp/partials/V_ImageVerticalSlider.php', $data);
                   ?>
-                  <!-- <img class="image-berita-detail" src="<?=$this->general_library->getBeritaImage($rs['gambar'])?>" /> -->
+                  <!-- <img class="image-berita-detail" src="<?=$this->general_library->getAgendaImage($rs['gambar'])?>" /> -->
                 </div>
                 <div style="text-align: justify;" class="judul-berita mt-3">
-                  <span class="header_news" title="<?=$rs['judul_ina']?>"><?=$rs['judul_ina']?></span><br>
-                  <table>
+                  <span class="header_news" title="<?=$rs['judul']?>"><?=$rs['judul']?></span><br>
+                  <!-- <table>
                       <tr>
                         <td style="vertical-align: top;"><span style="color: grey;" class="badge"><i class="fa fa-tags"></i></span></td>
                         <td>
@@ -87,8 +87,8 @@
                         </td>
                       </tr>
                   </table>
-                  <hr>
-                  <p><?=($rs['isi_berita'])?></p>
+                  <hr> -->
+                  <p><?=($rs['isi_agenda'])?></p>
                 </div>
               </div>
               <div class="col-lg-4 col-md-12">
@@ -99,12 +99,10 @@
                     </div>
                     <!-- <a href="<?=base_url('news')?>" class="berita-lainnya">Berita Terbaru Lainnya</a>
                     <hr> -->
-                    <?php if($other_news){ 
-                      $data['news'] = $other_news;
-                      $this->load->view('webcp/news/V_OtherNewsData', $data);
-                    } else { ?>
-                      <h6>Tidak ada berita</h6>
-                    <?php } ?>
+                    <?php 
+                      $data['agenda'] = $other_agenda;
+                      $this->load->view('webcp/agenda/V_OtherAgendaData', $data);
+                    ?>
                   </div>
                 </div>
               </div>
@@ -119,6 +117,5 @@
 </main>
 <script>  
   $(function(){
-    $('#berita_content').html($('#textarea_content').html())
   })
 </script>

@@ -5,28 +5,28 @@
     <div class="container">
 
       <div class="d-flex justify-content-between align-items-center">
-        <h2><?=$this->lang->line('ttg')?></h2>
+        <h2>Agenda</h2>
         <ol>
           <li><a href="<?=base_url('')?>"><?=$this->lang->line('home')?></a></li>
-          <li><a><?=$this->lang->line('ttg')?></a></li>
+          <li><a>Agenda</a></li>
         </ol>
       </div>
     </div>
   </section>
 
-  <section id="ttg" class="blog">
+  <section id="agenda" class="blog">
     <div class="container">
       <?php 
-        $data['total_page'] = $total_page_ttg;
+        $data['total_page'] = $total_page_agenda;
         $data['active_page'] = 1;
-        $data['page_content'] = 'pojok-ttg';
+        $data['page_content'] = 'agenda';
         $data['title'] = '';
         $this->load->view('webcp/news/V_NewsPaging', $data);
       ?>
-      <div id="div_ttg_data" class="row">
+      <div id="div_agenda_data" class="row">
         <?php
-          $data['ttg'] = $ttg;
-          $this->load->view('webcp/ttg/V_TtgData', $data);
+          $data['agenda'] = $agenda;
+          $this->load->view('webcp/agenda/V_AgendaData', $data);
         ?>
       </div>
     </div>
@@ -35,10 +35,10 @@
 </main>
 
 <script>
-  function refreshTtgData(ap){
-    $('#div_ttg_data').html('')
-    $('#div_ttg_data').append(divLoaderNavy)
-    $('#div_ttg_data').load('<?=base_url('webcp/ttg/C_Ttg/getDataTtgByPage')?>'+'/'+ap, function(){
+  function refreshAgendaData(ap){
+    $('#div_agenda_data').html('')
+    $('#div_agenda_data').append(divLoaderNavy)
+    $('#div_agenda_data').load('<?=base_url('webcp/agenda/C_Agenda/getDataAgendaByPage')?>'+'/'+ap, function(){
       $('#loader').hide()
     })
   }

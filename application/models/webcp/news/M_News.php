@@ -58,8 +58,6 @@
         }
 
         public function getDetailNews($id){
-            
-
             $data = $this->db->select('a.*, b.nama')
                             ->from('t_berita a')
                             ->join('m_user b', 'a.created_by = b.id')
@@ -97,6 +95,16 @@
                             ->where('a.flag_active', 1)
                             ->order_by('a.tanggal_berita', 'desc')
                             ->limit(LIMIT_NEWS)
+                            ->get()->result_array();
+        }
+
+        public function getPopularNews($limit = 5){
+            return $this->db->select('a.*, b.nama')
+                            ->from('t_berita a')
+                            ->join('m_user b', 'a.created_by = b.id')
+                            ->where('a.flag_active', 1)
+                            ->order_by('a.seen_count', 'desc')
+                            ->limit($limit)
                             ->get()->result_array();
         }
 	}

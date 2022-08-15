@@ -59,7 +59,7 @@
                     <a class="<?=$url[1] == 'agenda' ? 'active-navbar' : ''?>" href="<?=base_url('agenda')?>">Agenda</a>
                 </li>
                 <li class="dropdown">
-                    <a class="<?=$url[1] == 'gallery' ? 'active-navbar' : ''?>"><?=$this->lang->line('gallery')?></a>
+                    <a class="<?=$url[1] == 'gallery' ? 'active-navbar' : ''?>" href="#"><?=$this->lang->line('gallery')?> <i class="fa fa-angle-down"></i></a>
                     <ul>
                       <li><a href="<?=base_url('gallery/image')?>">Gambar</a></li>
                       <li><a href="<?=base_url('gallery/video')?>">Video</a></li>
@@ -67,7 +67,7 @@
                 </li>
 
                 <li class="dropdown">
-                    <a class="<?=$url[1] == 'ppid' ? 'active-navbar' : ''?>"><?=$this->lang->line('ppid')?></a>
+                    <a class="<?=$url[1] == 'ppid' ? 'active-navbar' : ''?>" href="#"><?=$this->lang->line('ppid')?> <i class="fa fa-angle-down"></i></a>
                     <ul>
                       <li><a href="<?=base_url('ppid/berkala')?>">Informasi Berkala</a></li>
                       <li><a href="<?=base_url('ppid/setiap-saat')?>">Informasi Setiap Saat</a></li>
@@ -76,7 +76,7 @@
                 </li>
 
                 <li class="dropdown">
-                    <a class="<?=$url[1] == 'service' ? 'active-navbar' : ''?>" href="#"><?=$this->lang->line('service')?></a>
+                    <a class="<?=$url[1] == 'service' ? 'active-navbar' : ''?>" href="#"><?=$this->lang->line('service')?> <i class="fa fa-angle-down"></i></a>
                     <ul>
                       <li><a href="#">Jenis Pelayanan</a></li>
                       <li><a href="#">Jam Pelayanan</a></li>
@@ -86,6 +86,10 @@
 
                 <li>
                     <a class="<?=$url[1] == 'announcement' ? 'active-navbar' : ''?>" href="<?=base_url('announcement')?>"><?=$this->lang->line('announcement')?></a>
+                </li>
+
+                <li>
+                    <a class="<?=$url[1] == 'download' ? 'active-navbar' : ''?>" href="<?=base_url('download')?>">Download</a>
                 </li>
 
                 <li>

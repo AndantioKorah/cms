@@ -57,13 +57,23 @@ body {
   cursor: pointer;
 }
 
+.title-section-side {
+  font-size: 18px;
+}
+
 .title-section-side::after {
   content: "";
-  width: 120px;
-  height: 3px;
+  width: 50px;
+  height: 2px;
   display: inline-block;
   background: var(--primary);
-  margin: 7px 7px;
+  margin: 5px 7px;
+}
+
+.span_stats{
+  font-size: 15px;
+  color: var(--black-theme);
+  font-weight: 500px;
 }
 
 .title-section-side:hover{
@@ -1594,6 +1604,62 @@ section {
   border-radius: 4px;
 }
 .contact .php-email-form button[type=submit]:hover {
+  background: #018379;
+}
+
+.contact .php-email-form-new .error-message br + br {
+  margin-top: 25px;
+}
+.contact .php-email-form-new .sent-message {
+  display: none;
+  color: #fff;
+  background: #18d26e;
+  text-align: center;
+  padding: 15px;
+  font-weight: 600;
+}
+.contact .php-email-form-new .loading {
+  display: none;
+  background: #fff;
+  text-align: center;
+  padding: 15px;
+}
+.contact .php-email-form-new .loading:before {
+  content: "";
+  display: inline-block;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  margin: 0 10px -6px 0;
+  border: 3px solid #18d26e;
+  border-top-color: #eee;
+  -webkit-animation: animate-loading 1s linear infinite;
+  animation: animate-loading 1s linear infinite;
+}
+.contact .php-email-form-new input, .contact .php-email-form-new textarea {
+  border-radius: 0;
+  box-shadow: none;
+  font-size: 14px;
+  border-radius: 4px;
+}
+.contact .php-email-form-new input:focus, .contact .php-email-form-new textarea:focus {
+  border-color: var(--primary);
+}
+.contact .php-email-form-new input {
+  height: 44px;
+}
+.contact .php-email-form-new textarea {
+  padding: 10px 12px;
+}
+.contact .php-email-form-new button[type=submit] {
+  background: var(--primary);
+  border: 0;
+  padding: 10px 24px;
+  color: #fff;
+  transition: 0.4s;
+  border-radius: 4px;
+}
+.contact .php-email-form-new button[type=submit]:hover {
   background: #018379;
 }
 @-webkit-keyframes animate-loading {

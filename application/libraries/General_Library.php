@@ -19,6 +19,7 @@ class General_library
         $this->nikita->load->model('general/M_General', 'm_general');
         $this->nikita->load->model('user/M_User', 'm_user');
         $this->nikita->load->model('webcp/M_Main', 'main');
+        $this->updateStatistic();
     }
 
     public function logErrorTelegram($data){
@@ -52,6 +53,26 @@ class General_library
                 $this->nikita->session->set_userdata([$p['parameter_name'] => $p]);
             }
         }
+    }
+
+    public function updateStatistic(){
+        $this->nikita->m_general->updateStatistic();
+    }
+
+    public function getTtgImage($gambar){
+        $img_src = base_url('assets/webcp/assets/img/image-not-found.png');
+        if($gambar && file_exists(URI_TTG.$gambar)){
+            $img_src = base_url(URI_TTG.$gambar);
+          }
+        return $img_src;
+    }
+    
+    public function getAgendaImage($gambar){
+        $img_src = base_url('assets/webcp/assets/img/image-not-found.png');
+        if($gambar && file_exists(URI_AGENDA.$gambar)){
+            $img_src = base_url(URI_AGENDA.$gambar);
+          }
+        return $img_src;
     }
 
     public function getBeritaImage($gambar){

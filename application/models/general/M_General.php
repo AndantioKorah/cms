@@ -182,5 +182,24 @@
                             ->where('a.id', $id)
                             ->get()->row_array();
         }
+
+        public function updateStatistic(){
+            $date_today = date('Y-m-d');
+            $today = $this->db->select('*')
+                            ->from('t_statistik')
+                            ->where('tanggal', $date_today)
+                            ->where('flag_active', 1)
+                            ->get()->row_array();
+
+            if($today){
+                $count = $today['count'] + 1;
+                $this->db->where('id', $today['id'])
+                        ->update('t_statistik', ['count' => $count]);
+            } else {
+                $this->db->insert('t_statistik',
+                                    ['tanggal' => $date_today,
+                                    'count' => 1]);
+            }
+        }
 	}
 ?>

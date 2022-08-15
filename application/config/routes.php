@@ -110,10 +110,16 @@ $route['service'] = 'webcp/service/C_Service/index';
 
 $route['announcement'] = 'webcp/announcement/C_Announcement/index';
 
+$route['download'] = 'webcp/download/C_Download/index';
+
+$route['agenda'] = 'webcp/agenda/C_Agenda/index';
+$route['agenda/detail/(:any)'] = 'webcp/agenda/C_Agenda/detailAgenda/$1';
+
 $route['contact'] = 'webcp/contact/C_Contact/index';
 
 $route['wbs'] = 'webcp/wbs/C_Wbs/index';
 
 $route['ttg'] = 'webcp/ttg/C_Ttg/index';
+$route['ttg/detail/(:any)'] = 'webcp/ttg/C_Ttg/detailTtg/$1';
 
 $route['covid'] = 'webcp/covid/C_Covid/index';
