@@ -107,7 +107,7 @@
                            document.getElementById("form_download").reset();  
                            $('#btn_upload').prop('disabled', false);
                            $('#btn_upload').html('<i class="fa fa-save"></i>  SIMPAN')
-                           loadListPpid()                          
+                           loadListDownload()                          
                        } else {
                            errortoast(result.msg)
                            return false;

@@ -112,7 +112,7 @@ h1{
 <div class="card-header">
             <div class="row">
                 <div class="col-12">
-                    <h3 class="card-title">FORM INPUT POJOK TTG</h3>
+                    <h3 class="card-title">FORM INPUT AGENDA</h3>
                 </div>
             </div>
         </div>
@@ -121,7 +121,7 @@ h1{
 
 
 
-        <form action="<?=base_url("admin/C_Admin/submitKontenPojokTtg")?>" method="post" id="form_pojok_ttg" align="center" enctype="multipart/form-data">  
+        <form action="<?=base_url("admin/C_Admin/submitKontenAgenda")?>" method="post" id="form_agenda" align="center" enctype="multipart/form-data">  
                 <div class="row">
                     <div class="col-lg-12 col-md-3">
                         <div class="form-group">
@@ -130,7 +130,7 @@ h1{
                     <div class="col-lg-12 col-md-3">
                         <div class="form-group text-left">
                             <label class="bmd-label-floating">Judul </label>
-                            <textarea class="form-control" name="pojokttg_judul" id="pojokttg_judul" rows="3" required></textarea>
+                            <textarea class="form-control" name="agenda_judul" id="agenda_judul" rows="3" required></textarea>
                             <!-- <input required class="form-control" autocomplete="off" name="berita_judul" id="berita_judul"/> -->
                         </div>
                     </div>
@@ -139,7 +139,7 @@ h1{
                     <div class="col-lg-12 col-md-3">
                         <div class="form-group text-left">
                             <label class="bmd-label-floating">Tanggal</label>
-                            <input  class="form-control datetimepickerthis"  name="tanggal_pojokttg" id="tanggal_pojokttg" autocomplete="off" required/>
+                            <input  class="form-control datetimepickerthis"  name="agenda_tanggal" id="agenda_tanggal" autocomplete="off" required/>
                         </div>
                     </div>
 
@@ -149,7 +149,7 @@ h1{
                     <div class="col-lg-12 col-md-3">
                         <div class="form-group text-left">
                             <label class="bmd-label-floating">Gambar  <a onclick="resetUploadPreview()" href="#"><i class="fa fa-undo" aria-hidden="true"></i></a> </label> 
-                            <input type="file"     class="form-control"  name="pojokttg_gambar[]" id="pojokttg_gambar" multiple="multiple"/>
+                            <input type="file"     class="form-control"  name="agenda_gambar[]" id="agenda_gambar" multiple="multiple"/>
                             <br>
                          <div id="uploadPreview1"></div>
                         </div>
@@ -167,7 +167,7 @@ h1{
                     <div class="col-lg-12 col-md-3">
                         <div class="form-group text-left">
                             <label class="bmd-label-floating">Isi</label>
-                            <textarea  onkeyup="sendCode()" type="file" rows="10"  class="form-control "  autocomplete="off" name="isi_pojokttg" id="editor" ></textarea>
+                            <textarea  onkeyup="sendCode()" type="file" rows="10"  class="form-control "  autocomplete="off" name="isi_agenda" id="editor" ></textarea>
                         </div>
                     </div>
                
@@ -194,7 +194,7 @@ h1{
 <div class="card-header">
             <div class="row">
                 <div class="col-12">
-                    <h3 class="card-title">LIST POJOK TTG</h3>
+                    <h3 class="card-title">LIST AGENDA</h3>
                 </div>
             </div>
         </div>
@@ -221,43 +221,40 @@ h1{
  function loadListBerita(){
         $('#list_pojokttg').html('')
         // $('#list_berita').append(divLoaderNavy)
-        $('#list_pojokttg').load('<?=base_url("admin/C_Admin/loadListPojokTtg/")?>', function(){
+        $('#list_pojokttg').load('<?=base_url("admin/C_Admin/loadListAgenda/")?>', function(){
             $('#loader').hide()
         })
     }
 
     function resetUploadPreview(){
         $('#uploadPreview1').html('');
-         $('#pojokttg_gambar').val('');
+         $('#agenda_gambar').val('');
     }
 
   
         $( "#btn_upload" ).click(function() {
 
-           if($('#pojokttg_judul').val() == '')  
+           if($('#agenda_judul').val() == '')  
            {  
             errortoast(" Judul masih kosong"); 
-                document.getElementById(berita_judul_ina).focus(); 
                 return false;
            }
     
-           if($('#tanggal_pojokttg').val() == '')  
+           if($('#agenda_tanggal').val() == '')  
            {  
                 errortoast("Tanggal berita masih kosong");  
-                document.getElementById(tanggal_berita).focus(); 
                 return false;
            }
-           if($('#pojokttg_gambar').val() == '')  
+           if($('#agenda_gambar').val() == '')  
            {  
                 errortoast("Please Select the File"); 
-                document.getElementById(berita_gambar).focus();  
                 return false;
            } 
 
            
             $('#btn_upload').prop('disabled', true);
             $('#btn_upload').html('SIMPAN.. <i class="fas fa-spinner fa-spin"></i>')
-            document.getElementById("form_pojok_ttg").submit();
+            document.getElementById("form_agenda").submit();
         });
 
 
@@ -298,7 +295,7 @@ h1{
         // };      
         };
         }
-        $("#pojokttg_gambar").change(function (e) {
+        $("#agenda_gambar").change(function (e) {
         if(this.disabled) {
         return alert('File upload not supported!');
         }
