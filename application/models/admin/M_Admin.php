@@ -405,6 +405,88 @@
                             ->limit(1)
                             ->get()->row_array();
         }
+        
+
+        function loadListLogo(){
+            $query = $this->db->select('*')
+                            ->from('t_logo a')
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+            return $query; 
+        }
+
+
+
+        public function updateLogo(){
+            $datapost = $this->input->post(); 
+
+        
+            $data["nama_aplikasi"] = $datapost["detail_logo_nama"];
+            $data["logo"] = $datapost["detail_logo"];
+            $data['updated_by'] = $this->general_library->getId();
+          
+            $id =  $datapost["id"];
+            $this->db->where('id', $id)
+                ->update('t_logo', $data);
+        }
+
+
+        public function submitLogo($full_path){
+
+            $datapost = $this->input->post();
+            $data["nama_aplikasi"] = $datapost["nama_aplikasi"];
+            $data["logo"] = $full_path;
+            $data['created_by'] = $this->general_library->getId();
+            $this->db->insert('t_logo', $data);
+            return $this->db->insert_id();
+        }
+
+
+        
+        public function getLogoDetail($id){
+            return $this->db->select('*')
+                            ->from('t_logo a')
+                            ->where('a.id', $id)
+                            ->where('a.flag_active', 1)
+                            ->limit(1)
+                            ->get()->row_array();
+        }
+
+
+        
+        public function submitKontenDownload($new_name){
+
+            $datapost = $this->input->post();
+     
+            // dd($datapost);
+            $data["judul"] = $datapost["download_judul"];
+            $data["tanggal"] = $datapost["download_tanggal"];
+            $data["keterangan"] = $datapost["download_keterangan"];
+            $data["jenis"] = $datapost["download_jenis"];
+            $data["file"] = $new_name;
+            $data['created_by'] = $this->general_library->getId();
+            $this->db->insert('t_download', $data);
+            return $this->db->insert_id();
+        }
+
+        function loadListDownload(){
+            $query = $this->db->select('a.*,b.jenis_download')
+                            ->from('t_download a')
+                            ->join('m_jenis_download b', 'a.jenis = b.id')
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+            return $query; 
+        }
+
+        public function getMasterJenisDownload(){
+
+            return $this->db->select('*')
+                            ->from('m_jenis_download as a')
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+        }
+    
+
 
 
         function loadListAgenda(){

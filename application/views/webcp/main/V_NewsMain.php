@@ -58,7 +58,7 @@
         <div class="entry-meta">
           <ul>
             <li class="d-flex align-items-center"><i class="fa fa-user"></i> <a><?=$n['nama']?></a></li>
-            <li class="d-flex align-items-center"><i class="fa fa-clock"></i> <a><time datetime="<?=$n['tanggal_berita']?>"><?=formatDateNamaBulanWT($n['tanggal_berita'])?></time></a></li>
+            <li class="d-flex align-items-center"><i class="fa fa-clock"></i> <a><time datetime="<?=$n['tanggal_berita']?>"><?=formatDateOnly($n['tanggal_berita'])?></time></a></li>
             <li class="d-flex align-items-center"><i class="fa fa-eye"></i> <a><?=$n['seen_count']?></a></li>
           </ul>
         </div>
@@ -70,7 +70,7 @@
             </p>
           </div>
           <div class="read-more mt-2">
-            <a href="<?=base_url('news/detail/'.$n['id'])?>">Selengkapnya</a>
+            <a href="<?=base_url('news/detail/'.$n['id'])?>">Selengkapnya <i class="fa fa-angle-double-right"></i></a>
           </div>
         </div>
 

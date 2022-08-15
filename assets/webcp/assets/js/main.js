@@ -44,12 +44,26 @@
    * Toggle .header-scrolled class to #header when page is scrolled
    */
   let selectHeader = select('#header')
+  let logoNavbar = select('#div-navbar-logo')
+  let topNavbar = select('#div-navbar-top')
+  let logoImageMobile = select('#logo-img-mobile')
+  let logoTextMobile = select('#logo-text-mobile')
   if (selectHeader) {
     const headerScrolled = () => {
       if (window.scrollY > 100) {
         selectHeader.classList.add('header-scrolled')
+        logoNavbar.classList.add('display-none')
+        topNavbar.classList.add('display-none')
+        logoTextMobile.classList.add('display-block')
+        logoImageMobile.classList.add('display-block')
       } else {
         selectHeader.classList.remove('header-scrolled')
+        logoNavbar.classList.remove('display-none')
+        topNavbar.classList.remove('display-none')
+        logoTextMobile.classList.remove('display-block')
+        logoImageMobile.classList.remove('display-block')
+        logoTextMobile.classList.add('display-none')
+        logoImageMobile.classList.add('display-none')
       }
     }
     window.addEventListener('load', headerScrolled)

@@ -186,7 +186,8 @@ class General_library
         }
         $res = 0;
         if($this->isSessionExpired()){
-            $current_url = substr($_SERVER["REDIRECT_QUERY_STRING"], 1, strlen($_SERVER["REDIRECT_QUERY_STRING"])-1);
+            // $current_url = substr($_SERVER["REDIRECT_QUERY_STRING"], 1, strlen($_SERVER["REDIRECT_QUERY_STRING"])-1);
+            $current_url = $_SERVER['REQUEST_URI'];
             $url_exist = $this->nikita->session->userdata('list_exist_url');
             if(isset($url_exist[$current_url]) && $url_exist[$current_url] == 0){
                 $list_url = $this->nikita->session->userdata('list_url');

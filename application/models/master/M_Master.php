@@ -210,6 +210,26 @@
                                 ->where('a.flag_active', 1)
                                 ->get()->result_array();
             }
+
+
+            public function submitMasterDownload(){
+
+           
+                $datapost = $this->input->post();
+                $data["jenis_download"] = $datapost["jenis_download"];                
+                $data['created_by'] = $this->general_library->getId();
+                $this->db->insert('m_jenis_download', $data);
+                $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
+                return $res;
+                }
+
+            public function loadListMasterDownload(){
+                    $query = $this->db->select('*')
+                                    ->from('m_jenis_download a')
+                                    ->where('a.flag_active', 1)
+                                    ->get()->result_array();
+                return $query; 
+            }
     
 
     }

@@ -25,11 +25,12 @@
           <div class="footer-info">
             <h3>Sosial Media</h3>
             <div class="social-links mt-3">
-              <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-              <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-              <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-              <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-              <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+              <!-- <a target="_blank" href="#" class="twitter"><i class="bx bxl-twitter"></i></a> -->
+              <a target="_blank" href="https://www.facebook.com/btkpp.mdo" class="facebook"><i class="bx bxl-facebook"></i></a>
+              <a target="_blank" href="https://www.instagram.com/btklpp.mdo/" class="instagram"><i class="bx bxl-instagram"></i></a>
+              <!-- <a target="_blank" href="#" class="google-plus"><i class="bx bxl-skype"></i></a> -->
+              <!-- <a target="_blank" href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a> -->
+              <a target="_blank" href="https://www.youtube.com/channel/UCMEpHLSzUbZKTp3dMoCzlgg" class="youtube"><i class="bx bxl-youtube"></i></a>
             </div>
           </div>
         </div>
@@ -71,14 +72,15 @@
 
   <div class="container">
     <div class="copyright">
-      &copy; Copyright <strong><span><?=TITLES?></span></strong>. All Rights Reserved
+      Copyright &copy; 2022 <strong><span><?=TITLES?></span></strong>. All Rights Reserved
     </div>
     <div class="credits">
       <!-- All the links in the footer should remain intact. -->
       <!-- You can delete the links only if you purchased the pro version. -->
       <!-- Licensing information: https://bootstrapmade.com/license/ -->
       <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/sailor-free-bootstrap-theme/ -->
-      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
+      Designed by <a>NiKita Developer</a>
     </div>
   </div>
 </footer>

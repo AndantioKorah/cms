@@ -834,7 +834,117 @@ class C_Admin extends CI_Controller
             $this->general->delete('id', $id, 't_agenda');
         }
 
+
+
+        // LOGO
+
+        public function logo(){
+       
+            $this->general_library->refreshMenu();
+            $data['list_menu'] = $this->general->getAllWithOrder('m_menu', 'nama_menu', 'asc');
+            render('admin/logo/V_Logo', 'admin', 'konten', $data);
+            
+        }
+
+        public function loadListLogo(){
+            $data['list_logo'] = $this->admin->loadListLogo();
+            $this->load->view('admin/logo/V_ListLogo', $data);
+        }
+
+        function submitLogo(){
+
+            $new_name = $_FILES["logo_file"]['name'];
+            
+            if($_FILES["logo_file"]["name"] != ""){ 
+                $path="./assets/admin/logo/";
+                $konten="logo_file";
+            }
+          
+            $config_ppid['file_name'] = $new_name;
+            $config_ppid['upload_path'] = $path;  
+            $config_ppid['allowed_types'] = 'jpg|jpeg|png|pdf'; 
+            $full_path = base_url().'assets/admin/logo/'.$new_name;
+           
+            
+            $this->load->library('upload', $config_ppid);  
+            $this->upload->overwrite = true;
+            
+            if(!$this->upload->do_upload($konten))  
+            {  
+                 echo $this->upload->display_errors();  
+            } 
+
+            $dataLogo = $this->upload->data();
         
+            $data = $this->admin->submitLogo($full_path);
+
+            $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
+            echo json_encode($res);
+        }
+
+        function updateLogo(){
+
+            $data = $this->admin->updateLogo();
+            redirect('admin/logo');
+        }
+
+        public function deleteLogo($id){
+            $this->general->delete('id', $id, 't_logo');
+        }
+
+
+
+        // DOWNLOAD
+        public function download(){
+            $this->general_library->refreshMenu();
+            $data['list_menu'] = $this->general->getAllWithOrder('m_menu', 'nama_menu', 'asc');
+            $data['list_master_download'] = $this->admin->getMasterJenisDownload();
+            render('admin/download/V_Download', 'admin', 'konten', $data);
+            
+        }
+
+
+        function submitKontenDownload(){
+
+            // $new_name = time().$_FILES["gambar"]['name'];
+            $new_name = str_replace(array( '-',' ',']'), ' ', $_FILES["download_file"]['name']);
+            $new_name = $string = str_replace(' ', '', $_FILES["download_file"]['name']);
+        //   dd($new_name);
+
+            if($_FILES["download_file"]["name"] != ""){ 
+                $path="./assets/admin/download/";
+                $konten="download_file";
+                // $this->ajax_upload($path,$konten,$new_name);
+            }
+          
+            $config_ppid['file_name'] = $new_name;
+            $config_ppid['upload_path'] = $path;  
+            $config_ppid['allowed_types'] = 'pdf'; 
+
+           
+            
+            $this->load->library('upload', $config_ppid);  
+            $this->upload->overwrite = true;
+            
+            if(!$this->upload->do_upload($konten))  
+            {  
+                 echo $this->upload->display_errors();  
+            } 
+
+            
+            $data = $this->admin->submitKontenDownload($new_name);
+            $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
+            echo json_encode($res);
+        }
+
+        public function loadListDownload(){
+            $data['list_downlaod'] = $this->admin->loadListDownload();
+            $this->load->view('admin/download/V_ListDownload', $data);
+        }
+
+        public function deleteDownload($id){
+            $this->general->delete('id', $id, 't_download');
+        }
 
         public function loadDetailAgenda($id){
             $data['agenda'] = $this->admin->getAgendaDetail($id);
