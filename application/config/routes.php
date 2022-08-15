@@ -78,16 +78,13 @@ $route['master/ketegorippid'] = 'master/C_Master/masterKategoriPpid';
 $route['master/jenisppid'] = 'master/C_Master/masterJenisPpid';
 $route['admin/covid19'] = 'admin/C_Admin/covid19';
 $route['admin/pojok-ttg'] = 'admin/C_Admin/pojokttg';
-<<<<<<< HEAD
 $route['admin/agenda'] = 'admin/C_Admin/agenda';
-=======
 $route['admin/logo'] = 'admin/C_Admin/logo';
 $route['master/download'] = 'master/C_Master/masterDownload';
 $route['admin/download'] = 'admin/C_Admin/download';
 
 
 
->>>>>>> 56c4ebb1cedbc6836bed3130d18250a4be09693d
 // $route['dashboard'] = 'dashboard/C_Dashboard/dashboard';
 
 // =============================================================
