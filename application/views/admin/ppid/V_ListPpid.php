@@ -21,7 +21,7 @@
                     <td><?=$lb['keterangan'];?></td>
                     <td><?=$lb['nama_kategori'];?></td>
                     <td><?=$lb['nama_jenis'];?></td>
-                    <td><?= formatDateOnly($lb['tanggal']);?></td>
+                    <td><?= formatDate($lb['tanggal']);?></td>
                     <td> <a style='width:800;height:300px;' href="<?=base_url('assets/admin/ppid/'.$lb['file'].'')?>" target="_blank"><i class="fa fa-file" aria-hidden="true"></i></a> </td>
                   <td> <button onclick="deletePpid('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
                    </tr>

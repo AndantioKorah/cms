@@ -80,6 +80,7 @@ $route['admin/covid19/regulasi'] = 'admin/C_Admin/covid19Regulasi';
 $route['admin/covid19/infografis'] = 'admin/C_Admin/covid19Infografis';
 $route['admin/covid19/video'] = 'admin/C_Admin/covid19Video';
 $route['admin/pojok-ttg'] = 'admin/C_Admin/pojokttg';
+$route['admin/agenda'] = 'admin/C_Admin/agenda';
 $route['admin/logo'] = 'admin/C_Admin/logo';
 $route['master/download'] = 'master/C_Master/masterDownload';
 $route['admin/download'] = 'admin/C_Admin/download';
@@ -112,10 +113,16 @@ $route['service'] = 'webcp/service/C_Service/index';
 
 $route['announcement'] = 'webcp/announcement/C_Announcement/index';
 
+$route['download'] = 'webcp/download/C_Download/index';
+
+$route['agenda'] = 'webcp/agenda/C_Agenda/index';
+$route['agenda/detail/(:any)'] = 'webcp/agenda/C_Agenda/detailAgenda/$1';
+
 $route['contact'] = 'webcp/contact/C_Contact/index';
 
 $route['wbs'] = 'webcp/wbs/C_Wbs/index';
 
 $route['ttg'] = 'webcp/ttg/C_Ttg/index';
+$route['ttg/detail/(:any)'] = 'webcp/ttg/C_Ttg/detailTtg/$1';
 
 $route['covid'] = 'webcp/covid/C_Covid/index';

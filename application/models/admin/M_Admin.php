@@ -49,6 +49,7 @@
             $query = $this->db->select('*')
                             ->from('t_berita a')
                             ->where('a.flag_active', 1)
+                            ->order_by('a.id', 'desc')
                             ->get()->result_array();
             return $query; 
         }
@@ -81,6 +82,7 @@
             $query = $this->db->select('*')
                             ->from('t_profil a')
                             ->where('a.flag_active', 1)
+                            ->order_by('a.id', 'desc')
                             ->get()->result_array();
             return $query; 
         }
@@ -160,6 +162,7 @@
                             ->from('t_galeri a')
                             ->where('a.jenis', 1)
                             ->where('a.flag_active', 1)
+                            ->order_by('a.id', 'desc')
                             ->get()->result_array();
             return $query; 
         }
@@ -179,6 +182,7 @@
 
             $this->db->from('t_galeri');
             $this->db->where('t_galeri.flag_active', 1);
+            $this->db->order_by('t_galeri.id', 'desc');
             $i = 0;
             foreach ($this->column_search as $item) // loop kolom 
             {
@@ -225,6 +229,7 @@
                             ->from('t_galeri a')
                             ->where('a.jenis', 2)
                             ->where('a.flag_active', 1)
+                            ->order_by('a.id', 'desc')
                             ->get()->result_array();
             return $query; 
         }
@@ -251,6 +256,7 @@
                         ->join('m_kategori_ppid b', 'a.kategori = b.id')
                         ->join('m_jenis_ppid c', 'a.jenis = c.id')
                         ->where('a.flag_active', 1)
+                        ->order_by('a.id', 'desc')
                         ->get()->result_array();
         return $query; 
     }
@@ -273,6 +279,7 @@
             $query = $this->db->select('*')
                             ->from('t_pelayanan a')
                             ->where('a.flag_active', 1)
+                            ->order_by('a.id', 'desc')
                             ->get()->result_array();
             return $query; 
         }
@@ -295,6 +302,7 @@
                 $query = $this->db->select('*')
                                 ->from('t_pengumuman a')
                                 ->where('a.flag_active', 1)
+                                ->order_by('a.id', 'desc')
                                 ->get()->result_array();
                 return $query; 
             }
@@ -368,6 +376,7 @@
             $query = $this->db->select('*')
                             ->from('t_covid_video a')
                             ->where('a.flag_active', 1)
+                            ->order_by('a.id', 'desc')
                             ->get()->result_array();
             return $query; 
         }
@@ -390,6 +399,7 @@
             $query = $this->db->select('*')
                             ->from('t_pojokttg a')
                             ->where('a.flag_active', 1)
+                            ->order_by('a.id', 'desc')
                             ->get()->result_array();
             return $query; 
         }
@@ -513,6 +523,57 @@
                             ->get()->result_array();
         }
     
+
+
+
+        function loadListAgenda(){
+            $query = $this->db->select('*')
+                            ->from('t_agenda a')
+                            ->where('a.flag_active', 1)
+                            ->order_by('a.id', 'desc')
+                            ->get()->result_array();
+            return $query; 
+        }
+
+
+        public function submitKontenAgenda($new_name){
+
+            $datapost = $this->input->post();
+     
+            // dd($datapost);
+            $data["judul"] = $datapost["agenda_judul"];
+            $data["tanggal"] = $datapost["agenda_tanggal"];
+            $data["isi_agenda"] = $datapost["isi_agenda"];
+            $data["gambar"] = $new_name;
+            $data['created_by'] = $this->general_library->getId();
+            $this->db->insert('t_agenda', $data);
+            return $this->db->insert_id();
+        }
+
+
+        public function getAgendaDetail($id){
+            return $this->db->select('*')
+                            ->from('t_agenda a')
+                            ->where('a.id', $id)
+                            ->where('a.flag_active', 1)
+                            ->limit(1)
+                            ->get()->row_array();
+        }
+
+        public function updateKontenAgenda(){
+            $datapost = $this->input->post(); 
+
+        
+            $data["judul"] = $datapost["detail_judul_agenda"];
+            $data["tanggal"] = $datapost["detail_tanggal_agenda"];
+            $data["isi_agenda"] = $datapost["detail_isi_agenda"];
+            // $data["gambar"] = $_FILES["berita_gambar"]["name"];
+
+            $id =  $datapost["id"];
+
+            $this->db->where('id', $id)
+                ->update('t_agenda', $data);
+        }
 
 
 

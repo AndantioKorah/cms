@@ -105,6 +105,8 @@ define('URI_UPLOAD', './assets/'); //local with xampp
 define('URI_BERITA', './assets/admin/berita/'); //local with xampp
 define('URI_GALLERY', './assets/admin/galeri/'); //local with xampp
 define('URI_PPID', './assets/admin/ppid/'); //local with xampp
+define('URI_AGENDA', './assets/admin/agenda/'); //local with xampp
+define('URI_TTG', './assets/admin/pojokttg/'); //local with xampp
 define('DB_BACKUP_FOLDER', 'db/backup/'); //local with xampp
 define('DB_RESTORE_FOLDER', 'db/restore/'); //local with xampp
 
@@ -115,4 +117,7 @@ define('DEFAULT_LANG', 'indonesia');
 define('LANG_AVAIL', ['Indonesia', 'English']);
 define('LIMIT_NEWS', 9);
 define('LIMIT_GALLERY', 9);
+define('LIMIT_AGENDA', 9);
+define('LIMIT_TTG', 9);
 define('LIMIT_ANNOUNCEMENT', 10);
+define('RECEIVING_EMAIL_ADDRESS', 'andantiokorah@gmail.com');
