@@ -571,30 +571,57 @@ class C_Admin extends CI_Controller
 
         // COVID19
 
-        public function covid19(){
+        public function covid19Regulasi(){
             $this->general_library->refreshMenu();
             $data['list_menu'] = $this->general->getAllWithOrder('m_menu', 'nama_menu', 'asc');
             render('admin/covid19/V_Covid19', 'admin', 'konten', $data);
-            
         }
 
-        public function loadListCovid19(){
-            $data['list_covid19'] = $this->admin->loadListCovid19();
-            $this->load->view('admin/covid19/V_ListCovid19', $data);
+        
+        public function covid19Infografis(){
+            $this->general_library->refreshMenu();
+            $data['list_menu'] = $this->general->getAllWithOrder('m_menu', 'nama_menu', 'asc');
+            render('admin/covid19/V_Covid19Infografis', 'admin', 'konten', $data);
         }
 
-        function submitKontenCovid19(){
+        public function covid19Video(){
+            $this->general_library->refreshMenu();
+            $data['list_menu'] = $this->general->getAllWithOrder('m_menu', 'nama_menu', 'asc');
+            render('admin/covid19/V_Covid19Video', 'admin', 'konten', $data);
+        }
+
+        public function loadListCovid19Regulasi(){
+            $data['list_covid19'] = $this->admin->loadListCovid19Regulasi();
+            $this->load->view('admin/covid19/V_ListCovid19Regulasi', $data);
+        }
+
+        public function loadListCovid19Infografis(){
+            $data['list_covid19'] = $this->admin->loadListCovid19Infografis();
+            $this->load->view('admin/covid19/V_ListCovid19Infografis', $data);
+        }
+
+        public function loadListCovid19Video(){
+            $data['list_covid19'] = $this->admin->loadListCovid19Video();
+            $this->load->view('admin/covid19/V_ListCovid19Video', $data);
+        }
+
+        function submitKontenCovid19Regulasi(){
 
             $new_name = $_FILES["covid19_file"]['name'];
-            
+            $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
+                     
             if($_FILES["covid19_file"]["name"] != ""){ 
                 $path="./assets/admin/covid19/";
                 $konten="covid19_file";
             }
-          
+
+           if($_FILES["covid19_file"]["type"] != "application/pdf"){
+            $res = array('msg' => 'File harus dalam format pdf', 'success' => false);
+            echo json_encode($res);
+           } else {
             $config_ppid['file_name'] = $new_name;
             $config_ppid['upload_path'] = $path;  
-            $config_ppid['allowed_types'] = 'jpg|jpeg|png|pdf'; 
+            $config_ppid['allowed_types'] = 'pdf'; 
 
            
             
@@ -605,18 +632,69 @@ class C_Admin extends CI_Controller
             {  
                  echo $this->upload->display_errors();  
             } 
+            $data = $this->admin->submitKontenCovid19Regulasi($new_name);
+            echo json_encode($res);
+           }
+        }
 
+        function submitKontenCovid19Infografis(){
+
+            $new_name = $_FILES["infografis_file"]['name'];
             
-            $data = $this->admin->submitKontenCovid19($new_name);
+            if($_FILES["infografis_file"]["name"] != ""){ 
+                $path="./assets/admin/covid19/";
+                $konten="infografis_file";
+            }
 
+            if($_FILES["infografis_file"]["type"] == "image/png" || $_FILES["infografis_file"]["type"] == "image/jpeg"){
+                $config_ppid['file_name'] = $new_name;
+                $config_ppid['upload_path'] = $path;  
+                $config_ppid['allowed_types'] = 'jpg|jpeg|png|pdf'; 
+    
+               
+                
+                $this->load->library('upload', $config_ppid);  
+                $this->upload->overwrite = true;
+                
+                if(!$this->upload->do_upload($konten))  
+                {  
+                     echo $this->upload->display_errors();  
+                } 
+    
+                
+                $data = $this->admin->submitKontenCovid19Infografis($new_name);
+    
+    
+                $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
+                echo json_encode($res);
+            } else {
+                $res = array('msg' => 'File bukan format gambar', 'success' => false);
+                echo json_encode($res);
+               
+            }
+          
+            
+        }
 
+        function submitKontenCovid19Video(){
+            $data = $this->admin->submitKontenCovid19Video();
             $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
             echo json_encode($res);
         }
 
-        public function deleteCovid19($id){
-            $this->general->delete('id', $id, 't_covid19');
+        public function deleteCovid19Regulasi($id){
+            $this->general->delete('id', $id, 't_covid_regulasi');
         }
+
+        public function deleteCovid19Infografis($id){
+            $this->general->delete('id', $id, 't_covid_infografis');
+        }
+
+        public function deleteCovid19Video($id){
+            $this->general->delete('id', $id, 't_covid_video');
+        }
+
+
 
 
         // POJOK TTG

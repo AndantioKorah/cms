@@ -62,7 +62,7 @@
            
            if(confirm('Apakah Anda yakin ingin menghapus data?')){
                $.ajax({
-                   url: '<?=base_url("admin/C_admin/deletePpid/")?>'+id,
+                   url: '<?=base_url("admin/C_Admin/deletePpid/")?>'+id,
                    method: 'post',
                    data: null,
                    success: function(){

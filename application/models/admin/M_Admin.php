@@ -316,26 +316,63 @@
                                 ->get()->result_array();
             }
 
-            public function submitKontenCovid19($new_name){
-
-           
+            public function submitKontenCovid19Regulasi($new_name){
                 $datapost = $this->input->post();
                 $data["judul"] = $datapost["judul_covid19"];
                 $data["tanggal"] =  $datapost["tanggal_covid19"];
                 $data["file"] = $new_name;
-                $data["kategori"] =  $datapost["kategori_covid19"];
                 $data['created_by'] = $this->general_library->getId();
-                $this->db->insert('t_covid19', $data);
+                $this->db->insert('t_covid_regulasi', $data);
                 return $this->db->insert_id(); 
         }
 
-        function loadListCovid19(){
+        public function submitKontenCovid19Infografis($new_name){
+            $datapost = $this->input->post();
+            $data["judul"] = $datapost["judul_infografis"];
+            $data["tanggal"] =  $datapost["tanggal_infografis"];
+            $data["file"] = $new_name;
+            $data['created_by'] = $this->general_library->getId();
+            $this->db->insert('t_covid_infografis', $data);
+            return $this->db->insert_id(); 
+    }
+
+    public function submitKontenCovid19Video(){
+
+           
+        $datapost = $this->input->post();
+        $data["judul"] = $datapost["judul_video"];
+        $data["link"] =  $datapost["link_video"];
+        $data["tanggal"] =  $datapost["tanggal_video"];
+        $data['created_by'] = $this->general_library->getId();
+        $this->db->insert('t_covid_video', $data);
+        return $this->db->insert_id(); 
+}
+
+        function loadListCovid19Regulasi(){
             $query = $this->db->select('*')
-                            ->from('t_covid19 a')
+                            ->from('t_covid_regulasi a')
                             ->where('a.flag_active', 1)
                             ->get()->result_array();
             return $query; 
         }
+
+        function loadListCovid19Infografis(){
+            $query = $this->db->select('*')
+                            ->from('t_covid_infografis a')
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+            return $query; 
+        }
+
+        function loadListCovid19Video(){
+            $query = $this->db->select('*')
+                            ->from('t_covid_video a')
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+            return $query; 
+        }
+
+
 
 
         
