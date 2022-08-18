@@ -577,6 +577,26 @@
         }
 
 
+        public function submitKontenMainImages($new_name){
+            $datapost = $this->input->post();
+            $data["judul"] = $datapost["mainimage_judul"];
+            $data["gambar"] =  $new_name;
+            $data['created_by'] = $this->general_library->getId();
+            $this->db->insert('t_main_images', $data);
+            return $this->db->insert_id(); 
+    }
+
+    function loadListMainImages(){
+        $query = $this->db->select('*')
+                        ->from('t_main_images a')
+                        ->where('a.flag_active', 1)
+                        ->order_by('a.id', 'desc')
+                        ->get()->result_array();
+        return $query; 
+    }
+
+
+
 
     
 
