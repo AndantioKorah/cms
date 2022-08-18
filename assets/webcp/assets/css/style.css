@@ -574,8 +574,8 @@ h1, h2, h3, h4, h5, h6 {
 --------------------------------------------------------------*/
 #hero {
   width: 100%;
-  height: 100vh;
-  background-color: rgba(63, 73, 83, 0.8);
+  height: 60vh;
+  /* background-color: rgba(63, 73, 83, 0.8); */
   overflow: hidden;
   position: relative;
 }
@@ -593,7 +593,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 #hero .carousel-item::before {
   content: "";
-  background-color: rgba(30, 35, 40, 0.6);
+  /* background-color: rgba(30, 35, 40, 0.6); */
 }
 #hero .carousel-container {
   display: flex;
