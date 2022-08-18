@@ -81,10 +81,10 @@ $route['admin/covid19/infografis'] = 'admin/C_Admin/covid19Infografis';
 $route['admin/covid19/video'] = 'admin/C_Admin/covid19Video';
 $route['admin/pojok-ttg'] = 'admin/C_Admin/pojokttg';
 $route['admin/agenda'] = 'admin/C_Admin/agenda';
-$route['admin/logo'] = 'admin/C_Admin/logo';
+$route['admin/aplikasi-publik'] = 'admin/C_Admin/aplikasiPublik';
 $route['master/download'] = 'master/C_Master/masterDownload';
 $route['admin/download'] = 'admin/C_Admin/download';
-
+$route['admin/mainImage'] = 'admin/C_Admin/mainImage';
 
 
 // $route['dashboard'] = 'dashboard/C_Dashboard/dashboard';

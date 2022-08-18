@@ -351,7 +351,7 @@ class C_Admin extends CI_Controller
                 if (!$this->image_lib->resize()) {
                     echo $this->image_lib->display_errors();
                 }
-                $this->image_lib->clear();; 
+                $this->image_lib->clear();
             // }
             $status = 1;
             $data = $this->admin->submitKontenGaleri($nm_gambar);
@@ -916,7 +916,7 @@ class C_Admin extends CI_Controller
 
         // LOGO
 
-        public function logo(){
+        public function aplikasiPublik(){
        
             $this->general_library->refreshMenu();
             $data['list_menu'] = $this->general->getAllWithOrder('m_menu', 'nama_menu', 'asc');
@@ -954,7 +954,7 @@ class C_Admin extends CI_Controller
 
             $dataLogo = $this->upload->data();
         
-            $data = $this->admin->submitLogo($full_path);
+            $data = $this->admin->submitLogo($new_name);
 
             $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
             echo json_encode($res);
@@ -1030,6 +1030,83 @@ class C_Admin extends CI_Controller
             $this->load->view('admin/agenda/V_DetailAgenda', $data);
         }
 
+
+        public function mainImage(){
+       
+            $this->general_library->refreshMenu();
+            $data['list_menu'] = $this->general->getAllWithOrder('m_menu', 'nama_menu', 'asc');
+            render('admin/mainimages/V_MainImages', 'admin', 'konten', $data);
+            
+        }
+
+
+    
+
+        function submitKontenMainImages(){
+
+            $new_name = $_FILES["mainimage_file"]['name'];
+            
+            if($_FILES["mainimage_file"]["name"] != ""){ 
+                $path="./assets/admin/mainimages/";
+                $konten="mainimage_file";
+            }
+
+            if($_FILES["mainimage_file"]["type"] == "image/png" || $_FILES["mainimage_file"]["type"] == "image/jpeg"){
+                $config['file_name'] = $new_name;
+                $config['upload_path'] = $path;  
+                $config['allowed_types'] = 'jpg|jpeg|png|pdf'; 
+                $config['create_thumb'] = FALSE;
+                $config['maintain_ratio'] = FALSE;
+                $config['width']         = 1920;
+                $config['height']       = 1080;
+               
+                
+                $this->load->library('upload', $config);  
+                $this->upload->overwrite = true;
+                
+                if(!$this->upload->do_upload($konten))  
+                {  
+                     echo $this->upload->display_errors();  
+                } else {
+                    $data = $this->upload->data();
+                    // if($data["file_size"] > 500){
+                    $config4['image_library'] = 'gd2';
+                    $config4['source_image'] = './assets/admin/mainimages/'.$data["file_name"];
+                    $config4['create_thumb'] = FALSE;
+                    $config4['maintain_ratio'] = FALSE;
+                    $config4['width']         = 1920;
+                    $config4['height']       = 1080;
+                    $config4['file_name'] = $new_name;
+                    $config4['new_image'] = './assets/admin/mainimages/'.$data['file_name'];
+                    $this->load->library('image_lib');
+                    $this->image_lib->initialize($config4);
+                    if (!$this->image_lib->resize()) {
+                        echo $this->image_lib->display_errors();
+                    }
+                    $this->image_lib->clear();
+                } 
+    
+                $data = $this->admin->submitKontenMainImages($new_name);
+                $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
+                echo json_encode($res);
+            } else {
+                $res = array('msg' => 'File bukan format gambar', 'success' => false);
+                echo json_encode($res);
+               
+            }
+          
+            
+        }
+
+        public function loadListMainImages(){
+            $data['list_gambar'] = $this->admin->loadListMainImages();
+            $this->load->view('admin/mainimages/V_ListMainImages', $data);
+        }
+
+
+        public function deleteMainImages($id){
+            $this->general->delete('id', $id, 't_main_images');
+        }
 
         
 }

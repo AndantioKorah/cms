@@ -1,26 +1,27 @@
-<?php if($list_logo){ ?>
+<?php if($list_gambar){ ?>
     <div class="table-responsive">
     <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
                 <th>No</th>
-                <th>Nama Aplikasi</th>
-                <th>URL</th>
-                <th>Logo</th>
-                
+                <th>Judul </th>
+                <th>Tanggal</th>
+                <th>File</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-        <?php $no=1; foreach($list_logo as $lb){ ?>
+        <?php $no=1; foreach($list_gambar as $lb){ ?>
                    <tr>
                     <td><?=$no++;?></td>
-                    <td><?=$lb['nama_aplikasi'];?></td>
-                    <td> <a href="<?=$lb['url'];?>" target="_blank"> <?=$lb['url'];?></a> </td>
-                    <td>
-                        <img  style="width:900;height:300px;"  src="<?php echo base_url('assets/admin/logo/'.$lb['logo']) ;?>" alt="">
-                        </td>
-                  <td> <button onclick="deleteCovid19('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
+                    <td><?=$lb['judul'];?></td>
+                    <td> 
+                    <div class="col-lg-4 p-3 col-md-6 div_image" data-toggle="modal" href="#modal_image_preview"  onclick="openPreviewModal('<?=$lb['id']?>')">  
+                    <img style='width:800;height:300px;' src="<?=base_url('assets/admin/mainimages/'.$lb['gambar'].'')?>" >
+
+                    </div>
+                     </td>
+                  <td> <button onclick="deleteMainImages('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
                    </tr>
                 <?php } ?>
         </tfoot>
@@ -55,20 +56,23 @@
 <?php } ?>
 <script>
      $('#example').DataTable();
-        function deleteCovid19(id){
+        function deleteMainImages(id){
            
            if(confirm('Apakah Anda yakin ingin menghapus data?')){
                $.ajax({
-                   url: '<?=base_url("admin/C_Admin/deleteLogo/")?>'+id,
+                   url: '<?=base_url("admin/C_admin/deleteMainImages/")?>'+id,
                    method: 'post',
                    data: null,
                    success: function(){
                        successtoast('Data sudah terhapus')
-                       loadListCovid19()
+                       loadListMainImages()
                    }, error: function(e){
                        errortoast('Terjadi Kesalahan')
                    }
                })
            }
        }
+
+
+       
 </script>

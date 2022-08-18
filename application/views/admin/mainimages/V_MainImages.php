@@ -4,32 +4,27 @@
 <div class="card-header">
             <div class="row">
                 <div class="col-12">
-                    <h3 class="card-title">FORM INPUT LOGO</h3>
+                    <h3 class="card-title">FORM INPUT</h3>
                 </div>
             </div>
         </div>
         <div class="card-body">
-    <form action="#" method="post" id="form_logo" align="center" enctype="multipart/form-data">  
+    <form action="#" method="post" id="form_infografis" align="center" enctype="multipart/form-data">  
   <div class="form-group text-left">
-  <label class="bmd-label-floating">Nama Aplikasi</label>
-    <input class="form-control" name="nama_aplikasi" id="nama_aplikasi"  required></input>
+  <label class="bmd-label-floating">Judul</label>
+    <textarea class="form-control" name="mainimage_judul" id="mainimage_judul" rows="3" required></textarea>
   </div>
 
 
+
   <div class="form-group text-left">
-  <label class="bmd-label-floating">File </label> 
- <input type="file"class="form-control"  name="logo_file" id="logo_file" required/>
+  <label class="bmd-label-floating">Gambar </label> 
+ <input type="file"class="form-control"  name="mainimage_file" id="mainimage_file"/>
         <br>
     <div id="uploadPreview1"></div>
   </div>
 
-  <div class="form-group text-left">
-  <label class="bmd-label-floating">URL </label> 
- <input type="text "class="form-control"  name="url_aplikasi" id="url_aplikasi" required/>
-    
-  </div>
-
-
+  
 
 
   <div class="col-lg-12 col-md-4 text-right mt-2">
@@ -40,10 +35,10 @@
             <div class="card-header">
                         <div class="row">
                             <div class="col-12">
-                                <h3 class="card-title">LIST lOGO</h3>
+                                <h3 class="card-title">LIST GAMBAR</h3>
                             </div>
                         </div>
-                    <div class="card-body" id="list_logo">
+                    <div class="card-body" id="list_gambar">
                     
                                 
                     </div>                
@@ -54,30 +49,29 @@
 
 <script>
         $(document).ready(function(){  
-            loadListCovid19()
+            loadListMainImages()
  });  
 
- function loadListCovid19(){
-        $('#list_logo').html('')
-        $('#list_logo').load('<?=base_url("admin/C_Admin/loadListLogo/")?>', function(){
+ function loadListMainImages(){
+        $('#list_gambar').html('')
+        $('#list_gambar').load('<?=base_url("admin/C_Admin/loadListMainImages/")?>', function(){
             $('#loader').hide()
         })
     }
 
 
-     $('#form_logo').on('submit', function(e){  
-       
+     $('#form_infografis').on('submit', function(e){  
         $('#btn_upload').prop('disabled', true);
           $('#btn_upload').html('SIMPAN.. <i class="fas fa-spinner fa-spin"></i>')
           e.preventDefault();  
-          if($('#logo_file').val() == '')  
+          if($('#infografis_file').val() == '')  
           {  
                alert("Please Select the File");  
           }  
           else  
           {  
                $.ajax({  
-                   url:"<?=base_url("admin/C_Admin/submitLogo")?>",  
+                   url:"<?=base_url("admin/C_Admin/submitKontenMainImages")?>",  
                     method:"POST",  
                     data:new FormData(this),  
                     contentType: false,  
@@ -90,12 +84,14 @@
                     
                        if(result.success == true){
                            successtoast(result.msg)
-                           document.getElementById("form_logo").reset();  
+                           document.getElementById("form_infografis").reset();  
                            $('#btn_upload').prop('disabled', false);
                            $('#btn_upload').html('<i class="fa fa-save"></i>  SIMPAN')
-                           loadListCovid19()                          
+                           loadListMainImages()                          
                        } else {
                            errortoast(result.msg)
+                           $('#btn_upload').prop('disabled', false);
+                           $('#btn_upload').html('<i class="fa fa-save"></i>  SIMPAN')
                            return false;
                        }
                     }  
