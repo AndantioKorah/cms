@@ -28,6 +28,8 @@
         public function insertMasterParameter($data){
             $rs['code'] = 0;
             $rs['message'] = 0;
+
+            $this->db->trans_begin();
            
             $exists = $this->db->select('*')
                                 ->from('m_parameter')   
@@ -43,38 +45,48 @@
                 $id = $this->db->insert_id();
                 
                 if($_FILES["parameter_file"]["name"] != ""){ 
-                    
-                    $path="./assets/admin/profil/";
+                    $path="./assets/admin/parameter/";
                     $konten="parameter_file";
+                    $filename = explode(".", $_FILES["parameter_file"]['name']);
+                    $new_name = '';
+                    if(count($filename) != 1 && count($filename) > 2){
+                        for($i = 0; $i < count($filename) - 1; $i++){
+                            $new_name = $new_name.$filename[$i];
+                        }
+                    } else {
+                        $new_name = $filename;
+                    }
 
-                    $new_name = str_replace(array( '-',' ',']'), ' ', $_FILES["parameter_file"]['name']);
-                    $new_name = $string = str_replace(' ', '', $_FILES["parameter_file"]['name']);
-                    
+                    $new_name = str_replace(array( '-',' ',']','.'), ' ', $new_name);                    
+                    $new_name = $string = str_replace(' ', '', $new_name);
+                    $new_name = $new_name.'.'.$filename[count($filename)-1];
+
                     $config_ppid['file_name'] = $new_name;
                     $config_ppid['upload_path'] = $path;  
                     $config_ppid['allowed_types'] = 'jpg|jpeg|png|pdf'; 
                     
-                    $full_path = base_url('/assets/admin/profil/'.$new_name);
+                    $full_path = base_url('/assets/admin/parameter/'.$new_name);
 
-                    $this->load->library('upload', $config_ppid);  
+                    $this->load->library('upload', $config_ppid);
                     $this->upload->overwrite = true;
                     
-                    if(!$this->upload->do_upload($konten))  
-                    {  
+                    if(!$this->upload->do_upload($konten)){  
                          echo $this->upload->display_errors();  
+                    } else {
+                        $data["parameter_value"] = $new_name;
+        
+                        $this->db->where('id', $id)
+                                ->update('m_parameter', $data);  
                     }
 
-                    $data["parameter_value"] = $full_path;
-        
-                 
-        
-                    $this->db->where('id', $id)
-                             ->update('m_parameter', $data);  
+                    if($this->db->trans_status() == FALSE){
+                        $this->db->trans_rollback();
+                        $rs['code'] = 1;
+                        $rs['message'] = $this->upload->display_errors();
+                    } else {
+                        $this->db->trans_commit();
+                    }
                 }
-              
-
-                
-
             }
 
             return $rs;

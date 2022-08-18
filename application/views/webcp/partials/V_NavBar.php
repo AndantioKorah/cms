@@ -78,9 +78,9 @@
                 <li class="dropdown">
                     <a class="<?=$url[1] == 'service' ? 'active-navbar' : ''?>" href="#"><?=$this->lang->line('service')?> <i class="fa fa-angle-down"></i></a>
                     <ul>
-                      <li><a href="#">Jenis Pelayanan</a></li>
-                      <li><a href="#">Jam Pelayanan</a></li>
-                      <li><a href="#">Pola Tarif</a></li>
+                      <li><a href="<?=base_url('service/jenis-pelayanan')?>">Jenis Pelayanan</a></li>
+                      <li><a href="<?=base_url('service/jam-pelayanan')?>">Jam Pelayanan</a></li>
+                      <li><a href="<?=base_url('service/pola-tarif')?>">Pola Tarif</a></li>
                     </ul>
                 </li>
 
@@ -105,7 +105,15 @@
                 </li>
 
                 <li>
-                    <a class="<?=$url[1] == 'covid' ? 'active-navbar' : ''?>" href="<?=base_url('covid')?>"><?=$this->lang->line('covid')?></a>
+                </li>
+
+                <li class="dropdown">
+                    <a class="<?=$url[1] == 'covid' ? 'active-navbar' : ''?>" href="#"><?=$this->lang->line('covid')?> <i class="fa fa-angle-down"></i></a>
+                    <ul>
+                      <li><a href="<?=base_url('covid/regulasi')?>">Regulasi</a></li>
+                      <li><a href="<?=base_url('covid/infografis')?>">Infografis</a></li>
+                      <li><a href="<?=base_url('covid/video')?>">Video</a></li>
+                    </ul>
                 </li>
 
                 <!-- <li>

@@ -35,6 +35,8 @@
 </main>
 
 <script>
+  let page_content;
+  
   function refreshTtgData(ap){
     $('#div_ttg_data').html('')
     $('#div_ttg_data').append(divLoaderNavy)

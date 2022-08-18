@@ -99,16 +99,16 @@
           </div>
           <div class="div-keterangan">
             <p class="card-text">
-              <?=$rs['keterangan']?>
+              <?=$rs['judul']?>
             </p>
           </div>
           <div class="row d-flex align-content-center mt-2">
             <div class="col-lg-8 col-md-12">
               <span class="data-announcement"><i class="fa fa-pen"></i> <?=$rs['created_by']?></span> |
-              <span class="data-announcement"><i class="fa fa-clock"></i> <?=formatDateNamaBulanWT($rs['tanggal'])?></span>
+              <span class="data-announcement"><i class="fa fa-clock"></i> <?=formatDateNamaBulan($rs['tanggal'])?></span>
             </div>
             <div class="col-lg-4 col-md-12" style="text-align: right;">
-              <a target="_blank" href="<?=base_url(URI_PENGUMUMAN.$rs['file'])?>" class="btn btn-sm btn-primary-color">Download <i class="fa fa-download"></i></a>
+              <a target="_blank" href="<?=base_url(URI_COVID.$rs['file'])?>" class="btn btn-sm btn-primary-color">Download <i class="fa fa-download"></i></a>
             </div>
           </div>
         </div>

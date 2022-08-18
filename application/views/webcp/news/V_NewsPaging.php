@@ -117,6 +117,12 @@
         refreshAgendaData(active_page)
       } else if(page_content == 'pojok-ttg'){
         refreshTtgData(active_page)
+      } else if(page_content == 'covid-regulasi'){
+        refreshRegulasiContent(active_page)
+      } else if(page_content == 'covid-infografis'){
+        refreshInfografisContent(active_page)
+      } else if(page_content == 'covid-video'){
+        refreshVideoCovidContent(active_page)
       }
     }
   }
