@@ -111,6 +111,7 @@ define('URI_PENGUMUMAN', './assets/admin/pengumuman/'); //local with xampp
 define('URI_COVID', './assets/admin/covid19/'); //local with xampp
 define('URI_TTG', './assets/admin/pojokttg/'); //local with xampp
 define('URI_PROFILE', './assets/admin/profil/'); //local with xampp
+define('URI_PARAMETER', './assets/admin/parameter/'); //local with xampp
 define('DB_BACKUP_FOLDER', 'db/backup/'); //local with xampp
 define('DB_RESTORE_FOLDER', 'db/restore/'); //local with xampp
 

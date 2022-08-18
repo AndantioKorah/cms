@@ -108,7 +108,7 @@
                 </li>
 
                 <li class="dropdown">
-                    <a class="<?=$url[1] == 'covid' ? 'active-navbar' : ''?>" href="<?=base_url('covid')?>"><?=$this->lang->line('covid')?> <i class="fa fa-angle-down"></i></a>
+                    <a class="<?=$url[1] == 'covid' ? 'active-navbar' : ''?>" href="#"><?=$this->lang->line('covid')?> <i class="fa fa-angle-down"></i></a>
                     <ul>
                       <li><a href="<?=base_url('covid/regulasi')?>">Regulasi</a></li>
                       <li><a href="<?=base_url('covid/infografis')?>">Infografis</a></li>

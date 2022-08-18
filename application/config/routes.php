@@ -111,8 +111,8 @@ $route['ppid/serta-merta'] = 'webcp/ppid/C_Ppid/ppidSertaMerta';
 
 $route['service'] = 'webcp/service/C_Service/index';
 $route['service/jenis-pelayanan'] = 'webcp/service/C_Service/jenisPelayanan';
-$route['service/jam-pelayanan'] = 'webcp/service/C_Service/index';
-$route['service/pola-tarif'] = 'webcp/service/C_Service/index';
+$route['service/jam-pelayanan'] = 'webcp/service/C_Service/jamPelayanan';
+$route['service/pola-tarif'] = 'webcp/service/C_Service/polaTarif';
 
 $route['announcement'] = 'webcp/announcement/C_Announcement/index';
 

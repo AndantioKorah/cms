@@ -100,6 +100,19 @@ class General_library
         return base_url().$photo;
     }
 
+    public function getPelayananFile($jenis_file = 'tarif'){
+        $file = $this->getParams('PARAM_FILE_TARIF_PELAYANAN');
+        if($jenis_file == 'jenis'){
+            $file = $this->getParams('PARAM_FILE_JENIS_PELAYANAN');
+        } else if ($jenis_file == 'jam'){
+            $file = $this->getParams('PARAM_FILE_JAM_PELAYANAN');
+        }
+        if($file && file_exists(URI_PARAMETER.$file['parameter_value'])){
+            return URI_PARAMETER.$file['parameter_value'];
+        }
+        return null;
+    }
+
     public function getParams($parameter_name = ''){
         if(!$this->nikita->session->userdata($parameter_name)){
             $this->refreshParams();

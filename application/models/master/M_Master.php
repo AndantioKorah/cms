@@ -45,7 +45,7 @@
                 $id = $this->db->insert_id();
                 
                 if($_FILES["parameter_file"]["name"] != ""){ 
-                    $path="./assets/admin/profil/";
+                    $path="./assets/admin/parameter/";
                     $konten="parameter_file";
                     $filename = explode(".", $_FILES["parameter_file"]['name']);
                     $new_name = '';
@@ -65,7 +65,7 @@
                     $config_ppid['upload_path'] = $path;  
                     $config_ppid['allowed_types'] = 'jpg|jpeg|png|pdf'; 
                     
-                    $full_path = base_url('/assets/admin/profil/'.$new_name);
+                    $full_path = base_url('/assets/admin/parameter/'.$new_name);
 
                     $this->load->library('upload', $config_ppid);
                     $this->upload->overwrite = true;
