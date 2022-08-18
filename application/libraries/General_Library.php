@@ -91,6 +91,22 @@ class General_library
         return $img_src;
     }
 
+    public function getMainImages($gambar){
+        $img_src = ('assets/webcp/assets/img/image-not-found.png');
+        if($gambar && file_exists(URI_MAIN_IMAGES.$gambar)){
+            $img_src = (URI_MAIN_IMAGES.$gambar);
+          }
+        return $img_src;
+    }
+
+    public function getAplikasiPublikLogo($gambar){
+        $img_src = base_url('assets/webcp/assets/img/image-not-found.png');
+        if($gambar && file_exists(URI_APLIKASI_PUBLIK.$gambar)){
+            $img_src = base_url(URI_APLIKASI_PUBLIK.$gambar);
+          }
+        return $img_src;
+    }
+
     public function getProfilePicture(){
         // $photo = 'assets/img/default-user-icon.jpg';
         $photo = 'assets/img/default-user-icon.png';

@@ -5,11 +5,18 @@
     max-height: 80%
   }
 
-  /* @media (max-width: 447px) {
-    .img-pimpinan{
-      width: 300px;
-    }
-  } */
+  .img_aplikasi_publik{
+    max-width:230px;
+    max-height:95px;
+    width: auto;
+    height: auto;
+    border-radius: 3px;
+  }
+
+  .img_aplikasi_publik:hover{
+    background-color: var(--black-theme);
+  }
+  
 </style> 
 
 <!-- ======= Hero Section ======= -->
@@ -20,38 +27,17 @@
 
     <div class="carousel-inner" role="listbox">
 
-      <!-- Slide 1 -->
-      <div class="carousel-item active" style="background-image: url('<?=base_url("assets/webcp/assets/img/slide/slide-1.jpg")?>')">
-        <div class="carousel-container">
-          <div class="container">
-            <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Sailor</span></h2>
-            <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
-            <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
+      <?php if($main_images) { $i = 0; foreach($main_images as $m){ ?>
+        <div class="carousel-item <?=$i == 0 ? 'active' : ''?>" style="background-image: url('<?=$this->general_library->getMainImages($m['gambar'])?>')">
+          <div class="carousel-container">
+            <div class="container">
+              <!-- <h2 class="animate__animated animate__fadeInDown"><?=$m['judul']?></h2> -->
+              <!-- <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p> -->
+              <!-- <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a> -->
+            </div>
           </div>
         </div>
-      </div>
-
-      <!-- Slide 2 -->
-      <div class="carousel-item" style="background-image: url('<?=base_url("assets/webcp/assets/img/slide/slide-2.jpg")?>')">
-        <div class="carousel-container">
-          <div class="container">
-            <h2 class="animate__animated animate__fadeInDown">Lorem Ipsum Dolor</h2>
-            <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
-            <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Slide 3 -->
-      <div class="carousel-item" style="background-image: url('<?=base_url("assets/webcp/assets/img/slide/slide-3.jpg")?>')">
-        <div class="carousel-container">
-          <div class="container">
-            <h2 class="animate__animated animate__fadeInDown">Sequi ea ut et est quaerat</h2>
-            <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
-            <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
-          </div>
-        </div>
-      </div>
+      <?php $i++; } } ?>
 
     </div>
 
@@ -72,6 +58,16 @@
       <section style="padding-top: 50px !important; padding-bottom: 10px !important;" id="aplikasi-publik" class="aplikasi-publik">
         <div class="container">
           <h4 class="title-section-side">APLIKASI PUBLIK</h4>
+          <div class="row">
+            <?php if($aplikasi_publik) {  foreach($aplikasi_publik as $a){ ?>
+              <div class="col-lg-6 col-md-6">
+                <a href="<?=$a['url']?>">
+                  <img title="<?=$a['nama_aplikasi']?>" width="400" height="400" class="b-lazy img_aplikasi_publik" 
+                  src="<?=$this->general_library->getAplikasiPublikLogo($a['logo'])?>" />
+                </a>
+              </div>
+            <?php } } ?>
+          </div>
         </div>
         <hr>
       </section>

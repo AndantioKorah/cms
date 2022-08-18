@@ -15,6 +15,8 @@ class C_Main extends CI_Controller
         }
         $data['news'] = $this->news->getOtherNews(0, 3);
         $data['popular_news'] = $this->news->getPopularNews();
+        $data['aplikasi_publik'] = $this->main->getDataAplikasiPublik();
+        $data['main_images'] = $this->main->getDataMainImages();
         renderwebcp('webcp/main/V_Main', '', '', $data);
     }
 

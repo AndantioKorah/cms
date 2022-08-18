@@ -88,5 +88,19 @@
             
             return $data;
         }
+
+        public function getDataAplikasiPublik(){
+            return $this->db->select('*')
+                            ->from('t_aplikasi_publik')
+                            ->where('flag_active', 1)
+                            ->get()->result_array();
+        }
+
+        public function getDataMainImages(){
+            return $this->db->select('*')
+                            ->from('t_main_images')
+                            ->where('flag_active', 1)
+                            ->get()->result_array();
+        }
 	}
 ?>
