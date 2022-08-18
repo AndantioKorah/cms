@@ -65,7 +65,7 @@
                    data: null,
                    success: function(){
                        successtoast('Data sudah terhapus')
-                       loadListCovid19()
+                       loadListMainImages()
                    }, error: function(e){
                        errortoast('Terjadi Kesalahan')
                    }
