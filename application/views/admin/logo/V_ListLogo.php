@@ -5,6 +5,7 @@
             <tr>
                 <th>No</th>
                 <th>Nama Aplikasi</th>
+                <th>URL</th>
                 <th>Logo</th>
                 
                 <th></th>
@@ -15,8 +16,9 @@
                    <tr>
                     <td><?=$no++;?></td>
                     <td><?=$lb['nama_aplikasi'];?></td>
+                    <td> <a href="<?=$lb['url'];?>" target="_blank"> <?=$lb['url'];?></a> </td>
                     <td>
-                        <img  style="width:900;height:300px;"  src="<?=$lb['logo'];?>" alt="">
+                        <img  style="width:900;height:300px;"  src="<?php echo base_url('assets/admin/logo/'.$lb['logo']) ;?>" alt="">
                         </td>
                   <td> <button onclick="deleteCovid19('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
                    </tr>

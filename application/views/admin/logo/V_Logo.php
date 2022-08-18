@@ -18,10 +18,17 @@
 
   <div class="form-group text-left">
   <label class="bmd-label-floating">File </label> 
- <input type="file"class="form-control"  name="logo_file" id="logo_file"/>
+ <input type="file"class="form-control"  name="logo_file" id="logo_file" required/>
         <br>
     <div id="uploadPreview1"></div>
   </div>
+
+  <div class="form-group text-left">
+  <label class="bmd-label-floating">URL </label> 
+ <input type="text "class="form-control"  name="url_aplikasi" id="url_aplikasi" required/>
+    
+  </div>
+
 
 
 

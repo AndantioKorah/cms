@@ -916,7 +916,7 @@ class C_Admin extends CI_Controller
 
         // LOGO
 
-        public function logo(){
+        public function aplikasiPublik(){
        
             $this->general_library->refreshMenu();
             $data['list_menu'] = $this->general->getAllWithOrder('m_menu', 'nama_menu', 'asc');
@@ -954,7 +954,7 @@ class C_Admin extends CI_Controller
 
             $dataLogo = $this->upload->data();
         
-            $data = $this->admin->submitLogo($full_path);
+            $data = $this->admin->submitLogo($new_name);
 
             $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
             echo json_encode($res);

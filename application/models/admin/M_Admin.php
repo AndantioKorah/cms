@@ -446,7 +446,7 @@
 
         function loadListLogo(){
             $query = $this->db->select('*')
-                            ->from('t_logo a')
+                            ->from('t_aplikasi_publik a')
                             ->where('a.flag_active', 1)
                             ->get()->result_array();
             return $query; 
@@ -464,7 +464,7 @@
           
             $id =  $datapost["id"];
             $this->db->where('id', $id)
-                ->update('t_logo', $data);
+                ->update('t_aplikasi_publik', $data);
         }
 
 
@@ -473,8 +473,9 @@
             $datapost = $this->input->post();
             $data["nama_aplikasi"] = $datapost["nama_aplikasi"];
             $data["logo"] = $full_path;
+            $data["url"] = $datapost["url_aplikasi"];
             $data['created_by'] = $this->general_library->getId();
-            $this->db->insert('t_logo', $data);
+            $this->db->insert('t_aplikasi_publik', $data);
             return $this->db->insert_id();
         }
 
@@ -482,7 +483,7 @@
         
         public function getLogoDetail($id){
             return $this->db->select('*')
-                            ->from('t_logo a')
+                            ->from('t_aplikasi_publik a')
                             ->where('a.id', $id)
                             ->where('a.flag_active', 1)
                             ->limit(1)
