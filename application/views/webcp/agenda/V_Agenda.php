@@ -35,6 +35,8 @@
 </main>
 
 <script>
+  let page_content;
+
   function refreshAgendaData(ap){
     $('#div_agenda_data').html('')
     $('#div_agenda_data').append(divLoaderNavy)

@@ -108,6 +108,9 @@ $route['ppid/setiap-saat'] = 'webcp/ppid/C_Ppid/ppidSetiapSaat';
 $route['ppid/serta-merta'] = 'webcp/ppid/C_Ppid/ppidSertaMerta';
 
 $route['service'] = 'webcp/service/C_Service/index';
+$route['service/jenis-pelayanan'] = 'webcp/service/C_Service/jenisPelayanan';
+$route['service/jam-pelayanan'] = 'webcp/service/C_Service/index';
+$route['service/pola-tarif'] = 'webcp/service/C_Service/index';
 
 $route['announcement'] = 'webcp/announcement/C_Announcement/index';
 
@@ -124,3 +127,6 @@ $route['ttg'] = 'webcp/ttg/C_Ttg/index';
 $route['ttg/detail/(:any)'] = 'webcp/ttg/C_Ttg/detailTtg/$1';
 
 $route['covid'] = 'webcp/covid/C_Covid/index';
+$route['covid/regulasi'] = 'webcp/covid/C_Covid/regulasi';
+$route['covid/infografis'] = 'webcp/covid/C_Covid/infografis';
+$route['covid/video'] = 'webcp/covid/C_Covid/video';
