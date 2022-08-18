@@ -1,30 +1,30 @@
-<?php if($list_galeri_video){ ?>
+<?php if($list_covid19){ ?>
     <div class="table-responsive">
-    <table id="datatable2" class="table table-striped table-bordered" style="width:100%">
+    <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
                 <th>No</th>
-                <th>Judul Video</th>
+                <th>Judul </th>
                 <th>Tanggal</th>
-                <th>Link Video</th>
+                <th>Link</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-        <?php $no=1; foreach($list_galeri_video as $lb){ ?>
+        <?php $no=1; foreach($list_covid19 as $lb){ ?>
                    <tr>
                     <td><?=$no++;?></td>
-                    <td><?=$lb['nama'];?></td>
+                    <td><?=$lb['judul'];?></td>
                     <td><?= formatDateOnly($lb['tanggal']);?></td>
-                    <td><a href="<?=$lb['isi_galeri'];?>" target="_blank"><h5><span class="badge badge-secondary"><i class="fas fa-link"></i> <?=$lb['isi_galeri'];?></span></h5></a> 
-                <?= preg_replace("/\s*[a-zA-Z\/\/:\.]*youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i","<iframe class==\"b-lazy\" width=\"420\" height=\"315\" src=\"//www.youtube.com/embed/$1\" frameborder=\"0\" allowfullscreen></iframe>",$lb['isi_galeri']); ?>
+                    <td><a href="<?=$lb['link'];?>" target="_blank"><h5><span class="badge badge-secondary"><i class="fas fa-link"></i> <?=$lb['link'];?></span></h5></a> 
+                <?= preg_replace("/\s*[a-zA-Z\/\/:\.]*youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i","<iframe class==\"b-lazy\" width=\"420\" height=\"315\" src=\"//www.youtube.com/embed/$1\" frameborder=\"0\" allowfullscreen></iframe>",$lb['link']); ?>
                 </td>
-                  <td> <button onclick="deleteGaleri('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
+                  <td> <button onclick="deleteCovid19('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
                    </tr>
                 <?php } ?>
         </tfoot>
     </table>
-        </div>
+    </div>
         <!-- Modal Ubah -->
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="edit-data" class="modal fade">
     <div class="modal-dialog modal-xl">
@@ -53,26 +53,17 @@
     </div>
 <?php } ?>
 <script>
-      window.bLazy = new Blazy({
-    container: '.container',
-    success: function(element){
-      console.log("Element loaded: ", element.nodeName);
-    }
-  }); 
-
-    $(document).ready(function() {
-        $('#datatable2').DataTable();
-    });
-        function deleteGaleri(id){
+     $('#example').DataTable();
+        function deleteCovid19(id){
            
            if(confirm('Apakah Anda yakin ingin menghapus data?')){
                $.ajax({
-                   url: '<?=base_url("admin/C_Admin/deleteGaleri/")?>'+id,
+                   url: '<?=base_url("admin/C_admin/deleteCovid19/")?>'+id,
                    method: 'post',
                    data: null,
                    success: function(){
                        successtoast('Data sudah terhapus')
-                       loadListGaleriVideo()
+                       loadListCovid19()
                    }, error: function(e){
                        errortoast('Terjadi Kesalahan')
                    }

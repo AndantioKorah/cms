@@ -5,7 +5,6 @@
             <tr>
                 <th>No</th>
                 <th>Judul </th>
-                <th>Kategori</th>
                 <th>Tanggal</th>
                 <th>File</th>
                 <th></th>
@@ -16,9 +15,13 @@
                    <tr>
                     <td><?=$no++;?></td>
                     <td><?=$lb['judul'];?></td>
-                    <td><?php if($lb['kategori'] == 1) echo "Regulasi"; else if($lb['kategori'] == 2) echo "Edukasi"; else echo "Infografis";?></td>
                     <td><?= formatDateOnly($lb['tanggal']);?></td>
-                    <td> <a style='width:800;height:300px;' href="<?=base_url('assets/admin/covid19/'.$lb['file'].'')?>" target="_blank"><i class="fa fa-file" aria-hidden="true"></i></a> </td>
+                    <td> 
+                    <div class="col-lg-4 p-3 col-md-6 div_image" data-toggle="modal" href="#modal_image_preview"  onclick="openPreviewModal('<?=$lb['id']?>')">  
+                    <img style='width:800;height:300px;' src="<?=base_url('assets/admin/covid19/'.$lb['file'].'')?>" >
+
+                    </div>
+                     </td>
                   <td> <button onclick="deleteCovid19('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
                    </tr>
                 <?php } ?>
@@ -58,7 +61,7 @@
            
            if(confirm('Apakah Anda yakin ingin menghapus data?')){
                $.ajax({
-                   url: '<?=base_url("admin/C_admin/deleteCovid19/")?>'+id,
+                   url: '<?=base_url("admin/C_admin/deleteCovid19Infografis/")?>'+id,
                    method: 'post',
                    data: null,
                    success: function(){
@@ -70,4 +73,7 @@
                })
            }
        }
+
+
+       
 </script>

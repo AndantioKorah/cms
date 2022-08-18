@@ -96,7 +96,7 @@
            
            if(confirm('Apakah Anda yakin ingin menghapus data?')){
                $.ajax({
-                   url: '<?=base_url("admin/C_admin/deletePojokTtg/")?>'+id,
+                   url: '<?=base_url("admin/C_Admin/deletePojokTtg/")?>'+id,
                    method: 'post',
                    data: null,
                    success: function(){

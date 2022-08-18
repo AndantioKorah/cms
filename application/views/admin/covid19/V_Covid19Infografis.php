@@ -9,22 +9,22 @@
             </div>
         </div>
         <div class="card-body">
-    <form action="#" method="post" id="form_ppid" align="center" enctype="multipart/form-data">  
+    <form action="#" method="post" id="form_infografis" align="center" enctype="multipart/form-data">  
   <div class="form-group text-left">
   <label class="bmd-label-floating">Judul</label>
-    <textarea class="form-control" name="judul_covid19" id="judul_covid19" rows="3" required></textarea>
+    <textarea class="form-control" name="judul_infografis" id="judul_infografis" rows="3" required></textarea>
   </div>
 
   <div class="form-group text-left">
   <label class="bmd-label-floating">Tanggal</label>
-    <input class="form-control datepicker" name="tanggal_covid19" id="tanggal_covid19"  autocomplete="off" required/>
+    <input class="form-control datepicker" name="tanggal_infografis" id="tanggal_infografis"  autocomplete="off" required/>
   </div>
 
 
 
   <div class="form-group text-left">
   <label class="bmd-label-floating">File </label> 
- <input type="file"class="form-control"  name="covid19_file" id="covid19_file"/>
+ <input type="file"class="form-control"  name="infografis_file" id="infografis_file"/>
         <br>
     <div id="uploadPreview1"></div>
   </div>
@@ -43,7 +43,7 @@
                                 <h3 class="card-title">LIST COVID-19</h3>
                             </div>
                         </div>
-                    <div class="card-body" id="list_covid19">
+                    <div class="card-body" id="list_infografis">
                     
                                 
                     </div>                
@@ -58,25 +58,25 @@
  });  
 
  function loadListCovid19(){
-        $('#list_covid19').html('')
-        $('#list_covid19').load('<?=base_url("admin/C_Admin/loadListCovid19Regulasi/")?>', function(){
+        $('#list_infografis').html('')
+        $('#list_infografis').load('<?=base_url("admin/C_Admin/loadListCovid19Infografis/")?>', function(){
             $('#loader').hide()
         })
     }
 
 
-     $('#form_ppid').on('submit', function(e){  
+     $('#form_infografis').on('submit', function(e){  
         $('#btn_upload').prop('disabled', true);
           $('#btn_upload').html('SIMPAN.. <i class="fas fa-spinner fa-spin"></i>')
           e.preventDefault();  
-          if($('#file_ppid').val() == '')  
+          if($('#infografis_file').val() == '')  
           {  
                alert("Please Select the File");  
           }  
           else  
           {  
                $.ajax({  
-                   url:"<?=base_url("admin/C_Admin/submitKontenCovid19Regulasi")?>",  
+                   url:"<?=base_url("admin/C_Admin/submitKontenCovid19Infografis")?>",  
                     method:"POST",  
                     data:new FormData(this),  
                     contentType: false,  
@@ -89,7 +89,7 @@
                     
                        if(result.success == true){
                            successtoast(result.msg)
-                           document.getElementById("form_ppid").reset();  
+                           document.getElementById("form_infografis").reset();  
                            $('#btn_upload').prop('disabled', false);
                            $('#btn_upload').html('<i class="fa fa-save"></i>  SIMPAN')
                            loadListCovid19()                          
