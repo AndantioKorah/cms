@@ -54,7 +54,7 @@
     
     <?php
         $data['menu'] = $this->general_library->refreshMenuWebcp();
-        $this->load->view('webcp/partials/V_NavBar', $data) 
+        $this->load->view('webcp/partials/V_NavBar', $data);
     ?>
     <!-- End Header -->
     <div class="content-wrapper" style="padding-top: 117px;">
