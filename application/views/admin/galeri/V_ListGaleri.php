@@ -100,7 +100,7 @@ $(document).ready(function() {
             // "order": [],
             "ajax": {
                 //panggil method ajax list dengan ajax
-                "url": '<?=base_url("admin/C_admin/ajax_list")?>',
+                "url": '<?=base_url("admin/C_Admin/ajax_list")?>',
                 "type": "POST"
             }
     });
@@ -111,7 +111,7 @@ $(document).ready(function() {
            
            if(confirm('Apakah Anda yakin ingin menghapus data?')){
                $.ajax({
-                   url: '<?=base_url("admin/C_admin/deleteGaleri/")?>'+id,
+                   url: '<?=base_url("admin/C_Admin/deleteGaleri/")?>'+id,
                    method: 'post',
                    data: null,
                    success: function(res){
@@ -129,14 +129,14 @@ function openPreviewModal(img){
     $('#img_name').html('')
     $('#modal_image_preview').modal('show')
     $.ajax({
-                   url: '<?=base_url("admin/C_admin/getGaleriById/")?>'+img,
+                   url: '<?=base_url("admin/C_Admin/getGaleriById/")?>'+img,
                    method: 'post',
                    data: null,
                    
                    success: function(res){
                     var result = JSON.parse(res); 
                        console.log(result.isi_galeri)
-                    $('#img_preview_modal').attr('src', ('http://localhost/cms/assets/admin/galeri/'+result.isi_galeri))
+                    $('#img_preview_modal').attr('src', ('<?=base_url()?>'+'assets/admin/galeri/'+result.isi_galeri))
                     $('#img_name').html(result.nama)
                    }, error: function(e){
                        errortoast('Terjadi Kesalahan')

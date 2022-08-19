@@ -14,7 +14,14 @@ class C_Main extends CI_Controller
             $this->session->set_userdata('site_lang',  DEFAULT_LANG);
         }
         $data['news'] = $this->news->getOtherNews(0, 3);
+        $data['popular_news'] = $this->news->getPopularNews();
+        $data['aplikasi_publik'] = $this->main->getDataAplikasiPublik();
+        $data['main_images'] = $this->main->getDataMainImages();
         renderwebcp('webcp/main/V_Main', '', '', $data);
+    }
+
+    public function getDataStatistic(){
+        echo json_encode($this->main->getDataStatistic());
     }
 
     public function switchLanguage($lang = DEFAULT_LANG){

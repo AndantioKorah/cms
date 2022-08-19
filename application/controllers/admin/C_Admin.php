@@ -351,7 +351,7 @@ class C_Admin extends CI_Controller
                 if (!$this->image_lib->resize()) {
                     echo $this->image_lib->display_errors();
                 }
-                $this->image_lib->clear();; 
+                $this->image_lib->clear();
             // }
             $status = 1;
             $data = $this->admin->submitKontenGaleri($nm_gambar);
@@ -571,30 +571,57 @@ class C_Admin extends CI_Controller
 
         // COVID19
 
-        public function covid19(){
+        public function covid19Regulasi(){
             $this->general_library->refreshMenu();
             $data['list_menu'] = $this->general->getAllWithOrder('m_menu', 'nama_menu', 'asc');
             render('admin/covid19/V_Covid19', 'admin', 'konten', $data);
-            
         }
 
-        public function loadListCovid19(){
-            $data['list_covid19'] = $this->admin->loadListCovid19();
-            $this->load->view('admin/covid19/V_ListCovid19', $data);
+        
+        public function covid19Infografis(){
+            $this->general_library->refreshMenu();
+            $data['list_menu'] = $this->general->getAllWithOrder('m_menu', 'nama_menu', 'asc');
+            render('admin/covid19/V_Covid19Infografis', 'admin', 'konten', $data);
         }
 
-        function submitKontenCovid19(){
+        public function covid19Video(){
+            $this->general_library->refreshMenu();
+            $data['list_menu'] = $this->general->getAllWithOrder('m_menu', 'nama_menu', 'asc');
+            render('admin/covid19/V_Covid19Video', 'admin', 'konten', $data);
+        }
+
+        public function loadListCovid19Regulasi(){
+            $data['list_covid19'] = $this->admin->loadListCovid19Regulasi();
+            $this->load->view('admin/covid19/V_ListCovid19Regulasi', $data);
+        }
+
+        public function loadListCovid19Infografis(){
+            $data['list_covid19'] = $this->admin->loadListCovid19Infografis();
+            $this->load->view('admin/covid19/V_ListCovid19Infografis', $data);
+        }
+
+        public function loadListCovid19Video(){
+            $data['list_covid19'] = $this->admin->loadListCovid19Video();
+            $this->load->view('admin/covid19/V_ListCovid19Video', $data);
+        }
+
+        function submitKontenCovid19Regulasi(){
 
             $new_name = $_FILES["covid19_file"]['name'];
-            
+            $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
+                     
             if($_FILES["covid19_file"]["name"] != ""){ 
                 $path="./assets/admin/covid19/";
                 $konten="covid19_file";
             }
-          
+
+           if($_FILES["covid19_file"]["type"] != "application/pdf"){
+            $res = array('msg' => 'File harus dalam format pdf', 'success' => false);
+            echo json_encode($res);
+           } else {
             $config_ppid['file_name'] = $new_name;
             $config_ppid['upload_path'] = $path;  
-            $config_ppid['allowed_types'] = 'jpg|jpeg|png|pdf'; 
+            $config_ppid['allowed_types'] = 'pdf'; 
 
            
             
@@ -605,18 +632,69 @@ class C_Admin extends CI_Controller
             {  
                  echo $this->upload->display_errors();  
             } 
+            $data = $this->admin->submitKontenCovid19Regulasi($new_name);
+            echo json_encode($res);
+           }
+        }
 
+        function submitKontenCovid19Infografis(){
+
+            $new_name = $_FILES["infografis_file"]['name'];
             
-            $data = $this->admin->submitKontenCovid19($new_name);
+            if($_FILES["infografis_file"]["name"] != ""){ 
+                $path="./assets/admin/covid19/";
+                $konten="infografis_file";
+            }
 
+            if($_FILES["infografis_file"]["type"] == "image/png" || $_FILES["infografis_file"]["type"] == "image/jpeg"){
+                $config_ppid['file_name'] = $new_name;
+                $config_ppid['upload_path'] = $path;  
+                $config_ppid['allowed_types'] = 'jpg|jpeg|png|pdf'; 
+    
+               
+                
+                $this->load->library('upload', $config_ppid);  
+                $this->upload->overwrite = true;
+                
+                if(!$this->upload->do_upload($konten))  
+                {  
+                     echo $this->upload->display_errors();  
+                } 
+    
+                
+                $data = $this->admin->submitKontenCovid19Infografis($new_name);
+    
+    
+                $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
+                echo json_encode($res);
+            } else {
+                $res = array('msg' => 'File bukan format gambar', 'success' => false);
+                echo json_encode($res);
+               
+            }
+          
+            
+        }
 
+        function submitKontenCovid19Video(){
+            $data = $this->admin->submitKontenCovid19Video();
             $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
             echo json_encode($res);
         }
 
-        public function deleteCovid19($id){
-            $this->general->delete('id', $id, 't_covid19');
+        public function deleteCovid19Regulasi($id){
+            $this->general->delete('id', $id, 't_covid_regulasi');
         }
+
+        public function deleteCovid19Infografis($id){
+            $this->general->delete('id', $id, 't_covid_infografis');
+        }
+
+        public function deleteCovid19Video($id){
+            $this->general->delete('id', $id, 't_covid_video');
+        }
+
+
 
 
         // POJOK TTG
@@ -725,7 +803,7 @@ class C_Admin extends CI_Controller
             $data = $this->admin->updateKontenPojokTtg();
             // $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
             // echo json_encode($res);
-            redirect('admin/berita');
+            redirect('admin/pojok-ttg');
         }
 
         public function deletePojokTtg($id){
@@ -740,8 +818,295 @@ class C_Admin extends CI_Controller
             $this->load->view('admin/pojokttg/V_DetailPojokTtg', $data);
         }
 
-        
 
+        //  AGENDA
+
+        public function AGENDA(){
+       
+            $this->general_library->refreshMenu();
+            $data['list_menu'] = $this->general->getAllWithOrder('m_menu', 'nama_menu', 'asc');
+            render('admin/agenda/V_Agenda', 'admin', 'konten', $data);
+            
+        }
+
+
+        function submitKontenAgenda(){
+
+            
+            $countfiles = count($_FILES['agenda_gambar']['name']);
+            // dd($countfiles);
+            for($i=0;$i<$countfiles;$i++){
+            if(!empty($_FILES['agenda_gambar']['name'][$i])){
+      
+                // Define new $_FILES array - $_FILES['file']
+                $_FILES['file']['name'] = $_FILES['agenda_gambar']['name'][$i];
+                $_FILES['file']['type'] = $_FILES['agenda_gambar']['type'][$i];
+                $_FILES['file']['tmp_name'] = $_FILES['agenda_gambar']['tmp_name'][$i];
+                $_FILES['file']['error'] = $_FILES['agenda_gambar']['error'][$i];
+                $_FILES['file']['size'] = $_FILES['agenda_gambar']['size'][$i];
+              
+     
+                $config['upload_path'] = './assets/admin/agenda'; 
+                $config['allowed_types'] = 'jpg|jpeg|png';
+              
+                $this->load->library('upload',$config); 
+                if($this->upload->do_upload('file')){
+                    $data = $this->upload->data(); 
+                
+                    if($data["file_size"] > 500){
+                        $config4['image_library'] = 'gd2';
+                        $config4['source_image'] = './assets/admin/agenda/'.$data["file_name"];
+                        $config4['create_thumb'] = FALSE;
+                        $config4['maintain_ratio'] = FALSE;
+                        $config4['width']         = 1280;
+                        $config4['height']       = 720;
+                        $config4['new_image']= './assets/admin/agenda/'.$data['file_name'];
+                        $this->load->library('image_lib');
+                        $this->image_lib->initialize($config4);
+                        if (!$this->image_lib->resize()) {
+                            echo $this->image_lib->display_errors();
+                        }
+                        $this->image_lib->clear();
+                      } else {
+                      
+
+                        $config4['image_library'] = 'gd2';
+                        $config4['source_image'] = './assets/admin/agenda/'.$data["file_name"];
+                        $config4['create_thumb'] = FALSE;
+                        $config4['maintain_ratio'] = FALSE;
+                        $config4['width']         = 1024;
+                        $config4['height']       = 570;
+                       
+                        $config4['new_image']= './assets/admin/agenda/'.$data['file_name'];
+                        $this->load->library('image_lib');
+                        $this->image_lib->initialize($config4);
+                        if (!$this->image_lib->resize()) {
+                            echo $this->image_lib->display_errors();
+                        }
+                        $this->image_lib->clear();
+                      }
+                    }
+              }
+           
+            $nama_file[] = $data['file_name'];
+             }
+           
+            $new_name = json_encode($nama_file); 
+            $data = $this->admin->submitKontenAgenda($new_name);
+               
+            redirect('admin/agenda');
+           
+        }
+
+          public function loadListAgenda(){
+            $data['list_agenda'] = $this->admin->loadListAgenda();
+            $this->load->view('admin/agenda/V_ListAgenda', $data);
+        }
+
+        function updateKontenAgenda(){
+            $data = $this->admin->updateKontenAgenda();
+            redirect('admin/agenda');
+        }
+
+        public function deleteAgenda($id){
+            $this->general->delete('id', $id, 't_agenda');
+        }
+
+
+
+        // LOGO
+
+        public function aplikasiPublik(){
+       
+            $this->general_library->refreshMenu();
+            $data['list_menu'] = $this->general->getAllWithOrder('m_menu', 'nama_menu', 'asc');
+            render('admin/logo/V_Logo', 'admin', 'konten', $data);
+            
+        }
+
+        public function loadListLogo(){
+            $data['list_logo'] = $this->admin->loadListLogo();
+            $this->load->view('admin/logo/V_ListLogo', $data);
+        }
+
+        function submitLogo(){
+
+            $new_name = $_FILES["logo_file"]['name'];
+            
+            if($_FILES["logo_file"]["name"] != ""){ 
+                $path="./assets/admin/logo/";
+                $konten="logo_file";
+            }
+          
+            $config_ppid['file_name'] = $new_name;
+            $config_ppid['upload_path'] = $path;  
+            $config_ppid['allowed_types'] = 'jpg|jpeg|png|pdf'; 
+            $full_path = base_url().'assets/admin/logo/'.$new_name;
+           
+            
+            $this->load->library('upload', $config_ppid);  
+            $this->upload->overwrite = true;
+            
+            if(!$this->upload->do_upload($konten))  
+            {  
+                 echo $this->upload->display_errors();  
+            } 
+
+            $dataLogo = $this->upload->data();
+        
+            $data = $this->admin->submitLogo($new_name);
+
+            $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
+            echo json_encode($res);
+        }
+
+        function updateLogo(){
+
+            $data = $this->admin->updateLogo();
+            redirect('admin/logo');
+        }
+
+        public function deleteLogo($id){
+            $this->general->delete('id', $id, 't_logo');
+        }
+
+
+
+        // DOWNLOAD
+        public function download(){
+            $this->general_library->refreshMenu();
+            $data['list_menu'] = $this->general->getAllWithOrder('m_menu', 'nama_menu', 'asc');
+            $data['list_master_download'] = $this->admin->getMasterJenisDownload();
+            render('admin/download/V_Download', 'admin', 'konten', $data);
+            
+        }
+
+
+        function submitKontenDownload(){
+
+            // $new_name = time().$_FILES["gambar"]['name'];
+            $new_name = str_replace(array( '-',' ',']'), ' ', $_FILES["download_file"]['name']);
+            $new_name = $string = str_replace(' ', '', $_FILES["download_file"]['name']);
+        //   dd($new_name);
+
+            if($_FILES["download_file"]["name"] != ""){ 
+                $path="./assets/admin/download/";
+                $konten="download_file";
+                // $this->ajax_upload($path,$konten,$new_name);
+            }
+          
+            $config_ppid['file_name'] = $new_name;
+            $config_ppid['upload_path'] = $path;  
+            $config_ppid['allowed_types'] = 'pdf'; 
+
+           
+            
+            $this->load->library('upload', $config_ppid);  
+            $this->upload->overwrite = true;
+            
+            if(!$this->upload->do_upload($konten))  
+            {  
+                 echo $this->upload->display_errors();  
+            } 
+
+            
+            $data = $this->admin->submitKontenDownload($new_name);
+            $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
+            echo json_encode($res);
+        }
+
+        public function loadListDownload(){
+            $data['list_downlaod'] = $this->admin->loadListDownload();
+            $this->load->view('admin/download/V_ListDownload', $data);
+        }
+
+        public function deleteDownload($id){
+            $this->general->delete('id', $id, 't_download');
+        }
+
+        public function loadDetailAgenda($id){
+            $data['agenda'] = $this->admin->getAgendaDetail($id);
+            // dd($data['pojokttg']);
+            $this->load->view('admin/agenda/V_DetailAgenda', $data);
+        }
+
+
+        public function mainImage(){
+       
+            $this->general_library->refreshMenu();
+            $data['list_menu'] = $this->general->getAllWithOrder('m_menu', 'nama_menu', 'asc');
+            render('admin/mainimages/V_MainImages', 'admin', 'konten', $data);
+            
+        }
+
+
+    
+
+        function submitKontenMainImages(){
+
+            $new_name = $_FILES["mainimage_file"]['name'];
+            
+            if($_FILES["mainimage_file"]["name"] != ""){ 
+                $path="./assets/admin/mainimages/";
+                $konten="mainimage_file";
+            }
+
+            if($_FILES["mainimage_file"]["type"] == "image/png" || $_FILES["mainimage_file"]["type"] == "image/jpeg"){
+                $config['file_name'] = $new_name;
+                $config['upload_path'] = $path;  
+                $config['allowed_types'] = 'jpg|jpeg|png|pdf'; 
+                $config['create_thumb'] = FALSE;
+                $config['maintain_ratio'] = FALSE;
+                $config['width']         = 1920;
+                $config['height']       = 1080;
+               
+                
+                $this->load->library('upload', $config);  
+                $this->upload->overwrite = true;
+                
+                if(!$this->upload->do_upload($konten))  
+                {  
+                     echo $this->upload->display_errors();  
+                } else {
+                    $data = $this->upload->data();
+                    // if($data["file_size"] > 500){
+                    $config4['image_library'] = 'gd2';
+                    $config4['source_image'] = './assets/admin/mainimages/'.$data["file_name"];
+                    $config4['create_thumb'] = FALSE;
+                    $config4['maintain_ratio'] = FALSE;
+                    $config4['width']         = 1920;
+                    $config4['height']       = 1080;
+                    $config4['file_name'] = $new_name;
+                    $config4['new_image'] = './assets/admin/mainimages/'.$data['file_name'];
+                    $this->load->library('image_lib');
+                    $this->image_lib->initialize($config4);
+                    if (!$this->image_lib->resize()) {
+                        echo $this->image_lib->display_errors();
+                    }
+                    $this->image_lib->clear();
+                } 
+    
+                $data = $this->admin->submitKontenMainImages($new_name);
+                $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
+                echo json_encode($res);
+            } else {
+                $res = array('msg' => 'File bukan format gambar', 'success' => false);
+                echo json_encode($res);
+               
+            }
+          
+            
+        }
+
+        public function loadListMainImages(){
+            $data['list_gambar'] = $this->admin->loadListMainImages();
+            $this->load->view('admin/mainimages/V_ListMainImages', $data);
+        }
+
+
+        public function deleteMainImages($id){
+            $this->general->delete('id', $id, 't_main_images');
+        }
 
         
 }

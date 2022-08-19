@@ -49,6 +49,7 @@
             $query = $this->db->select('*')
                             ->from('t_berita a')
                             ->where('a.flag_active', 1)
+                            ->order_by('a.id', 'desc')
                             ->get()->result_array();
             return $query; 
         }
@@ -81,6 +82,7 @@
             $query = $this->db->select('*')
                             ->from('t_profil a')
                             ->where('a.flag_active', 1)
+                            ->order_by('a.id', 'desc')
                             ->get()->result_array();
             return $query; 
         }
@@ -160,6 +162,7 @@
                             ->from('t_galeri a')
                             ->where('a.jenis', 1)
                             ->where('a.flag_active', 1)
+                            ->order_by('a.id', 'desc')
                             ->get()->result_array();
             return $query; 
         }
@@ -179,6 +182,7 @@
 
             $this->db->from('t_galeri');
             $this->db->where('t_galeri.flag_active', 1);
+            $this->db->order_by('t_galeri.id', 'desc');
             $i = 0;
             foreach ($this->column_search as $item) // loop kolom 
             {
@@ -225,6 +229,7 @@
                             ->from('t_galeri a')
                             ->where('a.jenis', 2)
                             ->where('a.flag_active', 1)
+                            ->order_by('a.id', 'desc')
                             ->get()->result_array();
             return $query; 
         }
@@ -251,6 +256,7 @@
                         ->join('m_kategori_ppid b', 'a.kategori = b.id')
                         ->join('m_jenis_ppid c', 'a.jenis = c.id')
                         ->where('a.flag_active', 1)
+                        ->order_by('a.id', 'desc')
                         ->get()->result_array();
         return $query; 
     }
@@ -273,6 +279,7 @@
             $query = $this->db->select('*')
                             ->from('t_pelayanan a')
                             ->where('a.flag_active', 1)
+                            ->order_by('a.id', 'desc')
                             ->get()->result_array();
             return $query; 
         }
@@ -295,6 +302,7 @@
                 $query = $this->db->select('*')
                                 ->from('t_pengumuman a')
                                 ->where('a.flag_active', 1)
+                                ->order_by('a.id', 'desc')
                                 ->get()->result_array();
                 return $query; 
             }
@@ -316,26 +324,64 @@
                                 ->get()->result_array();
             }
 
-            public function submitKontenCovid19($new_name){
-
-           
+            public function submitKontenCovid19Regulasi($new_name){
                 $datapost = $this->input->post();
                 $data["judul"] = $datapost["judul_covid19"];
                 $data["tanggal"] =  $datapost["tanggal_covid19"];
                 $data["file"] = $new_name;
-                $data["kategori"] =  $datapost["kategori_covid19"];
                 $data['created_by'] = $this->general_library->getId();
-                $this->db->insert('t_covid19', $data);
+                $this->db->insert('t_covid_regulasi', $data);
                 return $this->db->insert_id(); 
         }
 
-        function loadListCovid19(){
+        public function submitKontenCovid19Infografis($new_name){
+            $datapost = $this->input->post();
+            $data["judul"] = $datapost["judul_infografis"];
+            $data["tanggal"] =  $datapost["tanggal_infografis"];
+            $data["file"] = $new_name;
+            $data['created_by'] = $this->general_library->getId();
+            $this->db->insert('t_covid_infografis', $data);
+            return $this->db->insert_id(); 
+    }
+
+    public function submitKontenCovid19Video(){
+
+           
+        $datapost = $this->input->post();
+        $data["judul"] = $datapost["judul_video"];
+        $data["link"] =  $datapost["link_video"];
+        $data["tanggal"] =  $datapost["tanggal_video"];
+        $data['created_by'] = $this->general_library->getId();
+        $this->db->insert('t_covid_video', $data);
+        return $this->db->insert_id(); 
+}
+
+        function loadListCovid19Regulasi(){
             $query = $this->db->select('*')
-                            ->from('t_covid19 a')
+                            ->from('t_covid_regulasi a')
                             ->where('a.flag_active', 1)
                             ->get()->result_array();
             return $query; 
         }
+
+        function loadListCovid19Infografis(){
+            $query = $this->db->select('*')
+                            ->from('t_covid_infografis a')
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+            return $query; 
+        }
+
+        function loadListCovid19Video(){
+            $query = $this->db->select('*')
+                            ->from('t_covid_video a')
+                            ->where('a.flag_active', 1)
+                            ->order_by('a.id', 'desc')
+                            ->get()->result_array();
+            return $query; 
+        }
+
+
 
 
         
@@ -353,6 +399,7 @@
             $query = $this->db->select('*')
                             ->from('t_pojokttg a')
                             ->where('a.flag_active', 1)
+                            ->order_by('a.id', 'desc')
                             ->get()->result_array();
             return $query; 
         }
@@ -395,6 +442,160 @@
                             ->limit(1)
                             ->get()->row_array();
         }
+        
+
+        function loadListLogo(){
+            $query = $this->db->select('*')
+                            ->from('t_aplikasi_publik a')
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+            return $query; 
+        }
+
+
+
+        public function updateLogo(){
+            $datapost = $this->input->post(); 
+
+        
+            $data["nama_aplikasi"] = $datapost["detail_logo_nama"];
+            $data["logo"] = $datapost["detail_logo"];
+            $data['updated_by'] = $this->general_library->getId();
+          
+            $id =  $datapost["id"];
+            $this->db->where('id', $id)
+                ->update('t_aplikasi_publik', $data);
+        }
+
+
+        public function submitLogo($full_path){
+
+            $datapost = $this->input->post();
+            $data["nama_aplikasi"] = $datapost["nama_aplikasi"];
+            $data["logo"] = $full_path;
+            $data["url"] = $datapost["url_aplikasi"];
+            $data['created_by'] = $this->general_library->getId();
+            $this->db->insert('t_aplikasi_publik', $data);
+            return $this->db->insert_id();
+        }
+
+
+        
+        public function getLogoDetail($id){
+            return $this->db->select('*')
+                            ->from('t_aplikasi_publik a')
+                            ->where('a.id', $id)
+                            ->where('a.flag_active', 1)
+                            ->limit(1)
+                            ->get()->row_array();
+        }
+
+
+        
+        public function submitKontenDownload($new_name){
+
+            $datapost = $this->input->post();
+     
+            // dd($datapost);
+            $data["judul"] = $datapost["download_judul"];
+            $data["tanggal"] = $datapost["download_tanggal"];
+            $data["keterangan"] = $datapost["download_keterangan"];
+            $data["jenis"] = $datapost["download_jenis"];
+            $data["file"] = $new_name;
+            $data['created_by'] = $this->general_library->getId();
+            $this->db->insert('t_download', $data);
+            return $this->db->insert_id();
+        }
+
+        function loadListDownload(){
+            $query = $this->db->select('a.*,b.jenis_download')
+                            ->from('t_download a')
+                            ->join('m_jenis_download b', 'a.jenis = b.id')
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+            return $query; 
+        }
+
+        public function getMasterJenisDownload(){
+
+            return $this->db->select('*')
+                            ->from('m_jenis_download as a')
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+        }
+    
+
+
+
+        function loadListAgenda(){
+            $query = $this->db->select('*')
+                            ->from('t_agenda a')
+                            ->where('a.flag_active', 1)
+                            ->order_by('a.id', 'desc')
+                            ->get()->result_array();
+            return $query; 
+        }
+
+
+        public function submitKontenAgenda($new_name){
+
+            $datapost = $this->input->post();
+     
+            // dd($datapost);
+            $data["judul"] = $datapost["agenda_judul"];
+            $data["tanggal"] = $datapost["agenda_tanggal"];
+            $data["isi_agenda"] = $datapost["isi_agenda"];
+            $data["gambar"] = $new_name;
+            $data['created_by'] = $this->general_library->getId();
+            $this->db->insert('t_agenda', $data);
+            return $this->db->insert_id();
+        }
+
+
+        public function getAgendaDetail($id){
+            return $this->db->select('*')
+                            ->from('t_agenda a')
+                            ->where('a.id', $id)
+                            ->where('a.flag_active', 1)
+                            ->limit(1)
+                            ->get()->row_array();
+        }
+
+        public function updateKontenAgenda(){
+            $datapost = $this->input->post(); 
+
+        
+            $data["judul"] = $datapost["detail_judul_agenda"];
+            $data["tanggal"] = $datapost["detail_tanggal_agenda"];
+            $data["isi_agenda"] = $datapost["detail_isi_agenda"];
+            // $data["gambar"] = $_FILES["berita_gambar"]["name"];
+
+            $id =  $datapost["id"];
+
+            $this->db->where('id', $id)
+                ->update('t_agenda', $data);
+        }
+
+
+        public function submitKontenMainImages($new_name){
+            $datapost = $this->input->post();
+            $data["judul"] = $datapost["mainimage_judul"];
+            $data["gambar"] =  $new_name;
+            $data['created_by'] = $this->general_library->getId();
+            $this->db->insert('t_main_images', $data);
+            return $this->db->insert_id(); 
+    }
+
+    function loadListMainImages(){
+        $query = $this->db->select('*')
+                        ->from('t_main_images a')
+                        ->where('a.flag_active', 1)
+                        ->order_by('a.id', 'desc')
+                        ->get()->result_array();
+        return $query; 
+    }
+
+
 
 
     

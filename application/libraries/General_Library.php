@@ -5,7 +5,7 @@ class General_library
     protected $nikita;
     public $userLoggedIn;
     public $params;
-    public $bios_serial_num;
+    // public $bios_serial_num;
 
     public function __construct()
     {
@@ -14,21 +14,22 @@ class General_library
             $this->userLoggedIn = $this->nikita->session->userdata('user_logged_in')[0];
         }
         $this->params = $this->nikita->session->userdata('params');
-        $this->bios_serial_num = shell_exec('wmic bios get serialnumber 2>&1');
+        // $this->bios_serial_num = shell_exec('wmic bios get serialnumber 2>&1');
         date_default_timezone_set("Asia/Singapore");
         $this->nikita->load->model('general/M_General', 'm_general');
         $this->nikita->load->model('user/M_User', 'm_user');
         $this->nikita->load->model('webcp/M_Main', 'main');
+        $this->updateStatistic();
     }
 
     public function logErrorTelegram($data){
         $this->nikita->m_general->logErrorTelegram($data);
     }
 
-    public function getBiosSerialNum(){
-        $info = $this->bios_serial_num;
-        return trim($info);
-    }
+    // public function getBiosSerialNum(){
+    //     $info = $this->bios_serial_num;
+    //     return trim($info);
+    // }
 
     public function refreshUserLoggedInData(){
         $this->userLoggedIn = $this->nikita->session->userdata('user_logged_in')[0];
@@ -54,6 +55,26 @@ class General_library
         }
     }
 
+    public function updateStatistic(){
+        $this->nikita->m_general->updateStatistic();
+    }
+
+    public function getTtgImage($gambar){
+        $img_src = base_url('assets/webcp/assets/img/image-not-found.png');
+        if($gambar && file_exists(URI_TTG.$gambar)){
+            $img_src = base_url(URI_TTG.$gambar);
+          }
+        return $img_src;
+    }
+    
+    public function getAgendaImage($gambar){
+        $img_src = base_url('assets/webcp/assets/img/image-not-found.png');
+        if($gambar && file_exists(URI_AGENDA.$gambar)){
+            $img_src = base_url(URI_AGENDA.$gambar);
+          }
+        return $img_src;
+    }
+
     public function getBeritaImage($gambar){
         $img_src = base_url('assets/webcp/assets/img/image-not-found.png');
         if($gambar && file_exists(URI_BERITA.$gambar)){
@@ -70,6 +91,22 @@ class General_library
         return $img_src;
     }
 
+    public function getMainImages($gambar){
+        $img_src = ('assets/webcp/assets/img/image-not-found.png');
+        if($gambar && file_exists(URI_MAIN_IMAGES.$gambar)){
+            $img_src = (URI_MAIN_IMAGES.$gambar);
+          }
+        return $img_src;
+    }
+
+    public function getAplikasiPublikLogo($gambar){
+        $img_src = base_url('assets/webcp/assets/img/image-not-found.png');
+        if($gambar && file_exists(URI_APLIKASI_PUBLIK.$gambar)){
+            $img_src = base_url(URI_APLIKASI_PUBLIK.$gambar);
+          }
+        return $img_src;
+    }
+
     public function getProfilePicture(){
         // $photo = 'assets/img/default-user-icon.jpg';
         $photo = 'assets/img/default-user-icon.png';
@@ -77,6 +114,19 @@ class General_library
             $photo = 'assets/profile_picture/'.$this->userLoggedIn['profile_picture'];
         }
         return base_url().$photo;
+    }
+
+    public function getPelayananFile($jenis_file = 'tarif'){
+        $file = $this->getParams('PARAM_FILE_TARIF_PELAYANAN');
+        if($jenis_file == 'jenis'){
+            $file = $this->getParams('PARAM_FILE_JENIS_PELAYANAN');
+        } else if ($jenis_file == 'jam'){
+            $file = $this->getParams('PARAM_FILE_JAM_PELAYANAN');
+        }
+        if($file && file_exists(URI_PARAMETER.$file['parameter_value'])){
+            return URI_PARAMETER.$file['parameter_value'];
+        }
+        return null;
     }
 
     public function getParams($parameter_name = ''){

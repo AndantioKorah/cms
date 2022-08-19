@@ -76,8 +76,17 @@ $route['admin/pelayanan'] = 'admin/C_Admin/pelayanan';
 $route['admin/pengumuman'] = 'admin/C_Admin/pengumuman';
 $route['master/ketegorippid'] = 'master/C_Master/masterKategoriPpid';
 $route['master/jenisppid'] = 'master/C_Master/masterJenisPpid';
-$route['admin/covid19'] = 'admin/C_Admin/covid19';
+$route['admin/covid19/regulasi'] = 'admin/C_Admin/covid19Regulasi';
+$route['admin/covid19/infografis'] = 'admin/C_Admin/covid19Infografis';
+$route['admin/covid19/video'] = 'admin/C_Admin/covid19Video';
 $route['admin/pojok-ttg'] = 'admin/C_Admin/pojokttg';
+$route['admin/agenda'] = 'admin/C_Admin/agenda';
+$route['admin/aplikasi-publik'] = 'admin/C_Admin/aplikasiPublik';
+$route['master/download'] = 'master/C_Master/masterDownload';
+$route['admin/download'] = 'admin/C_Admin/download';
+$route['admin/mainImage'] = 'admin/C_Admin/mainImage';
+
+
 // $route['dashboard'] = 'dashboard/C_Dashboard/dashboard';
 
 // =============================================================
@@ -101,13 +110,25 @@ $route['ppid/setiap-saat'] = 'webcp/ppid/C_Ppid/ppidSetiapSaat';
 $route['ppid/serta-merta'] = 'webcp/ppid/C_Ppid/ppidSertaMerta';
 
 $route['service'] = 'webcp/service/C_Service/index';
+$route['service/jenis-pelayanan'] = 'webcp/service/C_Service/jenisPelayanan';
+$route['service/jam-pelayanan'] = 'webcp/service/C_Service/jamPelayanan';
+$route['service/pola-tarif'] = 'webcp/service/C_Service/polaTarif';
 
 $route['announcement'] = 'webcp/announcement/C_Announcement/index';
+
+$route['download'] = 'webcp/download/C_Download/index';
+
+$route['agenda'] = 'webcp/agenda/C_Agenda/index';
+$route['agenda/detail/(:any)'] = 'webcp/agenda/C_Agenda/detailAgenda/$1';
 
 $route['contact'] = 'webcp/contact/C_Contact/index';
 
 $route['wbs'] = 'webcp/wbs/C_Wbs/index';
 
 $route['ttg'] = 'webcp/ttg/C_Ttg/index';
+$route['ttg/detail/(:any)'] = 'webcp/ttg/C_Ttg/detailTtg/$1';
 
 $route['covid'] = 'webcp/covid/C_Covid/index';
+$route['covid/regulasi'] = 'webcp/covid/C_Covid/regulasi';
+$route['covid/infografis'] = 'webcp/covid/C_Covid/infografis';
+$route['covid/video'] = 'webcp/covid/C_Covid/video';

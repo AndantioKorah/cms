@@ -112,7 +112,7 @@ h1{
 <div class="card-header">
             <div class="row">
                 <div class="col-12">
-                    <h3 class="card-title">FORM INPUT BERITA</h3>
+                    <h3 class="card-title">FORM INPUT POJOK TTG</h3>
                 </div>
             </div>
         </div>
@@ -121,7 +121,7 @@ h1{
 
 
 
-        <form action="<?=base_url("admin/C_Admin/submitKontenPojokTtg")?>" method="post" id="form_berita" align="center" enctype="multipart/form-data">  
+        <form action="<?=base_url("admin/C_Admin/submitKontenPojokTtg")?>" method="post" id="form_pojok_ttg" align="center" enctype="multipart/form-data">  
                 <div class="row">
                     <div class="col-lg-12 col-md-3">
                         <div class="form-group">
@@ -257,7 +257,7 @@ h1{
            
             $('#btn_upload').prop('disabled', true);
             $('#btn_upload').html('SIMPAN.. <i class="fas fa-spinner fa-spin"></i>')
-            document.getElementById("form_berita").submit();
+            document.getElementById("form_pojok_ttg").submit();
         });
 
 

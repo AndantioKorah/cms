@@ -65,8 +65,8 @@
     }
 
     $('#form_tambah_master_parameter').on('submit', function(e){
-        $('#btn_save').hide()
-        $('#btn_save_loading').show()
+        // $('#btn_save').hide()
+        // $('#btn_save_loading').show()
         e.preventDefault();
         $.ajax({
             url: '<?=base_url("master/C_Master/insertMasterParameter")?>',

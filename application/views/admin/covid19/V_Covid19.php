@@ -4,7 +4,7 @@
 <div class="card-header">
             <div class="row">
                 <div class="col-12">
-                    <h3 class="card-title">FORM INPUT PPID</h3>
+                    <h3 class="card-title">FORM INPUT</h3>
                 </div>
             </div>
         </div>
@@ -20,16 +20,7 @@
     <input class="form-control datepicker" name="tanggal_covid19" id="tanggal_covid19"  autocomplete="off" required/>
   </div>
 
-  <div class="form-group text-left">
-  <label class="bmd-label-floating">Kategori</label>
-  <select class="form-control select2-navy" style="width: 100%"
-                 id="kategori_covid19" data-dropdown-css-class="select2-navy" name="kategori_covid19" required>
-                 <option value="" selected>- Pilih Kategori -</option>
-                 <option value="1" >Regulasi</option>
-                 <option value="2" >Edukasi</option>
-                 <option value="3" >Infografis</option>
-                 </select>
-  </div>
+
 
   <div class="form-group text-left">
   <label class="bmd-label-floating">File </label> 
@@ -38,12 +29,7 @@
     <div id="uploadPreview1"></div>
   </div>
 
-  <div class="form-group text-left">
-  <label class="bmd-label-floating">Link </label> 
- <input class="form-control"  name="covid19_file" id="covid19_file"/>
-        <br>
-    <div id="uploadPreview1"></div>
-  </div>
+  
 
 
   <div class="col-lg-12 col-md-4 text-right mt-2">
@@ -73,7 +59,7 @@
 
  function loadListCovid19(){
         $('#list_covid19').html('')
-        $('#list_covid19').load('<?=base_url("admin/C_Admin/loadListCovid19/")?>', function(){
+        $('#list_covid19').load('<?=base_url("admin/C_Admin/loadListCovid19Regulasi/")?>', function(){
             $('#loader').hide()
         })
     }
@@ -90,7 +76,7 @@
           else  
           {  
                $.ajax({  
-                   url:"<?=base_url("admin/C_Admin/submitKontenCovid19")?>",  
+                   url:"<?=base_url("admin/C_Admin/submitKontenCovid19Regulasi")?>",  
                     method:"POST",  
                     data:new FormData(this),  
                     contentType: false,  
@@ -109,6 +95,8 @@
                            loadListCovid19()                          
                        } else {
                            errortoast(result.msg)
+                           $('#btn_upload').prop('disabled', false);
+                           $('#btn_upload').html('<i class="fa fa-save"></i>  SIMPAN')
                            return false;
                        }
                     }  

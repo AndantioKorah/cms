@@ -19,7 +19,7 @@
 
   <section id="contact" class="contact">
     <div class="container">
-      <form method="post" role="form" class="php-email-form">
+      <form id="form_contact" method="post" role="form" class="php-email-form-new">
         <div class="row">
           <div class="col-md-12">
             <h4>Tulis Pesan Anda</h4>
@@ -35,14 +35,14 @@
           <input type="text" class="form-control" name="subject" id="subject" autocomplete="off" placeholder="Subject" required>
         </div>
         <div class="form-group mt-3">
-          <textarea class="form-control" name="message" rows="5" autocomplete="off" placeholder="Pesan Anda" required></textarea>
+          <textarea class="form-control" id="message" name="message" rows="5" autocomplete="off" placeholder="Pesan Anda" required></textarea>
         </div>
         <!-- <div class="my-3">
           <div class="loading">Loading</div>
           <div class="error-message"></div>
           <div class="sent-message">Your message has been sent. Thank you!</div>
         </div> -->
-        <div class="text-center"><button type="submit">Kirim Pesan</button></div>
+        <div class="text-center mt-3"><button type="submit">Kirim Pesan</button></div>
       </form>
     </div>
   </section>
@@ -50,4 +50,22 @@
 </main>
 
 <script>
+  $('#form_contact').on('submit', function(e){
+    e.preventDefault()
+    $.ajax({
+      url: '<?=base_url('webcp/contact/C_Contact/sendMessageContact')?>',
+      method: 'post',
+      data: $(this).serialize(),
+      success: function(data){
+        successtoast('Pesan Anda sudah kami terima, cek Email yang Anda masukkan untuk melihat balasan kami. Terima Kasih.')
+        $('#name').val('')
+        $('#email').val('')
+        $('#subject').val('')
+        $('#message').val('')
+        $('#message').html('')
+      }, error: function(err){
+        errortoast(err)
+      }
+    })
+  })
 </script>

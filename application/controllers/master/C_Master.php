@@ -41,7 +41,7 @@ class C_Master extends CI_Controller
 
     public function masterKategoriPpid(){
      
-        render('master/V_MasterKatergoriPpid', '', '', $data);
+        render('master/V_MasterKatergoriPpid', '', '', null);
     }
 
     function submitMasterKategoriPpid(){
@@ -80,6 +80,28 @@ class C_Master extends CI_Controller
         $this->general->delete('id', $id, 'm_jenis_ppid');
     }
 
+
+    //
+    public function masterDownload(){
+     
+        render('master/V_MasterDownload', '', '', null);
+    }
+
+    function submitMasterDownload(){
+        $data = $this->master->submitMasterDownload();
+       
+        echo json_encode($data);
+    }
+
+    function loadListMasterDownload(){
+        $data['list_master_download'] = $this->master->loadListMasterDownload();
+        $this->load->view('master/V_ListMasterDownload', $data);
+    }
+
+    public function deleteMasterDownload($id){
+        $this->general->delete('id', $id, 'm_jenis_download');
+    }
+    
     
 
 }

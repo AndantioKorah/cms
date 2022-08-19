@@ -59,7 +59,7 @@
            
            if(confirm('Apakah Anda yakin ingin menghapus data?')){
                $.ajax({
-                   url: '<?=base_url("admin/C_admin/deletePelayanan/")?>'+id,
+                   url: '<?=base_url("admin/C_Admin/deletePelayanan/")?>'+id,
                    method: 'post',
                    data: null,
                    success: function(){

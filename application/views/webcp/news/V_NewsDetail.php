@@ -65,6 +65,7 @@
                 <div class="image">
                   <?php
                     $data['gambar'] = json_decode($rs['gambar'], true);
+                    $data['page'] = 'news';
                     $this->load->view('webcp/partials/V_ImageVerticalSlider.php', $data);
                   ?>
                   <!-- <img class="image-berita-detail" src="<?=$this->general_library->getBeritaImage($rs['gambar'])?>" /> -->

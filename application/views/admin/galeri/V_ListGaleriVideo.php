@@ -67,7 +67,7 @@
            
            if(confirm('Apakah Anda yakin ingin menghapus data?')){
                $.ajax({
-                   url: '<?=base_url("admin/C_admin/deleteGaleri/")?>'+id,
+                   url: '<?=base_url("admin/C_Admin/deleteGaleri/")?>'+id,
                    method: 'post',
                    data: null,
                    success: function(){

@@ -37,7 +37,7 @@
   <div class="row">
     <hr>
       <div class="paging_title col-4">
-        <?= isset($title)? '<h4>'.$title.'</h4>' : '<h4 style="color: white;">.</h4>'?>
+        <?= isset($title) && $title != "" ? '<h4>'.$title.'</h4>' : '<h4 style="color: white;">.</h4>'?>
       </div>
       <div class="paging_number col-8">
         <span onclick="pagingClick('back')" class="<?=$active_page == 1 ? 'disabled' : '' ?>; prev_page"><i class="fa fa-angle-left"></i></span>
@@ -113,6 +113,16 @@
         refreshVideoGalleryContent(active_page)
       } else if(page_content == 'announcement'){
         refreshAnnouncementContent(active_page)
+      } else if(page_content == 'agenda'){
+        refreshAgendaData(active_page)
+      } else if(page_content == 'pojok-ttg'){
+        refreshTtgData(active_page)
+      } else if(page_content == 'covid-regulasi'){
+        refreshRegulasiContent(active_page)
+      } else if(page_content == 'covid-infografis'){
+        refreshInfografisContent(active_page)
+      } else if(page_content == 'covid-video'){
+        refreshVideoCovidContent(active_page)
       }
     }
   }

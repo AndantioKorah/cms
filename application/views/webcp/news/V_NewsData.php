@@ -38,6 +38,17 @@
       font-family: "Open Sans";
       text-align: justify;
     }
+
+    .image-berita-new{
+      width: 100%;
+      position: absolute;
+      /* height: calc(100vw); */
+    }
+
+    .image-wrapper{
+      position: relative;
+      padding-bottom: 56.2%;
+    }
   </style>
   <div class="row">
     <?php foreach($news as $n){
@@ -49,7 +60,9 @@
       <div onclick="openDetailNews('<?=$n['id']?>')" class="col-lg-4 col-md-12 news-data">
         <article class="entry news-data-body">
           <div class="entry-img">
-            <img class="image-berita img-fluid b-lazy" src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="<?=$this->general_library->getBeritaImage($gambar)?>" alt="Lazy load images example 3 image 1" />
+            <div class="image-wrapper">
+              <img class="image-berita-new img-fluid b-lazy" src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="<?=$this->general_library->getBeritaImage($gambar)?>" alt="Lazy load images example 3 image 1" />
+            </div>
           </div>
 
           <h2 class="entry-title judul-berita">

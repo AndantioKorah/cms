@@ -59,7 +59,7 @@
                     <a class="<?=$url[1] == 'agenda' ? 'active-navbar' : ''?>" href="<?=base_url('agenda')?>">Agenda</a>
                 </li>
                 <li class="dropdown">
-                    <a class="<?=$url[1] == 'gallery' ? 'active-navbar' : ''?>"><?=$this->lang->line('gallery')?></a>
+                    <a class="<?=$url[1] == 'gallery' ? 'active-navbar' : ''?>" href="#"><?=$this->lang->line('gallery')?> <i class="fa fa-angle-down"></i></a>
                     <ul>
                       <li><a href="<?=base_url('gallery/image')?>">Gambar</a></li>
                       <li><a href="<?=base_url('gallery/video')?>">Video</a></li>
@@ -67,7 +67,7 @@
                 </li>
 
                 <li class="dropdown">
-                    <a class="<?=$url[1] == 'ppid' ? 'active-navbar' : ''?>"><?=$this->lang->line('ppid')?></a>
+                    <a class="<?=$url[1] == 'ppid' ? 'active-navbar' : ''?>" href="#"><?=$this->lang->line('ppid')?> <i class="fa fa-angle-down"></i></a>
                     <ul>
                       <li><a href="<?=base_url('ppid/berkala')?>">Informasi Berkala</a></li>
                       <li><a href="<?=base_url('ppid/setiap-saat')?>">Informasi Setiap Saat</a></li>
@@ -76,11 +76,11 @@
                 </li>
 
                 <li class="dropdown">
-                    <a class="<?=$url[1] == 'service' ? 'active-navbar' : ''?>" href="#"><?=$this->lang->line('service')?></a>
+                    <a class="<?=$url[1] == 'service' ? 'active-navbar' : ''?>" href="#"><?=$this->lang->line('service')?> <i class="fa fa-angle-down"></i></a>
                     <ul>
-                      <li><a href="#">Jenis Pelayanan</a></li>
-                      <li><a href="#">Jam Pelayanan</a></li>
-                      <li><a href="#">Pola Tarif</a></li>
+                      <li><a href="<?=base_url('service/jenis-pelayanan')?>">Jenis Pelayanan</a></li>
+                      <li><a href="<?=base_url('service/jam-pelayanan')?>">Jam Pelayanan</a></li>
+                      <li><a href="<?=base_url('service/pola-tarif')?>">Pola Tarif</a></li>
                     </ul>
                 </li>
 
@@ -89,7 +89,7 @@
                 </li>
 
                 <li>
-                  <a class="<?=$url[1] == 'download' ? 'active-navbar' : ''?>" href="<?=base_url('download')?>">Download</a>
+                    <a class="<?=$url[1] == 'download' ? 'active-navbar' : ''?>" href="<?=base_url('download')?>">Download</a>
                 </li>
 
                 <li>
@@ -105,7 +105,15 @@
                 </li>
 
                 <li>
-                    <a class="<?=$url[1] == 'covid' ? 'active-navbar' : ''?>" href="<?=base_url('covid')?>"><?=$this->lang->line('covid')?></a>
+                </li>
+
+                <li class="dropdown">
+                    <a class="<?=$url[1] == 'covid' ? 'active-navbar' : ''?>" href="#"><?=$this->lang->line('covid')?> <i class="fa fa-angle-down"></i></a>
+                    <ul>
+                      <li><a href="<?=base_url('covid/regulasi')?>">Regulasi</a></li>
+                      <li><a href="<?=base_url('covid/infografis')?>">Infografis</a></li>
+                      <li><a href="<?=base_url('covid/video')?>">Video</a></li>
+                    </ul>
                 </li>
 
                 <!-- <li>

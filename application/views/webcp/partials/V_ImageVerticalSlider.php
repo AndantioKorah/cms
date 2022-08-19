@@ -11,11 +11,18 @@
 
 <div class="carousel-inner" role="listbox">
 
-  <?php if($gambar) { $i = 0; foreach($gambar as $g){ ?>
+  <?php if($gambar) { $i = 0; foreach($gambar as $g){
+    $src_image = $this->general_library->getBeritaImage($g);
+    if($page == 'agenda'){
+      $src_image = $this->general_library->getAgendaImage($g);
+    } else if($page == 'ttg'){
+      $src_image = $this->general_library->getTtgImage($g);
+    }
+  ?>
     <div class="carousel-item <?= $i == 0 ? 'active' : ''; ?>">
       <div class="carousel-container">
         <div class="container">
-          <img class="image-berita-detail" src="<?=$this->general_library->getBeritaImage($g)?>" alt="<?=$g?>" />
+          <img class="image-berita-detail" src="<?=$src_image?>" alt="<?=$g?>" />
         </div>
       </div>
     </div>

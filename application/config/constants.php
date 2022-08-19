@@ -105,6 +105,15 @@ define('URI_UPLOAD', './assets/'); //local with xampp
 define('URI_BERITA', './assets/admin/berita/'); //local with xampp
 define('URI_GALLERY', './assets/admin/galeri/'); //local with xampp
 define('URI_PPID', './assets/admin/ppid/'); //local with xampp
+define('URI_AGENDA', './assets/admin/agenda/'); //local with xampp
+define('URI_PELAYANAN', './assets/admin/pelayanan/'); //local with xampp
+define('URI_PENGUMUMAN', './assets/admin/pengumuman/'); //local with xampp
+define('URI_COVID', './assets/admin/covid19/'); //local with xampp
+define('URI_TTG', './assets/admin/pojokttg/'); //local with xampp
+define('URI_PROFILE', './assets/admin/profil/'); //local with xampp
+define('URI_PARAMETER', './assets/admin/parameter/'); //local with xampp
+define('URI_APLIKASI_PUBLIK', './assets/admin/logo/'); //local with xampp
+define('URI_MAIN_IMAGES', './assets/admin/mainimages/'); //local with xampp
 define('DB_BACKUP_FOLDER', 'db/backup/'); //local with xampp
 define('DB_RESTORE_FOLDER', 'db/restore/'); //local with xampp
 
@@ -115,4 +124,10 @@ define('DEFAULT_LANG', 'indonesia');
 define('LANG_AVAIL', ['Indonesia', 'English']);
 define('LIMIT_NEWS', 9);
 define('LIMIT_GALLERY', 9);
+define('LIMIT_AGENDA', 9);
+define('LIMIT_TTG', 9);
 define('LIMIT_ANNOUNCEMENT', 10);
+define('LIMIT_COVID_REGULASI', 10);
+define('LIMIT_COVID_INFOGRAFIS', 10);
+define('LIMIT_COVID_VIDEO', 10);
+define('RECEIVING_EMAIL_ADDRESS', 'andantiokorah@gmail.com');
