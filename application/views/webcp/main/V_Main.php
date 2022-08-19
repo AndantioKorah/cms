@@ -48,6 +48,8 @@
         <?php if($main_images) { $i = 0; foreach($main_images as $m){ ?>
           <div class="carousel-item <?=$i == 0 ? 'active' : ''?>" 
             style="background-image: url('<?=$this->general_library->getMainImages($m['gambar'])?>')">
+          <!-- <div class="b-lazy carousel-item <?=$i == 0 ? 'active' : ''?>" 
+            data-src="<?=base_url($this->general_library->getMainImages($m['gambar']))?>"> -->
             <!-- <img class="carousel-item <?=$i == 0 ? 'active' : ''?>" width="100%" height="100%" src="<?=base_url($this->general_library->getMainImages($m['gambar']))?>" /> -->
           </div>
         <?php $i++; } } ?>
