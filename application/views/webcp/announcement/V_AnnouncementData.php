@@ -108,7 +108,7 @@
               <span class="data-announcement"><i class="fa fa-clock"></i> <?=formatDateNamaBulanWT($rs['tanggal'])?></span>
             </div>
             <div class="col-lg-4 col-md-12" style="text-align: right;">
-              <a href="#" class="btn btn-sm btn-primary-color">Download <i class="fa fa-download"></i></a>
+              <a href="<?=base_url('assets/admin/pengumuman/'.$rs['file'])?>" target="_blank" class="btn btn-sm btn-primary-color">Download <i class="fa fa-download"></i></a>
             </div>
           </div>
         </div>

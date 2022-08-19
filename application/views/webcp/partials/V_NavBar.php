@@ -89,6 +89,10 @@
                 </li>
 
                 <li>
+                  <a class="<?=$url[1] == 'download' ? 'active-navbar' : ''?>" href="<?=base_url('download')?>">Download</a>
+                </li>
+
+                <li>
                     <a class="<?=$url[1] == 'contact' ? 'active-navbar' : ''?>" href="<?=base_url('contact')?>"><?=$this->lang->line('contact')?></a>
                 </li>
 
