@@ -1024,6 +1024,12 @@ class C_Admin extends CI_Controller
             $this->general->delete('id', $id, 't_download');
         }
 
+        function updateKontenDownload(){
+            $data = $this->admin->updateKontenDownload();
+            redirect('admin/download');
+        }
+
+
         public function loadDetailAgenda($id){
             $data['agenda'] = $this->admin->getAgendaDetail($id);
             // dd($data['pojokttg']);

@@ -596,6 +596,19 @@
     }
 
 
+    public function updateKontenDownload(){
+        $datapost = $this->input->post(); 
+        $data["judul"] = $datapost["edit_download_judul"];
+        $data["keterangan"] = $datapost["edit_download_keterangan"];
+        $data["tanggal"] = $datapost["edit_download_tanggal"];
+        $id =  $datapost["id_download"];
+
+        $this->db->where('id', $id)
+            ->update('t_download', $data);
+    }
+
+
+
 
 
     
