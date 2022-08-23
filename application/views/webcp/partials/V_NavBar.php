@@ -6,8 +6,8 @@
 
 <header id="header" class="fixed-top d-flex align-items-center">
     <div class="container-fluid d-flex align-items-center">
-      <img id="logo-img-mobile" src="<?=base_url('assets/webcp/assets/img/logo-kemenkes-only.png')?>" alt="" class="img-fluid logo-img-mobile">
-      <h1 id="logo-text-mobile" class="logo-text-mobile me-auto"><?=TITLES?></h1>
+      <a href="<?=base_url('')?>"><img id="logo-img-mobile" src="<?=base_url('assets/webcp/assets/img/logo-kemenkes-only.png')?>" alt="" class="img-fluid logo-img-mobile"></a>
+      <h1 id="logo-text-mobile" class="logo-text-mobile me-auto"><a style="color: #4a5562 !important;" href="<?=base_url('')?>"><?=TITLES?></a></h1>
 
       <div class="row">
         <div class="col-lg-12 div-navbar-top" id="div-navbar-top">
@@ -23,9 +23,9 @@
               </center>
             </div>
             <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-              <h5 class="logo-text-h5">KEMENTRIAN KESEHATAN RI</h5 >
-              <h5 class="logo-text-h5">Direktorat Jenderal Pencegahan dan Pengendalian Penyakit</h5 >
-              <h3 class="logo-text-h3">Balai Teknik Kesehatan Lingkungan Dan Pengendalian Penyakit (BTKLPP) Kelas I Manado</h3 >
+              <h5 class="logo-text-h5">KEMENTRIAN KESEHATAN RI</h5>
+              <h5 class="logo-text-h5">Direktorat Jenderal Pencegahan dan Pengendalian Penyakit</h5>
+              <h3 class="logo-text-h3">Balai Teknik Kesehatan Lingkungan Dan Pengendalian Penyakit (BTKLPP) Kelas I Manado</h3>
             </div>
           </div>
         </div>
