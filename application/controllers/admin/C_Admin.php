@@ -1061,10 +1061,10 @@ class C_Admin extends CI_Controller
                 $config['file_name'] = $new_name;
                 $config['upload_path'] = $path;  
                 $config['allowed_types'] = 'jpg|jpeg|png|pdf'; 
-                $config['create_thumb'] = FALSE;
-                $config['maintain_ratio'] = FALSE;
-                $config['width']         = 1920;
-                $config['height']       = 1080;
+                // $config['create_thumb'] = FALSE;
+                // $config['maintain_ratio'] = FALSE;
+                // $config['width']         = 1920;
+                // $config['height']       = 1080;
                
                 
                 $this->load->library('upload', $config);  
@@ -1076,20 +1076,20 @@ class C_Admin extends CI_Controller
                 } else {
                     $data = $this->upload->data();
                     // if($data["file_size"] > 500){
-                    $config4['image_library'] = 'gd2';
-                    $config4['source_image'] = './assets/admin/mainimages/'.$data["file_name"];
-                    $config4['create_thumb'] = FALSE;
-                    $config4['maintain_ratio'] = FALSE;
-                    $config4['width']         = 1920;
-                    $config4['height']       = 1080;
-                    $config4['file_name'] = $new_name;
-                    $config4['new_image'] = './assets/admin/mainimages/'.$data['file_name'];
-                    $this->load->library('image_lib');
-                    $this->image_lib->initialize($config4);
-                    if (!$this->image_lib->resize()) {
-                        echo $this->image_lib->display_errors();
-                    }
-                    $this->image_lib->clear();
+                    // $config4['image_library'] = 'gd2';
+                    // $config4['source_image'] = './assets/admin/mainimages/'.$data["file_name"];
+                    // $config4['create_thumb'] = FALSE;
+                    // $config4['maintain_ratio'] = FALSE;
+                    // $config4['width']         = 1920;
+                    // $config4['height']       = 1080;
+                    // $config4['file_name'] = $new_name;
+                    // $config4['new_image'] = './assets/admin/mainimages/'.$data['file_name'];
+                    // $this->load->library('image_lib');
+                    // $this->image_lib->initialize($config4);
+                    // if (!$this->image_lib->resize()) {
+                    //     echo $this->image_lib->display_errors();
+                    // }
+                    // $this->image_lib->clear();
                 } 
     
                 $data = $this->admin->submitKontenMainImages($new_name);
