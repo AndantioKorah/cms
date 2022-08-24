@@ -608,6 +608,29 @@
     }
 
 
+    public function submitDokumen($new_name){
+        $datapost = $this->input->post();
+        $data["judul"] = $datapost["judul_dokumen"];
+        $data["keterangan"] = $datapost["keterangan_dokumen"];
+        $data["file"] = $new_name;
+        $data["tanggal"] =  $datapost["tanggal_dokumen"];
+        $data['created_by'] = $this->general_library->getId();
+        $this->db->insert('t_dokumen', $data);
+        return $this->db->insert_id(); 
+        }
+
+            function loadListDokumen(){
+                $query = $this->db->select('*')
+                                ->from('t_dokumen a')
+                                ->where('a.flag_active', 1)
+                                ->order_by('a.id', 'desc')
+                                ->get()->result_array();
+                return $query; 
+            }
+
+
+
+
 
 
 

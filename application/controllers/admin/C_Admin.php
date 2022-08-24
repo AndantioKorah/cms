@@ -1112,6 +1112,62 @@ class C_Admin extends CI_Controller
 
         public function deleteMainImages($id){
             $this->general->delete('id', $id, 't_main_images');
+            // $path = './assets/admin/mainimages/4UoTHn.jpg';
+            // unlink($path);
+        }
+
+
+
+        public function dokumen(){
+       
+            $this->general_library->refreshMenu();
+            $data['list_menu'] = $this->general->getAllWithOrder('m_menu', 'nama_menu', 'asc');
+            render('admin/dokumen/V_Dokumen', 'admin', 'konten', $data);
+            
+        }
+
+
+        public function loadListDokumen(){
+            $data['list_dokumen'] = $this->admin->loadListDokumen();
+            $this->load->view('admin/dokumen/V_ListDokumen', $data);
+        }
+
+
+        function submitDokumen(){
+
+            $new_name = str_replace(array( '-',' ',']'), ' ', $_FILES["dokumen_file"]['name']);
+            $new_name = $string = str_replace(' ', '', $_FILES["dokumen_file"]['name']);
+
+            if($_FILES["dokumen_file"]["name"] != ""){ 
+                $path="./assets/admin/dokumen/";
+                $konten="dokumen_file";
+                // $this->ajax_upload($path,$konten,$new_name);
+            }
+            
+          
+            $config['file_name'] = $new_name;
+            $config['upload_path'] = $path;  
+            $config['allowed_types'] = 'jpg|jpeg|png|pdf'; 
+
+        
+            $this->load->library('upload', $config);  
+            $this->upload->overwrite = true;
+            
+            if(!$this->upload->do_upload($konten))  
+            {  
+                 echo $this->upload->display_errors();  
+            } 
+
+            
+            $data = $this->admin->submitDokumen($new_name);
+            // redirect('admin/galeri');
+            $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
+            echo json_encode($res);
+        }
+
+        public function deleteDokumen($id){
+            $this->general->delete('id', $id, 't_dokumen');
+        
         }
 
         
