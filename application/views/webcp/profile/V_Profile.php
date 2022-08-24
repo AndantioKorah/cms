@@ -17,7 +17,7 @@
     height: 100%;
   }
 </style>
-<main id="main" class="mt-3">
+<main id="main">
   <section id="breadcrumbs" class="breadcrumbs">
     <div class="container">
 

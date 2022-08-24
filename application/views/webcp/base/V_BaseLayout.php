@@ -57,7 +57,7 @@
         $this->load->view('webcp/partials/V_NavBar', $data);
     ?>
     <!-- End Header -->
-    <div class="content-wrapper" style="padding-top: 117px;">
+    <div class="content-wrapper" style="padding-top: 148pt;">
       <?php (isset($page_content)) ? $this->load->view($page_content) : ''?>
     </div>
 
