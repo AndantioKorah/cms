@@ -255,6 +255,45 @@ function getNamaHari($date){
     return getNamaHariFromNumber($dayofweek);
 }
 
+function formatDateLive($date){
+    $total_waktu = "";
+    $tahun = 0;
+    $bulan = 0;
+    $hari = 0;
+    $jam = 0;
+    $menit = 0;
+    $detik = 0;
+
+    $date1 = strtotime(date('Y-m-d H:i:s'));
+    $date2 = strtotime($date);
+    $diff = abs($date2 - $date1);
+
+    $tahun = floor($diff / (365*60*60*24));
+    $bulan = floor(($diff - $tahun * 365*60*60*24)/(30*60*60*24));
+    $hari = floor(($diff - $tahun * 365*60*60*24 -  $bulan*30*60*60*24)/ (60*60*24)); 
+    $jam = $hours = floor(($diff - $tahun * 365*60*60*24 - $bulan*30*60*60*24 - $hari*60*60*24) / (60*60));
+    $menit = floor(($diff - $tahun * 365*60*60*24 - $bulan*30*60*60*24 - $hari*60*60*24 - $jam*60*60)/ 60);
+    $detik = floor(($diff - $tahun * 365*60*60*24 - $bulan*30*60*60*24 - $hari*60*60*24 - $jam*60*60 - $menit*60));
+
+    if($hari == 0){
+        if($jam != 0){
+            return $jam.' jam yang lalu';
+        } else {
+            if($menit != 0){
+                return $menit.' menit yang lalu';
+            } else {
+                if($detik != 0){
+                    return $detik.' detik yang lalu';
+                } else {
+                    return 'baru saja';
+                }
+            }
+        }
+    }
+
+    return formatDateNamaBulanWT($date);
+}
+
 function countDiffDateLengkap($date1, $date2, $params = ''){
     $total_waktu = "";
     $tahun = 0;

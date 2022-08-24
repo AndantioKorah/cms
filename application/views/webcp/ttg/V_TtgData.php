@@ -12,7 +12,7 @@
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
-      text-align: justify;
+      /* text-align: justify; */
     }
 
     .judul-berita:hover{
@@ -49,7 +49,7 @@
       <div onclick="openDetailNews('<?=$n['id']?>')" class="col-lg-4 col-md-12 news-data">
         <article class="entry news-data-body">
           <div class="entry-img">
-            <img class="image-berita img-fluid b-lazy" src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="<?=$this->general_library->getAgendaImage($gambar)?>" alt="Lazy load images example 3 image 1" />
+            <img class="image-berita img-fluid b-lazy" src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== data-src="<?=$this->general_library->getTtgImage($gambar)?>" alt="Lazy load images example 3 image 1" />
           </div>
 
           <h2 class="entry-title judul-berita">

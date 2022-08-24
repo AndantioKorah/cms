@@ -22,7 +22,8 @@
                             ->or_like('parameter_name', 'PARAM_TUPOKSI')
                             ->order_by('parameter_name', 'asc')
                             ->get()->result_array();
-            
+
+            $temp_tupoksi = null;
             if($rs){
                 foreach($rs as $r){
                     if(substr($r['parameter_name'], 0, 10) == 'PARAM_MISI'){
@@ -30,7 +31,7 @@
                     } else if(substr($r['parameter_name'], 0, 23) == 'PARAM_TUPOKSI_PARAGRAPH'){
                         $result['tupoksi_pr'][] = $r['parameter_value'];
                     } else if(substr($r['parameter_name'], 0, 18) == 'PARAM_TUPOKSI_POIN'){
-                        $result['tupoksi_poin'][] = $r['parameter_value'];
+                        $temp_tupoksi[] = $r;
                     } else if($r['parameter_name'] == 'PARAM_VISI'){
                         $result['visi'] = $r['parameter_value'];
                     } else if($r['parameter_name'] == 'PARAM_MOTTO'){
@@ -38,6 +39,18 @@
                     }
                 }
             }
+
+            if($temp_tupoksi){
+                $temp = null;
+                foreach($temp_tupoksi as $t){
+                    $temp[$t['parameter_name']] = $t['parameter_value'];
+                }
+
+                for($i = 1; $i <= count($temp_tupoksi); $i++){
+                    $result['tupoksi_poin'][$i] = $temp['PARAM_TUPOKSI_POIN_'.$i];
+                }
+            }
+            
             return $result;
         }
 

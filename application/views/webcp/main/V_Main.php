@@ -84,7 +84,7 @@
 
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-3 col-md-12 section-bg">
+      <div class="col-lg-3 col-md-12" style="background: white;">
         <section style="padding-top: 50px !important; padding-bottom: 10px !important;" id="aplikasi-publik" class="aplikasi-publik">
           <div class="container">
             <h4 class="title-section-side">APLIKASI PUBLIK</h4>

@@ -319,7 +319,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .content-wrapper{
-    padding-top: 142pt !important;
+    padding-top: 138pt !important;
   }
 }
 
@@ -343,7 +343,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .content-wrapper{
-    padding-top: 138pt !important;
+    padding-top: 134pt !important;
   }
 }
 
@@ -359,7 +359,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   
   .content-wrapper{
-    padding-top: 37pt !important;
+    padding-top: 34pt !important;
   }
 
   .logo-text-h3{
@@ -905,7 +905,8 @@ section {
 --------------------------------------------------------------*/
 .breadcrumbs {
   padding: 18px 0;
-  background: #f8f9fa;
+  /* background: #f8f9fa; */
+  background: white;
   min-height: 40px;
   /* margin-top: 80px; */
 }

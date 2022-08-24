@@ -9,11 +9,11 @@
   }
 
   .card-img-top{
-    width: 10% !important;
+    width: 10vw !important;
   }
 
   .card img {
-    width: 10%;
+    width: 10vw;
     border-top-right-radius: 0;
     border-bottom-left-radius: calc(0.25rem - 1px);
   }
@@ -29,13 +29,13 @@
       margin: 0;
     }
     .card img {
-      width: 30%;
+      width: 15vw;
     }
   }
 
   @media only screen and (max-width: 1200px) {
     .card img {
-      width: 10%;
+      width: 10vw;
     }
   }
 
@@ -90,7 +90,7 @@
     <div class="card data-card">
       <div class="card-img-top">
         <center>
-          <i class="<?=$fa?> fa-5x" style="color: var(--primary)"></i>
+          <i class="<?=$fa?> fa-3x" style="color: var(--primary)"></i>
         </center>
       </div>
         <div class="card-body">
