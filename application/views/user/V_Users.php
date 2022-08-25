@@ -1,4 +1,4 @@
-<?php if($this->general_library->getRole() == 'programmer') { ?>
+<?php if($this->general_library->getRole() == 'programmer' || $this->general_library->getRole() == 'superadmin') { ?>
     <div class="card card-default">
         <div class="card-header">
             <div class="row">

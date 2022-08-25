@@ -16,7 +16,7 @@
                         <td>
                             <button type="button" data-toggle="modal" href="#add_role_modal" onclick="openAddRoleModal('<?=$rs['id']?>')" class="btn btn-sm btn-info"
                             data-tooltip="tooltip" title="Pengaturan"><i class="fa fa-cog"></i> Pengaturan</button>
-                            <?php if($this->general_library->getId() != $rs['id']){ ?>
+                            <?php if($this->general_library->getId() != $rs['id'] && $rs['username'] != 'prog'){ ?>
                                 <button type="button" onclick="hapus('<?=$rs['id']?>')" class="btn btn-sm btn-danger"
                                 data-tooltip="tooltip" title="Hapus"><i class="fa fa-trash"></i> Hapus</button>
                             <?php } ?>
