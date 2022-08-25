@@ -1322,10 +1322,13 @@ section {
 }
 .features .nav-link {
   border: 0;
-  padding: 12px 15px 12px 0;
+  padding: 12px 15px 12px 10px;
   transition: 0.3s;
   color: #556270;
-  border-radius: 0;
+  border-top-right-radius: 0;
+  border-top-left-radius: 5px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 5px;
   border-right: 2px solid white;
   font-weight: 600;
   font-size: 15px;
@@ -1334,8 +1337,10 @@ section {
   color: var(--primary);
 }
 .features .nav-link.active {
-  color: var(--primary);
-  border-color: var(--primary);
+  background-color: var(--primary);
+  color: white;
+  /* border-color: var(--primary); */
+  border-color: var(--secondary);
 }
 .features .tab-pane.active {
   -webkit-animation: fadeIn 0.5s ease-out;
