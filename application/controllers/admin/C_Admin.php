@@ -246,7 +246,13 @@ class C_Admin extends CI_Controller
         }
 
         public function deleteBerita($id){
-            $this->general->delete('id', $id, 't_berita');
+            // $this->admin->deleteBerita($id);
+            $table = 't_berita';
+            $path = './assets/admin/berita/';
+            $kolom = 'gambar';
+            $type = 2;
+            $this->admin->generalDelete($id,$table,$path,$kolom,$type);
+            // $this->general->delete('id', $id, 't_berita');
         }
 
         
@@ -1111,9 +1117,14 @@ class C_Admin extends CI_Controller
 
 
         public function deleteMainImages($id){
-            $this->general->delete('id', $id, 't_main_images');
-            // $path = './assets/admin/mainimages/4UoTHn.jpg';
-            // unlink($path);
+            // $this->general->delete('id', $id, 't_main_images');
+            // $this->admin->deleteMainImages($id);
+            $table = 't_main_images';
+            $path = './assets/admin/mainimages/';
+            $kolom = 'gambar';
+            $type = 1;
+            $this->admin->generalDelete($id,$table,$path,$kolom,$type);
+           
         }
 
 
@@ -1166,7 +1177,12 @@ class C_Admin extends CI_Controller
         }
 
         public function deleteDokumen($id){
-            $this->general->delete('id', $id, 't_dokumen');
+            // $this->general->delete('id', $id, 't_dokumen');
+            $table = 't_dokumen';
+            $path = './assets/admin/dokumen/';
+            $kolom = 'file';
+            $type = 1;
+            $this->admin->generalDelete($id,$table,$path,$kolom,$type);
         
         }
 
