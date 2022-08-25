@@ -85,8 +85,9 @@ class C_Admin extends CI_Controller
                 $_FILES['file']['tmp_name'] = $_FILES['berita_gambar']['tmp_name'][$i];
                 $_FILES['file']['error'] = $_FILES['berita_gambar']['error'][$i];
                 $_FILES['file']['size'] = $_FILES['berita_gambar']['size'][$i];
+                // dd($_FILES);
               
-                // if($_FILES['file']['size'] > 1048576){
+                // if($_FILES['file']['size'] > 38576){
                 //   $ress = 0;
                 //   $res = array('msg' => 'File tidak boleh lebih dari 1 MB', 'success' => false);
                   
@@ -176,7 +177,6 @@ class C_Admin extends CI_Controller
             // }
             $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
             // echo json_encode($res);
-           
             redirect('admin/berita');
            
         }
@@ -246,7 +246,13 @@ class C_Admin extends CI_Controller
         }
 
         public function deleteBerita($id){
-            $this->general->delete('id', $id, 't_berita');
+            // $this->admin->deleteBerita($id);
+            $table = 't_berita';
+            $path = './assets/admin/berita/';
+            $kolom = 'gambar';
+            $type = 2;
+            $this->admin->generalDelete($id,$table,$path,$kolom,$type);
+            // $this->general->delete('id', $id, 't_berita');
         }
 
         
@@ -306,7 +312,14 @@ class C_Admin extends CI_Controller
       
             // $new_name = time().$_FILES["gambar"]['name'];
             $new_name = str_replace(array( '-',' ',']'), ' ', $_FILES["gambar"]['name']);
-            $nm_gambar = $string = str_replace(' ', '', $_FILES["gambar"]['name']);
+            // $nm_gambar = $string = str_replace(' ', '', $_FILES["gambar"]['name']);
+            
+            $random_number = intval( "0" . rand(1,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) );
+            $data = $_FILES["gambar"]['type'];;    
+            $tipeFile = substr($data, strpos($data, "/") + 1);   
+        
+            $nm_gambar = "gambar".$random_number.time().".".$tipeFile;
+           
             $status = 0;
 
            
@@ -1111,9 +1124,14 @@ class C_Admin extends CI_Controller
 
 
         public function deleteMainImages($id){
-            $this->general->delete('id', $id, 't_main_images');
-            // $path = './assets/admin/mainimages/4UoTHn.jpg';
-            // unlink($path);
+            // $this->general->delete('id', $id, 't_main_images');
+            // $this->admin->deleteMainImages($id);
+            $table = 't_main_images';
+            $path = './assets/admin/mainimages/';
+            $kolom = 'gambar';
+            $type = 1;
+            $this->admin->generalDelete($id,$table,$path,$kolom,$type);
+           
         }
 
 
@@ -1179,7 +1197,12 @@ class C_Admin extends CI_Controller
         }
 
         public function deleteDokumen($id){
-            $this->general->delete('id', $id, 't_dokumen');
+            // $this->general->delete('id', $id, 't_dokumen');
+            $table = 't_dokumen';
+            $path = './assets/admin/dokumen/';
+            $kolom = 'file';
+            $type = 1;
+            $this->admin->generalDelete($id,$table,$path,$kolom,$type);
         
         }
 

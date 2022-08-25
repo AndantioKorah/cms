@@ -27,6 +27,8 @@
 
         public function submitKontenBerita($new_name){
 
+            // $this->db->trans_begin();
+
             $datapost = $this->input->post();
             $tags = explode(',',$this->input->post('tag_berita'));
             // dd($tag);
@@ -43,6 +45,16 @@
             $data['created_by'] = $this->general_library->getId();
             $this->db->insert('t_berita', $data);
             return $this->db->insert_id();
+    
+            // if($this->db->trans_status() == FALSE){
+            //     $this->db->trans_rollback();
+            //     $rs['code'] = 1;
+            //     $rs['message'] = 'Terjadi Kesalahan';
+            // } else {
+            //     $this->db->trans_commit();
+            // }
+
+         
         }
 
         function loadListBerita(){
@@ -182,6 +194,7 @@
 
             $this->db->from('t_galeri');
             $this->db->where('t_galeri.flag_active', 1);
+            $this->db->where('t_galeri.jenis', 1);
             $this->db->order_by('t_galeri.id', 'desc');
             $i = 0;
             foreach ($this->column_search as $item) // loop kolom 
@@ -648,6 +661,94 @@
                     ->order_by('a.tanggal', 'asc')
                     ->get()->result_array();
     }
+
+            public function deleteMainImages($id){
+
+                $getData = $this->db->select('*')
+                ->from('t_main_images')
+                ->where('id', $id)
+                ->get()->result_array();
+
+                $data["flag_active"] = 0;
+                $this->db->where('id', $id)
+                    ->update('t_main_images', $data);
+                $path = './assets/admin/mainimages/'.$getData[0]['gambar'];
+                unlink($path);
+            }
+
+            public function deleteBerita($id){
+
+                $this->db->trans_begin();
+
+                $data["flag_active"] = 0;
+                $this->db->where('id', $id)
+                    ->update('t_berita', $data);
+
+                    $getData = $this->db->select('gambar')
+                    ->from('t_berita')
+                    ->where('id', $id)
+                    ->get()->result_array();
+    
+                    $image = json_decode($getData[0]['gambar']);
+                    foreach($image as $image_name)
+                    {
+                        // dd($image_name);
+                        $path = './assets/admin/berita/'.$image_name;
+                        unlink($path);
+                    } 
+
+                if($this->db->trans_status() == FALSE){
+                    $this->db->trans_rollback();
+                    $rs['code'] = 1;
+                    $rs['message'] = 'Terjadi Kesalahan';
+                } else {
+                    $this->db->trans_commit();
+                }
+
+            }
+
+
+
+            public function generalDelete($id,$table,$path,$kolom,$type){
+
+                $this->db->trans_begin();
+
+                $data["flag_active"] = 0;
+                $this->db->where('id', $id)
+                    ->update($table, $data);
+
+                    $getData = $this->db->select($kolom)
+                    ->from($table)
+                    ->where('id', $id)
+                    ->get()->result_array();
+                 
+                    if($type == 1){
+                        $path_file = $path.$getData[0][$kolom];
+                        unlink($path_file);
+                    } else {
+                    $file = json_decode($getData[0][$kolom]);
+                    foreach($file as $file_name)
+                    {
+                      
+                        $path_file = $path.$file_name;
+                        unlink($path_file);
+                    } 
+                    }
+                   
+
+
+                if($this->db->trans_status() == FALSE){
+                    $this->db->trans_rollback();
+                    $rs['code'] = 1;
+                    $rs['message'] = 'Terjadi Kesalahan';
+                } else {
+                    $this->db->trans_commit();
+                }
+
+            }
+
+
+
 
     function sendCommend($id){
         $rs['code'] = 0;

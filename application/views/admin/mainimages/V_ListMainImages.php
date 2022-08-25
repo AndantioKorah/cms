@@ -7,7 +7,7 @@
                 <th>Judul </th>
                 <th>Gambar</th>
                 <th></th>
-                <th></th>
+              
             </tr>
         </thead>
         <tbody>

@@ -83,6 +83,19 @@
         <br>
     <div id="uploadPreview2"></div>
   </div>
+                  <script>
+                          var ukuran = 0;
+                    $('#gambar').bind('change', function() {
+                    ukuran = this.files[0].size/1024;
+                        if(ukuran >3100){
+                        errortoast("File Tidak boleh lebih dari 3MB") 
+                        $('#gambar').val('');
+                        // $('#uploadPreview1').html('');
+                        return false
+                    }
+                        
+                    });
+                    </script>
 
   <div class="col-lg-12 col-md-4 text-right mt-2">
         <button class="btn btn-block btn-navy" id="btn_upload"><i class="fa fa-save"></i> SIMPAN</button>
@@ -163,12 +176,14 @@
 
 
  $('#form_galeri').on('submit', function(e){  
-          $('#btn_upload').prop('disabled', true);
-          $('#btn_upload').html('SIMPAN.. <i class="fas fa-spinner fa-spin"></i>')
+          // $('#btn_upload').prop('disabled', true);
+          // $('#btn_upload').html('SIMPAN.. <i class="fas fa-spinner fa-spin"></i>')
           e.preventDefault();  
           if($('#gambar').val() == '')  
           {  
-               alert("Please Select the File");  
+            errortoast("Please Select the File"); 
+               $('#btn_upload').prop('disabled', false);
+               $('#btn_upload').html('SIMPAN') 
           }  
           else  
           {  
