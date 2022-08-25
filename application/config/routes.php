@@ -117,7 +117,7 @@ $route['service/pola-tarif'] = 'webcp/service/C_Service/polaTarif';
 
 $route['announcement'] = 'webcp/announcement/C_Announcement/index';
 
-$route['download'] = 'webcp/download/C_Download/index';
+$route['akuntabilitas'] = 'webcp/download/C_Download/index';
 
 $route['agenda'] = 'webcp/agenda/C_Agenda/index';
 $route['agenda/detail/(:any)'] = 'webcp/agenda/C_Agenda/detailAgenda/$1';

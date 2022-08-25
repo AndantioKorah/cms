@@ -89,7 +89,7 @@
                 </li>
 
                 <li>
-                    <a class="<?=$url[1] == 'download' ? 'active-navbar' : ''?>" href="<?=base_url('download')?>">Download</a>
+                    <a class="<?=$url[1] == 'akuntabilitas' ? 'active-navbar' : ''?>" href="<?=base_url('akuntabilitas')?>">Akuntabilitas</a>
                 </li>
 
                 <li>
