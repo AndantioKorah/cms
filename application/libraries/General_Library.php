@@ -107,6 +107,14 @@ class General_library
         return $img_src;
     }
 
+    public function getPengumumanImage($gambar){
+        $img_src = base_url('assets/webcp/assets/img/image-not-found.png');
+        if($gambar && file_exists(URI_PENGUMUMAN.$gambar)){
+            $img_src = base_url(URI_PENGUMUMAN.$gambar);
+          }
+        return $img_src;
+    }
+
     public function getAplikasiPublikLogo($gambar){
         $img_src = base_url('assets/webcp/assets/img/image-not-found.png');
         if($gambar && file_exists(URI_APLIKASI_PUBLIK.$gambar)){

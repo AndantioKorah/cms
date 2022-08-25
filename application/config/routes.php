@@ -116,6 +116,7 @@ $route['service/jam-pelayanan'] = 'webcp/service/C_Service/jamPelayanan';
 $route['service/pola-tarif'] = 'webcp/service/C_Service/polaTarif';
 
 $route['announcement'] = 'webcp/announcement/C_Announcement/index';
+$route['announcement/detail/(:any)'] = 'webcp/announcement/C_Announcement/detailAnnouncement/$1';
 
 $route['akuntabilitas'] = 'webcp/download/C_Download/index';
 

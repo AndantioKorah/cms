@@ -41,5 +41,30 @@
 
             return [$rs, $total_page];
         }
+
+        public function getDetailAnnouncement($id){
+            $data = $this->db->select('a.*, b.nama')
+                            ->from('t_pengumuman a')
+                            ->join('m_user b', 'a.created_by = b.id')
+                            ->where('a.id', $id)
+                            ->get()->row_array();
+
+            return $data;
+        }
+
+        public function getOtherAnnouncement($exclude_id = 0, $limit = 5){
+            $this->db->select('a.*, b.nama')
+                            ->from('t_pengumuman a')
+                            ->join('m_user b', 'a.created_by = b.id')
+                            ->where('a.flag_active', 1)
+                            ->order_by('a.tanggal', 'desc')
+                            ->limit($limit);
+                            
+            if($exclude_id != 0){
+                $this->db->where('a.id !=', $exclude_id);
+            }
+
+            return $this->db->get()->result_array();
+        }
 	}
 ?>

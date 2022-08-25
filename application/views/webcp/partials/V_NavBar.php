@@ -22,7 +22,7 @@
                 <img class="logo-img-center" src="<?=base_url('assets/webcp/assets/img/logo-kemenkes-only.png')?>" alt="" class="img-fluid">
               </center>
             </div>
-            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 header-text">
               <h5 class="logo-text-h5">KEMENTRIAN KESEHATAN RI</h5>
               <h5 class="logo-text-h5">Direktorat Jenderal Pencegahan dan Pengendalian Penyakit</h5>
               <h3 class="logo-text-h3">Balai Teknik Kesehatan Lingkungan Dan Pengendalian Penyakit (BTKLPP) Kelas I Manado</h3>
@@ -158,3 +158,12 @@
       </div>
     </div>
 </header>
+<script>
+  $(function(){
+    setNavbarLogoHeight()
+  })
+
+  function setNavbarLogoHeight(){
+    
+  }
+</script>

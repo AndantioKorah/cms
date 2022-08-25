@@ -73,6 +73,8 @@
       $(function(){
         $('.select2_this').select2()
         startTime()
+        console.log($('.div-navbar-logo').height())
+        console.log($('.div-navbar-logo').width())
       })
 
       function formatRupiah(val) {
