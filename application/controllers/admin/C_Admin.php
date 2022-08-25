@@ -1132,6 +1132,19 @@ class C_Admin extends CI_Controller
             $this->load->view('admin/dokumen/V_ListDokumen', $data);
         }
 
+        public function openDokumenDetail($id){
+            $data['result'] = $this->admin->openDokumenDetail($id);
+            $this->load->view('admin/dokumen/V_DokumenDetail', $data);
+        }
+
+        function loadKomentarDokumen($id){
+            $data['result'] = $this->admin->loadKomentarDokumen($id);
+            $this->load->view('admin/dokumen/V_KomentarDokumenItem', $data);
+        }
+
+        function sendCommend($id){
+            echo json_encode($this->admin->sendCommend($id));
+        }
 
         function submitDokumen(){
 

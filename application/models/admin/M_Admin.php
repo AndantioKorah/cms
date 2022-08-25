@@ -619,25 +619,57 @@
         return $this->db->insert_id(); 
         }
 
-            function loadListDokumen(){
-                $query = $this->db->select('*')
-                                ->from('t_dokumen a')
-                                ->where('a.flag_active', 1)
-                                ->order_by('a.id', 'desc')
-                                ->get()->result_array();
-                return $query; 
-            }
+    function loadListDokumen(){
+        $query = $this->db->select('a.*, b.nama')
+                        ->from('t_dokumen a')
+                        ->join('m_user b', 'a.created_by = b.id')
+                        ->where('a.flag_active', 1)
+                        ->order_by('a.tanggal', 'desc')
+                        ->get()->result_array();
+        return $query; 
+    }
 
+    function openDokumenDetail($id){
+        $rs['main'] = $this->db->select('a.*, b.nama, b.profile_picture')
+                            ->from('t_dokumen a')
+                            ->join('m_user b', 'a.created_by = b.id')
+                            ->where('a.id', $id)
+                            ->where('a.flag_active', 1)
+                            ->get()->row_array();
+        return $rs;
+    }
 
+    function loadKomentarDokumen($id){
+        return $this->db->select('a.*, b.nama, b.profile_picture')
+                    ->from('t_dokumen_detail a')
+                    ->join('m_user b', 'a.created_by = b.id')
+                    ->where('a.id_t_dokumen', $id)
+                    ->where('a.flag_active', 1)
+                    ->order_by('a.tanggal', 'asc')
+                    ->get()->result_array();
+    }
 
+    function sendCommend($id){
+        $rs['code'] = 0;
+        $rs['message'] = 'OK';
 
+        $this->db->trans_begin();
 
+        $data = $this->input->post();
+        $data['id_t_dokumen'] = $id;
+        $data['tanggal'] = date('Y-m-d H:i:s');
+        $data['created_by'] = $this->general_library->getId();
+        $this->db->insert('t_dokumen_detail', $data);
 
+        if($this->db->trans_status() == FALSE){
+            $this->db->trans_rollback();
+            $rs['code'] = 1;
+            $rs['message'] = 'Terjadi Kesalahan';
+        } else {
+            $this->db->trans_commit();
+        }
 
-    
-
-    
-
-
-	}
+        return $rs;
+    }
+}
 ?>

@@ -192,6 +192,26 @@ function formatDateNamaBulan($data){
     return $explode[0].' '.getNamaBulan($explode[1]).' '.$explode[2];
 }
 
+function formatDateNamaBulanNew($data){
+    $date_only = formatDateOnly($data);
+    $explode = explode('/', $date_only);
+    if($explode[2] == date('Y')){
+        return $explode[0].' '.getNamaBulan($explode[1]);
+    }
+    return $explode[0].' '.getNamaBulan($explode[1]).' '.$explode[2];
+}
+
+function formatDateChat($data){
+    $date_only = formatDate($data);
+    $explode = explode('/', $date_only);
+    $yh = explode(' ', $explode[2]);
+    $time = explode(':', $yh[1]);
+    // if($yh[0] == date('Y')){
+    //     return $explode[0].' '.getNamaBulan($explode[1]).' '.$time[0].':'.$time[1];    
+    // }
+    return $explode[0].' '.getNamaBulan($explode[1]).' '.$yh[0].' '.$time[0].':'. $time[1];
+}
+
 function formatDateNamaBulanWT($data){
     $date_only = formatDate($data);
     $explode = explode('/', $date_only);
@@ -277,13 +297,13 @@ function formatDateLive($date){
 
     if($hari == 0){
         if($jam != 0){
-            return $jam.' jam yang lalu';
+            return $jam.' jam';
         } else {
             if($menit != 0){
-                return $menit.' menit yang lalu';
+                return $menit.' menit';
             } else {
                 if($detik != 0){
-                    return $detik.' detik yang lalu';
+                    return $detik.' detik';
                 } else {
                     return 'baru saja';
                 }
@@ -291,7 +311,7 @@ function formatDateLive($date){
         }
     }
 
-    return formatDateNamaBulanWT($date);
+    return formatDateChat($date);
 }
 
 function countDiffDateLengkap($date1, $date2, $params = ''){
