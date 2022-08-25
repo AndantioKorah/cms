@@ -14,8 +14,11 @@
             border-radius: 10px;
             background-color: white;
             max-width: 85%;
-            padding-top: 5px;
-            padding-bottom: 5px;
+            padding-left: 7px;
+            padding-right: 7px;
+            padding-top: 3px;
+            padding-bottom: 3px;
+            float: left;
         }
 
         .comment_text{
@@ -23,6 +26,7 @@
             font-size: 1rem;
             line-height: 20px;
             font-weight: 500;
+            margin-right: 10px;
             /* margin: 0; */
             /* margin-top: 5px; */
             /* margin-bottom: 5px; */
@@ -33,7 +37,7 @@
             font-size: .7rem;
             float: right;
             font-weight: bold;
-            margin-top: 10px;
+            margin-top: 7px;
         }
 
         .container_user_chats{
@@ -43,6 +47,7 @@
         .my_comment{
             background-color: #1b2a3c;
             color: white;
+            float: right !important;
         }
 
         .my_comment_time{
@@ -59,7 +64,7 @@
                 <div class="row">
                     <div class="col-lg-12 container_user_chats mb-2">
                         <?php if(($rs['created_by'] != $this->general_library->getId() && ($temp && $rs['created_by'] != $temp['created_by']))) { ?>
-                            <table style="width: 100%; margin-left: -5px;">
+                            <table style="width: 100%;">
                                 <tr>
                                     <td style="width: 5%;">
                                         <img class="img-circle elevation-2" class="profile_pict" style="max-width: 30px; max-height: 30px;" 
@@ -74,12 +79,18 @@
                             <span class="chat_name" style="float: right; margin-bottom: -5px;">Saya</span>
                         <?php } ?>
                     </div>
-                    <?php if($rs['created_by'] == $this->general_library->getId()){ ?>
+                    <!-- <?php if($rs['created_by'] == $this->general_library->getId()){ ?>
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
                     <?php } ?>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 comment_container <?=$rs['created_by'] == $this->general_library->getId() ? 'my_comment' : '';?>">
                         <span class="comment_text"><?=$rs['komentar']?></span>
                         <span class="comment_time <?=$rs['created_by'] == $this->general_library->getId() ? 'my_comment_time' : '';?>"><?=formatDateLive($rs['tanggal'])?></span>
+                    </div> -->
+                    <div class="col-lg-12">
+                        <div class="comment_container <?=$rs['created_by'] == $this->general_library->getId() ? 'my_comment' : '';?>">
+                            <span class="comment_text"><?=$rs['komentar']?></span>
+                            <span class="comment_time <?=$rs['created_by'] == $this->general_library->getId() ? 'my_comment_time' : '';?>"><?=formatDateLive($rs['tanggal'])?></span>
+                        </div>
                     </div>
                 </div>
             </div>
