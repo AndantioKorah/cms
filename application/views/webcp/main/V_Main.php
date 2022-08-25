@@ -35,9 +35,24 @@
     position: relative;
   }
 
+  .text-nama-pimpinan{
+    font-size: 3vh;
+    font-weight: bold;
+  }
+
+  .text-jabatan-pimpinan{
+    font-size: 2.6vh;
+  }
+
+  .video-main{
+    width: 100%;
+    height: 50vh;
+    border-radius: 5px;
+}
+
 </style> 
 
-<div class="body-wrapper" style="padding-top: 70px;">
+<div class="body-wrapper">
   <section id="hero">
     <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
 
@@ -69,7 +84,7 @@
 
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-3 col-md-12 section-bg">
+      <div class="col-lg-3 col-md-12" style="background: white;">
         <section style="padding-top: 50px !important; padding-bottom: 10px !important;" id="aplikasi-publik" class="aplikasi-publik">
           <div class="container">
             <h4 class="title-section-side">APLIKASI PUBLIK</h4>
@@ -89,7 +104,7 @@
 
         <section style="padding-top: 10px !important; padding-bottom: 10px !important;" id="widget" class="widget">
           <div class="container">
-            <h4 class="title-section-side">SOSIAL MEDIA</h4>
+            <!-- <h4 class="title-section-side">SOSIAL MEDIA</h4> -->
             <div
               loading="b-lazy"
               data-mc-src="12160b95-a228-4358-a7f2-ebd5d7f3b846#instagram"></div>
@@ -159,8 +174,8 @@
                   <!-- <h6>Direktur Jendral Pencegahan dan Pengendalian Penyakit KEMENKES RI</h6> -->
                 </div>
                 <div class="col-lg-6 pt-4 pt-lg-0">
-                  <h1><?=getParams('PARAM_NAMA_KEPALA')?></h1>
-                  <h4><?=getParams('PARAM_NAMA_JABATAN_KEPALA')?></h4>
+                  <h1 class="text-nama-pimpinan"><?=getParams('PARAM_NAMA_KEPALA')?></h1>
+                  <h4 class="text-jabatan-pimpinan"><?=getParams('PARAM_NAMA_JABATAN_KEPALA')?></h4>
                 </div>
                 <!-- <div class="col-lg-6 pt-4 pt-lg-0">
                   <p>

@@ -12,7 +12,7 @@
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
-      text-align: justify;
+      /* text-align: justify; */
     }
 
     .judul-berita:hover{

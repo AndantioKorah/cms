@@ -50,7 +50,7 @@
   let logoTextMobile = select('#logo-text-mobile')
   if (selectHeader) {
     const headerScrolled = () => {
-      if (window.scrollY > 100) {
+      if (window.scrollY > 120) {
         selectHeader.classList.add('header-scrolled')
         logoNavbar.classList.add('display-none')
         topNavbar.classList.add('display-none')

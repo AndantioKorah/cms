@@ -78,14 +78,14 @@
                         $this->db->where('id', $id)
                                 ->update('m_parameter', $data);  
                     }
+                }
 
-                    if($this->db->trans_status() == FALSE){
-                        $this->db->trans_rollback();
-                        $rs['code'] = 1;
-                        $rs['message'] = $this->upload->display_errors();
-                    } else {
-                        $this->db->trans_commit();
-                    }
+                if($this->db->trans_status() == FALSE){
+                    $this->db->trans_rollback();
+                    $rs['code'] = 1;
+                    $rs['message'] = $this->upload->display_errors();
+                } else {
+                    $this->db->trans_commit();
                 }
             }
 

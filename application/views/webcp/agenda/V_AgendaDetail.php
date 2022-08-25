@@ -70,7 +70,7 @@
                   ?>
                   <!-- <img class="image-berita-detail" src="<?=$this->general_library->getAgendaImage($rs['gambar'])?>" /> -->
                 </div>
-                <div style="text-align: justify;" class="judul-berita mt-3">
+                <div class="judul-berita mt-3">
                   <span class="header_news" title="<?=$rs['judul']?>"><?=$rs['judul']?></span><br>
                   <!-- <table>
                       <tr>

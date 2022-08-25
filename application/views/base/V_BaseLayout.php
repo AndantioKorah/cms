@@ -92,6 +92,33 @@
       z-index: 9999;
       background-color: white;
     }
+
+    /* width */
+    ::-webkit-scrollbar
+    {
+        width: 5px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track
+    {
+        box-shadow: inset 0 0 1px grey; 
+        border-radius: 5px;
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb
+    {
+        background: #001f3f; 
+        border-radius: 5px;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover
+    {
+        background: #033568;
+        cursor: pointer; 
+    }
   </style>
 </head>
 <?php

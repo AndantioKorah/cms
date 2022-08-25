@@ -169,6 +169,20 @@ h1{
                         </div>
                     </div>
 
+                    <!-- <script>
+                          var ukuran = 0;
+                    $('#berita_gambar').bind('change', function() {
+                    ukuran = this.files[0].size/1024/1024;
+                           if(ukuran >3000){
+                        errortoast("File Tidak boleh lebih dari 3MB") 
+                        $('#berita_gambar').val('');
+                        $('#uploadPreview1').html('');
+                        return false
+                    }
+                        
+                    });
+                    </script> -->
+
                     <div class="col-lg-3 col-md-3">
                         <div class="form-group">
                            
@@ -247,7 +261,7 @@ h1{
 
   
         $( "#btn_upload" ).click(function() {
-
+          
            if($('#berita_judul_ina').val() == '')  
            {  
             errortoast(" Judul masih kosong"); 
@@ -344,6 +358,15 @@ h1{
         t = file.type, // ext only: // file.type.split('/')[1],
         n = file.name,
         s = ~~(file.size/1024) +'KB';
+        ukuran = file.size/1024;
+      
+        if(ukuran >2000){
+            errortoast("File Tidak boleh lebih dari 2MB") 
+            $('#berita_gambar').val('');
+            $('#uploadPreview1').html('');
+            return false
+        }
+       
         $('#uploadPreview1').append('<img src="' + this.src + '" class="thumb">');
         };
         // image.onerror= function() {

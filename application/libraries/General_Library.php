@@ -59,6 +59,14 @@ class General_library
         $this->nikita->m_general->updateStatistic();
     }
 
+    public function getProfilePictChat($file){
+        $photo = base_url('assets/img/default-user-icon.png');
+        if($file && file_exists('assets/profile_picture/'.$file)){
+            $photo = base_url('assets/profile_picture/'.$file);
+        }
+        return $photo;
+    }
+
     public function getTtgImage($gambar){
         $img_src = base_url('assets/webcp/assets/img/image-not-found.png');
         if($gambar && file_exists(URI_TTG.$gambar)){
@@ -191,6 +199,14 @@ class General_library
 
     public function isKaban(){
         return $this->getActiveRoleName() == 'kepalabadan';
+    }
+
+    public function isRoleSeksi(){
+        return $this->getActiveRoleName() == 'seksi';
+    }
+
+    public function isExternal(){
+        return $this->getActiveRoleName() == 'external';
     }
 
     public function setActiveRole($id_role){

@@ -85,8 +85,9 @@ class C_Admin extends CI_Controller
                 $_FILES['file']['tmp_name'] = $_FILES['berita_gambar']['tmp_name'][$i];
                 $_FILES['file']['error'] = $_FILES['berita_gambar']['error'][$i];
                 $_FILES['file']['size'] = $_FILES['berita_gambar']['size'][$i];
+                // dd($_FILES);
               
-                // if($_FILES['file']['size'] > 1048576){
+                // if($_FILES['file']['size'] > 38576){
                 //   $ress = 0;
                 //   $res = array('msg' => 'File tidak boleh lebih dari 1 MB', 'success' => false);
                   
@@ -176,7 +177,6 @@ class C_Admin extends CI_Controller
             // }
             $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
             // echo json_encode($res);
-           
             redirect('admin/berita');
            
         }
@@ -312,7 +312,14 @@ class C_Admin extends CI_Controller
       
             // $new_name = time().$_FILES["gambar"]['name'];
             $new_name = str_replace(array( '-',' ',']'), ' ', $_FILES["gambar"]['name']);
-            $nm_gambar = $string = str_replace(' ', '', $_FILES["gambar"]['name']);
+            // $nm_gambar = $string = str_replace(' ', '', $_FILES["gambar"]['name']);
+            
+            $random_number = intval( "0" . rand(1,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) );
+            $data = $_FILES["gambar"]['type'];;    
+            $tipeFile = substr($data, strpos($data, "/") + 1);   
+        
+            $nm_gambar = "gambar".$random_number.time().".".$tipeFile;
+           
             $status = 0;
 
            
@@ -1143,6 +1150,19 @@ class C_Admin extends CI_Controller
             $this->load->view('admin/dokumen/V_ListDokumen', $data);
         }
 
+        public function openDokumenDetail($id){
+            $data['result'] = $this->admin->openDokumenDetail($id);
+            $this->load->view('admin/dokumen/V_DokumenDetail', $data);
+        }
+
+        function loadKomentarDokumen($id){
+            $data['result'] = $this->admin->loadKomentarDokumen($id);
+            $this->load->view('admin/dokumen/V_KomentarDokumenItem', $data);
+        }
+
+        function sendCommend($id){
+            echo json_encode($this->admin->sendCommend($id));
+        }
 
         function submitDokumen(){
 

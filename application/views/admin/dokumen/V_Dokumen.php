@@ -4,10 +4,11 @@
 <div class="card-header">
             <div class="row">
                 <div class="col-12">
-                    <h3 class="card-title">FORM INPUT DOKUMEN</h3>
+                    <h3 class="card-title">UPLOAD DOKUMEN</h3>
                 </div>
             </div>
         </div>
+<?php if(!$this->general_library->isExternal()){ ?>
         <div class="card-body">
     <form action="#" method="post" id="form_dokumen" align="center" enctype="multipart/form-data">  
   <div class="form-group text-left">
@@ -37,6 +38,7 @@
         <button class="btn btn-block btn-navy" id="btn_upload"><i class="fa fa-save"></i> SIMPAN</button>
         </div>
 </form>
+<?php } ?>
 <div class="card card-default" style="margin-top:20px;">
             <div class="card-header">
                         <div class="row">

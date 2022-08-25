@@ -9,10 +9,10 @@
     <div class="container">
 
       <div class="d-flex justify-content-between align-items-center">
-        <h2>Download</h2>
+        <h2>Akuntabilitas</h2>
         <ol>
           <li><a href="<?=base_url('')?>"><?=$this->lang->line('home')?></a></li>
-          <li><a>Download</a></li>
+          <li><a>Akuntabilitas</a></li>
         </ol>
       </div>
     </div>

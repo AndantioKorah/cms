@@ -17,7 +17,7 @@
     height: 100%;
   }
 </style>
-<main id="main" class="mt-3">
+<main id="main">
   <section id="breadcrumbs" class="breadcrumbs">
     <div class="container">
 
@@ -41,7 +41,7 @@
             <!-- <h2>Team</h2> -->
             <p>Visi</p>
           </div>
-          <h2><?=$visi?></h2>
+          <h2><?='"'.$visi.'"'?></h2>
         </div>
         <div class="col-lg-6 pt-4 pt-lg-0">
           <div class="section-title">

@@ -21,8 +21,11 @@
   <section id="service" class="pola-tarif">
     <div class="container">
       <div class="col-lg-12 col-md-12">
+        <?php 
+          $file = $this->general_library->getPelayananFile('tarif');
+        ?>
+        <a target="_blank" class="btn btn-primary-color btn-sm mb-3" style="text-align: right; float: right;" href="<?=base_url($file)?>">Download <i class="fa fa-download"></i></a>
         <?php
-        $file = $this->general_library->getPelayananFile('tarif');
         if($file){
         ?>
           <iframe style="border-radius: 5px;" src="<?=base_url($file)?>" width="100%" height="800px">
