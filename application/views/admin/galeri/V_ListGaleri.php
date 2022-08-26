@@ -28,7 +28,6 @@
                 <th>Judul Gambar</th>
                 <th>Tanggal</th>
                 <th>Gambar</th>
-                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -58,12 +57,6 @@
                 <h4 class="modal-title"></h4>
             </div>
             <div class="modal-body" id="modal_detail_berita">
-            
-                     
-                     
-                 </div>
-                
-               
             </div>
         </div>
     </div>
