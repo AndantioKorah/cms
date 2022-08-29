@@ -107,6 +107,9 @@ h1{
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 
+.ck-editor__editable_inline {
+    min-height: 400px;
+}
 </style>
 <div class="card card-default">
 <div class="card-header">

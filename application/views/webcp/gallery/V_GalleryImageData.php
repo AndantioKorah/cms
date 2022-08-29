@@ -1,10 +1,14 @@
 <style>
   .gallery-image-data{
     width: 100%;
-    max-height: 338px;
+    /* max-height: 338px; */
     position: relative;
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
+    border-radius: 5px;
+  }
+
+  .gallery-image-data:hover{
+    opacity: .7;
+    transition: .2s;
   }
 
   .div_image:hover{
@@ -12,6 +16,7 @@
     border-radius: 3px;
     cursor: pointer;
     transition: .3s;
+    padding: 0;
   }
 
   .image-name{
@@ -33,9 +38,9 @@
   <div class="col-lg-4 p-3 col-md-6 div_image" data-toggle="modal" href="#modal_image_preview" onclick="openPreviewModal('<?=$g['id']?>')">
     <img id="img_<?=$g['id']?>" class="gallery-image-data b-lazy" src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== 
     data-src="<?=$this->general_library->getGalleryImage($g['isi_galeri'])?>" alt="<?=$g['nama']?>" />
-    <div class="image-name">
+    <!-- <div class="image-name">
       <span><?=$g['nama']?></span>
-    </div>
+    </div> -->
   </div>
 <?php } }?>
 <script>

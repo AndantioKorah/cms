@@ -28,8 +28,11 @@
                 <th>Judul Gambar</th>
                 <th>Tanggal</th>
                 <th>Gambar</th>
+<<<<<<< HEAD
                 <th></th>
                 <th></th>
+=======
+>>>>>>> 142bf2d07d399e740513b2835cae5f33792b8d15
             </tr>
         </thead>
         <tbody>

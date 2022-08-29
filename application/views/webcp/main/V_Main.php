@@ -102,16 +102,6 @@
           <hr>
         </section>
 
-        <section style="padding-top: 10px !important; padding-bottom: 10px !important;" id="widget" class="widget">
-          <div class="container">
-            <!-- <h4 class="title-section-side">SOSIAL MEDIA</h4> -->
-            <div
-              loading="b-lazy"
-              data-mc-src="12160b95-a228-4358-a7f2-ebd5d7f3b846#instagram"></div>
-          </div>
-          <hr>
-        </section>
-
         <section style="padding-top: 10px !important; padding-bottom: 10px !important;" id="article-side" class="article-side">
           <div class="container">
             <h4 class="title-section-side">BERITA TERPOPULER</h4>
@@ -119,6 +109,16 @@
               $data['news'] = $popular_news;
               $this->load->view('webcp/news/V_NewsPopularMainData', $data);
             ?>
+          </div>
+          <hr>
+        </section>
+
+        <section style="padding-top: 10px !important; padding-bottom: 10px !important;" id="widget" class="widget">
+          <div class="container">
+            <!-- <h4 class="title-section-side">SOSIAL MEDIA</h4> -->
+            <div
+              loading="b-lazy"
+              data-mc-src="12160b95-a228-4358-a7f2-ebd5d7f3b846#instagram"></div>
           </div>
           <hr>
         </section>

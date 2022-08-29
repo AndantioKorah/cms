@@ -1,4 +1,13 @@
 <?php if($list_berita){ ?>
+    <style>
+        .text-overflow-this{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+        }
+    </style>
     <div class="table-responsive">
     <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
@@ -18,9 +27,7 @@
                     <td><?=$lb['judul_ina'];?></td>
                     <td><?=$lb['tanggal_berita'];?></td>
                     <td><i class="fa fa-tag" aria-hidden="true"></i><?= str_replace( array( '\'', '"','[',']'), ' ', $lb['tag_berita']) ?></td>
-                    <td><?=
-                    substr($lb['isi_berita'], 0, 450);?>
-                    <p style="margin-top:10px;">
+                    <td><?=substr($lb['isi_berita'], 0, 150).'...';?>
                     <a 
                     href="javascript:;"
                     data-id="<?php echo $lb['id'] ?>"
@@ -30,9 +37,10 @@
                     data-isi_berita="<?php echo $lb['isi_berita'] ?>"
                     data-gambar="<?php echo $lb['gambar'] ?>"
                     data-toggle="modal" data-target="#edit-data">
-                    <button onclick="openModalDetailBerita('<?=$lb['id']?>')" openModalDetailBerita  data-toggle="modal" data-target="#ubah-data" class="btn btn-info">Read More</button>
-                </a>
-                </p>
+                    <span onclick="openModalDetailBerita('<?=$lb['id']?>')" openModalDetailBerita  data-toggle="modal" data-target="#ubah-data" class="btn btn-sm btn-info">Read More</span>
+                    </a>
+                    <!-- <p style="margin-top:10px;">
+                    </p> -->
                     </td>
                   <td> <button onclick="deleteBerita('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
                    </tr>

@@ -1,12 +1,18 @@
 <style>
   #img_preview_modal{
     width: 100%;
-    max-height: 600px;
+    /* max-height: 600px; */
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 7px 7px 8px -4px rgba(0,0,0,0.6);
+    -webkit-box-shadow: 7px 7px 8px -4px rgba(0,0,0,0.6);
+    -moz-box-shadow: 7px 7px 8px -4px rgba(0,0,0,0.6);
   }
 
   #img_name{
     font-size: 30px;
     color: white;
+    font-weight: bold;
   }
 
   #gallery-image{
