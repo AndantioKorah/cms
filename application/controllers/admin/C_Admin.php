@@ -290,7 +290,7 @@ class C_Admin extends CI_Controller
                 $row[] = $data_galeri->nama;
                 $row[] = formatDateNamaBulan($data_galeri->tanggal);
                 $row[] = '<div class="col-lg-4 p-3 col-md-6 div_image" data-toggle="modal" href="#modal_image_preview"  onclick="openPreviewModal('.$data_galeri->id.')">  
-                          <img style="width:600;height:.100px;" id="'.$data_galeri->id.'" class="target" src="'.$src.'" alt="'.$data_galeri->nama.'" />
+                          <img style="width:600;height:100px;" id="'.$data_galeri->id.'" class="target" src="'.$src.'" alt="'.$data_galeri->nama.'" />
                     </div>';
                 $row[] ='<a 
                 href="javascript:;"
