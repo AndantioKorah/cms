@@ -772,5 +772,17 @@
 
         return $rs;
     }
+
+
+    public function updateKontenGaleriImages(){
+        $datapost = $this->input->post(); 
+        $data["nama"] = $datapost["edit_gambar_judul"];
+        $data["tanggal"] = $datapost["edit_gambar_tanggal"];
+        $id =  $datapost["id_gambar"];
+
+        $this->db->where('id', $id)
+            ->update('t_galeri', $data);
+    }
+
 }
 ?>
