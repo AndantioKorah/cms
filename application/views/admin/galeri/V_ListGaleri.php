@@ -63,13 +63,13 @@
             <form action="<?=base_url("admin/C_Admin/updateKontenGaleriImages")?>" method="post" id="form_edit_gambar" align="center" enctype="multipart/form-data">  
             <input type="hidden" class="form-control " name="id_gambar" id="id_gambar"  autocomplete="off" required/>
                 <div class="form-group text-left">
-                <label class="bmd-label-floating">Judul</label>
+                <label class="bmd-label-floating">Judul Gambar</label>
                     <textarea class="form-control" name="edit_gambar_judul" id="edit_gambar_judul" rows="3" required></textarea>
                 </div>
    
                 <div class="form-group text-left">
                 <label class="bmd-label-floating">Tanggal</label>
-                    <input class="form-control datetimepickerthis" name="edit_gambar_tanggal" id="edit_gambar_tanggal"  autocomplete="off" required/>
+                    <input class="form-control datepicker" name="edit_gambar_tanggal" id="edit_gambar_tanggal"  autocomplete="off" required/>
                 </div>
 
 
@@ -164,13 +164,14 @@ function openPreviewModal(img){
 
 
   $('#edit-data-galeri').on('show.bs.modal', function (event) {
-          
+          $('#edit_gambar_tanggal').val("");
           var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
           var modal          = $(this)
           // Isi nilai pada field
           modal.find('#id_gambar').attr("value",div.data('id'));
           modal.find('#edit_gambar_judul').html(div.data('judul'));
           modal.find('#edit_gambar_tanggal').attr("value",div.data('tanggal'));
+          $('#edit_gambar_tanggal').val(div.data('tanggal'));
          
       });
 
@@ -181,6 +182,15 @@ function openPreviewModal(img){
             todayHighlight: true,
             todayBtn: true
         })
+
+        $('.datepicker').datepicker({
+        todayHighlight: true,
+        todayBtn: "linked",
+        keyboardNavigation:true,
+        autoclose: true,
+        format: 'yyyy-mm-dd',
+    })
+
 
 
 </script>

@@ -423,7 +423,7 @@
         
             $data["judul"] = $datapost["detail_judul"];
             $data["tanggal"] = $datapost["detail_tanggal"];
-            $data["isi_informasi"] = $datapost["detail_isi_informasi"];
+            $data["isi_pojok_ttg"] = $datapost["detail_isi_informasi"];
             // $data["gambar"] = $_FILES["berita_gambar"]["name"];
 
             $id =  $datapost["id"];
@@ -783,6 +783,54 @@
         $this->db->where('id', $id)
             ->update('t_galeri', $data);
     }
+
+
+    public function updateKontenGaleriVideo(){
+        $datapost = $this->input->post(); 
+        $data["nama"] = $datapost["edit_video_judul"];
+        $data["tanggal"] = $datapost["edit_video_tanggal"];
+        $data["isi_galeri"] = $datapost["edit_video_link"];
+        $id =  $datapost["id_video"];
+
+        $this->db->where('id', $id)
+            ->update('t_galeri', $data);
+    }
+
+
+    public function updateKontenPengumuman(){
+        $datapost = $this->input->post(); 
+        $data["judul"] = $datapost["edit_pengumuman_judul"];
+        $data["keterangan"] = $datapost["edit_pengumuman_keterangan"];
+        $data["tanggal"] = $datapost["edit_pengumuman_tanggal"];
+        $id =  $datapost["id_pengumuman"];
+
+        $this->db->where('id', $id)
+            ->update('t_pengumuman', $data);
+    }
+
+
+    public function submitSideBanner($new_name){
+        $datapost = $this->input->post();
+        $data["judul"] = $datapost["sidebanner_judul"];
+        $data["gambar"] =  $new_name;
+        $data['created_by'] = $this->general_library->getId();
+        $this->db->insert('t_side_banner', $data);
+        return $this->db->insert_id(); 
+}
+
+function loadListSideBanner(){
+    $query = $this->db->select('*')
+                    ->from('t_side_banner a')
+                    ->where('a.flag_active', 1)
+                    ->order_by('a.id', 'desc')
+                    ->get()->result_array();
+    return $query; 
+}
+
+
+
+
+
 
 }
 ?>

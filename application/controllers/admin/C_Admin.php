@@ -295,7 +295,7 @@ class C_Admin extends CI_Controller
                 $row[] ='<a 
                 href="javascript:;"
                 data-id="'.$data_galeri->id.'"
-                data-tanggal="'.$data_galeri->tanggal.'"
+                data-tanggal="'.formatDateOnlyForEdit($data_galeri->tanggal).'"
                 data-judul="'.$data_galeri->nama.'"
                 data-toggle="modal" data-target="#edit-data-galeri">
                 <button  data-toggle="modal" class="btn btn-sm btn-info" title="edit"><i class="fa fa-edit" ></i></button>
@@ -423,6 +423,14 @@ class C_Admin extends CI_Controller
             $data = $this->admin->updateKontenGaleriImages();
             redirect('admin/galeri');
         }
+
+        function updateKontenGaleriVideo(){
+            $data = $this->admin->updateKontenGaleriVideo();
+            // redirect('admin/galeri');
+            $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
+            echo json_encode($res);
+        }
+        
 
 
 
@@ -590,11 +598,21 @@ class C_Admin extends CI_Controller
             $this->general->delete('id', $id, 't_pengumuman');
         }
 
+
+        function updateKontenPengumuman(){
+            $data = $this->admin->updateKontenPengumuman();
+            redirect('admin/pengumuman');
+        }
+
+
         function getMasterJenisPpid(){
             $id=$this->input->post('id');
             $data=$this->admin->getMasterJenisPpid($id);
             echo json_encode($data);
         }
+
+
+
 
 
         // COVID19
@@ -667,7 +685,12 @@ class C_Admin extends CI_Controller
 
         function submitKontenCovid19Infografis(){
 
-            $new_name = $_FILES["infografis_file"]['name'];
+          
+            $new_name = str_replace(array( '-',' ',']'), ' ', $_FILES["infografis_file"]['name']);
+            $random_number = intval( "0" . rand(1,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) );
+            $data = $_FILES["infografis_file"]['type'];;    
+            $tipeFile = substr($data, strpos($data, "/") + 1);   
+            $new_name = "gambar".$random_number.time().".".$tipeFile;
             
             if($_FILES["infografis_file"]["name"] != ""){ 
                 $path="./assets/admin/covid19/";
@@ -1078,7 +1101,12 @@ class C_Admin extends CI_Controller
 
         function submitKontenMainImages(){
 
-            $new_name = $_FILES["mainimage_file"]['name'];
+          
+            $new_name = str_replace(array( '-',' ',']'), ' ', $_FILES["mainimage_file"]['name']);
+            $random_number = intval( "0" . rand(1,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) );
+            $data = $_FILES["mainimage_file"]['type'];;    
+            $tipeFile = substr($data, strpos($data, "/") + 1);   
+            $new_name = "gambar".$random_number.time().".".$tipeFile;
             
             if($_FILES["mainimage_file"]["name"] != ""){ 
                 $path="./assets/admin/mainimages/";
@@ -1219,6 +1247,97 @@ class C_Admin extends CI_Controller
             $type = 1;
             $this->admin->generalDelete($id,$table,$path,$kolom,$type);
         
+        }
+
+
+        public function sideBanner(){
+       
+            $this->general_library->refreshMenu();
+            $data['list_menu'] = $this->general->getAllWithOrder('m_menu', 'nama_menu', 'asc');
+            render('admin/sidebanner/V_SideBanner', 'admin', 'konten', $data);
+            
+        }
+
+
+            function submitSideBanner(){
+
+              
+
+               
+                $new_name = str_replace(array( '-',' ',']'), ' ', $_FILES["sidebanner_file"]['name']);
+                $random_number = intval( "0" . rand(1,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) );
+                $data = $_FILES["sidebanner_file"]['type'];;    
+                $tipeFile = substr($data, strpos($data, "/") + 1);   
+                $new_name = "gambar".$random_number.time().".".$tipeFile;
+                
+                if($_FILES["sidebanner_file"]["name"] != ""){ 
+                    $path="./assets/admin/sidebanner/";
+                    $konten="sidebanner_file";
+                }
+    
+                if($_FILES["sidebanner_file"]["type"] == "image/png" || $_FILES["sidebanner_file"]["type"] == "image/jpeg"){
+                    $config['file_name'] = $new_name;
+                    $config['upload_path'] = $path;  
+                    $config['allowed_types'] = 'jpg|jpeg|png|pdf'; 
+                    $config['create_thumb'] = FALSE;
+                    $config['maintain_ratio'] = FALSE;
+                    $config['width']         = 1080;
+                    $config['height']       = 1920;
+                   
+                    
+                    $this->load->library('upload', $config);  
+                    $this->upload->overwrite = true;
+                    
+                    if(!$this->upload->do_upload($konten))  
+                    {  
+                         echo $this->upload->display_errors();  
+                    } else {
+                        $data = $this->upload->data();
+                    
+                        $config4['image_library'] = 'gd2';
+                        $config4['source_image'] = './assets/admin/sidebanner/'.$data["file_name"];
+                        $config4['create_thumb'] = FALSE;
+                        $config4['maintain_ratio'] = FALSE;
+                        $config4['width']         = 1080;
+                        $config4['height']       = 1920;
+                        $config4['file_name'] = $new_name;
+                        $config4['new_image'] = './assets/admin/sidebanner/'.$data['file_name'];
+                        $this->load->library('image_lib');
+                        $this->image_lib->initialize($config4);
+                        if (!$this->image_lib->resize()) {
+                            echo $this->image_lib->display_errors();
+                             }
+                        $this->image_lib->clear();
+                    }
+        
+                    $data = $this->admin->submitSideBanner($new_name);
+                    $res = array('msg' => 'Data berhasil disimpan', 'success' => true);
+                    echo json_encode($res);
+                } else {
+                    $res = array('msg' => 'File bukan format gambar', 'success' => false);
+                    echo json_encode($res);
+                   
+                }
+              
+                
+            }
+      
+
+        public function loadListSideBanner(){
+            $data['list_gambar'] = $this->admin->loadListSideBanner();
+            $this->load->view('admin/sidebanner/V_ListSideBanner', $data);
+        }
+
+
+        public function deleteSideBanner($id){
+            // $this->general->delete('id', $id, 't_main_images');
+            // $this->admin->deleteMainImages($id);
+            $table = 't_side_banner';
+            $path = './assets/admin/sidebanner/';
+            $kolom = 'gambar';
+            $type = 1;
+            $this->admin->generalDelete($id,$table,$path,$kolom,$type);
+           
         }
 
         
