@@ -56,7 +56,23 @@ class General_library
     }
 
     public function updateStatistic(){
-        $this->nikita->m_general->updateStatistic();
+        $url = $_SERVER['REQUEST_URI'];
+        $url = explode('/', $url);
+        $flag_update = 0;
+        $last = $this->nikita->session->userdata('last_visit');
+        if(!$last){
+            $flag_update = 1;
+        } else {
+            $diff = strtotime(date('Y-m-d H:i:s')) - strtotime($last);
+            if(floatval($diff) > 10){
+                // echo "<script>console.log('updateStatistic()')</script>";
+                $flag_update = 1;
+            }
+        }
+        $this->nikita->session->set_userdata('last_visit', date('Y-m-d H:i:s'));
+        if($url[1] != 'admin' && $flag_update == 1){
+            $this->nikita->m_general->updateStatistic();
+        }
     }
 
     public function getProfilePictChat($file){
