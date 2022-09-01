@@ -61,7 +61,7 @@
            
            if(confirm('Apakah Anda yakin ingin menghapus data?')){
                $.ajax({
-                   url: '<?=base_url("admin/C_admin/deleteCovid19Infografis/")?>'+id,
+                   url: '<?=base_url("admin/C_Admin/deleteCovid19Infografis/")?>'+id,
                    method: 'post',
                    data: null,
                    success: function(){

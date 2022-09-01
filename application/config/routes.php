@@ -86,6 +86,7 @@ $route['master/download'] = 'master/C_Master/masterDownload';
 $route['admin/download'] = 'admin/C_Admin/download';
 $route['admin/mainImage'] = 'admin/C_Admin/mainImage';
 $route['admin/dokumen'] = 'admin/C_Admin/dokumen';
+$route['admin/sidebanner'] = 'admin/C_Admin/sideBanner';
 
 
 // $route['dashboard'] = 'dashboard/C_Dashboard/dashboard';

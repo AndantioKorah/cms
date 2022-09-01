@@ -28,6 +28,8 @@
                 <th>Judul Gambar</th>
                 <th>Tanggal</th>
                 <th>Gambar</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -48,15 +50,37 @@
         </tfoot>
     </table>
     </div>
-        <!-- Modal Ubah -->
-<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="edit-data" class="modal fade">
+       <!-- Modal Ubah -->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="edit-data-galeri" class="modal fade">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
                 <h4 class="modal-title"></h4>
             </div>
-            <div class="modal-body" id="modal_detail_berita">
+            <div class="modal-body" id="modal_detail_download">
+           
+            <form action="<?=base_url("admin/C_Admin/updateKontenGaleriImages")?>" method="post" id="form_edit_gambar" align="center" enctype="multipart/form-data">  
+            <input type="hidden" class="form-control " name="id_gambar" id="id_gambar"  autocomplete="off" required/>
+                <div class="form-group text-left">
+                <label class="bmd-label-floating">Judul Gambar</label>
+                    <textarea class="form-control" name="edit_gambar_judul" id="edit_gambar_judul" rows="3" required></textarea>
+                </div>
+   
+                <div class="form-group text-left">
+                <label class="bmd-label-floating">Tanggal</label>
+                    <input class="form-control datepicker" name="edit_gambar_tanggal" id="edit_gambar_tanggal"  autocomplete="off" required/>
+                </div>
+
+
+                <div class="col-lg-12 col-md-4 text-right mt-2">
+                        <button class="btn btn-block btn-navy" id="btn_upload"><i class="fa fa-save"></i> SIMPAN</button>
+                        </div>
+                </form> 
+                     
+                 </div>
+                
+               
             </div>
         </div>
     </div>
@@ -137,6 +161,36 @@ function openPreviewModal(img){
                })
     
   }
+
+
+  $('#edit-data-galeri').on('show.bs.modal', function (event) {
+          $('#edit_gambar_tanggal').val("");
+          var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
+          var modal          = $(this)
+          // Isi nilai pada field
+          modal.find('#id_gambar').attr("value",div.data('id'));
+          modal.find('#edit_gambar_judul').html(div.data('judul'));
+          modal.find('#edit_gambar_tanggal').attr("value",div.data('tanggal'));
+          $('#edit_gambar_tanggal').val(div.data('tanggal'));
+         
+      });
+
+
+      $('.datetimepickerthis').datetimepicker({
+            format: 'yyyy-mm-dd hh:ii:ss',
+            autoclose: true,
+            todayHighlight: true,
+            todayBtn: true
+        })
+
+        $('.datepicker').datepicker({
+        todayHighlight: true,
+        todayBtn: "linked",
+        keyboardNavigation:true,
+        autoclose: true,
+        format: 'yyyy-mm-dd',
+    })
+
 
 
 </script>

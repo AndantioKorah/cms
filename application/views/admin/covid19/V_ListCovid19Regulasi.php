@@ -56,7 +56,7 @@
            
            if(confirm('Apakah Anda yakin ingin menghapus data?')){
                $.ajax({
-                   url: '<?=base_url("admin/C_admin/deleteCovid19/")?>'+id,
+                   url: '<?=base_url("admin/C_Admin/deleteCovid19Regulasi/")?>'+id,
                    method: 'post',
                    data: null,
                    success: function(){

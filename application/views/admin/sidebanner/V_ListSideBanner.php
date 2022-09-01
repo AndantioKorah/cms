@@ -1,25 +1,27 @@
-<?php if($list_covid19){ ?>
+<?php if($list_gambar){ ?>
     <div class="table-responsive">
     <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
                 <th>No</th>
                 <th>Judul </th>
-                <th>Tanggal</th>
-                <th>Link</th>
+                <th>Gambar</th>
                 <th></th>
+              
             </tr>
         </thead>
         <tbody>
-        <?php $no=1; foreach($list_covid19 as $lb){ ?>
+        <?php $no=1; foreach($list_gambar as $lb){ ?>
                    <tr>
                     <td><?=$no++;?></td>
                     <td><?=$lb['judul'];?></td>
-                    <td><?= formatDateOnly($lb['tanggal']);?></td>
-                    <td><a href="<?=$lb['link'];?>" target="_blank"><h5><span class="badge badge-secondary"><i class="fas fa-link"></i> <?=$lb['link'];?></span></h5></a> 
-                <?= preg_replace("/\s*[a-zA-Z\/\/:\.]*youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i","<iframe class==\"b-lazy\" width=\"420\" height=\"315\" src=\"//www.youtube.com/embed/$1\" frameborder=\"0\" allowfullscreen></iframe>",$lb['link']); ?>
-                </td>
-                  <td> <button onclick="deleteCovid19('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
+                    <td> 
+                    <div class="col-lg-4 p-3 col-md-6 div_image" data-toggle="modal" href="#modal_image_preview"  onclick="openPreviewModal('<?=$lb['id']?>')">  
+                    <img style='width:800;height:300px;' src="<?=base_url('assets/admin/sidebanner/'.$lb['gambar'].'')?>" >
+
+                    </div>
+                     </td>
+                  <td> <button onclick="deleteMainImages('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
                    </tr>
                 <?php } ?>
         </tfoot>
@@ -54,20 +56,23 @@
 <?php } ?>
 <script>
      $('#example').DataTable();
-        function deleteCovid19(id){
+        function deleteMainImages(id){
            
            if(confirm('Apakah Anda yakin ingin menghapus data?')){
                $.ajax({
-                   url: '<?=base_url("admin/C_Admin/deleteCovid19Video/")?>'+id,
+                   url: '<?=base_url("admin/C_admin/deleteSideBanner/")?>'+id,
                    method: 'post',
                    data: null,
                    success: function(){
                        successtoast('Data sudah terhapus')
-                       loadListCovid19Video()
+                       loadListSideBanner()
                    }, error: function(e){
                        errortoast('Terjadi Kesalahan')
                    }
                })
            }
        }
+
+
+       
 </script>

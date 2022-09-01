@@ -19,23 +19,52 @@
                     <td><?=$lb['keterangan'];?></td>
                     <td><?= formatDate($lb['tanggal']);?></td>
                     <td> <a style='width:800;height:300px;' href="<?=base_url('assets/admin/pengumuman/'.$lb['file'].'')?>" target="_blank"><i class="fa fa-file" aria-hidden="true"></i></a> </td>
-                  <td> <button onclick="deletePengumuman('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
+                  <td> 
+                  <a 
+                    href="javascript:;"
+                    data-id="<?php echo $lb['id'] ?>"
+                    data-tanggal="<?php echo $lb['tanggal'] ?>"
+                    data-judul="<?php echo $lb['judul'] ?>"
+                    data-keterangan="<?php echo $lb['keterangan'] ?>"
+                    data-toggle="modal" data-target="#edit-data-pengumuman">
+                    <button  data-toggle="modal" class="btn btn-sm btn-info" title="edit"><i class="fa fa-edit" ></i></button>
+                </a>
+                      <button onclick="deletePengumuman('<?=$lb['id']?>')" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"><i class="fa fa-trash" ></i></button></td>
                    </tr>
                 <?php } ?>
         </tfoot>
     </table>
     </div>
-        <!-- Modal Ubah -->
-<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="edit-data" class="modal fade">
+          <!-- Modal Ubah -->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="edit-data-pengumuman" class="modal fade">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
                 <h4 class="modal-title"></h4>
             </div>
-            <div class="modal-body" id="modal_detail_berita">
-            
-                     
+            <div class="modal-body" id="modal_detail_download">
+           
+            <form action="<?=base_url("admin/C_Admin/updateKontenPengumuman")?>" method="post" id="form_pengumuman" align="center" enctype="multipart/form-data">  
+            <input type="hidden" class="form-control datetimepickerthis" name="id_pengumuman" id="id_pengumuman"  autocomplete="off" required/>
+                <div class="form-group text-left">
+                <label class="bmd-label-floating">Judul</label>
+                    <textarea class="form-control" name="edit_pengumuman_judul" id="edit_pengumuman_judul" rows="3" required></textarea>
+                </div>
+                <div class="form-group text-left">
+                <label class="bmd-label-floating">Keterangan</label>
+                    <textarea class="form-control" name="edit_pengumuman_keterangan" id="edit_pengumuman_keterangan" rows="3" ></textarea>
+                </div>
+                <div class="form-group text-left">
+                <label class="bmd-label-floating">Tanggal</label>
+                    <input class="form-control datetimepickerthis" name="edit_pengumuman_tanggal" id="edit_pengumuman_tanggal"  autocomplete="off" required/>
+                </div>
+
+
+                <div class="col-lg-12 col-md-4 text-right mt-2">
+                        <button class="btn btn-block btn-navy" id="btn_upload"><i class="fa fa-save"></i> SIMPAN</button>
+                        </div>
+                </form> 
                      
                  </div>
                 
@@ -70,4 +99,26 @@
                })
            }
        }
+
+
+       $('#edit-data-pengumuman').on('show.bs.modal', function (event) {
+          
+          var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
+          var modal          = $(this)
+
+          // Isi nilai pada field
+          modal.find('#id_pengumuman').attr("value",div.data('id'));
+          modal.find('#edit_pengumuman_judul').html(div.data('judul'));
+          modal.find('#edit_pengumuman_keterangan').html(div.data('keterangan'));
+          modal.find('#edit_pengumuman_tanggal').attr("value",div.data('tanggal'));
+         
+      });
+
+
+      $('.datetimepickerthis').datetimepicker({
+            format: 'yyyy-mm-dd hh:ii:ss',
+            autoclose: true,
+            todayHighlight: true,
+            todayBtn: true
+        })
 </script>

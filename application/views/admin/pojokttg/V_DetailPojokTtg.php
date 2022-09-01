@@ -104,14 +104,14 @@
                          <label class="col-lg-6 col-sm-6 control-label">Judul </label>
                          <div class="col-lg-12">
                          <input type="hidden"  class="form-control" id="id" name="id" value="<?=$pojokttg['id']?>">
-                             <textarea  class="form-control" id="detail_judul_ina" name="detail_judul_ina" ><?=$pojokttg['judul']?></textarea>
+                             <textarea  class="form-control" id="detail_judul" name="detail_judul" ><?=$pojokttg['judul']?></textarea>
                          </div>
                      </div>
                    
                      <div class="form-group">
                      <label class="col-lg-6 col-sm-6 control-label">Tanggal </label>
                          <div class="col-lg-12">
-                             <input  class="form-control" id="detail_tanggal_berita" name="detail_tanggal_berita" value="<?=$pojokttg['tanggal']?>">
+                             <input  class="form-control" id="detail_tanggal" name="detail_tanggal" value="<?=$pojokttg['tanggal']?>">
                          </div>
                      </div>
 
@@ -157,7 +157,7 @@
                         <div class="form-group">
                          <label class="col-lg-2 col-sm-2 control-label">Isi </label>
                          <div class="col-lg-12">
-                          <textarea rows="10" class="form-control " id="detail_isi_berita" name="detail_isi_berita" ><?=$pojokttg['isi_pojok_ttg']?></textarea>
+                          <textarea rows="10" class="form-control " id="detail_isi_informasi" name="detail_isi_informasi" ><?=$pojokttg['isi_pojok_ttg']?></textarea>
                          </div>
                      </div>
                      <div class="modal-footer">
@@ -285,7 +285,7 @@ $('.prev').click(function() {
 
 
 ClassicEditor
-		.create( document.querySelector( '#detail_isi_berita' ), {
+		.create( document.querySelector( '#detail_isi_informasi' ), {
 			// toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
 		} )
 		.then( editor => {
