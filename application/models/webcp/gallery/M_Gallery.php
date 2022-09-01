@@ -14,7 +14,8 @@
         public function getGallery($tipe = 0){
             $this->db->select('*')
                     ->from('t_galeri')
-                    ->where('flag_active', 1);
+                    ->where('flag_active', 1)
+                    ->order_by('tanggal', 'desc');
 
             if($tipe != 0){
                 $this->db->where('jenis', $tipe);
@@ -36,7 +37,7 @@
             JOIN m_user b ON a.created_by = b.id
             WHERE a.flag_active = 1
             AND a.jenis = 1
-            ORDER BY a.created_date DESC
+            ORDER BY a.tanggal DESC
             LIMIT ".$page.",".$limit)->result_array();
 
             $all = $this->getGallery(1);
@@ -57,7 +58,7 @@
             JOIN m_user b ON a.created_by = b.id
             WHERE a.flag_active = 1
             AND a.jenis = 2
-            ORDER BY a.created_date DESC
+            ORDER BY a.tanggal DESC
             LIMIT ".$page.",".$limit)->result_array();
 
             $all = $this->getGallery(2);

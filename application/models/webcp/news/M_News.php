@@ -16,6 +16,7 @@
             $total = $this->db->select('count(*) as total')
                                 ->from('t_berita')
                                 ->where('flag_active', 1)
+                                ->order_by('tanggal_berita', 'desc')
                                 ->get()->row_array();
 
             $total_page = countTotalPage($total['total'], $limit);
