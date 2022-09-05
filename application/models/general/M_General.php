@@ -184,13 +184,14 @@
         }
 
         public function updateStatistic(){
+            $this->db->trans_begin();
+
             $date_today = date('Y-m-d');
             $today = $this->db->select('*')
                             ->from('t_statistik')
                             ->where('tanggal', $date_today)
                             ->where('flag_active', 1)
                             ->get()->row_array();
-
             if($today){
                 $count = $today['count'] + 1;
                 $this->db->where('id', $today['id'])
@@ -199,6 +200,12 @@
                 $this->db->insert('t_statistik',
                                     ['tanggal' => $date_today,
                                     'count' => 1]);
+            }
+
+            if($this->db->trans_status() == FALSE){
+                $this->db->trans_rollback();
+            } else {
+                $this->db->trans_commit();
             }
         }
 	}

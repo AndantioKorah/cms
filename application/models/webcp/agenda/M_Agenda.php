@@ -61,7 +61,7 @@
             FROM t_agenda a
             JOIN m_user b ON a.created_by = b.id
             WHERE a.flag_active = 1
-            ORDER BY a.created_date DESC
+            ORDER BY a.tanggal DESC
             LIMIT ".$page.",".$limit)->result_array();
 
             $all = $this->getAgenda();
