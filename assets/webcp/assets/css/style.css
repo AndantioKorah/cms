@@ -815,6 +815,10 @@ h1, h2, h3, h4, h5, h6 {
     height: 373px;
   }
 
+  .img_aplikasi_publik{
+    max-width: 30vw !important;
+  }
+
   .image-berita-main{
     height: 160px;
   }

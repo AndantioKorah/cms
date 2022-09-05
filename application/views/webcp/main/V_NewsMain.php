@@ -1,6 +1,6 @@
 <style>
   .header_news{
-    font-size: 18px;
+    font-size: 12pt;
     font-weight: bold;
   }
 

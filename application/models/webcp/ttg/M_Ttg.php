@@ -10,7 +10,7 @@
         public function getTtg(){
             $this->db->select('*')
                     ->from('t_pojokttg')
-                    ->order_by('a.tanggal', 'desc')
+                    ->order_by('tanggal', 'desc')
                     ->where('flag_active', 1);
 
             return $this->db->get()->result_array();

@@ -99,6 +99,14 @@ class General_library
         return $img_src;
     }
 
+    public function getSideBannerImage($gambar){
+        $img_src = base_url('assets/webcp/assets/img/image-not-found.png');
+        if($gambar && file_exists(URI_SIDE_BANNER.$gambar)){
+            $img_src = base_url(URI_SIDE_BANNER.$gambar);
+          }
+        return $img_src;
+    }
+
     public function getBeritaImage($gambar){
         $img_src = base_url('assets/webcp/assets/img/image-not-found.png');
         if($gambar && file_exists(URI_BERITA.$gambar)){

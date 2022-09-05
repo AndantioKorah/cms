@@ -14,7 +14,9 @@
           <a class="live_date_time"></a>
           <a href="<?=base_url('admin')?>" class="btn-primary-color login"><i class="fa fa-key"></i> &nbsp;Login</a>
         </div>
-        <div class="col-lg-12 div-navbar-logo" id="div-navbar-logo">
+        <div style="background-image: url('<?=base_url('assets/webcp/assets/img/image-header.jpg')?>'); height: 105px; background-size: cover;
+                    background-position: center;
+                    background-repeat: no-repeat;" class="col-lg-12 div-navbar-logo" id="div-navbar-logo">
           <div class="row">
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-right float-right">
               <img class="logo-img-navbar" src="<?=base_url('assets/webcp/assets/img/logo-kemenkes-only.png')?>" alt="" class="img-fluid">
