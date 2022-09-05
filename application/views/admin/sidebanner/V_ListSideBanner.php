@@ -60,7 +60,7 @@
            
            if(confirm('Apakah Anda yakin ingin menghapus data?')){
                $.ajax({
-                   url: '<?=base_url("admin/C_admin/deleteSideBanner/")?>'+id,
+                   url: '<?=base_url("admin/C_Admin/deleteSideBanner/")?>'+id,
                    method: 'post',
                    data: null,
                    success: function(){

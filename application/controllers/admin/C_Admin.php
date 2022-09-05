@@ -1011,10 +1011,10 @@ class C_Admin extends CI_Controller
             echo json_encode($res);
         }
 
-        function updateLogo(){
+        function updateAplikasiPublik(){
 
-            $data = $this->admin->updateLogo();
-            redirect('admin/logo');
+            $data = $this->admin->updateAplikasiPublik();
+            redirect('admin/aplikasi-publik');
         }
 
         public function deleteLogo($id){

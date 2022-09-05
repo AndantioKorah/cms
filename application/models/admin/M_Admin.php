@@ -461,21 +461,19 @@
             $query = $this->db->select('*')
                             ->from('t_aplikasi_publik a')
                             ->where('a.flag_active', 1)
+                            ->order_by('a.id', 'desc')
                             ->get()->result_array();
             return $query; 
         }
 
 
 
-        public function updateLogo(){
+        public function updateAplikasiPublik(){
             $datapost = $this->input->post(); 
-
-        
-            $data["nama_aplikasi"] = $datapost["detail_logo_nama"];
-            $data["logo"] = $datapost["detail_logo"];
+            $data["nama_aplikasi"] = $datapost["edit_ap_nama"];
+            $data["url"] = $datapost["edit_ap_url"];
             $data['updated_by'] = $this->general_library->getId();
-          
-            $id =  $datapost["id"];
+            $id =  $datapost["id_ap"];
             $this->db->where('id', $id)
                 ->update('t_aplikasi_publik', $data);
         }
