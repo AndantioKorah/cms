@@ -33,7 +33,7 @@
 
   #hero{
     width: 100%;
-    height: calc(100vw / 5);
+    height: 35vw;
     box-shadow: 0 3px 9px 0px gray;
   }
 

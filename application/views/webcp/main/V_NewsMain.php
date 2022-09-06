@@ -1,17 +1,18 @@
 <style>
   .header_news{
-    font-size: 12pt;
+    font-size: 12pt !important;
     font-weight: bold;
   }
 
   .judul-berita{
-    height: 70px;
+    height: 45px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     text-align: justify;
+    line-height: 13pt;
   }
 
   .judul-berita:hover{
@@ -36,6 +37,7 @@
     font-size: 14px;
     font-family: "Open Sans";
     text-align: justify;
+    margin-top: -10px;
   }
 
   .image-berita-main-new{
