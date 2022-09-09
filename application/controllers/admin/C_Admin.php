@@ -557,7 +557,13 @@ class C_Admin extends CI_Controller
 
         function submitKontenPengumuman(){
 
-            $new_name = $_FILES["pengumuman_file"]['name'];
+            $new_name = str_replace(array( '-',' ',']'), ' ', $_FILES["pengumuman_file"]['name']);
+            $random_number = intval( "0" . rand(1,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) );
+            $data = $_FILES["pengumuman_file"]['type'];;    
+            $tipeFile = substr($data, strpos($data, "/") + 1);   
+            $new_name = "gambar".$random_number.time().".".$tipeFile;
+
+            // $new_name = $_FILES["pengumuman_file"]['name'];
             
             if($_FILES["pengumuman_file"]["name"] != ""){ 
                 $path="./assets/admin/pengumuman/";
