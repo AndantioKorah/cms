@@ -102,5 +102,13 @@
                             ->where('flag_active', 1)
                             ->get()->result_array();
         }
+
+        public function loadSideBanner(){
+            return $this->db->select('*')
+                            ->from('t_side_banner')
+                            ->order_by('created_date', 'desc')
+                            ->where('flag_active', 1)
+                            ->get()->result_array();
+        }
 	}
 ?>

@@ -6,15 +6,24 @@
   }
 
   .img_aplikasi_publik{
-    max-width:230px;
+    max-width:10vw;
     max-height:95px;
     width: auto;
     height: auto;
     border-radius: 3px;
+    border: 1px solid #e9e9e9;
+    padding: 10px;
+  }
+
+  .div_aplikasi_publik{
+    /* border-radius: 3px;
+    border: 1px solid #e9e9e9; */
   }
 
   .img_aplikasi_publik:hover{
-    background-color: var(--black-theme);
+    opacity: .9;
+    border: 1px solid var(--primary);
+    transition: .2s;
   }
   
   .img-banner{
@@ -24,7 +33,7 @@
 
   #hero{
     width: 100%;
-    height: calc(100vw / 5);
+    height: 35vw;
     box-shadow: 0 3px 9px 0px gray;
   }
 
@@ -90,11 +99,13 @@
             <h4 class="title-section-side">APLIKASI PUBLIK</h4>
             <div class="row">
               <?php if($aplikasi_publik) {  foreach($aplikasi_publik as $a){ ?>
-                <div class="col-lg-6 col-md-6">
-                  <a href="<?=$a['url']?>">
-                    <img title="<?=$a['nama_aplikasi']?>" width="400" height="400" class="b-lazy img_aplikasi_publik" 
+                <div class="col-lg-6 col-md-6 p-2 div_aplikasi_publik">
+                  <center>
+                  <a href="<?=$a['url']?>" target="_blank">
+                    <img title="<?=$a['nama_aplikasi']?>" width="100%" height="auto" class="b-lazy img_aplikasi_publik" 
                     src="<?=$this->general_library->getAplikasiPublikLogo($a['logo'])?>" />
                   </a>
+                  </center>
                 </div>
               <?php } } ?>
             </div>
@@ -102,16 +113,25 @@
           <hr>
         </section>
 
-        <section style="padding-top: 10px !important; padding-bottom: 10px !important;" id="article-side" class="article-side">
+        <section style="padding-top: 10px !important; padding-bottom: 10px !important;" id="side-banner" class="side-banner">
+          <?php
+            $data['page'] = 'side-banner';
+            $data['gambar'] = $side_banner;
+            $this->load->view('webcp/main/V_SideBannerItem', $data);
+          ?>
+          <hr>
+        </section>
+
+        <!-- <section style="padding-top: 10px !important; padding-bottom: 10px !important;" id="article-side" class="article-side">
           <div class="container">
             <h4 class="title-section-side">BERITA TERPOPULER</h4>
             <?php
-              $data['news'] = $popular_news;
-              $this->load->view('webcp/news/V_NewsPopularMainData', $data);
+             // $data['news'] = $popular_news;
+             // $this->load->view('webcp/news/V_NewsPopularMainData', $data);
             ?>
           </div>
           <hr>
-        </section>
+        </section> -->
 
         <section style="padding-top: 10px !important; padding-bottom: 10px !important;" id="widget" class="widget">
           <div class="container">
@@ -166,7 +186,7 @@
                   </iframe>
                   <hr>
                 </div>
-              <h2 class="title-section">PIMPINAN KAMI</h2>
+              <h2 class="title-section">SAMBUTAN KEPALA BALAI</h2>
                 <div class="col-lg-6">
                   <center>
                     <img src="<?=base_url('assets/admin/profil/foto-pimpinan-btkl.jfif')?>" class="img-pimpinan b-lazy" alt="">
@@ -227,8 +247,16 @@
   });
 
   $(function(){
+    // loadSideBanner()
     getStatisticsData()
   }) 
+
+  function loadSideBanner(){
+    $('#div_side_banner').html('')
+    $('#div_side_banner').load('C_Main/loadSideBanner', function(){
+
+    })
+  }
 
   function getStatisticsData(){
     $.ajax({
