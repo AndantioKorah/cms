@@ -373,6 +373,7 @@
             $query = $this->db->select('*')
                             ->from('t_covid_regulasi a')
                             ->where('a.flag_active', 1)
+                            ->order_by('a.id', 'desc')
                             ->get()->result_array();
             return $query; 
         }
@@ -381,6 +382,7 @@
             $query = $this->db->select('*')
                             ->from('t_covid_infografis a')
                             ->where('a.flag_active', 1)
+                            ->order_by('a.id', 'desc')
                             ->get()->result_array();
             return $query; 
         }
