@@ -102,6 +102,68 @@ class C_Master extends CI_Controller
         $this->general->delete('id', $id, 'm_jenis_download');
     }
     
-    
+    public function masterJenisPelayanan(){
+        render('master/V_MasterJenisPelayanan', '', '', null);
+    }
+
+    public function loadMasterJenisPelayanan(){
+        $data['result'] = $this->master->loadMasterJenisPelayanan();
+        $this->load->view('master/V_ListMasterJenisPelayanan', $data);
+    }
+
+    public function insertMasterJenisPelayanan(){
+        $data = $this->input->post();
+        $data['created_by'] = $this->general_library->getId();
+        $this->master->insert('m_jenis_pelayanan', $data);
+        echo json_encode(['code' => 0, 'message' => '']);
+    }
+
+    public function deleteMasterJenisPelayanan($id){
+        echo json_encode($this->master->deleteMasterJenisPelayanan($id));
+    }
+
+    public function masterParameterJenisPelayanan(){
+        render('master/V_MasterParameterJenisPelayanan', '', '', null);
+    }
+
+    public function getJenisParameterByKategori($id){
+        echo json_encode($this->master->getJenisParameterByKategori($id));
+    }
+
+    public function loadMasterParameterJenisPelayanan(){
+        $data['result'] = $this->master->loadMasterParameterJenisPelayanan();
+        $this->load->view('master/V_ListMasterParameterJenisPelayanan', $data);
+    }
+
+    public function insertMasterParameterJenisPelayanan(){
+        $data = $this->input->post();
+        $data['created_by'] = $this->general_library->getId();
+        // $this->master->insert('m_parameter_jenis_pelayanan', $data);
+        echo json_encode($this->master->insertMasterParameterJenisPelayanan($data));
+    }
+
+    public function deleteMasterParameterJenisPelayanan($id){
+        echo json_encode($this->master->deleteMasterParameterJenisPelayanan($id));
+    }
+
+    public function loadParameterJenisPelayanan($id){
+        $data['jenis_pelayanan'] = $this->master->loadParameterJenisPelayanan($id);
+        $data['kategori_parameter'] = $this->general->getAll('m_kategori_parameter');
+        $data['parameter_jenis_pelayanan'] = $this->general->getAll('m_parameter_jenis_pelayanan');
+        $this->load->view('master/V_OpenParameterJenisPelayanan', $data);
+    }
+
+    public function getListParameterJenisPelayanan($id){
+        $data['result'] = $this->master->getListParameterJenisPelayanan($id);
+        $this->load->view('master/V_ListParameterJenisPelayanan', $data);
+    }
+
+    public function addParameterJenisPelayanan($id){
+        echo json_encode($this->master->addParameterJenisPelayanan($id));
+    }
+
+    public function deleteParameterJenisPelayanan($id){
+        echo json_encode($this->master->deleteParameterJenisPelayanan($id));
+    }
 
 }

@@ -23,8 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/cms/';
-// $config['base_url'] = 'http://192.168.1.11/efort/';
+// $config['base_url'] = 'http://localhost/cms/';
+$config['base_url'] = 'http://172.168.16.38/cms/';
 
 /*
 |--------------------------------------------------------------------------
