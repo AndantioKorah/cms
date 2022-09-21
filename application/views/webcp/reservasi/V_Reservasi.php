@@ -92,7 +92,7 @@
                   <div class="col-lg-4"></div>
                   <div class="col-lg-4 form-group text-center">
                       <label class="title-layanan">Masukkan No. Tiket Anda :</label>
-                      <input autocomplete="off" class="form-control" type="text" name="search_nomor_tiket" />
+                      <input autocomplete="off" class="form-control" type="text" id="search_nomor_tiket" name="search_nomor_tiket" />
                   </div>
                   <div class="col-lg-4 form-group">
                     <button id="btn_search_no_tiket" type="submit" style="margin-top: 24px;" class="btn btn-primary-color"><i class="fa fa-search"></i> Cari</button>
@@ -128,6 +128,12 @@
 
   $('#id_m_jenis_pelayanan').on('change', function(){
     searchParameter()
+  })
+
+  $('#search_nomor_tiket').on('input', function(){
+    if($(this).val().length >= 16){
+      $('#form_search_nomor_tiket').submit()
+    }
   })
 
   $('#form_search_nomor_tiket').on('submit', function(e){
