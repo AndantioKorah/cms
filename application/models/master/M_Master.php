@@ -357,7 +357,7 @@
         }
 
         public function getListParameterJenisPelayanan($id){
-            return $this->db->select('a.*, b.nama_kategori_parameter, c.nama_jenis_parameter, d.nama_parameter_jenis_pelayanan')
+            return $this->db->select('a.*, b.nama_kategori_parameter, c.nama_jenis_parameter, d.nama_parameter_jenis_pelayanan, a.harga')
                             ->from('t_parameter_jenis_pelayanan a')
                             ->join('m_kategori_parameter b', 'a.id_m_kategori_parameter = b.id', 'left')
                             ->join('m_jenis_parameter c', 'a.id_m_jenis_parameter = c.id', 'left')

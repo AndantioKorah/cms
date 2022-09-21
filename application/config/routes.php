@@ -137,3 +137,5 @@ $route['covid'] = 'webcp/covid/C_Covid/index';
 $route['covid/regulasi'] = 'webcp/covid/C_Covid/regulasi';
 $route['covid/infografis'] = 'webcp/covid/C_Covid/infografis';
 $route['covid/video'] = 'webcp/covid/C_Covid/video';
+
+$route['reservasi'] = 'webcp/reservasi/C_Reservasi/index';
