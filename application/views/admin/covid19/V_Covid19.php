@@ -29,7 +29,19 @@
     <div id="uploadPreview1"></div>
   </div>
 
-  
+  <script>
+                    var ukuran = 0;
+                    $('#covid19_file').bind('change', function() {
+                    ukuran = this.files[0].size/1024;
+                        if(ukuran >2100){
+                        errortoast("File Tidak boleh lebih dari 2MB") 
+                        $('#covid19_file').val('');
+                        // $('#uploadPreview1').html('');
+                        return false
+                    }
+                        
+                    });
+                    </script>
 
 
   <div class="col-lg-12 col-md-4 text-right mt-2">
