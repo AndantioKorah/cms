@@ -9,7 +9,6 @@ class C_Admin extends CI_Controller
         $this->load->model('general/M_General', 'general');
         $this->load->model('user/M_User', 'user');
         $this->load->model('master/M_Master', 'master');
-       
     }
 
  

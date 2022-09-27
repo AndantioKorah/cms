@@ -63,6 +63,8 @@ $route['login'] = 'login/C_Login/login';
 $route['admin'] = 'login/C_Login/login';
 $route['admin/logout'] = 'login/C_Login/logout';
 $route['admin/master/parameter'] = 'master/C_Master/masterParameter';
+$route['admin/master/jenis-pelayanan'] = 'master/C_Master/masterJenisPelayanan';
+$route['admin/master/parameter-jenis-pelayanan'] = 'master/C_Master/masterParameterJenisPelayanan';
 $route['admin/welcome'] = 'login/C_Login/welcomePage';
 $route['admin/users'] = 'user/C_User/users';
 $route['admin/user/setting'] = 'user/C_User/userSetting';
@@ -135,3 +137,5 @@ $route['covid'] = 'webcp/covid/C_Covid/index';
 $route['covid/regulasi'] = 'webcp/covid/C_Covid/regulasi';
 $route['covid/infografis'] = 'webcp/covid/C_Covid/infografis';
 $route['covid/video'] = 'webcp/covid/C_Covid/video';
+
+$route['reservasi'] = 'webcp/reservasi/C_Reservasi/index';

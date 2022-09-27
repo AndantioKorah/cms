@@ -242,7 +242,189 @@
                                     ->get()->result_array();
                 return $query; 
             }
-    
+        
 
+        public function loadMasterJenisPelayanan(){
+            return $this->db->select('*')
+                            ->from('m_jenis_pelayanan')
+                            ->where('flag_active', 1)
+                            ->order_by('created_date', 'desc')
+                            ->get()->result_array();
+        }
+
+        public function deleteMasterJenisPelayanan($id){
+            $rs['code'] = 0;
+            $rs['message'] = '';
+
+            $this->db->trans_begin();
+
+            $this->db->where('id', $id)
+                    ->update('m_jenis_pelayanan',
+                    ['flag_active' => 0,
+                    'updated_by' => $this->general_library->getId()]);
+
+            if($this->db->trans_status() == FALSE){
+                $this->db->trans_rollback();
+                $rs['code'] = 1;
+                $rs['message'] = $this->upload->display_errors();
+            } else {
+                $this->db->trans_commit();
+            }
+
+            return $rs;
+        }
+
+        public function deleteMasterParameterJenisPelayanan($id){
+            $rs['code'] = 0;
+            $rs['message'] = '';
+
+            $this->db->trans_begin();
+
+            $this->db->where('id', $id)
+                    ->update('m_parameter_jenis_pelayanan',
+                    ['flag_active' => 0,
+                    'updated_by' => $this->general_library->getId()]);
+
+            if($this->db->trans_status() == FALSE){
+                $this->db->trans_rollback();
+                $rs['code'] = 1;
+                $rs['message'] = $this->upload->display_errors();
+            } else {
+                $this->db->trans_commit();
+            }
+
+            return $rs;
+        }
+
+        public function getJenisParameterByKategori($id){
+            return $this->db->select('*')
+                            ->from('m_jenis_parameter')
+                            ->where('id_m_kategori_parameter', $id)
+                            ->where('flag_active', 1)
+                            ->get()->result_array();
+        }
+
+        public function loadMasterParameterJenisPelayanan(){
+            return $this->db->select('a.*')
+                            ->from('m_parameter_jenis_pelayanan a')
+                            ->where('a.flag_active', 1)
+                            ->order_by('a.created_date', 'desc')
+                            ->get()->result_array();
+        }
+
+        public function insertMasterParameterJenisPelayanan($data){
+            $rs['code'] = 0;
+            $rs['message'] = '';
+
+            $this->db->trans_begin();
+
+            $exists = $this->db->select('*')
+                                ->from('m_parameter_jenis_pelayanan')
+                                ->where('nama_parameter_jenis_pelayanan', $data['nama_parameter_jenis_pelayanan'])
+                                ->where('flag_active', 1)
+                                ->get()->row_array();
+            if($exists){
+                $rs['code'] = 1;
+                $rs['message'] = 'Parameter sudah ada sebelumnya';
+            } else {
+                $this->db->insert('m_parameter_jenis_pelayanan', $data);
+            }
+
+            if($this->db->trans_status() == FALSE){
+                $this->db->trans_rollback();
+                $rs['code'] = 1;
+                $rs['message'] = $this->upload->display_errors();
+            } else {
+                $this->db->trans_commit();
+            }
+
+            return $rs;
+        }
+
+        public function loadParameterJenisPelayanan($id){
+            return $this->db->select('*')
+                    ->from('m_jenis_pelayanan')
+                    ->where('id', $id)
+                    ->get()->row_array();
+
+            // $parameter = $this->db->select('')
+            //                             ->from('t_parameter_jenis_pelayanan a')
+            //                             ->join('m_kategori_parameter b', 'a.id_m_kategori_parameter = b.id')
+            //                             ->join('m_jenis_parameter c', 'a.id_m_jenis_parameter = c.id')
+            //                             ->where('a.flag_active', 1)
+            //                             ->order_by('a.urutan', 'asc')
+            //                             ->get()->result_array();
+        }
+
+        public function getListParameterJenisPelayanan($id){
+            return $this->db->select('a.*, b.nama_kategori_parameter, c.nama_jenis_parameter, d.nama_parameter_jenis_pelayanan, a.harga')
+                            ->from('t_parameter_jenis_pelayanan a')
+                            ->join('m_kategori_parameter b', 'a.id_m_kategori_parameter = b.id', 'left')
+                            ->join('m_jenis_parameter c', 'a.id_m_jenis_parameter = c.id', 'left')
+                            ->join('m_parameter_jenis_pelayanan d', 'a.id_m_parameter_jenis_pelayanan = d.id', 'left')
+                            ->where('a.flag_active', 1)
+                            ->where('id_m_jenis_pelayanan', $id)
+                            ->order_by('a.created_date', 'desc')
+                            ->get()->result_array();
+        }
+
+        public function addParameterJenisPelayanan($id){
+            $data = $this->input->post();
+            $data['id_m_jenis_pelayanan'] = $id;
+            $data['created_by'] = $this->general_library->getId();
+            $data['harga'] = clearString($data['harga']);
+            $rs['code'] = 0;
+            $rs['message'] = '';
+
+            $this->db->trans_begin();
+
+            $exists = $this->db->select('*')
+                                ->from('t_parameter_jenis_pelayanan')
+                                ->where('id_m_jenis_pelayanan', $data['id_m_jenis_pelayanan'])
+                                ->where('id_m_kategori_parameter', $data['id_m_kategori_parameter'])
+                                ->where('id_m_jenis_parameter', $data['id_m_jenis_parameter'])
+                                ->where('id_m_parameter_jenis_pelayanan', $data['id_m_parameter_jenis_pelayanan'])
+                                ->where('flag_active', 1)
+                                ->get()->row_array();
+            if($exists){
+                $rs['code'] = 1;
+                $rs['message'] = 'Parameter sudah ada sebelumnya';
+            } else {
+                $this->db->insert('t_parameter_jenis_pelayanan', $data);
+            }
+
+            if($this->db->trans_status() == FALSE){
+                $this->db->trans_rollback();
+                $rs['code'] = 1;
+                $rs['message'] = $this->upload->display_errors();
+            } else {
+                $this->db->trans_commit();
+            }
+
+            return $rs;
+        }
+
+        public function deleteParameterJenisPelayanan($id){
+            $rs['code'] = 0;
+            $rs['message'] = '';
+
+            $this->db->trans_begin();
+
+            $this->db->where('id', $id)
+                    ->update('t_parameter_jenis_pelayanan',
+                        ['flag_active' => 0,
+                        'updated_by' => $this->general_library->getId()]);
+
+            if($this->db->trans_status() == FALSE){
+                $this->db->trans_rollback();
+                $rs['code'] = 1;
+                $rs['message'] = $this->upload->display_errors();
+            } else {
+                $this->db->trans_commit();
+            }
+
+            return $rs;
+        }
+    
     }
 ?>
