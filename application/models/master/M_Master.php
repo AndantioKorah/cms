@@ -425,6 +425,79 @@
 
             return $rs;
         }
+
+
+ 
+        
+        public function getListRoleJenisPelayanan($id){
+            return $this->db->select('a.*,b.nama')
+                            ->from('t_role_jenis_pelayanan a')
+                            ->join('m_role b', 'a.id_role = b.id', 'left')
+                            ->where('a.flag_active', 1)
+                            ->where('id_m_jenis_pelayanan', $id)
+                            ->order_by('a.created_date', 'desc')
+                            ->get()->result_array();
+        }
+
+        public function addRoleJenisPelayanan($id){
+            $data = $this->input->post();
+            $data['id_m_jenis_pelayanan'] = $id;
+            $data['created_by'] = $this->general_library->getId();
+           
+            $rs['code'] = 0;
+            $rs['message'] = '';
+
+            $this->db->trans_begin();
+
+            $exists = $this->db->select('*')
+                                ->from('t_role_jenis_pelayanan')
+                                ->where('id_m_jenis_pelayanan', $data['id_m_jenis_pelayanan'])
+                                ->where('id_role', $data['id_role'])
+                                // ->where('no_urut', $data['no_urut'])
+                                ->where('flag_active', 1)
+                                ->get()->row_array();
+            if($exists){
+                $rs['code'] = 1;
+                $rs['message'] = 'Role sudah ada sebelumnya';
+            } else {
+                $this->db->insert('t_role_jenis_pelayanan', $data);
+            }
+
+            if($this->db->trans_status() == FALSE){
+                $this->db->trans_rollback();
+                $rs['code'] = 1;
+                $rs['message'] = $this->upload->display_errors();
+            } else {
+                $this->db->trans_commit();
+            }
+
+            return $rs;
+        }
+
+        
+        public function deleteRoleJenisPelayanan($id){
+            $rs['code'] = 0;
+            $rs['message'] = '';
+
+            $this->db->trans_begin();
+
+            $this->db->where('id', $id)
+                    ->update('t_role_jenis_pelayanan',
+                        ['flag_active' => 0,
+                        'updated_by' => $this->general_library->getId()]);
+
+            if($this->db->trans_status() == FALSE){
+                $this->db->trans_rollback();
+                $rs['code'] = 1;
+                $rs['message'] = $this->upload->display_errors();
+            } else {
+                $this->db->trans_commit();
+            }
+
+            return $rs;
+        }
+
+  
     
     }
 ?>

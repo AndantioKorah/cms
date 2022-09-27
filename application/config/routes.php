@@ -89,7 +89,7 @@ $route['admin/download'] = 'admin/C_Admin/download';
 $route['admin/mainImage'] = 'admin/C_Admin/mainImage';
 $route['admin/dokumen'] = 'admin/C_Admin/dokumen';
 $route['admin/sidebanner'] = 'admin/C_Admin/sideBanner';
-
+$route['admin/master/role-pelayanan'] = 'master/C_Master/masterRolePelayanan';
 
 // $route['dashboard'] = 'dashboard/C_Dashboard/dashboard';
 

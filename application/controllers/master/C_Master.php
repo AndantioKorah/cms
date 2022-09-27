@@ -166,4 +166,50 @@ class C_Master extends CI_Controller
         echo json_encode($this->master->deleteParameterJenisPelayanan($id));
     }
 
+    public function masterRolePelayanan(){
+        render('master/V_MasterRolePelayanan', '', '', null);
+    }
+
+    public function loadMasterRolePelayanan(){
+        $data['result'] = $this->master->loadMasterRolePelayanan();
+        $this->load->view('master/V_ListMasterRolePelayanan', $data);
+    }
+
+
+    public function insertMasterRolePelayanan(){
+        $data = $this->input->post();
+        $data['created_by'] = $this->general_library->getId();
+        $this->master->insert('m_role_pelayanan', $data);
+        echo json_encode(['code' => 0, 'message' => '']);
+    }
+
+    public function deleteMasterRolePelayanan($id){
+        echo json_encode($this->master->deleteMasterRolePelayanan($id));
+    }
+
+    public function loadRoleJenisPelayanan($id){
+        $data['jenis_pelayanan'] = $this->master->loadParameterJenisPelayanan($id);
+        $data['role'] = $this->general->getAll('m_role');
+        // $data['role_jenis_pelayanan'] = $this->general->getAll('m_role_jenis_pelayanan');
+        $this->load->view('master/V_OpenRoleJenisPelayanan', $data);
+    }
+
+    
+    public function getListRoleJenisPelayanan($id){
+        $data['result'] = $this->master->getListRoleJenisPelayanan($id);
+        $this->load->view('master/V_ListRoleJenisPelayanan', $data);
+    }
+
+    
+    public function addRoleJenisPelayanan($id){
+        echo json_encode($this->master->addRoleJenisPelayanan($id));
+    }
+
+    public function deleteRoleJenisPelayanan($id){
+        echo json_encode($this->master->deleteRoleJenisPelayanan($id));
+    }
+
+
+
+
 }
