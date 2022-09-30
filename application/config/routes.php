@@ -91,6 +91,8 @@ $route['admin/dokumen'] = 'admin/C_Admin/dokumen';
 $route['admin/sidebanner'] = 'admin/C_Admin/sideBanner';
 
 
+$route['admin/reservasi'] = 'reservasi/C_Reservasi/index';
+
 // $route['dashboard'] = 'dashboard/C_Dashboard/dashboard';
 
 // =============================================================

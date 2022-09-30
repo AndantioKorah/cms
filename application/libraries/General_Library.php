@@ -241,6 +241,10 @@ class General_library
         return $this->getActiveRoleName() == 'external';
     }
 
+    public function isPetugasYantek(){
+        return ($this->getActiveRoleName() == 'petugas_yantek' || $this->isProgrammer() );
+    }
+
     public function setActiveRole($id_role){
         $this->nikita->session->set_userdata([
             'active_role_id' => null,
