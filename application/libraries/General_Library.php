@@ -245,6 +245,26 @@ class General_library
         return ($this->getActiveRoleName() == 'petugas_yantek' || $this->isProgrammer() );
     }
 
+    public function isKepalaInstalasi(){
+        return ($this->getActiveRoleName() == 'kepala_instalasi' || $this->isProgrammer() );
+    }
+
+    public function isPetugasLab(){
+        return ($this->getActiveRoleName() == 'petugas_lab' || $this->isProgrammer() );
+    }
+
+    public function isAnalisLab(){
+        return ($this->getActiveRoleName() == 'analis_lab' || $this->isProgrammer() );
+    }
+
+    public function isKoordinatorLab(){
+        return ($this->getActiveRoleName() == 'koordinator_lab' || $this->isProgrammer() );
+    }
+
+    public function isKepalaBalai(){
+        return ($this->getActiveRoleName() == 'kepala_balai' || $this->isProgrammer() );
+    }
+
     public function setActiveRole($id_role){
         $this->nikita->session->set_userdata([
             'active_role_id' => null,

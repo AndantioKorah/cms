@@ -38,6 +38,12 @@
         overflow-y: auto;
         padding-bottom: 10px;
       }
+
+      #div_detail_layanan_verif_ki{
+        max-height: 60vh;
+        overflow-y: auto;
+        padding-bottom: 10px;
+      }
     </style>
     <div class="container" style="
         font-family: 'Tahoma';
@@ -66,14 +72,13 @@
               <li class="nav-item">
                   <a data-toggle="tab" onclick="loadDetailLayanan()" class="nav-link active" href="#administrasi_tab"><span class="text_tab">Administrasi</span></a>
               </li>
-            <?php } ?>
             <?php if($result['status'] == 2){ ?>
               <?php if($this->general_library->isPetugasYantek()){ ?>
               <li class="nav-item">
                   <a data-toggle="tab" class="nav-link" href="#tambah_layanan_tab"><span class="text_tab">Tambah Layanan</span></a>
               </li>
               <?php } ?>
-            <?php } ?>
+            <?php } } ?>
           </ul>
           <div class="tab-content">
             <div id="administrasi_tab" class="tab-pane active">
@@ -84,7 +89,7 @@
                   <hr>
                   <div class="row">
                     <div class="col-lg-12 text-right float-right">
-                      <button type="button" id="btn_loading" style="float: right; display: none;" class="btn btn-navy btn-sm"><i class="fa fa-spin fa-spinner"></i> Loading...</button>
+                      <button disabled type="button" id="btn_loading" style="float: right; display: none;" class="btn btn-navy btn-sm"><i class="fa fa-spin fa-spinner"></i> Loading...</button>
                       <?php if($this->general_library->isPetugasYantek()){ ?>
                         <?php if($result['status'] == 2){ ?>
                           <button type="submit" id="btn_create_billing" style="float: right;" class="btn btn-navy btn-sm"><i class="fa fa-file-invoice"></i> Buat Billing</button>
@@ -92,6 +97,29 @@
                         <?php if($result['status'] == 3){ ?>
                           <button type="button" id="btn_delete_billing" style="float: left;" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Batalkan Billing</button>
                           <button type="button" id="btn_acc_payment" style="float: right;" class="btn btn-navy btn-sm"><i class="fa fa-check"></i> Pembayaran Diterima</button>
+                        <?php } ?>
+                        <?php if($result['status'] == 5){ ?>
+                          <div class="row">
+                            <div class="col-lg-8">
+                              <input class="form-control form-control-sm" id="keterangan_delete_payment" autocomplete="off" placeholder="Keterangan" />
+                            </div>
+                            <div class="col-lg-4">
+                              <button type="button" id="btn_delete_payment" style="float: right;" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus Pembayaran</button>
+                            </div>
+                          </div>
+                        <?php } ?>
+                        <?php if($result['status'] == 13){ ?>
+                          <div class="row">
+                            <div class="col-lg-12">
+                              <button id="btn_publikasi" style="float: right; text-align: right;" class="btn btn-info btn-sm float-right" type="button"><i class="fa fa-rss"></i> Publish Hasil</button>
+                            </div>
+                          </div>
+                        <?php } else if($result['status'] == 10){ ?>
+                          <div class="row">
+                            <div class="col-lg-12">
+                              <button id="btn_delete_publikasi" style="float: right; text-align: right;" class="btn btn-danger btn-sm float-right" type="button"><i class="fa fa-trash"></i> Batal Publish Hasil</button>
+                            </div>
+                          </div>
                         <?php } ?>
                       <?php } ?>
                     </div>
@@ -125,6 +153,56 @@
         loadDetailLayanan()
       })
 
+      $('#btn_delete_publikasi').on('click', function(){
+        if(confirm('Apakah Anda yakin akan Publish Hasil?')){
+          $('#btn_delete_publikasi').hide()
+          $('#btn_loading').show()
+          $.ajax({
+            url: '<?=base_url('reservasi/C_Reservasi/deletePublishHasil/')?>'+'<?=$result['id']?>',
+            method: 'POST',
+            data: null,
+            success: function(res){
+              let rs = JSON.parse(res)
+              if(rs.code == 0){
+                $('.status_<?=$result['id']?>').html(rs.data.status)
+                $('.label_status').html(rs.data.status)
+                successtoast('Berhasil Batal Publish')
+                openReceipt('<?=$result['id']?>')
+              } else {
+                errortoast(rs.message)
+              }
+            }, error: function(e){
+              errortoast(e)
+            }
+          })
+        }
+      })
+
+      $('#btn_publikasi').on('click', function(){
+        if(confirm('Apakah Anda yakin akan Publish Hasil?')){
+          $('#btn_publikasi').hide()
+          $('#btn_loading').show()
+          $.ajax({
+            url: '<?=base_url('reservasi/C_Reservasi/publishHasil/')?>'+'<?=$result['id']?>',
+            method: 'POST',
+            data: null,
+            success: function(res){
+              let rs = JSON.parse(res)
+              if(rs.code == 0){
+                $('.status_<?=$result['id']?>').html(rs.data.status)
+                $('.label_status').html(rs.data.status)
+                successtoast('Publish Berhasil')
+                openReceipt('<?=$result['id']?>')
+              } else {
+                errortoast(rs.message)
+              }
+            }, error: function(e){
+              errortoast(e)
+            }
+          })
+        }
+      })
+
       $('#btn_delete_billing').on('click', function(){
         if(confirm('Apakah Anda yakin akan membatalkan Billing?')){
           $('#btn_delete_billing').hide()
@@ -137,6 +215,7 @@
               let rs = JSON.parse(res)
               if(rs.code == 0){
                 $('.status_<?=$result['id']?>').html(rs.data.status)
+                $('.label_status').html(rs.data.status)
                 successtoast('Billing Berhasil Dihapus')
                 openReceipt('<?=$result['id']?>')
               } else {
@@ -197,6 +276,58 @@
             errortoast(e)
           }
         })
+      })
+
+      $('#btn_acc_payment').on('click', function(){
+        if(confirm('Apakah Anda yakin?')){
+          $('#btn_acc_payment').hide()
+          $('#btn_loading').show()
+          $.ajax({
+            url: '<?=base_url('reservasi/C_Reservasi/acceptPayment/')?>'+'<?=$result['id']?>',
+            method: 'POST',
+            data: null,
+            success: function(res){
+              let rs = JSON.parse(res)
+              if(rs.code == 0){
+                $('.status_<?=$result['id']?>').html(rs.data.status)
+                $('.label_status').html(rs.data.status)
+                successtoast('Pembayaran Diterima')
+                openReceipt('<?=$result['id']?>')
+              } else {
+                errortoast(rs.message)
+              }
+            }, error: function(e){
+              errortoast(e)
+            }
+          })
+        }
+      })
+
+      $('#btn_delete_payment').on('click', function(){
+        if(confirm('Apakah Anda yakin?')){
+          $('#btn_delete_payment').hide()
+          $('#btn_loading').show()
+          $.ajax({
+            url: '<?=base_url('reservasi/C_Reservasi/deletePayment/')?>'+'<?=$result['id']?>',
+            method: 'POST',
+            data: {
+              keterangan: $('#keterangan_delete_payment').val()
+            },
+            success: function(res){
+              let rs = JSON.parse(res)
+              if(rs.code == 0){
+                $('.status_<?=$result['id']?>').html(rs.data.status)
+                $('.label_status').html(rs.data.status)
+                successtoast('Berhasil menghapus pembayaran')
+                openReceipt('<?=$result['id']?>')
+              } else {
+                errortoast(rs.message)
+              }
+            }, error: function(e){
+              errortoast(e)
+            }
+          })
+        }
       })
 
       function getParameterByJenisLayanan(){

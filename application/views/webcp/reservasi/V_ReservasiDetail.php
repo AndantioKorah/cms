@@ -36,16 +36,19 @@
     <div class="row">
       <div class="col-lg-12 mb-3">
         <button onclick="cetakReceipt()" type="button" class="btn btn-sm btn-primary-color mb-2" style="float: right;"><i class="fa fa-print"></i> Cetak Nota Reservasi</button>
+        <?php if($result['status'] == 10){ ?>
+          <button onclick="cetakReceipt()" type="button" class="btn btn-sm btn-success mb-2" style="float: left; margin-right: 10px;"><i class="fa fa-print"></i> Cetak Hasil Pemeriksaan</button>
+        <?php } ?>
         <table style="width: 100%;">
           <tr>
             <td style="width: 34%;">
-              <span class="label_title">Nomor Tiket</span> : <br><span class="value_title" id="nomor_tiket_search"></span>
+              <span class="label_title">Nomor Tiket</span> : <br><span class="value_title" id="nomor_tiket_search"><?=$result['nomor_tiket']?></span>
             </td>
             <td style="width: 33%; text-align: center;">
-              <span class="label_title">Tanggal</span> : <br><span class="value_title" id="tanggal_tiket_search"></span>
+              <span class="label_title">Tanggal</span> : <br><span class="value_title" id="tanggal_tiket_search"><?=formatDateNamaBulanWT($result['created_date'])?></span>
             </td>
             <td style="width: 33%; text-align: right;">
-              <span class="label_title">Status</span> : <br><span class="value_title" id="status_search"></span>
+              <span class="label_title">Status</span> : <br><span class="value_title" id="status_search"><?=$result['nama_status']?></span>
             </td>
           </tr>
         </table>
@@ -58,7 +61,7 @@
             <th class="text-center">BIAYA</th>
           </thead>
           <tbody>
-            <?php foreach($result as $rs){
+            <?php foreach($result['pelayanan'] as $rs){
               $total = 0;
             ?>
               <tr style="border: 1px solid black;">
@@ -84,7 +87,7 @@
                 <span class="total_biaya_title">TOTAL : </span>
               </td>
               <td class="text-right" style="padding: 10px; text-align: center;">
-                <span class="total_biaya_title"><?=formatCurrency($rs['total_biaya'])?></span>
+                <span class="total_biaya_title"><?=formatCurrency($result['total_biaya'])?></span>
               </td>
             </tr>
           </tbody>
@@ -96,9 +99,9 @@
   <iframe id="printing-frame" name="print_frame" src="about:blank" style="display:none;"></iframe>
   <script>
     $(function(){
-      $('#nomor_tiket_search').html('<?=$rs['nomor_tiket']?>')
-      $('#tanggal_tiket_search').html('<?=formatDateNamaBulanWT($rs['created_date'])?>')
-      $('#status_search').html('<?=($rs['nama_status'])?>')
+      // $('#nomor_tiket_search').html('<?=$rs['nomor_tiket']?>')
+      // $('#tanggal_tiket_search').html('<?=formatDateNamaBulanWT($rs['created_date'])?>')
+      // $('#status_search').html('<?=($rs['nama_status'])?>')
     })
 
     function cetakReceipt() {

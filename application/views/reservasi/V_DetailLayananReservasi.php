@@ -41,7 +41,7 @@
                     <?php } ?>
                   </div>
                   <?php } else { ?>
-                    <?php $comma = ', '; $i = 0; foreach($rs['parameter'] as $p){
+                    <?php $comma = ', '; $i = 0; foreach($rs['parameter'] as $p){ if($p['checked'] == 1){
                       if($i == count($rs['parameter']) - 1){
                         $comma = '';
                       }
@@ -51,7 +51,7 @@
                       }
                     ?>
                       <span style="font-size: 10pt; color: grey;"><?=$p['nama_parameter_jenis_pelayanan'].$comma;?></span>
-                    <?php $i++; } ?>
+                    <?php $i++; } } ?>
                   <?php } ?>
               </div>
             </div>

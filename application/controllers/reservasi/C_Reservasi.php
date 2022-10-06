@@ -25,8 +25,18 @@ class C_Reservasi extends CI_Controller
 
     public function openDetailAdministrasiReservasi($id){
         $data['result'] = $this->reservasi->openDetailReservasi($id);
-        $data['layanan'] = $this->reservasi->getAllLayanan();
-        $this->load->view('reservasi/V_DetailAdministrasiReservasi', $data);
+        if($this->general_library->isPetugasYantek()){
+            $data['layanan'] = $this->reservasi->getAllLayanan();
+            $this->load->view('reservasi/V_DetailAdministrasiReservasi', $data);
+        } else if($this->general_library->isKepalaInstalasi()){
+            $this->load->view('reservasi/V_DetailVerifikasiKi', $data);
+        } else if($this->general_library->isPetugasLab() || $this->general_library->isAnalisLab()){
+            $this->load->view('reservasi/V_DetailPetugasLab', $data);
+        } else if($this->general_library->isKoordinatorLab()){
+            $this->load->view('reservasi/V_DetailKoordinatorLab', $data);
+        } else if($this->general_library->isKepalaBalai()){
+            $this->load->view('reservasi/V_DetailKepalaBalai', $data);
+        }
     }
 
     public function getListParameterJenisPelayanan($id){
@@ -43,6 +53,26 @@ class C_Reservasi extends CI_Controller
         $this->load->view('reservasi/V_DetailLayananReservasi', $data);
     }
 
+    public function loadDetailLayananVerifKi($id){
+        $data['result'] = $this->reservasi->loadDetailLayanan($id);
+        $this->load->view('reservasi/V_DetailLayananReservasiVerifKi', $data);
+    }
+
+    public function loadDetailLayananPetugasLab($id){
+        $data['result'] = $this->reservasi->loadDetailLayanan($id);
+        $this->load->view('reservasi/V_DetailLayananReservasiPetugasLab', $data);
+    }
+
+    public function loadDetailLayananKoordinatorLab($id){
+        $data['result'] = $this->reservasi->loadDetailLayanan($id);
+        $this->load->view('reservasi/V_DetailLayananKoordinatorLab', $data);
+    }
+
+    public function loadDetailLayananKepalaBalai($id){
+        $data['result'] = $this->reservasi->loadDetailLayanan($id);
+        $this->load->view('reservasi/V_DetailLayananKepalaBalai', $data);
+    }
+
     public function deleteJenisLayanan($id){
         echo json_encode($this->reservasi->deleteJenisLayanan($id));
     }
@@ -53,5 +83,57 @@ class C_Reservasi extends CI_Controller
 
     public function deleteBilling($id){
         echo json_encode($this->reservasi->deleteBilling($id));
+    }
+
+    public function acceptPayment($id){
+        echo json_encode($this->reservasi->acceptPayment($id));
+    }
+
+    public function deletePayment($id){
+        echo json_encode($this->reservasi->deletePayment($id));
+    }
+
+    public function verifKi($id){
+        echo json_encode($this->reservasi->verifKi($id));
+    }
+
+    public function deleteVerifKi($id){
+        echo json_encode($this->reservasi->deleteVerifKi($id));
+    }
+
+    public function simpanHasilInputData($id){
+        echo json_encode($this->reservasi->simpanHasilInputData($id));
+    }
+
+    public function lockResult($id){
+        echo json_encode($this->reservasi->lockResult($id));
+    }
+
+    public function openLockResult($id){
+        echo json_encode($this->reservasi->openLockResult($id));
+    }
+
+    public function verifKoordinatorLab($id){
+        echo json_encode($this->reservasi->verifKoordinatorLab($id));
+    }
+
+    public function deleteVerifKoordinatorLab($id){
+        echo json_encode($this->reservasi->deleteVerifKoordinatorLab($id));
+    }
+
+    public function verifKepalaBalai($id){
+        echo json_encode($this->reservasi->verifKepalaBalai($id));
+    }
+
+    public function deleteVerifKepalaBalai($id){
+        echo json_encode($this->reservasi->deleteVerifKepalaBalai($id));
+    }
+
+    public function publishHasil($id){
+        echo json_encode($this->reservasi->publishHasil($id));
+    }
+
+    public function deletePublishHasil($id){
+        echo json_encode($this->reservasi->deletePublishHasil($id));
     }
 }

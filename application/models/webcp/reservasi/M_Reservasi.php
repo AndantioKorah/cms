@@ -229,6 +229,89 @@
             $search_value = $this->input->post('search_nomor_tiket');
             $final_result = null;
             $result = $this->db->select('a.session_id, c.nama_jenis_pelayanan, b.id_m_jenis_pelayanan, a.id, b.id as id_t_reservasi_online_detail,
+                            a.created_date, d.nama_status, a.total_biaya, a.nomor_tiket, a.status, b.catatan_kepala_instalasi')
+                            ->from('t_reservasi_online a')
+                            ->join('t_reservasi_online_detail b', 'b.id_t_reservasi_online = a.id')
+                            ->join('m_jenis_pelayanan c', 'b.id_m_jenis_pelayanan = c.id')
+                            ->join('m_status_reservasi d', 'a.status = d.id')
+                            ->where('a.nomor_tiket', $search_value)
+                            ->where('b.flag_active', 1)
+                            ->where('a.status !=', 1)
+                            ->group_by('b.id')
+                            ->get()->result_array();
+            if($result){
+                $detail = $this->db->select('c.nama_parameter_jenis_pelayanan, b.harga, d.id_m_jenis_pelayanan, a.id_t_reservasi_online_detail, a.id,
+                        c.id as id_m_parameter_jenis_pelayanan, a.id_t_parameter_jenis_pelayanan, a.catatan_lab, a.hasil_lab')
+                                ->from('t_reservasi_online_parameter a')
+                                ->join('t_parameter_jenis_pelayanan b', 'a.id_t_parameter_jenis_pelayanan = b.id')
+                                ->join('m_parameter_jenis_pelayanan c', 'b.id_m_parameter_jenis_pelayanan = c.id')
+                                ->join('t_reservasi_online_detail d', 'a.id_t_reservasi_online_detail = d.id')
+                                ->join('t_reservasi_online e', 'd.id_t_reservasi_online = e.id')
+                                ->where('a.flag_active', 1)
+                                ->where('e.id', $result[0]['id'])
+                                ->get()->result_array();
+                if($detail){
+                    $dt_param = null;
+                    $i = 0;
+                    foreach($detail as $dt){
+                        $dt_param[$dt['id_m_jenis_pelayanan']][$i] = $dt;
+                        $i++;
+                    }
+                    // dd(json_encode($dt_param));
+
+                    $i = 0;
+                    foreach($result as $rs){
+                        $final_result['status'] = $rs['status'];
+                        $final_result['nama_status'] = $rs['nama_status'];
+                        $final_result['created_date'] = $rs['created_date'];
+                        $final_result['nomor_tiket'] = $rs['nomor_tiket'];
+                        $final_result['total_biaya'] = $rs['total_biaya'];
+                        $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['id_t_reservasi_online'] = $rs['id'];
+                        $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['created_date'] = $rs['created_date'];
+                        $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['id_t_reservasi_online_detail'] = $rs['id_t_reservasi_online_detail'];
+                        $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['nama_jenis_pelayanan'] = $rs['nama_jenis_pelayanan'];
+                        $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['catatan_kepala_instalasi'] = $rs['catatan_kepala_instalasi'];
+                        
+                        $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['parameter'] = $dt_param[$rs['id_m_jenis_pelayanan']];
+
+
+                        // $default_param = $this->db->select('a.id_m_jenis_pelayanan, a.id as id_t_parameter_jenis_pelayanan, b.nama_parameter_jenis_pelayanan, a.harga, b.id as id_m_parameter_jenis_pelayanan')
+                        //                         ->from('t_parameter_jenis_pelayanan a')
+                        //                         ->join('m_parameter_jenis_pelayanan b', 'a.id_m_parameter_jenis_pelayanan = b.id')
+                        //                         ->where('a.id_m_jenis_pelayanan', $rs['id_m_jenis_pelayanan'])
+                        //                         ->where('a.flag_active', 1)
+                        //                         ->get()->result_array();
+
+                        // $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['parameter'] = null;
+                        // if($default_param){
+                        //     foreach($default_param as $df){
+                        //         $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']]['id_t_reservasi_online_parameter'] = null;
+                        //         $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']]['id_m_parameter_jenis_pelayanan'] = $df['id_m_parameter_jenis_pelayanan'];
+                        //         $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']]['harga'] = $df['harga'];
+                        //         $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']]['nama_parameter_jenis_pelayanan'] = $df['nama_parameter_jenis_pelayanan'];
+                        //         $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']]['id_t_parameter_jenis_pelayanan'] = $df['id_t_parameter_jenis_pelayanan'];
+                        //         $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']]['checked'] = 0;
+
+                        //         if(isset($dt_param[$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']])){
+                        //             $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']]['checked'] = 1;
+                        //             $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']]['id_t_reservasi_online_parameter'] = $dt_param[$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']]['id'];
+                        //             $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']]['catatan_lab'] = $dt_param[$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']]['catatan_lab'];
+                        //             $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']]['hasil_lab'] = $dt_param[$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']]['hasil_lab'];
+                        //         }
+                        //     }
+                        // }
+                        $i++;
+                    }
+                }
+            }
+
+            return $final_result;
+        }
+
+        public function searchNomorTikets(){
+            $search_value = $this->input->post('search_nomor_tiket');
+            $final_result = null;
+            $result = $this->db->select('a.session_id, c.nama_jenis_pelayanan, b.id_m_jenis_pelayanan, a.id, b.id as id_t_reservasi_online_detail,
                             a.created_date, d.nama_status, a.total_biaya, a.nomor_tiket')
                             ->from('t_reservasi_online a')
                             ->join('t_reservasi_online_detail b', 'b.id_t_reservasi_online = a.id')
