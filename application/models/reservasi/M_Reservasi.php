@@ -213,12 +213,12 @@
             $rs['data']['total_biaya'] = null;
             $rs['data']['status'] = null;
             $data = $this->input->post();
-
             $this->db->trans_begin();
 
             $id_detail = null;
             $parameter = null;
             $total_biaya = 0;
+            $pelanggan = $data['pelanggan'];
             $i = 0;
             foreach($data['detail'] as $dt){
                 $id_detail[] = $dt;
@@ -245,7 +245,8 @@
                     ->update('t_reservasi_online', 
                     [
                         'total_biaya' => $total_biaya,
-                        'status' => 3
+                        'status' => 3,
+                        'id_m_pelanggan' => $pelanggan
                     ]);
 
             //status billing
@@ -1079,5 +1080,27 @@
 
             return $rs;
         }
+
+
+        public function getAllPelanggan(){
+            return $this->db->select('*')
+                            ->from('m_pelanggan')
+                            ->where('flag_active', 1)
+                            ->order_by('nama')
+                            ->get()->result_array();
+        }
+
+        public function getPelanggan()
+        {      
+            $id = $this->input->post('id_m_pelanggan');
+            $this->db->select('*')
+                ->from('m_pelanggan as a')
+                ->where('a.id', $id)
+                ->where('a.flag_active', 1)
+                ->limit(1);
+                return $this->db->get()->result_array();
+        }
+    
+
     }
 ?>

@@ -27,6 +27,7 @@ class C_Reservasi extends CI_Controller
         $data['result'] = $this->reservasi->openDetailReservasi($id);
         if($this->general_library->isPetugasYantek()){
             $data['layanan'] = $this->reservasi->getAllLayanan();
+            $data['pelanggan'] = $this->reservasi->getAllPelanggan();
             $this->load->view('reservasi/V_DetailAdministrasiReservasi', $data);
         } else if($this->general_library->isKepalaInstalasi()){
             $this->load->view('reservasi/V_DetailVerifikasiKi', $data);
@@ -50,6 +51,7 @@ class C_Reservasi extends CI_Controller
 
     public function loadDetailLayanan($id){
         $data['result'] = $this->reservasi->loadDetailLayanan($id);
+      
         $this->load->view('reservasi/V_DetailLayananReservasi', $data);
     }
 
@@ -136,4 +138,11 @@ class C_Reservasi extends CI_Controller
     public function deletePublishHasil($id){
         echo json_encode($this->reservasi->deletePublishHasil($id));
     }
+
+    public function getPelanggan()
+    {
+        $data = $this->reservasi->getPelanggan();
+        echo json_encode($data);
+    }
+
 }

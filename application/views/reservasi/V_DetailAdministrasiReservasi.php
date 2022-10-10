@@ -82,7 +82,53 @@
           </ul>
           <div class="tab-content">
             <div id="administrasi_tab" class="tab-pane active">
+              <a href="<?=base_url('admin/master/pelanggan');?>">
+            <button type="button" id="btn_create_billing" style="float: right;" class="btn btn-navy btn-sm"><i class="fa fa-user"></i> Tambah Data Pelanggan</button></a>
               <form id="form_administrasi">
+              <div class="row">
+                            <div class="col-lg-4 form-group">
+                                <label>Pilih Pelanggan</label>
+                                <select onchange="getPelanggan()" class="form-control form-control-sm select2_this select2-navy" data-dropdown-css-class="select2-navy" name="pelanggan" id="pelanggan">
+                                <option value=""></option>
+                                <?php if($pelanggan){ foreach($pelanggan as $l){ ?>
+                                   <option value="<?=$l['id']?>"><?=$l['nama']?></option>
+                                <?php } } ?>
+                                </select>
+                            </div>
+                        </div>
+           
+          <div class="col-lg-12" id="data_pelanggan" style="display:none; margin-bottom: 10px;">
+            <table style="width: 100%;" >
+            <tr>
+              <td style="width: 10%;">
+                <span class="label_title">Nama</span>  
+              </td>
+              <td style="width: 33%; text-align: left;"> : 
+              <span class="value_title" id="pelanggan_nama"></span>
+              </td>
+           
+            </tr>
+            <tr>
+              <td style="width: 10%;">
+                <span class="label_title">Alamat</span> 
+              </td>
+              <td style="width: 33%; text-align: left;"> : 
+              <span class="value_title" id="pelanggan_alamat"></span>
+              </td>
+             
+            </tr>
+            <tr>
+              <td style="width: 10%;">
+                <span class="label_title">No HP</span> 
+              </td>
+              <td style="width: 33%; text-align: left;"> : 
+              <span class="value_title" id="pelanggan_no_hp"></span>
+              </td>
+              
+            </tr>
+          </table>
+          </div>
+                
                 <div class="col-lg-12" id="div_detail_layanan">
                 </div>
                 <div class="col-lg-12" style="height: 5vh;">
@@ -254,8 +300,21 @@
       }
 
       $('#form_administrasi').on('submit', function(e){
+         var pelanggan = $('#pelanggan').val()
+        
+        if(pelanggan == ""){
+          errortoast(" Belum ada data pelanggan")
+          return false
+        }
+        if(pelanggan == null){
+          errortoast(" Belum ada data pelanggan")
+          return false
+        }
+
         $('#btn_create_billing').hide()
         $('#btn_loading').show()
+       
+        // return false
         e.preventDefault()
         $.ajax({
           url: '<?=base_url('reservasi/C_Reservasi/createBilling/')?>'+'<?=$result['id']?>',
@@ -366,6 +425,38 @@
           }
         })
       })
+
+      function getPelanggan() {
+      
+        var id_m_pelanggan = $('#pelanggan').val(); 
+        $.ajax({
+        type : "POST",
+        url: '<?=base_url('reservasi/C_Reservasi/getPelanggan')?>',
+        dataType : "JSON",
+        data : {id_m_pelanggan:id_m_pelanggan},
+        success: function(data){
+          if (data.length === 0) { 
+              $("#data_pelanggan").hide('fast');
+            } else {
+              $('#data_pelanggan').show('fast')
+              $('#pelanggan_nama').html(data[0].nama);
+              $('#pelanggan_alamat').html(data[0].alamat);
+              $('#pelanggan_no_hp').html(data[0].no_hp);
+            }
+         
+            console.log(data)
+           
+           
+         }
+        });
+      
+        }
+        
+       
+      
+        
+
+
     </script>
   <?php } else { ?>
     <div class="col-lg-12 text-center">

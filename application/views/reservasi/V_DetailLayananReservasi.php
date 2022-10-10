@@ -1,4 +1,5 @@
 <?php if($result){ ?>
+               
   <table style="width: 100%; padding: 10px;">
     <thead style="border: 1px solid black;">
       <th style="padding: 10px; border: 1px solid black;">JENIS LAYANAN</th>
@@ -164,3 +165,11 @@
     <h6>Belum Ada Layanan yang Dipilih <i class="fa fa-exclamation"></i></h6>
   </div>
 <?php } ?>
+<script>
+          $(function(){
+        $('.select2_this').select2()
+        startTime()
+        console.log($('.div-navbar-logo').height())
+        console.log($('.div-navbar-logo').width())
+      })
+</script>

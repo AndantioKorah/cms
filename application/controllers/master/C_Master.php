@@ -209,6 +209,38 @@ class C_Master extends CI_Controller
         echo json_encode($this->master->deleteRoleJenisPelayanan($id));
     }
 
+    
+
+
+    public function masterPelanggan(){
+        render('master/V_MasterPelanggan', '', '', null);
+    }
+
+    public function loadMasterPelanggan(){
+        $data['result'] = $this->master->loadMasterPelanggan();
+        $this->load->view('master/V_ListMasterPelanggan', $data);
+    }
+
+    public function insertMasterPelanggan(){
+        $data = $this->input->post();
+        $data['created_by'] = $this->general_library->getId();
+        $this->master->insert('m_pelanggan', $data);
+        echo json_encode(['code' => 0, 'message' => '']);
+    }
+
+    public function deleteMasterPelanggan($id){
+        echo json_encode($this->master->deleteMasterPelanggan($id));
+    }
+
+    public function loadDetailPelanggan($id){
+        $data['result'] = $this->master->loadDetailPelanggan($id);
+        $this->load->view('master/V_MasterPelangganEdit', $data);
+    }
+
+    public function editMasterPelanggan(){
+        echo json_encode($this->master->editMasterPelanggan($this->input->post()));
+    }
+
 
 
 
