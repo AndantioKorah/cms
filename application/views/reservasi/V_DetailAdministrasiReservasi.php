@@ -142,7 +142,7 @@
                         <?php } ?>
                         <?php if($result['status'] == 3){ ?>
                           <button type="button" id="btn_delete_billing" style="float: left;" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Batalkan Billing</button>
-                          <button type="button" id="btn_acc_payment" style="float: right;" class="btn btn-navy btn-sm"><i class="fa fa-check"></i> Pembayaran Diterima</button>
+                          <button type="button" id="btn_acc_payment" style="float: right;" class="btn btn-navy btn-sm"><i class="fa fa-check"></i> Pembayaran Diterima </button>
                         <?php } ?>
                         <?php if($result['status'] == 5){ ?>
                           <div class="row">

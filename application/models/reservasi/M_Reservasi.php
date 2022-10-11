@@ -339,6 +339,48 @@
             $rs['data'] = null;
             $rs['data']['status'] = null;
 
+              //tambah nomor sampel
+              $lastNoSampel = $this->db->select('a.no_sampel')
+              ->from('t_reservasi_online_detail as a') 
+              ->where('a.flag_active', 1) 
+              ->order_by('a.no_sampel', 'desc')
+              ->limit(1)           
+              ->get()->result_array();
+              if($lastNoSampel[0]['no_sampel'] == null){
+                
+                 $reservasi = $this->db->select('*')
+                 ->from('t_reservasi_online_detail')
+                 ->where('id_t_reservasi_online', $id)            
+                 ->where('flag_active', 1)            
+                 ->get()->result_array();
+                
+                 $noSampel = 1;
+                  foreach($reservasi as $d){
+                    $this->db->where('id', $d['id'])
+                             ->update('t_reservasi_online_detail',[
+                                'no_sampel' => $noSampel,
+                                'updated_by' => $this->general_library->getId()
+                            ]);
+                            $noSampel++;
+                }
+              } else {
+                $reservasi = $this->db->select('*')
+                ->from('t_reservasi_online_detail')
+                ->where('id_t_reservasi_online', $id)            
+                ->where('flag_active', 1)            
+                ->get()->result_array();
+               
+                $noSampel = $lastNoSampel[0]['no_sampel']+1;
+                 foreach($reservasi as $d){
+                   $this->db->where('id', $d['id'])
+                            ->update('t_reservasi_online_detail',[
+                               'no_sampel' => $noSampel,
+                               'updated_by' => $this->general_library->getId()
+                           ]);
+                           $noSampel++;
+               }
+              }
+
             $this->db->trans_begin();
 
             $rsv = $this->db->select('*')
@@ -358,6 +400,7 @@
                     [
                         'status' => 5
                     ]);
+
                     
                 //tambah status pembayaran diterima
                 $this->insertVerifReservasi([
@@ -375,6 +418,8 @@
                                     ->from('m_status_reservasi')
                                     ->where('id', 5)
                                     ->get()->row_array();
+
+              
 
                 $rs['data']['status'] = $status ? $status['nama_status'] : 'Verifikasi Kepala Instalasi';
             } else {
@@ -418,6 +463,12 @@
                     ->update('t_reservasi_online', 
                     [
                         'status' => 3
+                    ]);
+
+                $this->db->where('id_t_reservasi_online', $id)
+                    ->update('t_reservasi_online_detail', 
+                    [
+                        'no_sampel' => null
                     ]);
                     
                 //tambah status menunggu pembayaran

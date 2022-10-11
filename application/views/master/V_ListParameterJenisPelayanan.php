@@ -1,3 +1,7 @@
+
+<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+
 <?php if($result){ ?>
     <table class="table table-striped table-hover data_table">
         <thead>
@@ -17,6 +21,7 @@
                     <td class="text-left"><?=$rs['nama_jenis_parameter']?></td>
                     <td class="text-left"><?=formatCurrency($rs['harga'])?></td>
                     <td class="text-center">
+                   <input type="checkbox" checked data-toggle="toggle" data-size="sm">
                         <button onclick="deleteParameter('<?=$rs['id']?>')" id="btn_save_<?=$rs['id']?>" class="btn btn-sm btn-danger" ><i class="fa fa-save"></i> Hapus</button>
                         <button style="display: none;" disabled id="btn_save_loading_<?=$rs['id']?>" class="btn btn-sm btn-danger" type="submit"><i class="fa fa-spin fa-spinner"></i> Menghapus...</button>
                     </td>
