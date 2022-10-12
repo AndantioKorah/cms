@@ -136,4 +136,23 @@ class C_Reservasi extends CI_Controller
     public function deletePublishHasil($id){
         echo json_encode($this->reservasi->deletePublishHasil($id));
     }
+    
+    public function searchReservasiByStatus($status, $flag_greater = 0){
+        $data['result'] = $this->reservasi->searchReservasiByStatus($status, $flag_greater);
+        $this->load->view('reservasi/V_ResultSearchReservasi', $data);
+    }
+
+    public function inputHasil(){
+        $data['list_parameter'] = $this->reservasi->getAllParameter();
+        render('reservasi/V_ReservasiInputHasil', '', '', $data);
+    }
+
+    public function loadParameterForInputHasil($id){
+        $data['result'] = $this->reservasi->loadParameterForInputHasil($id);
+        $this->load->view('reservasi/V_ReservasiListParameterInputHasil', $data);
+    }
+
+    public function simpanInputHasil(){
+        echo json_encode($this->reservasi->simpanInputHasil());
+    }
 }

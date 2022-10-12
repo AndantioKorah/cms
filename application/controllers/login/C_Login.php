@@ -51,6 +51,13 @@ class C_Login extends CI_Controller
             $list_role = $this->user->getListRoleForUser($result[0]['id']);
             $active_role = null;
             $list_exist_url = null;
+            $temp_list_status_reservasi = $this->m_general->getAllStatusReservasi();
+            $list_status_reservasi = null;
+            if($temp_list_status_reservasi){
+                foreach($temp_list_status_reservasi as $t){
+                    $list_status_reservasi[$t['id']] = $t;
+                }
+            }
             if($list_role){
                 $active_role = $list_role[0];
                 $list_menu = $this->general_library->getListMenu($active_role['id'], $active_role['role_name']);
@@ -88,6 +95,7 @@ class C_Login extends CI_Controller
                 'active_role_id' =>  $active_role['id'],
                 'active_role_name' =>  $active_role['role_name'],
                 'landing_page' =>  $active_role['landing_page'],
+                'list_status_reservasi' =>  $list_status_reservasi,
             ]);
             if($params){
                 foreach($params as $p){

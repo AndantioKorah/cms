@@ -45,7 +45,7 @@
         padding-bottom: 10px;
       }
     </style>
-    <div class="container" style="
+    <div class="" style="
         font-family: 'Tahoma';
       ">
       <div class="row">
