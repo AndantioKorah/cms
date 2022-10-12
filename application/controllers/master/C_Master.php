@@ -241,6 +241,10 @@ class C_Master extends CI_Controller
         echo json_encode($this->master->editMasterPelanggan($this->input->post()));
     }
 
+    public function updateFlagAvailable(){
+        echo json_encode($this->master->updateFlagAvailable());
+    }
+
 
 
 

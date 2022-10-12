@@ -13,7 +13,7 @@
       <div class="col-lg-4">
         <div class="form-check">
           <input onclick="checkboxClickChooseParameter('<?=$p['id']?>', '<?=$p['harga']?>')" type="checkbox" class="form-check-choose option_checkbox form-check-input" 
-          id="check_<?=$p['id']?>" name="parameter[]" value="<?=$p['id'].';'.$p['harga']?>" checked>
+          id="check_<?=$p['id']?>" name="parameter[]" value="<?=$p['id'].';'.$p['harga']?>" <?= $p['flag_available'] == 0 ? 'disabled' : '' ?> <?= $p['flag_available'] == 1 ? 'checked' : '' ?>>
 
           <label onclick="checkboxClickChooseParameter('<?=$p['id']?>', '<?=$p['harga']?>')" class="form-check-choose form-check-label" 
           for="check_<?=$p['id']?>"><?=$p['nama_parameter_jenis_pelayanan'].' ('.formatCurrencyWithoutRp($p['harga']).')'?></label>
@@ -66,7 +66,7 @@
     function checkboxClickChooseParameter(id, harga){
       if(id == 'all'){
         if($('#check_all').is(':checked')){
-          $('.option_checkbox').prop('checked', true)
+          $('input[type=checkbox]').not(":disabled").prop('checked', true)
         } else {
           $('.option_checkbox').prop('checked', false)
         }

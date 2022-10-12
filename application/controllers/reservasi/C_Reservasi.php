@@ -51,7 +51,6 @@ class C_Reservasi extends CI_Controller
 
     public function loadDetailLayanan($id){
         $data['result'] = $this->reservasi->loadDetailLayanan($id);
-      
         $this->load->view('reservasi/V_DetailLayananReservasi', $data);
     }
 

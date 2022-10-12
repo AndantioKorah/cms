@@ -562,6 +562,38 @@
         }
 
 
+        public function updateFlagAvailable(){
+            $data = $this->input->post();
+            // dd($data['status']);
+            $rs['code'] = 0;
+            $rs['message'] = '';
+            $id = $data['id'];
+            $flag_available = $data['status'];
+            // dd($flag_available);
+            // if($data['status'] == "1"){
+            //     $flag_available = 1;
+            // } else {
+            //     $flag_available = 0;
+            // }
+            $this->db->trans_begin();
+            
+            $this->db->where('id', $id)
+                    ->update('t_parameter_jenis_pelayanan',
+                    ['flag_available' => $flag_available,
+                    'updated_by' => $this->general_library->getId()]);
+
+            if($this->db->trans_status() == FALSE){
+                $this->db->trans_rollback();
+                $rs['code'] = 1;
+                $rs['message'] = $this->upload->display_errors();
+            } else {
+                $this->db->trans_commit();
+            }
+
+            return $rs;
+        }
+
+
   
     
     }
