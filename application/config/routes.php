@@ -94,6 +94,7 @@ $route['admin/master/role-pelayanan'] = 'master/C_Master/masterRolePelayanan';
 $route['admin/reservasi'] = 'reservasi/C_Reservasi/index';
 $route['admin/reservasi/hasil/input'] = 'reservasi/C_Reservasi/inputHasil';
 
+$route['admin/master/pelanggan'] = 'master/C_Master/masterPelanggan';
 // $route['dashboard'] = 'dashboard/C_Dashboard/dashboard';
 
 // =============================================================

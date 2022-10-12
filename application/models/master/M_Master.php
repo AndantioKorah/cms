@@ -497,6 +497,103 @@
             return $rs;
         }
 
+
+        public function loadMasterPelanggan(){
+            return $this->db->select('*')
+                            ->from('m_pelanggan')
+                            ->where('flag_active', 1)
+                            ->order_by('created_date', 'desc')
+                            ->get()->result_array();
+        }
+
+        
+        public function deleteMasterPelanggan($id){
+            $rs['code'] = 0;
+            $rs['message'] = '';
+
+            $this->db->trans_begin();
+
+            $this->db->where('id', $id)
+                    ->update('m_pelanggan',
+                    ['flag_active' => 0,
+                    'updated_by' => $this->general_library->getId()]);
+
+            if($this->db->trans_status() == FALSE){
+                $this->db->trans_rollback();
+                $rs['code'] = 1;
+                $rs['message'] = $this->upload->display_errors();
+            } else {
+                $this->db->trans_commit();
+            }
+
+            return $rs;
+        }
+
+
+            public function loadDetailPelanggan($id){
+            return $this->db->select('*')
+                            ->from('m_pelanggan')
+                            ->where('id', $id)
+                            ->where('flag_active', 1)
+                            ->get()->row_array();
+        }
+
+
+        public function editMasterPelanggan($data){
+            $rs['code'] = 0;
+            $rs['message'] = 0;
+
+            $exists = $this->db->select('*')
+                                ->from('m_pelanggan')   
+                                ->where('id', $data['id'])
+                                ->where('flag_active', 1)
+                                ->get()->row_array();
+            if(!$exists){
+                $rs['code'] = 1;
+                $rs['message'] = 'Data tidak ditemukan';
+            } else {
+                $data['updated_by'] = $this->general_library->getId();
+                $id = $data['id'];
+                $this->db->where('id', $id)
+                        ->update('m_pelanggan', $data);
+            }
+
+            return $rs;
+        }
+
+
+        public function updateFlagAvailable(){
+            $data = $this->input->post();
+            // dd($data['status']);
+            $rs['code'] = 0;
+            $rs['message'] = '';
+            $id = $data['id'];
+            $flag_available = $data['status'];
+            // dd($flag_available);
+            // if($data['status'] == "1"){
+            //     $flag_available = 1;
+            // } else {
+            //     $flag_available = 0;
+            // }
+            $this->db->trans_begin();
+            
+            $this->db->where('id', $id)
+                    ->update('t_parameter_jenis_pelayanan',
+                    ['flag_available' => $flag_available,
+                    'updated_by' => $this->general_library->getId()]);
+
+            if($this->db->trans_status() == FALSE){
+                $this->db->trans_rollback();
+                $rs['code'] = 1;
+                $rs['message'] = $this->upload->display_errors();
+            } else {
+                $this->db->trans_commit();
+            }
+
+            return $rs;
+        }
+
+
   
     
     }

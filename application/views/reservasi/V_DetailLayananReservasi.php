@@ -1,4 +1,5 @@
 <?php if($result){ ?>
+               
   <table style="width: 100%; padding: 10px;">
     <thead style="border: 1px solid black;">
       <th style="padding: 10px; border: 1px solid black;">JENIS LAYANAN</th>
@@ -29,10 +30,11 @@
                       ?>
                       <div class="col-lg-4">
                         <div class="form-check">
+                    
                           <input onclick="checkboxClick('<?=$p['id_t_parameter_jenis_pelayanan'].$rs['id_t_reservasi_online_detail']?>', '<?=$p['harga']?>', '<?=$rs['id_t_reservasi_online_detail']?>')" 
                           type="checkbox" class="form-check-choose all_option_checkbox option_checkbox_<?=$rs['id_t_reservasi_online_detail']?> form-check-input" 
                           id="check_<?=$p['id_t_parameter_jenis_pelayanan'].$rs['id_t_reservasi_online_detail']?>" name="parameter_<?=$rs['id_t_reservasi_online_detail']?>[]" 
-                          value="<?=$p['id_t_parameter_jenis_pelayanan'].';'.$p['harga']?>" <?=$p['checked'] == 1 ? 'checked' : ''?>>
+                          value="<?=$p['id_t_parameter_jenis_pelayanan'].';'.$p['harga']?>" <?= $p['flag_available'] == 0 ? 'disabled' : '' ?> <?= $p['flag_available'] == 1 ? 'checked' : '' ?>>
 
                           <label onclick="checkboxClick('<?=$p['id_t_parameter_jenis_pelayanan'].$rs['id_t_reservasi_online_detail']?>', '<?=$p['harga']?>')" class="form-check-choose form-check-label" 
                           for="check_<?=$p['id_t_parameter_jenis_pelayanan']?>"><?=$p['nama_parameter_jenis_pelayanan'].' ('.formatCurrencyWithoutRp($p['harga']).')'?></label>
@@ -164,3 +166,11 @@
     <h6>Belum Ada Layanan yang Dipilih <i class="fa fa-exclamation"></i></h6>
   </div>
 <?php } ?>
+<script>
+          $(function(){
+        $('.select2_this').select2()
+        startTime()
+        console.log($('.div-navbar-logo').height())
+        console.log($('.div-navbar-logo').width())
+      })
+</script>

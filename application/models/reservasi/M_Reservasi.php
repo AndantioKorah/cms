@@ -83,7 +83,7 @@
                         $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['nama_jenis_pelayanan'] = $rs['nama_jenis_pelayanan'];
                         $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['catatan_kepala_instalasi'] = $rs['catatan_kepala_instalasi'];
                        
-                        $default_param = $this->db->select('a.id_m_jenis_pelayanan, a.id as id_t_parameter_jenis_pelayanan, b.nama_parameter_jenis_pelayanan, a.harga, b.id as id_m_parameter_jenis_pelayanan')
+                        $default_param = $this->db->select('a.id_m_jenis_pelayanan, a.id as id_t_parameter_jenis_pelayanan, b.nama_parameter_jenis_pelayanan, a.harga, b.id as id_m_parameter_jenis_pelayanan, a.flag_available')
                                                 ->from('t_parameter_jenis_pelayanan a')
                                                 ->join('m_parameter_jenis_pelayanan b', 'a.id_m_parameter_jenis_pelayanan = b.id')
                                                 ->where('a.id_m_jenis_pelayanan', $rs['id_m_jenis_pelayanan'])
@@ -99,12 +99,15 @@
                                 $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']]['nama_parameter_jenis_pelayanan'] = $df['nama_parameter_jenis_pelayanan'];
                                 $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']]['id_t_parameter_jenis_pelayanan'] = $df['id_t_parameter_jenis_pelayanan'];
                                 $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']]['checked'] = 0;
+                                $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']]['flag_available'] = $df['flag_available'];
+
 
                                 if(isset($dt_param[$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']])){
                                     $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']]['checked'] = 1;
                                     $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']]['id_t_reservasi_online_parameter'] = $dt_param[$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']]['id'];
                                     $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']]['catatan_lab'] = $dt_param[$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']]['catatan_lab'];
                                     $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']]['hasil_lab'] = $dt_param[$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']]['hasil_lab'];
+                                    $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']]['flag_available'] = $df['flag_available'];
                                 }
                             }
                         }
@@ -213,12 +216,12 @@
             $rs['data']['total_biaya'] = null;
             $rs['data']['status'] = null;
             $data = $this->input->post();
-
             $this->db->trans_begin();
 
             $id_detail = null;
             $parameter = null;
             $total_biaya = 0;
+            $pelanggan = $data['pelanggan'];
             $i = 0;
             foreach($data['detail'] as $dt){
                 $id_detail[] = $dt;
@@ -245,7 +248,8 @@
                     ->update('t_reservasi_online', 
                     [
                         'total_biaya' => $total_biaya,
-                        'status' => 3
+                        'status' => 3,
+                        'id_m_pelanggan' => $pelanggan
                     ]);
 
             //status billing
@@ -338,6 +342,48 @@
             $rs['data'] = null;
             $rs['data']['status'] = null;
 
+              //tambah nomor sampel
+              $lastNoSampel = $this->db->select('a.no_sampel')
+              ->from('t_reservasi_online_detail as a') 
+              ->where('a.flag_active', 1) 
+              ->order_by('a.no_sampel', 'desc')
+              ->limit(1)           
+              ->get()->result_array();
+              if($lastNoSampel[0]['no_sampel'] == null){
+                
+                 $reservasi = $this->db->select('*')
+                 ->from('t_reservasi_online_detail')
+                 ->where('id_t_reservasi_online', $id)            
+                 ->where('flag_active', 1)            
+                 ->get()->result_array();
+                
+                 $noSampel = 1;
+                  foreach($reservasi as $d){
+                    $this->db->where('id', $d['id'])
+                             ->update('t_reservasi_online_detail',[
+                                'no_sampel' => $noSampel,
+                                'updated_by' => $this->general_library->getId()
+                            ]);
+                            $noSampel++;
+                }
+              } else {
+                $reservasi = $this->db->select('*')
+                ->from('t_reservasi_online_detail')
+                ->where('id_t_reservasi_online', $id)            
+                ->where('flag_active', 1)            
+                ->get()->result_array();
+               
+                $noSampel = $lastNoSampel[0]['no_sampel']+1;
+                 foreach($reservasi as $d){
+                   $this->db->where('id', $d['id'])
+                            ->update('t_reservasi_online_detail',[
+                               'no_sampel' => $noSampel,
+                               'updated_by' => $this->general_library->getId()
+                           ]);
+                           $noSampel++;
+               }
+              }
+
             $this->db->trans_begin();
 
             $rsv = $this->db->select('*')
@@ -357,6 +403,7 @@
                     [
                         'status' => 5
                     ]);
+
                     
                 //tambah status pembayaran diterima
                 $this->insertVerifReservasi([
@@ -374,6 +421,8 @@
                                     ->from('m_status_reservasi')
                                     ->where('id', 5)
                                     ->get()->row_array();
+
+              
 
                 $rs['data']['status'] = $status ? $status['nama_status'] : 'Verifikasi Kepala Instalasi';
             } else {
@@ -417,6 +466,12 @@
                     ->update('t_reservasi_online', 
                     [
                         'status' => 3
+                    ]);
+
+                $this->db->where('id_t_reservasi_online', $id)
+                    ->update('t_reservasi_online_detail', 
+                    [
+                        'no_sampel' => null
                     ]);
                     
                 //tambah status menunggu pembayaran
@@ -1169,5 +1224,26 @@
 
             return $rs;
         }
+
+        public function getAllPelanggan(){
+            return $this->db->select('*')
+                            ->from('m_pelanggan')
+                            ->where('flag_active', 1)
+                            ->order_by('nama')
+                            ->get()->result_array();
+        }
+
+        public function getPelanggan()
+        {      
+            $id = $this->input->post('id_m_pelanggan');
+            $this->db->select('*')
+                ->from('m_pelanggan as a')
+                ->where('a.id', $id)
+                ->where('a.flag_active', 1)
+                ->limit(1);
+                return $this->db->get()->result_array();
+        }
+    
+
     }
 ?>
