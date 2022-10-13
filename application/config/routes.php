@@ -93,6 +93,7 @@ $route['admin/master/role-pelayanan'] = 'master/C_Master/masterRolePelayanan';
 
 $route['admin/reservasi'] = 'reservasi/C_Reservasi/index';
 $route['admin/master/pelanggan'] = 'master/C_Master/masterPelanggan';
+$route['admin/master/laboratorium'] = 'master/C_Master/masterLaboratorium';
 // $route['dashboard'] = 'dashboard/C_Dashboard/dashboard';
 
 // =============================================================

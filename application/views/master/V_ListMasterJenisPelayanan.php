@@ -3,8 +3,9 @@
         <table class="table table-hover data_table table-striped">
             <thead>
                 <th class="text-center">No</th>
-                <th class="">Jenis Pelayanan</th>
-                <th class="">Keterangan</th>
+                <th style="width:30%;"  class="">Jenis Pelayanan</th>
+                <th style="width:30%;" class="">Keterangan</th>
+                <th  class="">Jenis Laboratorium</th>
                 <th class="text-center">Pilihan</th>
             </thead>
             <tbody>
@@ -13,6 +14,18 @@
                         <td class="text-center"><?=$no++;?></td>
                         <td class=""><?=$rs['nama_jenis_pelayanan'];?></td>
                         <td class=""><?=$rs['keterangan'];?></td>
+                        <td class="">
+                      
+                        <div class="form-group">
+                            
+                        <select onchange="updateLab(<?=$rs['id']?>)" style="width:170px;" class="form-control form-control-sm" id="jenisLab_<?=$rs['id']?>">
+                        <option ></option>
+                        <?php  foreach($lab as $l){ ?>
+                                <option <?= $rs['id_m_lab'] == $l['id'] ? 'selected' : '' ?> value="<?=$l['id']?>"><?=$l['nama_lab']?></option>
+                            <?php }  ?>
+                        </select>
+                    </div>
+                        </td>
                         <td class="text-center">
                             <button data-toggle="modal" href="#modal_set_role" onclick="setRole('<?=$rs['id']?>')" class="btn btn-info btn-sm"><i class="fa fa-user"></i> 
                         Role</button>
@@ -88,3 +101,30 @@
         <h5>Data Tidak Ditemukan <i class="fa fa-exclamation"></i></h5>
     </div>
 <?php } ?>
+
+    <script type="text/javascript">
+function updateLab(id){
+  
+    var jenis_lab =  $('#jenisLab_'+id).val();
+  $.ajax({
+                    url: '<?=base_url("master/C_Master/updateJenisLab")?>',
+                    method: 'post',
+                    data: {
+                        'jenis_lab' : jenis_lab,
+                        'id' : id
+                    },
+                    success: function(res){
+                        let rs = JSON.parse(res)
+                        if(rs.code == 0){
+                            successtoast('Berhasil ')
+                            $('#jenisLab_'+id).val(jenis_lab)
+                            // setTimeout(loadListParameter, 200);  
+                        } else {
+                            errortoast(rs.message)
+                        }
+                    }, error: function(e){
+                        errortoast('Terjadi Kesalahan')
+                    }
+                })
+}
+</script>

@@ -245,10 +245,11 @@
         
 
         public function loadMasterJenisPelayanan(){
-            return $this->db->select('*')
-                            ->from('m_jenis_pelayanan')
-                            ->where('flag_active', 1)
-                            ->order_by('created_date', 'desc')
+            return $this->db->select('a.*,b.nama_lab')
+                            ->from('m_jenis_pelayanan a')
+                            ->join('m_lab b', 'a.id_m_lab = b.id', 'left')
+                            ->where('a.flag_active', 1)
+                            ->order_by('a.created_date', 'desc')
                             ->get()->result_array();
         }
 
@@ -591,6 +592,63 @@
             }
 
             return $rs;
+        }
+
+        public function updateJenisLab(){
+            $data = $this->input->post();
+            // dd($data['status']);
+            $rs['code'] = 0;
+            $rs['message'] = '';
+            $id = $data['id'];
+            $jenis_lab = $data['jenis_lab'];
+
+            $this->db->trans_begin();
+            
+            $this->db->where('id', $id)
+                    ->update('m_jenis_pelayanan',
+                    ['id_m_lab' => $jenis_lab,
+                    'updated_by' => $this->general_library->getId()]);
+
+            if($this->db->trans_status() == FALSE){
+                $this->db->trans_rollback();
+                $rs['code'] = 1;
+                $rs['message'] = $this->upload->display_errors();
+            } else {
+                $this->db->trans_commit();
+            }
+
+            return $rs;
+        }
+
+
+        public function deleteMasterLaboratorium($id){
+            $rs['code'] = 0;
+            $rs['message'] = '';
+
+            $this->db->trans_begin();
+
+            $this->db->where('id', $id)
+                    ->update('m_lab',
+                    ['flag_active' => 0,
+                    'updated_by' => $this->general_library->getId()]);
+
+            if($this->db->trans_status() == FALSE){
+                $this->db->trans_rollback();
+                $rs['code'] = 1;
+                $rs['message'] = $this->upload->display_errors();
+            } else {
+                $this->db->trans_commit();
+            }
+
+            return $rs;
+        }
+
+        public function loadMasterLaboratorium(){
+            return $this->db->select('*')
+                            ->from('m_lab')
+                            ->where('flag_active', 1)
+                            ->order_by('created_date', 'desc')
+                            ->get()->result_array();
         }
 
 

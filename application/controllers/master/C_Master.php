@@ -108,6 +108,7 @@ class C_Master extends CI_Controller
 
     public function loadMasterJenisPelayanan(){
         $data['result'] = $this->master->loadMasterJenisPelayanan();
+        $data['lab'] = $this->general->getAll('m_lab');
         $this->load->view('master/V_ListMasterJenisPelayanan', $data);
     }
 
@@ -244,6 +245,35 @@ class C_Master extends CI_Controller
     public function updateFlagAvailable(){
         echo json_encode($this->master->updateFlagAvailable());
     }
+
+    public function updateJenisLab(){
+        echo json_encode($this->master->updateJenisLab());
+    }
+
+
+
+
+    public function masterLaboratorium(){
+        render('master/V_Masterlaboratorium', '', '', null);
+    }
+
+    public function insertMasterLaboratorium(){
+        $data = $this->input->post();
+        $data['created_by'] = $this->general_library->getId();
+        $this->master->insert('m_lab', $data);
+        echo json_encode(['code' => 0, 'message' => '']);
+    }
+
+
+    public function loadMasterLaboratorium(){
+        $data['result'] = $this->master->loadMasterLaboratorium();
+        $this->load->view('master/V_ListMasterlaboratorium', $data);
+    }
+
+    public function deleteMasterlaboratorium($id){
+        echo json_encode($this->master->deleteMasterlaboratorium($id));
+    }
+
 
 
 
