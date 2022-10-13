@@ -1135,6 +1135,95 @@
             return $rs;
         }
 
+        public function searchReservasiByStatus($status, $flag_greater){
+            $include = null;
+            if($flag_greater == 1){
+                $list_status = $this->session->userdata('list_status_reservasi');
+                $greater_than = $list_status[$status]['urutan'];
+                if($list_status){
+                    foreach($list_status as $l){
+                        if($l['urutan'] > $greater_than){
+                            $include[] = $l['id'];
+                        }
+                    }
+                }
+            }
+            
+            $this->db->select('a.*, b.nama_status')
+                    ->from('t_reservasi_online a')
+                    ->join('m_status_reservasi b', 'a.status = b.id')
+                    ->where('a.flag_active', 1)
+                    ->order_by('a.created_date', 'asc');
+
+            if($flag_greater == 1){
+                $this->db->where_in('status', $include);
+            } else {
+                $this->db->where('status', $status);
+            }
+
+            return $this->db->get()->result_array();
+        }
+
+        public function getAllParameter(){
+            return $this->db->select('*')
+                            ->from('m_parameter_jenis_pelayanan')
+                            ->where('flag_active', 1)
+                            ->order_by('nama_parameter_jenis_pelayanan')
+                            ->get()->result_array();
+        }
+
+        public function loadParameterForInputHasil($id){
+            return $this->db->select('c.id, a.nama_parameter_jenis_pelayanan, c.hasil_lab, c.catatan_lab, e.id as id_t_reservasi_online,
+                            d.id as id_t_reservasi_online_detail, e.created_date as tgl_regis')
+                            ->from('m_parameter_jenis_pelayanan a')
+                            ->join('t_parameter_jenis_pelayanan b', 'a.id = b.id_m_parameter_jenis_pelayanan')
+                            ->join('t_reservasi_online_parameter c', 'b.id = c.id_t_parameter_jenis_pelayanan')
+                            ->join('t_reservasi_online_detail d', 'd.id = c.id_t_reservasi_online_detail')
+                            ->join('t_reservasi_online e', 'e.id = d.id_t_reservasi_online')
+                            ->where('c.flag_active', 1)
+                            ->where('d.flag_active', 1)
+                            ->where('e.flag_active', 1)
+                            ->where('b.flag_active', 1)
+                            // ->where('e.status', 6)
+                            ->where('a.id', $id)
+                            ->order_by('e.created_date', 'asc')
+                            ->group_by('c.id')
+                            ->get()->result_array();
+        }
+
+        public function simpanInputHasil(){
+            $rs['code'] = 0;
+            $rs['message'] = '';
+            $rs['data'] = null;
+            $data = $this->input->post();
+
+            $this->db->trans_begin();
+
+            if($data){
+                foreach(array_keys($data) as $d){
+                    $explode = explode("_", $d);
+                    $this->db->where('id', $explode[2])
+                            ->update('t_reservasi_online_parameter', [
+                                'hasil_lab' => $data['hasil_lab_'.$explode[2]],
+                                'catatan_lab' => $data['catatan_lab_'.$explode[2]],
+                                'updated_by' => $this->general_library->getId()
+                            ]);
+                }
+            } else {
+                $rs['code'] = 0;
+                $rs['message'] = 'Terjadi Kesalahan';
+            }
+            
+            if($this->db->trans_status() == FALSE){
+                $this->db->trans_rollback();
+                $rs['code'] = 1;
+                $rs['message'] = $this->upload->display_errors();
+            } else {
+                $this->db->trans_commit();
+            }
+
+            return $rs;
+        }
 
         public function getAllPelanggan(){
             return $this->db->select('*')

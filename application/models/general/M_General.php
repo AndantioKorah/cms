@@ -159,6 +159,14 @@
                         ->update($tableName, ['flag_active' => 0, 'updated_by' => $this->general_library->getId()]);
         }
 
+        public function getAllStatusReservasi(){
+            return $this->db->select('*')
+                            ->from('m_status_reservasi')
+                            ->where('flag_active', 1)
+                            ->order_by('urutan', 'asc')
+                            ->get()->result_array();
+        }
+
         public function otentikasiUser($data, $jenis_transaksi){
             $username = $data['username'];
             $password = $this->general_library->encrypt($username, $data['password']);
