@@ -34,7 +34,7 @@
                           <input onclick="checkboxClick('<?=$p['id_t_parameter_jenis_pelayanan'].$rs['id_t_reservasi_online_detail']?>', '<?=$p['harga']?>', '<?=$rs['id_t_reservasi_online_detail']?>')" 
                           type="checkbox" class="form-check-choose all_option_checkbox option_checkbox_<?=$rs['id_t_reservasi_online_detail']?> form-check-input" 
                           id="check_<?=$p['id_t_parameter_jenis_pelayanan'].$rs['id_t_reservasi_online_detail']?>" name="parameter_<?=$rs['id_t_reservasi_online_detail']?>[]" 
-                          value="<?=$p['id_t_parameter_jenis_pelayanan'].';'.$p['harga']?>" <?= $p['flag_available'] == 0 ? 'disabled' : '' ?> <?= $p['flag_available'] == 1 ? 'checked' : '' ?>>
+                          value="<?=$p['id_t_parameter_jenis_pelayanan'].';'.$p['harga']?>" <?= $p['flag_available'] == 0 ? 'disabled' : '' ?> <?= $p['checked'] == 1 ? 'checked' : '' ?>>
 
                           <label onclick="checkboxClick('<?=$p['id_t_parameter_jenis_pelayanan'].$rs['id_t_reservasi_online_detail']?>', '<?=$p['harga']?>')" class="form-check-choose form-check-label" 
                           for="check_<?=$p['id_t_parameter_jenis_pelayanan']?>"><?=$p['nama_parameter_jenis_pelayanan'].' ('.formatCurrencyWithoutRp($p['harga']).')'?></label>

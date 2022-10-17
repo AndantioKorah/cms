@@ -51,6 +51,7 @@ class C_Reservasi extends CI_Controller
 
     public function loadDetailLayanan($id){
         $data['result'] = $this->reservasi->loadDetailLayanan($id);
+        // dd($data);
         $this->load->view('reservasi/V_DetailLayananReservasi', $data);
     }
 
@@ -161,6 +162,17 @@ class C_Reservasi extends CI_Controller
     {
         $data = $this->reservasi->getPelanggan();
         echo json_encode($data);
+    }
+
+    public function openFormTambahReservasi(){
+            $data['layanan'] = $this->reservasi->getAllLayanan();
+            $data['pelanggan'] = $this->reservasi->getAllPelanggan();
+            $this->load->view('reservasi/V_FormTambahReservasi', $data);
+ 
+    }
+
+    public function formAddParameterLangsung(){
+        echo json_encode($this->reservasi->formAddParameterLangsung($this->input->post()));
     }
 
 }

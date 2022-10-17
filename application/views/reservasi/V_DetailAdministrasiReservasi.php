@@ -82,10 +82,12 @@
           </ul>
           <div class="tab-content">
             <div id="administrasi_tab" class="tab-pane active">
-              <a href="<?=base_url('admin/master/pelanggan');?>">
-            <button type="button" id="btn_create_billing" style="float: right;" class="btn btn-navy btn-sm"><i class="fa fa-user"></i> Tambah Data Pelanggan</button></a>
+            
               <form id="form_administrasi">
-              <div class="row">
+              <?php if($result['id_m_pelanggan'] == null){ ?>
+                <a href="<?=base_url('admin/master/pelanggan');?>">
+            <button type="button" id="btn_create_billing" style="float: right;" class="btn btn-navy btn-sm"><i class="fa fa-user"></i> Tambah Data Pelanggan</button></a>
+            <div class="row">
                             <div class="col-lg-4 form-group">
                                 <label>Pilih Pelanggan</label>
                                 <select onchange="getPelanggan()" class="form-control form-control-sm select2_this select2-navy" data-dropdown-css-class="select2-navy" name="pelanggan" id="pelanggan">
@@ -128,7 +130,40 @@
             </tr>
           </table>
           </div>
-                
+            <?php } ?>
+            <?php if($result['id_m_pelanggan']){ ?>
+              <div class="col-lg-12" style=" margin-bottom: 10px;">
+            <table style="width: 100%;" >
+            <tr>
+              <td style="width: 10%;">
+                <span class="label_title">Nama</span>  
+              </td>
+              <td style="width: 33%; text-align: left;"> : <?= $result['nama']?> 
+              <span class="value_title" id="pelanggan_nama"></span>
+              </td>
+           
+            </tr>
+            <tr>
+              <td style="width: 10%;">
+                <span class="label_title">Alamat</span> 
+              </td>
+              <td style="width: 33%; text-align: left;"> : <?= $result['alamat']?> 
+              <span class="value_title" id="pelanggan_alamat"></span>
+              </td>
+             
+            </tr>
+            <tr>
+              <td style="width: 10%;">
+                <span class="label_title">No HP</span> 
+              </td>
+              <td style="width: 33%; text-align: left;"> : <?= $result['no_hp']?> 
+              <span class="value_title" id="pelanggan_no_hp"></span>
+              </td>
+              
+            </tr>
+          </table>
+          </div>
+              <?php } ?>
                 <div class="col-lg-12" id="div_detail_layanan">
                 </div>
                 <div class="col-lg-12" style="height: 5vh;">

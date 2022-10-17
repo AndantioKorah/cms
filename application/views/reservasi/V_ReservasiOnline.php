@@ -8,6 +8,9 @@
     <div class="col-lg-12">
         <div class="card card-default p-3">
             <div class="row">
+            <div class="col-lg-12 text-left">
+                        <button onclick="tambahReservasi()" type="button" class="btn btn-sm btn-navy"><i class="fa fa-plus"></i> Tambah Reservasi</button>
+        </div>
                 <div class="col-lg-12 text-center">
                     <h5>LIST RESERVASI ONLINE</h5>
                     <hr>
@@ -99,6 +102,7 @@
         </div>
     </div>
     <div class="col-lg-12" id="div_reservasi_detail"></div>
+    <div class="col-lg-12" id="div_tambah_reservasi"></div>
 </div>
 <script>
     $(function(){
@@ -108,6 +112,8 @@
     })
 
     function searchReservasiByStatus(status, flag_greater = 0){
+        $('#div_tambah_reservasi').html('')
+        $('#div_reservasi_detail').html('')
         $('#result_tab').html('')
         $('#result_tab').append(divLoaderNavy)
         $('#result_tab').load('<?=base_url('reservasi/C_Reservasi/searchReservasiByStatus/')?>'+status+'/'+flag_greater, function(){
@@ -144,6 +150,14 @@
         $('#div_reservasi_detail').html('')
         $('#div_reservasi_detail').append(divLoaderNavy)
         $('#div_reservasi_detail').load('<?=base_url('reservasi/C_Reservasi/openDetailAdministrasiReservasi/')?>'+id, function(){
+            $('#loader').hide()
+        })
+    }
+
+    function tambahReservasi(){
+        $('#div_tambah_reservasi').html('')
+        $('#div_tambah_reservasi').append(divLoaderNavy)
+        $('#div_tambah_reservasi').load('<?=base_url('reservasi/C_Reservasi/openFormTambahReservasi/')?>', function(){
             $('#loader').hide()
         })
     }

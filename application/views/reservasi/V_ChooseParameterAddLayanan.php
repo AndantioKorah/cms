@@ -26,6 +26,7 @@
     <div class="col-lg-6">
       <span class="title-layanan">Total Biaya</span><br>
       <span class="total_biaya_temp"></span>
+      <input type="hidden" id="total_biaya" name="total_biaya" >
     </div>
     <div class="col-lg-6">
       <button id="btn_save" type="submit" style="float: right;" class="btn_delete_parameter btn btn-sm btn-navy"><i class="fa fa-plus"></i> Tambah</button>
@@ -61,6 +62,7 @@
         total_biaya = parseInt(total_biaya) + parseInt(temp[1]);
       });
       $('.total_biaya_temp').html('Rp '+formatRupiah(String(total_biaya)))
+      $('#total_biaya').val(total_biaya)
     }
 
     function checkboxClickChooseParameter(id, harga){

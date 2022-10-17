@@ -34,9 +34,11 @@
         }
 
         public function openDetailReservasi($id){
-            return $this->db->select('a.session_id, a.id, a.created_date as tanggal_reservasi, d.nama_status, a.total_biaya, a.nomor_tiket, a.status')
+            return $this->db->select('a.session_id, a.id, a.created_date as tanggal_reservasi, d.nama_status, a.total_biaya, a.nomor_tiket, a.status, a.id_m_pelanggan,
+                                        e.nama,e.alamat,e.no_hp')
                             ->from('t_reservasi_online a')
-                            ->join('m_status_reservasi d', 'a.status = d.id')
+                            ->join('m_status_reservasi d','a.status = d.id')
+                            ->join('m_pelanggan e', 'a.id_m_pelanggan = e.id', 'left')
                             ->where('a.id', $id)
                             ->where('a.status !=', 1)
                             ->get()->row_array();
@@ -1243,6 +1245,90 @@
                 ->limit(1);
                 return $this->db->get()->result_array();
         }
+
+        public function formAddParameterLangsung($data){
+            $rs['code'] = 0;
+            $rs['message'] = '';
+           
+            $this->db->trans_begin();
+            if(isset($data['parameter']) && $data['parameter']){
+                $last_id_parent = 0;
+                $exist = $this->db->select('*')
+                                    ->from('t_reservasi_online')
+                                    ->where('flag_active', 1)
+                                    ->where('session_id', $data['session_id'])
+                                    ->get()->row_array();
+                if($exist){
+                    $last_id_parent = $exist['id'];
+                } else {
+                    $reservasi['session_id'] = $data['session_id'];
+                    $reservasi['total_biaya'] = $data['total_biaya'];
+                    $last_data = $this->db->select('*')
+                    ->from('t_reservasi_online a')
+                    ->where('a.flag_active', 1)
+                    ->where('DATE(a.created_date)', date('y-m-d'))
+                    ->where('nomor_tiket IS NOT NULL')
+                    ->where('flag_active', 1)
+                    ->order_by('nomor_tiket', 'desc')
+                    ->limit(1)
+                    ->get()->row_array();
+                        $counter = str_pad("1", 4, "0", STR_PAD_LEFT);
+                        if($last_data){
+                            $last_counter = substr($last_data['nomor_tiket'], -4);
+                            $counter = floatval($last_counter) + 1;
+                            $counter = str_pad($counter, 4, "0", STR_PAD_LEFT);
+                        }
+                        $reservasi['nomor_tiket'] = strtoupper(generateRandomLetter(4)).date('Ymd').$counter;
+                        $reservasi['id_m_pelanggan'] = $data['id_m_pelanggan'];
+                        $reservasi['status'] = 3;
+                    $this->db->insert('t_reservasi_online', $reservasi);
+                    $last_id_parent = $this->db->insert_id();
+                    $rs['id'] = $last_id_parent;
+                }
+
+                $exist_pelayanan = $this->db->select('*')
+                                            ->from('t_reservasi_online_detail')
+                                            ->where('id_m_jenis_pelayanan', $data['id_m_jenis_pelayanan'])
+                                            ->where('id_t_reservasi_online', $last_id_parent)
+                                            ->where('flag_active', 1)
+                                            ->get()->row_array();
+                if($exist_pelayanan){
+                    $rs['code'] = 1;
+                    $rs['message'] = 'Jenis Layanan Sudah Ada'; 
+                } else {
+                    $detail['id_t_reservasi_online'] = $last_id_parent;
+                    $detail['id_m_jenis_pelayanan'] = $data['id_m_jenis_pelayanan'];
+                    $this->db->insert('t_reservasi_online_detail', $detail);
+                    $last_id_detail = $this->db->insert_id();
+    
+                    $i = 0;
+                    foreach($data['parameter'] as $p){
+                        $parameter[$i]['id_t_reservasi_online_detail'] = $last_id_detail;
+                        $explode = explode(';', $p);
+                        $parameter[$i]['id_t_parameter_jenis_pelayanan'] = $explode[0];
+                        $parameter[$i]['harga'] = $explode[1];
+                        $i++;
+                    }
+                    $this->db->insert_batch('t_reservasi_online_parameter', $parameter);
+                   
+                }
+            } else {
+                $rs['code'] = 1;
+                $rs['message'] = 'Parameter Belum Dipilih'; 
+            }
+            
+
+            if($this->db->trans_status() == FALSE){
+                $this->db->trans_rollback();
+                $rs['code'] = 1;
+                $rs['message'] = $this->upload->display_errors();
+            } else {
+                $this->db->trans_commit();
+            }
+
+            return $rs;
+        }
+       
     
 
     }
