@@ -1281,6 +1281,7 @@
                         $reservasi['nomor_tiket'] = strtoupper(generateRandomLetter(4)).date('Ymd').$counter;
                         $reservasi['id_m_pelanggan'] = $data['id_m_pelanggan'];
                         $reservasi['status'] = 3;
+                        $reservasi['flag_regis_langsung'] = 1;
                     $this->db->insert('t_reservasi_online', $reservasi);
                     $last_id_parent = $this->db->insert_id();
                     $rs['id'] = $last_id_parent;
