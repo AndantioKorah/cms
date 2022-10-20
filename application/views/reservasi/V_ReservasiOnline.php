@@ -155,6 +155,8 @@
     }
 
     function tambahReservasi(){
+        $('#result_tab').html('')
+        $('#div_reservasi_detail').html('')
         $('#div_tambah_reservasi').html('')
         $('#div_tambah_reservasi').append(divLoaderNavy)
         $('#div_tambah_reservasi').load('<?=base_url('reservasi/C_Reservasi/openFormTambahReservasi/')?>', function(){

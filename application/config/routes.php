@@ -97,6 +97,7 @@ $route['admin/reservasi/hasil/input'] = 'reservasi/C_Reservasi/inputHasil';
 $route['admin/master/pelanggan'] = 'master/C_Master/masterPelanggan';
 $route['admin/master/laboratorium'] = 'master/C_Master/masterLaboratorium';
 // $route['dashboard'] = 'dashboard/C_Dashboard/dashboard';
+$route['admin/reservasi/cetak'] = 'reservasi/C_Reservasi/cetakSuratPP';
 
 // =============================================================
 

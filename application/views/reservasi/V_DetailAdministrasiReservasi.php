@@ -184,8 +184,11 @@
                             <div class="col-lg-8">
                               <input class="form-control form-control-sm" id="keterangan_delete_payment" autocomplete="off" placeholder="Keterangan" />
                             </div>
+                        
                             <div class="col-lg-4">
-                              <button type="button" id="btn_delete_payment" style="float: right;" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus Pembayaran</button>
+                            <button type="button" id="btn_delete_payment" style="float: right;" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus Pembayaran</button>
+
+                            <button type="button" id="btn_cetak" style="float: right;margin-right:5px;" class="btn btn-primary btn-sm"><i class="fa fa-print"></i> Cetak</button>
                             </div>
                           </div>
                         <?php } ?>
@@ -486,6 +489,11 @@
         });
       
         }
+
+
+        $('#btn_cetak').on('click', function(){
+         alert()
+        })
         
        
       

@@ -83,6 +83,7 @@
 
         function setParameter(id){
             $('#modal_set_parameter_content').html('')
+            $('#modal_set_role_content').html('')
             $('#modal_set_parameter_content').append(divLoaderNavy)
             $('#modal_set_parameter_content').load('<?=base_url('master/C_Master/loadParameterJenisPelayanan/')?>'+id, function(){
                 $('#loader').hide()
@@ -90,6 +91,7 @@
         }
         function setRole(id){
             $('#modal_set_role_content').html('')
+            $('#modal_set_parameter_content').html('')
             $('#modal_set_role_content').append(divLoaderNavy)
             $('#modal_set_role_content').load('<?=base_url('master/C_Master/loadRoleJenisPelayanan/')?>'+id, function(){
                 $('#loader').hide()

@@ -175,4 +175,11 @@ class C_Reservasi extends CI_Controller
         echo json_encode($this->reservasi->formAddParameterLangsung($this->input->post()));
     }
 
+    public function cetakSuratPP(){
+        // $data['layanan'] = $this->reservasi->getAllLayanan();
+        // $data['pelanggan'] = $this->reservasi->getAllPelanggan();
+        $this->load->view('cetakan/V_CetakanSPP', null);
+
+}
+
 }
