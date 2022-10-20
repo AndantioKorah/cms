@@ -4,9 +4,9 @@
             <thead>
                 <th class="text-center">No</th>
                 <th class="text-center">Nama Parameter</th>
-                <!-- <th class="text-center">Kategori</th> -->
-                <!-- <th class="text-center">Jenis</th> -->
-                <th class="text-center">Keterangan</th>
+                <th class="text-center">Satuan</th>
+                <th class="text-center">Baku Mutu</th>
+                <th class="text-center">Metode</th>
                 <th class="text-center">Pilihan</th>
             </thead>
             <tbody>
@@ -14,9 +14,9 @@
                     <tr>
                         <td class="text-center"><?=$no++;?></td>
                         <td class=""><?=$rs['nama_parameter_jenis_pelayanan'];?></td>
-                        <!-- <td class=""><?=$rs['nama_kategori_parameter'];?></td> -->
-                        <!-- <td class=""><?=$rs['nama_jenis_parameter'];?></td> -->
-                        <td class=""><?=$rs['keterangan'];?></td>
+                        <td class="text-center"><?=$rs['satuan'];?></td>
+                        <td class="text-center"><?=$rs['baku_mutu'];?></td>
+                        <td class="text-center"><?=$rs['metode'];?></td>
                         <td class="text-center">
                             <button id="btn_delete_<?=$rs['id']?>" onclick="deleteData('<?=$rs['id']?>')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus</button>
                             <button style="display: none;" disabled id="btn_loading_delete_<?=$rs['id']?>" class="btn btn-danger btn-sm"><i class="fa fa-spin fa-spinner"></i> Menghapus....</button>

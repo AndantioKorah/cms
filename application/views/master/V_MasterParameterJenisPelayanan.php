@@ -5,17 +5,31 @@
     <div class="card-body" style="display: block;">
         <form id="form_tambah_master_pelayanan">
             <div class="row">
-                <div class="col-lg-6 col-md-12">
+                <div class="col-lg-3 col-md-12">
                     <div class="form-group">
                         <label class="bmd-label-floating">Parameter Jenis Pelayanan</label>
                         <input class="form-control" autocomplete="off" name="nama_parameter_jenis_pelayanan" id="nama_parameter_jenis_pelayanan" required/>
                     </div>
                 </div>
 
-                <div class="col-lg-6 col-md-12">
+                <div class="col-lg-3 col-md-12">
                     <div class="form-group">
-                        <label class="bmd-label-floating">Keterangan</label>
-                        <input class="form-control" autocomplete="off" name="keterangan" id="keterangan"/>
+                        <label class="bmd-label-floating">Satuan</label>
+                        <input class="form-control" autocomplete="off" name="satuan" id="satuan"/>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-12">
+                    <div class="form-group">
+                        <label class="bmd-label-floating">Baku Mutu</label>
+                        <input class="form-control" autocomplete="off" name="baku_mutu" id="baku_mutu"/>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-12">
+                    <div class="form-group">
+                        <label class="bmd-label-floating">Metode</label>
+                        <input class="form-control" autocomplete="off" name="metode" id="metode"/>
                     </div>
                 </div>
 
@@ -86,7 +100,9 @@
                     successtoast('Data berhasil ditambahkan')
                     loadMasterParameterJenisPelayanan()
                     $('#nama_parameter_jenis_pelayanan').val('')
-                    $('#keterangan').val('')
+                    $('#satuan').val('')
+                    $('#baku_mutu').val('')
+                    $('#metode').val('')
                     $('#btn_save').show()
                     $('#btn_save_loading').hide()
                 } else {
