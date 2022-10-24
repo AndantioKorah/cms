@@ -91,6 +91,7 @@
                 <div class="col-lg-4 form-group">
                     <label>Pilih Pelanggan</label>
                     <select onchange="getPelanggan()" class="form-control form-control-sm select2_this select2-navy" data-dropdown-css-class="select2-navy" name="pelanggan" id="pelanggan">
+                    <option value="">-- Pilih Pelanggan --</option>
                     <?php if($pelanggan){ foreach($pelanggan as $l){ ?>
                         <option <?=$result['id_m_pelanggan'] == $l['id'] ? 'selected' : '';?> value="<?=$l['id']?>"><?=$l['nama']?></option>
                     <?php } } ?>
