@@ -16,7 +16,7 @@
                     <?php $no = 1; foreach($result as $rs){ ?>
                         <tr>
                             <td class="text-center"><?=$no++;?></td>
-                            <td class="text-center"></td>
+                            <td class="text-center"><?=$rs['no_sampel']?></td>
                             <td class="text-center"><?=formatDateNamaBulan($rs['tgl_regis'])?></td>
                             <td class="text-center"><?=$rs['nama_parameter_jenis_pelayanan']?></td>
                             <td class="text-center"></td>
