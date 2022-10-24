@@ -13,7 +13,8 @@
       ?>
         <tr style="border: 1px solid black;">
           <td colspan=3 style="padding: 5px; border: 1px solid black; background-color: #001f3f; color: white;">
-            <span class="search_jenis_layanan"><?=$rs['nama_jenis_pelayanan']?></span>
+            <!-- <span class="search_jenis_layanan"><?=$rs['nama_jenis_pelayanan']?></span> -->
+            <span class="search_jenis_layanan"><?=$result['status'] >= 4 && $rs['no_sampel'] ? '('.$rs['no_sampel'].') ' : ''?><?=$rs['nama_jenis_pelayanan']?></span>
             <input value="<?=$rs['id_t_reservasi_online_detail']?>" name="detail[]" style="display: none;" />
           </td>
         </tr>

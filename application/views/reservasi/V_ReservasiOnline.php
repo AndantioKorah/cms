@@ -8,9 +8,13 @@
     <div class="col-lg-12">
         <div class="card card-default p-3">
             <div class="row">
-            <div class="col-lg-12 text-left">
-                        <button onclick="tambahReservasi()" type="button" class="btn btn-sm btn-navy"><i class="fa fa-plus"></i> Tambah Reservasi</button>
-        </div>
+            <?php if($this->general_library->isPetugasYantek()){ ?>
+                <div class="col-lg-12 text-left">
+                    <button onclick="tambahReservasi()" type="button" class="btn btn-sm btn-navy"><i class="fa fa-plus"></i> Tambah Reservasi</button>
+                </div>
+            <?php } ?>
+            <button onclick="testNotif()" type="button" class="btn btn-sm btn-navy"><i class="fa fa-send"></i> Tes Notif</button>
+
                 <div class="col-lg-12 text-center">
                     <h5>LIST RESERVASI ONLINE</h5>
                     <hr>
@@ -110,6 +114,20 @@
             showDropdowns: true
         });
     })
+
+    function testNotif(){
+        $.ajax({
+            url: '<?=base_url('reservasi/C_Reservasi/tesNotif')?>',
+            method: 'POST',
+            data: $(this).serialize(),
+            success: function(res){
+                $('#div_result').html('')
+                $('#div_result').append(res)
+            }, error: function(e){
+                errortoast(e)
+            }
+        })
+    }
 
     function searchReservasiByStatus(status, flag_greater = 0){
         $('#div_tambah_reservasi').html('')

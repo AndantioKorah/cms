@@ -47,7 +47,7 @@
         public function loadDetailLayanan($id){
             $final_result = null;
             $result = $this->db->select('a.session_id, c.nama_jenis_pelayanan, b.id_m_jenis_pelayanan, a.id, b.id as id_t_reservasi_online_detail,
-                            a.created_date, d.nama_status, a.total_biaya, a.nomor_tiket, a.status, b.catatan_kepala_instalasi')
+                            a.created_date, d.nama_status, a.total_biaya, a.nomor_tiket, a.status, b.catatan_kepala_instalasi, b.no_sampel')
                             ->from('t_reservasi_online a')
                             ->join('t_reservasi_online_detail b', 'b.id_t_reservasi_online = a.id')
                             ->join('m_jenis_pelayanan c', 'b.id_m_jenis_pelayanan = c.id')
@@ -59,7 +59,7 @@
                             ->get()->result_array();
             if($result){
                 $detail = $this->db->select('c.nama_parameter_jenis_pelayanan, b.harga, d.id_m_jenis_pelayanan, a.id_t_reservasi_online_detail, a.id,
-                        c.id as id_m_parameter_jenis_pelayanan, a.id_t_parameter_jenis_pelayanan, a.catatan_lab, a.hasil_lab')
+                        c.id as id_m_parameter_jenis_pelayanan, a.id_t_parameter_jenis_pelayanan, a.catatan_lab, a.hasil_lab, d.no_sampel')
                                 ->from('t_reservasi_online_parameter a')
                                 ->join('t_parameter_jenis_pelayanan b', 'a.id_t_parameter_jenis_pelayanan = b.id')
                                 ->join('m_parameter_jenis_pelayanan c', 'b.id_m_parameter_jenis_pelayanan = c.id')
@@ -84,6 +84,7 @@
                         $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['id_t_reservasi_online_detail'] = $rs['id_t_reservasi_online_detail'];
                         $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['nama_jenis_pelayanan'] = $rs['nama_jenis_pelayanan'];
                         $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['catatan_kepala_instalasi'] = $rs['catatan_kepala_instalasi'];
+                        $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['no_sampel'] = $rs['no_sampel'];
                        
                         $default_param = $this->db->select('a.id_m_jenis_pelayanan, a.id as id_t_parameter_jenis_pelayanan, b.nama_parameter_jenis_pelayanan, a.harga, b.id as id_m_parameter_jenis_pelayanan, a.flag_available')
                                                 ->from('t_parameter_jenis_pelayanan a')
@@ -1176,12 +1177,13 @@
 
         public function loadParameterForInputHasil($id){
             return $this->db->select('c.id, a.nama_parameter_jenis_pelayanan, c.hasil_lab, c.catatan_lab, e.id as id_t_reservasi_online,
-                            d.id as id_t_reservasi_online_detail, e.created_date as tgl_regis')
+                            d.id as id_t_reservasi_online_detail, e.created_date as tgl_regis, f.satuan, d.no_sampel')
                             ->from('m_parameter_jenis_pelayanan a')
                             ->join('t_parameter_jenis_pelayanan b', 'a.id = b.id_m_parameter_jenis_pelayanan')
                             ->join('t_reservasi_online_parameter c', 'b.id = c.id_t_parameter_jenis_pelayanan')
                             ->join('t_reservasi_online_detail d', 'd.id = c.id_t_reservasi_online_detail')
                             ->join('t_reservasi_online e', 'e.id = d.id_t_reservasi_online')
+                            ->join('m_parameter_jenis_pelayanan f', 'b.id_m_parameter_jenis_pelayanan = f.id')
                             ->where('c.flag_active', 1)
                             ->where('d.flag_active', 1)
                             ->where('e.flag_active', 1)

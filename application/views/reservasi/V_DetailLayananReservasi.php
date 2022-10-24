@@ -13,7 +13,7 @@
           <td style="padding: 10px; width: 70%; border: 1px solid black;">
             <div class="row">
               <div class="col-lg-12">
-                <span class="search_jenis_layanan"><?=$rs['nama_jenis_pelayanan']?></span>
+                <span class="search_jenis_layanan"><?=$result['status'] >= 4 && $rs['no_sampel'] ? '('.$rs['no_sampel'].') ' : ''?><?=$rs['nama_jenis_pelayanan']?></span>
                 <input value="<?=$rs['id_t_reservasi_online_detail']?>" name="detail[]" style="display: none;" />
                 <?php if($result['status'] == 2){ ?>
                   <i id="btn_delete_<?=$rs['id_t_reservasi_online_detail']?>" onclick="deleteJenisLayanan('<?=$rs['id_t_reservasi_online_detail']?>')" style="color: red; cursor: pointer;" class="fa fa-trash"></i>

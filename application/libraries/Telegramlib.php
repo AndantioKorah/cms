@@ -6,7 +6,7 @@ class Telegramlib extends CI_Model{
   public function hashTelegram()
   {
     //   $token = "1827474004:AAH8TDfeAh8WR_iXIG-vL0CDuF0KZbwtNUk";
-      $token = "5315874699:AAFpVyGEnuSAwT5In5AxzWoL2jM5HzaR1NM";
+      $token = "5083809724:AAHHpns-im4xdHWoVp9Mgo5STE7FpPWk_V0";
       $url = "https://api.telegram.org/bot$token/";
       return [
           'token' => $token,

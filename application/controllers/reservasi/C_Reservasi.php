@@ -11,6 +11,7 @@ class C_Reservasi extends CI_Controller
         $this->load->model('master/M_Master', 'master');
         $this->load->model('reservasi/M_Reservasi', 'reservasi');
         $this->load->model('webcp/reservasi/M_Reservasi', 'cmsreservasi');
+        $this->load->library('telegramlib');
     }
 
     public function index(){
@@ -179,7 +180,10 @@ class C_Reservasi extends CI_Controller
         // $data['layanan'] = $this->reservasi->getAllLayanan();
         // $data['pelanggan'] = $this->reservasi->getAllPelanggan();
         $this->load->view('cetakan/V_CetakanSPP', null);
+    }
 
-}
+    public function sendNotifTelegram(){
+        $this->reservasi->sendNotifTelegram();
+    }
 
 }
