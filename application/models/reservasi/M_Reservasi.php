@@ -339,11 +339,13 @@
         }
 
         public function acceptPayment($id){
+            
             $rs['code'] = 0;
             $rs['message'] = '';
             $rs['data'] = null;
             $rs['data']['status'] = null;
 
+            $this->db->trans_begin();
               //tambah nomor sampel
               $lastNoSampel = $this->db->select('a.no_sampel')
               ->from('t_reservasi_online_detail as a') 
@@ -386,7 +388,7 @@
                }
               }
 
-            $this->db->trans_begin();
+         
 
             $rsv = $this->db->select('*')
                             ->from('t_reservasi_online')
@@ -403,7 +405,8 @@
                 $this->db->where('id', $id)
                     ->update('t_reservasi_online', 
                     [
-                        'status' => 5
+                        'status' => 5,
+                        'id_m_pelanggan' => $this->input->post('id_m_pelanggan')
                     ]);
 
                     

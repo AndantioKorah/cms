@@ -84,7 +84,7 @@
             <div id="administrasi_tab" class="tab-pane active">
             
               <form id="form_administrasi">
-              <?php if($result['id_m_pelanggan'] == null){ ?>
+              <?php if($result['status'] <= 4){ ?>
                 <a href="<?=base_url('admin/master/pelanggan');?>">
             <button type="button" id="btn_create_billing" style="float: right;" class="btn btn-navy btn-sm"><i class="fa fa-user"></i> Tambah Data Pelanggan</button></a>
             <div class="row">
@@ -104,7 +104,7 @@
               <td style="width: 10%;">
                 <span class="label_title">Nama</span>  
               </td>
-              <td style="width: 33%; text-align: left;"> : 
+              <td style="width: 33%; text-align: left;"> :<?=$result['id_m_pelanggan'] == $l['id'] ? 'selected' : '';?> 
               <span class="value_title" id="pelanggan_nama"></span>
               </td>
            
@@ -132,13 +132,13 @@
             <?php } ?>
             <?php if($result['id_m_pelanggan']){ ?>
               <div class="col-lg-12" style=" margin-bottom: 10px;">
-            <table style="width: 100%;" >
+            <table style="width: 100%;" id="data_pelanggan_exist">
             <tr>
               <td style="width: 10%;">
                 <span class="label_title">Nama</span>  
               </td>
-              <td style="width: 33%; text-align: left;"> : <?= $result['nama']?> 
-              <span class="value_title" id="pelanggan_nama"></span>
+              <td style="width: 33%; text-align: left;"> : <b><?= $result['nama']?> </b>
+              <span class="value_title" id=""></span>
               </td>
            
             </tr>
@@ -146,8 +146,8 @@
               <td style="width: 10%;">
                 <span class="label_title">Alamat</span> 
               </td>
-              <td style="width: 33%; text-align: left;"> : <?= $result['alamat']?> 
-              <span class="value_title" id="pelanggan_alamat"></span>
+              <td style="width: 33%; text-align: left;"> : <b><?= $result['alamat']?><b>
+              <span class="value_title" id=""></span>
               </td>
              
             </tr>
@@ -155,8 +155,8 @@
               <td style="width: 10%;">
                 <span class="label_title">No HP</span> 
               </td>
-              <td style="width: 33%; text-align: left;"> : <?= $result['no_hp']?> 
-              <span class="value_title" id="pelanggan_no_hp"></span>
+              <td style="width: 33%; text-align: left;"> : <b><?= $result['no_hp']?><b>
+              <span class="value_title" id=""></span>
               </td>
               
             </tr>
@@ -378,10 +378,14 @@
         if(confirm('Apakah Anda yakin?')){
           $('#btn_acc_payment').hide()
           $('#btn_loading').show()
+    
+         
           $.ajax({
             url: '<?=base_url('reservasi/C_Reservasi/acceptPayment/')?>'+'<?=$result['id']?>',
             method: 'POST',
-            data: null,
+            data: {
+              id_m_pelanggan: $('#pelanggan').val()
+            },
             success: function(res){
               let rs = JSON.parse(res)
               if(rs.code == 0){
@@ -465,7 +469,9 @@
 
       function getPelanggan() {
       
-        var id_m_pelanggan = $('#pelanggan').val(); 
+        var id_m_pelanggan = $('#pelanggan').val();
+        $("#data_pelanggan_exist").hide('fast'); 
+        
         $.ajax({
         type : "POST",
         url: '<?=base_url('reservasi/C_Reservasi/getPelanggan')?>',
