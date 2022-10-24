@@ -88,16 +88,15 @@
                 <a href="<?=base_url('admin/master/pelanggan');?>">
             <button type="button" id="btn_create_billing" style="float: right;" class="btn btn-navy btn-sm"><i class="fa fa-user"></i> Tambah Data Pelanggan</button></a>
             <div class="row">
-                            <div class="col-lg-4 form-group">
-                                <label>Pilih Pelanggan</label>
-                                <select onchange="getPelanggan()" class="form-control form-control-sm select2_this select2-navy" data-dropdown-css-class="select2-navy" name="pelanggan" id="pelanggan">
-                                <option value=""></option>
-                                <?php if($pelanggan){ foreach($pelanggan as $l){ ?>
-                                   <option value="<?=$l['id']?>"><?=$l['nama']?></option>
-                                <?php } } ?>
-                                </select>
-                            </div>
-                        </div>
+                <div class="col-lg-4 form-group">
+                    <label>Pilih Pelanggan</label>
+                    <select onchange="getPelanggan()" class="form-control form-control-sm select2_this select2-navy" data-dropdown-css-class="select2-navy" name="pelanggan" id="pelanggan">
+                    <?php if($pelanggan){ foreach($pelanggan as $l){ ?>
+                        <option <?=$result['id_m_pelanggan'] == $l['id'] ? 'selected' : '';?> value="<?=$l['id']?>"><?=$l['nama']?></option>
+                    <?php } } ?>
+                    </select>
+                </div>
+            </div>
            
           <div class="col-lg-12" id="data_pelanggan" style="display:none; margin-bottom: 10px;">
             <table style="width: 100%;" >
