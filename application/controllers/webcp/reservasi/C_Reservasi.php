@@ -84,6 +84,7 @@ class C_Reservasi extends CI_Controller
         $id=$this->input->post('id');
         $data=$this->reservasi->getListKelurahan($id);
         echo json_encode($data);
+    }
     public function uploadPayment(){
         echo json_encode($this->reservasi->uploadPayment());
     }
