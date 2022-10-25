@@ -1332,7 +1332,15 @@
             return $rs;
         }
        
-    
+        public function sendNotifTelegram($data){
+            $req = $this->telegramlib->send_curl_exec('GET', 'sendMessage', $data['send_to'], $data);
+            $this->db->insert('t_log_telegram', [
+                'request' => json_encode($data),
+                'response' => json_encode($req),
+                'created_by' => $this->general_library->getId()
+            ]);
+        }
+            
 
     }
 ?>

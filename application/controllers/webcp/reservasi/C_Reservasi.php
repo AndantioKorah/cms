@@ -54,16 +54,17 @@ class C_Reservasi extends CI_Controller
             $data['result'] = $this->session->userdata('final_receipt_search_'.$id);
         }
         $data['tanggal_tiket'] = ''; 
-        foreach($data['result'] as $r){
-            $data['tanggal_tiket'] = $r['created_date']; 
-            break;
-        }
+        $data['tanggal_tiket'] = $data['result']['created_date']; 
         $this->load->view('webcp/reservasi/V_ReceiptPdf', $data);
     }
 
     public function searchNomorTiket(){
         $data['result'] = $this->reservasi->searchNomorTiket();
         $this->load->view('webcp/reservasi/V_ReservasiDetail', $data);
+    }
+
+    public function uploadPayment(){
+        echo json_encode($this->reservasi->uploadPayment());
     }
         
 }

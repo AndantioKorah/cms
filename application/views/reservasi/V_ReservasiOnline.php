@@ -13,7 +13,7 @@
                     <button onclick="tambahReservasi()" type="button" class="btn btn-sm btn-navy"><i class="fa fa-plus"></i> Tambah Reservasi</button>
                 </div>
             <?php } ?>
-            <button onclick="testNotif()" type="button" class="btn btn-sm btn-navy"><i class="fa fa-send"></i> Tes Notif</button>
+            <!-- <button onclick="testNotif()" type="button" class="btn btn-sm btn-navy"><i class="fa fa-send"></i> Tes Notif</button> -->
 
                 <div class="col-lg-12 text-center">
                     <h5>LIST RESERVASI ONLINE</h5>
@@ -117,7 +117,7 @@
 
     function testNotif(){
         $.ajax({
-            url: '<?=base_url('reservasi/C_Reservasi/tesNotif')?>',
+            url: '<?=base_url('reservasi/C_Reservasi/sendNotifTelegram')?>',
             method: 'POST',
             data: $(this).serialize(),
             success: function(res){

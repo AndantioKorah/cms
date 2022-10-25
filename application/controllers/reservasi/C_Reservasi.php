@@ -183,7 +183,7 @@ class C_Reservasi extends CI_Controller
     }
 
     public function sendNotifTelegram(){
-        $this->reservasi->sendNotifTelegram();
+        $this->reservasi->sendNotifTelegram(['send_to' => '713399901', 'message' => "Testing 1 2 3"]);
     }
 
 }

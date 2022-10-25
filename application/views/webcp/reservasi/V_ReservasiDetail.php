@@ -38,6 +38,8 @@
         <button onclick="cetakReceipt()" type="button" class="btn btn-sm btn-primary-color mb-2" style="float: right;"><i class="fa fa-print"></i> Cetak Nota Reservasi</button>
         <?php if($result['status'] == 10){ ?>
           <button onclick="cetakReceipt()" type="button" class="btn btn-sm btn-success mb-2" style="float: left; margin-right: 10px;"><i class="fa fa-print"></i> Cetak Hasil Pemeriksaan</button>
+        <?php } if($result['status'] == 2){ ?>
+          <button onclick="openUploadModal()" href="#modal_upload_payment" data-toggle="modal" type="button" class="btn btn-sm btn-info mb-2" style="color: white; float: left; margin-right: 10px;"><i class="fa fa-upload"></i> Upload Bukti Pembayaran</button>
         <?php } ?>
         <table style="width: 100%;">
           <tr>
@@ -97,18 +99,71 @@
   </div>
   <div id="print_div" style="display:none;"></div>
   <iframe id="printing-frame" name="print_frame" src="about:blank" style="display:none;"></iframe>
+  <div class="modal fade" id="modal_upload_payment" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div id="modal-dialog" class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">UPLOAD BUKTI PEMBAYARAN</h6>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                  <form id="form_upload_bukti" enctype="multipart/form-data">
+                    <div class="col-lg-12 form-group">
+                      <label>Nomor Billing</label>
+                      <input class="form-control" name="nomor_billing" />
+                    </div>
+                    <div class="col-lg-12 form-group mt-3">
+                      <label>Bukti Pembayaran</label>
+                      <input accept="image/*" type="file" class="form-control" name="berkas" />
+                    </div>
+                    <div class="col-lg-12 form-group mt-3">
+                      <button style="float: center;" class="float-center btn btn-block btn-primary-color"><i class="fa fa-upload"></i> Submit Dokumen</button>
+                    </div>
+                  </form>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
   <script>
     $(function(){
-      // $('#nomor_tiket_search').html('<?=$rs['nomor_tiket']?>')
+      // $('#nomor_tiket_search').html('<?=$result['nomor_tiket']?>')
       // $('#tanggal_tiket_search').html('<?=formatDateNamaBulanWT($rs['created_date'])?>')
-      // $('#status_search').html('<?=($rs['nama_status'])?>')
+      // $('#status_search').html('<?=($result['nama_status'])?>')
     })
 
+    function openUploadModal(){
+      $('#modal_upload_payment').modal('show')
+    }
+
+    $('#form_upload_bukti').on('submit', function(e){
+      e.preventDefault()
+      let formdata = new FormData(this)
+      $.ajax({
+        url: '<?=base_url('webcp/reservasi/C_Reservasi/uploadPayment')?>',
+        data: formdata,
+        cache:false,
+        contentType: false,
+        processData: false,
+        success:function(res){
+          let rs = JSON.parse(res)
+
+          successtoast('Data Berhasil Diupload')
+        },
+        error: function(data){
+          errortoast('Terjadi Kesalahan')
+        }
+      })
+    })
+    
     function cetakReceipt() {
       <?php
         $this->session->set_userdata('final_receipt_search_'.$rs['id_t_reservasi_online'], $result);  
       ?>
-      $("#print_div").load('<?= base_url('webcp/reservasi/C_Reservasi/saveReceipt/'.$rs['id_t_reservasi_online'].'/'.$rs['nomor_tiket'].'/1')?>',
+      $("#print_div").load('<?= base_url('webcp/reservasi/C_Reservasi/saveReceipt/'.$rs['id_t_reservasi_online'].'/'.$result['nomor_tiket'].'/1')?>',
         function () {
           $('img').on('load', function(){
             printSpace('print_div');
