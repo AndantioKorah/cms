@@ -110,7 +110,8 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                  <form id="form_upload_bukti" enctype="multipart/form-data">
+                  <form id="form_upload_bukti" method="post" enctype="multipart/form-data">
+                    <input type="hidden" id="nmr_tiket" name="nmr_tiket" value="<?=$result['nomor_tiket']?>">
                     <div class="col-lg-12 form-group">
                       <label>Nomor Billing</label>
                       <input class="form-control" name="nomor_billing" />
@@ -136,27 +137,49 @@
     })
 
     function openUploadModal(){
+    
       $('#modal_upload_payment').modal('show')
     }
 
     $('#form_upload_bukti').on('submit', function(e){
       e.preventDefault()
-      let formdata = new FormData(this)
-      $.ajax({
-        url: '<?=base_url('webcp/reservasi/C_Reservasi/uploadPayment')?>',
-        data: formdata,
-        cache:false,
-        contentType: false,
-        processData: false,
-        success:function(res){
-          let rs = JSON.parse(res)
+      // let formdata = new FormData(this)
+      // $.ajax({
+      //   url: '<?=base_url('webcp/reservasi/C_Reservasi/uploadPayment')?>',
+      //   data: formdata,
+      //   cache:false,
+      //   contentType: false,
+      //   processData: false,
+      //   success:function(res){
+      //     let rs = JSON.parse(res)
 
-          successtoast('Data Berhasil Diupload')
-        },
-        error: function(data){
-          errortoast('Terjadi Kesalahan')
-        }
-      })
+      //     successtoast('Data Berhasil Diupload')
+      //   },
+      //   error: function(data){
+      //     errortoast('Terjadi Kesalahan')
+      //   }
+      // })
+      $.ajax({  
+                   url:"<?=base_url("webcp/reservasi/C_Reservasi/uploadPayment")?>",  
+                    method:"POST",  
+                    data:new FormData(this),  
+                    contentType: false,  
+                    cache: false,  
+                    processData:false,  
+                    success:function(res)  
+                    {  
+                      alert(res)
+                       let rs = JSON.parse(res)
+                       
+                       if(rs.code == 0){
+                         alert()
+                        $('#modal_upload_payment').modal('hide')       
+                       } else {
+                           errortoast(result.msg)
+                           return false;
+                       }
+                    }  
+               }); 
     })
     
     function cetakReceipt() {

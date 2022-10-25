@@ -435,8 +435,39 @@
 
             $this->db->trans_begin();
             
-            dd($this->input->post());
+            $new_name = str_replace(array( '-',' ',']'), ' ', $_FILES["berkas"]['name']);
+            $random_number = intval( "0" . rand(1,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) );
+            $data = $_FILES["berkas"]['type'];;    
+            $tipeFile = substr($data, strpos($data, "/") + 1);   
+            $new_name = "bukti_bayar".$random_number.time().".".$tipeFile;
 
+            if($_FILES["berkas"]["name"] != ""){ 
+                $path="./assets/webcp/bukti_bayar/";
+                $konten="berkas";
+            }
+          
+            $config_ppid['file_name'] = $new_name;
+            $config_ppid['upload_path'] = $path;  
+            $config_ppid['allowed_types'] = 'jpg|jpeg|png|pdf'; 
+
+           
+            
+            $this->load->library('upload', $config_ppid);  
+            $this->upload->overwrite = true;
+
+            $nmr_tiket = $this->input->post('nmr_tiket');
+            $full_path = base_url().'assets/webcp/bukti_bayar/'.$new_name;
+
+            $this->db->where('nomor_tiket', $nmr_tiket)
+            ->update('t_reservasi_online', ['bukti_bayar' => $full_path,
+                                            'nomor_billing' => $this->input->post('nomor_billing') ]);
+            
+            if(!$this->upload->do_upload($konten))  
+            {  
+                 echo $this->upload->display_errors();  
+            } 
+
+            dd($rs);
             if($this->db->trans_status() == FALSE){
                 $this->db->trans_rollback();
                 $rs['code'] = 1;
