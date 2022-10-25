@@ -429,5 +429,21 @@
         }
 
 
+        public function uploadPayment(){
+            $rs['code'] = 0;
+            $rs['message'] = '';
+
+            $this->db->trans_begin();
+            
+            dd($this->input->post());
+
+            if($this->db->trans_status() == FALSE){
+                $this->db->trans_rollback();
+                $rs['code'] = 1;
+                $rs['message'] = $this->upload->display_errors();
+            } else {
+                $this->db->trans_commit();
+            }
+        }
     }
 ?>
