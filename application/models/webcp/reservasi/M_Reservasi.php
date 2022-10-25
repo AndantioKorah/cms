@@ -69,6 +69,11 @@
                 } else {
                     $detail['id_t_reservasi_online'] = $last_id_parent;
                     $detail['id_m_jenis_pelayanan'] = $data['id_m_jenis_pelayanan'];
+                    $detail['id_m_provinsi'] = $data['id_m_provinsi'];
+                    $detail['id_m_kabupaten_kota'] = $data['id_m_kabupaten_kota'];
+                    $detail['id_m_kecamatan'] = $data['id_m_kecamatan'];
+                    $detail['id_m_kelurahan'] = $data['id_m_kelurahan'];
+                    $detail['waktu_pengambilan_sampel'] = $data['waktu_pengambilan_sampel'];
                     $this->db->insert('t_reservasi_online_detail', $detail);
                     $last_id_detail = $this->db->insert_id();
     
@@ -102,10 +107,15 @@
         public function refreshReceipt($session_id){
             // $detail = null;
             $final_result = null;
-            $result = $this->db->select('a.session_id, c.nama_jenis_pelayanan, b.id_m_jenis_pelayanan, a.id, b.id as id_t_reservasi_online_detail, a.created_date')
+            $result = $this->db->select('a.session_id, c.nama_jenis_pelayanan, b.id_m_jenis_pelayanan, a.id, b.id as id_t_reservasi_online_detail, a.created_date, 
+            d.nama_provinsi, e.nama_kabupaten_kota, f.nama_kecamatan, g.nama_kelurahan, b.waktu_pengambilan_sampel')
                             ->from('t_reservasi_online a')
                             ->join('t_reservasi_online_detail b', 'b.id_t_reservasi_online = a.id')
                             ->join('m_jenis_pelayanan c', 'b.id_m_jenis_pelayanan = c.id')
+                            ->join('m_provinsi d', 'b.id_m_provinsi = d.id')
+                            ->join('m_kabupaten_kota e', 'b.id_m_kabupaten_kota = e.id')
+                            ->join('m_kecamatan f', 'b.id_m_kecamatan = f.id')
+                            ->join('m_kelurahan g', 'b.id_m_kelurahan = g.id')
                             ->where('a.session_id', $session_id)
                             ->where('b.flag_active', 1)
                             ->get()->result_array();
@@ -129,6 +139,11 @@
                         $final_result[$rs['id_m_jenis_pelayanan']]['id_t_reservasi_online_detail'] = $rs['id_t_reservasi_online_detail'];
                         $final_result[$rs['id_m_jenis_pelayanan']]['nama_jenis_pelayanan'] = $rs['nama_jenis_pelayanan'];
                         $final_result[$rs['id_m_jenis_pelayanan']]['parameter'] = null;
+                        $final_result[$rs['id_m_jenis_pelayanan']]['nama_provinsi'] = $rs['nama_provinsi'];
+                        $final_result[$rs['id_m_jenis_pelayanan']]['nama_kabupaten_kota'] = $rs['nama_kabupaten_kota'];
+                        $final_result[$rs['id_m_jenis_pelayanan']]['nama_kecamatan'] = $rs['nama_kecamatan'];
+                        $final_result[$rs['id_m_jenis_pelayanan']]['nama_kelurahan'] = $rs['nama_kelurahan'];
+                        $final_result[$rs['id_m_jenis_pelayanan']]['waktu_pengambilan_sampel'] = $rs['waktu_pengambilan_sampel'];
                     }
 
                     $j = 0;
@@ -358,5 +373,61 @@
 
             return $final_result;
         }
+
+
+        public function getListProvinsi(){
+
+            return $this->db->select('*')
+                            ->from('m_provinsi as a')
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+        }
+
+
+        public function getListKabKota(){
+
+            return $this->db->select('*')
+                            ->from('m_kabupaten_kota as a')
+                            ->where('a.id_m_provinsi', 71)
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+        }
+
+        public function getListKec(){
+
+            return $this->db->select('*')
+                            ->from('m_kecamatan as a')
+                            ->where('a.id_m_kabupaten_kota', 7171)
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+        }
+
+
+
+        public function getListKabupatenKota($id){
+            return $this->db->select('*')
+                            ->from('m_kabupaten_kota as a')
+                            ->where('a.id_m_provinsi', $id)
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+        }
+
+        public function getListKecamatan($id){
+            return $this->db->select('*')
+                            ->from('m_kecamatan as a')
+                            ->where('a.id_m_kabupaten_kota', $id)
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+        }
+
+        public function getListKelurahan($id){
+            return $this->db->select('*')
+                            ->from('m_kelurahan as a')
+                            ->where('a.id_m_kecamatan', $id)
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+        }
+
+
     }
 ?>

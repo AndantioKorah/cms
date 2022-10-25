@@ -31,11 +31,16 @@
 	<link rel="stylesheet" href="<?=base_url('assets/css/jquery.dataTables.min.css')?>">
 	<link rel="stylesheet" href="<?=base_url('assets/css/responsive.dataTables.min.css')?>">
 	<link rel="stylesheet" href="<?=base_url('assets/css/datatable.bootstrap.min.css')?>">
+  <link rel="stylesheet" href="<?=base_url('assets/css/bootstrap-datetimepicker.css')?>">
+  <link rel="stylesheet" href="<?=base_url('assets/css/bootstrap-datepicker.css')?>">
+  
 
   <!-- JS -->
   <script src="<?=base_url('plugins/jquery/jquery.js')?>"></script>
   <script src="<?=base_url('plugins/jquery-ui/jquery-ui.js')?>"></script>
   <script src="<?=base_url('assets/webcp/assets/js/blazy-master/blazy.js')?>"></script>
+  <script src="<?=base_url('assets/js/bootstrap-datetimepicker.js')?>"></script>
+  <script src="<?=base_url('assets/js/bootstrap-datepicker.js')?>"></script>
 
   <!-- Template Main CSS File -->
   <link href="<?=base_url('assets/webcp/assets/css/style.css')?>" rel="stylesheet">

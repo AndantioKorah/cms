@@ -15,11 +15,15 @@ class C_Reservasi extends CI_Controller
     public function index(){
         $data['layanan'] = $this->reservasi->getAllLayanan();
         $data['nomor_sesi'] = generateRandomNumber(4).date('ymdhis');
+        $data['list_provinsi'] = $this->reservasi->getListProvinsi();
         renderwebcp('webcp/reservasi/V_Reservasi', '', '', $data);
     }
 
     public function getParameterByJenisLayanan($id){
         $data['parameter'] = $this->master->getListParameterJenisPelayanan($id);
+        $data['list_provinsi'] = $this->reservasi->getListProvinsi();
+        $data['list_kab_kota'] = $this->reservasi->getListKabKota();
+        $data['list_kecamatan'] = $this->reservasi->getListKec();
         $this->load->view('webcp/reservasi/V_ChooseParameter', $data);
     }
 
@@ -29,6 +33,7 @@ class C_Reservasi extends CI_Controller
 
     public function refreshReceipt($session_id){
         $data['result'] = $this->reservasi->refreshReceipt($session_id);
+        // dd($data['result']);
         $this->load->view('webcp/reservasi/V_ReservasiReceipt', $data);
     }
 
@@ -64,6 +69,24 @@ class C_Reservasi extends CI_Controller
     public function searchNomorTiket(){
         $data['result'] = $this->reservasi->searchNomorTiket();
         $this->load->view('webcp/reservasi/V_ReservasiDetail', $data);
+    }
+
+    function getListKabupatenKota(){
+        $id=$this->input->post('id');
+        $data=$this->reservasi->getListKabupatenKota($id);
+        echo json_encode($data);
+    }
+
+    function getListKecamatan(){
+        $id=$this->input->post('id');
+        $data=$this->reservasi->getListKecamatan($id);
+        echo json_encode($data);
+    }
+
+    function getListKelurahan(){
+        $id=$this->input->post('id');
+        $data=$this->reservasi->getListKelurahan($id);
+        echo json_encode($data);
     }
         
 }
