@@ -23,6 +23,53 @@
     <?php } ?>
     <div class="col-lg-12">
       <hr>
+  <!-- Provinsi -->
+  <div class="form-group" style="margin-bottom:10px;">
+  <label class="bmd-label-floating"><b>Provinsi</b></label>
+  <select required class="form-control select2_this select2-navy" data-dropdown-css-class="select2-navy" name="id_m_provinsi" id="id_m_provinsi">
+                 <option value="" selected>- Pilih Provinsi -</option>
+                 <?php  foreach($list_provinsi as $ljp){?>
+                                <option <?=$ljp['id'] == 71 ? 'selected' : '';?>     value="<?=$ljp['id']?>"><?=$ljp['nama_provinsi']?></option>
+                            <?php } ?>
+  </select>
+  </div>
+  <!-- Kabupaten Kota -->
+  <div class="form-group" style="margin-bottom:10px;">
+  <label class="bmd-label-floating"><b>Kabupaten/Kota</b></label>
+  <select required class="form-control select2_this select2-navy kabupaten_kota" data-dropdown-css-class="select2-navy" name="id_m_kabupaten_kota" id="id_m_kabupaten_kota">
+                 <option value="" selected>- Pilih Kabupaten Kota -</option>
+                 <?php  foreach($list_kab_kota as $lkab){?>
+                                <option <?=$lkab['id'] == 7171 ? 'selected' : '';?>     value="<?=$lkab['id']?>"><?=$lkab['nama_kabupaten_kota']?></option>
+                            <?php } ?>
+
+  </select>
+  </div>
+  <!-- Kecamatan -->
+  <div class="form-group" style="margin-bottom:10px;">
+  <label class="bmd-label-floating"><b>Kecamatan</b></label>
+  <select required class="form-control select2_this select2-navy kecamatan" data-dropdown-css-class="select2-navy" name="id_m_kecamatan" id="id_m_kecamatan">
+                 <option value="" selected>- Pilih Kecamatan -</option>
+                 <?php  foreach($list_kecamatan as $lkec){?>
+                                <option value="<?=$lkec['id']?>"><?=$lkec['nama_kecamatan']?></option>
+                            <?php } ?>
+
+  </select>
+  </div>
+  <!-- Kelurahan -->
+  <div class="form-group" style="margin-bottom:10px;">
+  <label class="bmd-label-floating"><b>Kelurahan</b></label>
+  <select required class="form-control select2_this select2-navy kelurahan" data-dropdown-css-class="select2-navy" name="id_m_kelurahan" id="id_m_kelurahan">
+                 <option value="" selected>- Pilih Kelurahan -</option>
+
+  </select>
+  </div>
+
+  <div class="form-group">
+  <label class="bmd-label-floating"><b>Waktu Pengambilan Sampel</b></label>
+  <input required autocomplete="off" class="form-control datetimepickerthis" type="text" id="waktu_pengambilan_sampel" name="waktu_pengambilan_sampel" />
+  </div>
+
+  <br>
     </div>
     <div class="col-lg-6">
       <span class="title-layanan">Total Biaya</span><br>
@@ -36,6 +83,7 @@
   <script>
     $(function(){
       countTotalBiaya()
+      $('.select2_this').select2()
     })
 
     function formatRupiah(angka, prefix = "Rp ") {
@@ -82,6 +130,77 @@
       }
       countTotalBiaya()
     }
+
+     $('#id_m_provinsi').change(function(){     
+                 var id=$(this).val();
+                 $.ajax({
+                     url : "<?php echo base_url();?>webcp/reservasi/C_Reservasi/getListKabupatenKota",
+                     method : "POST",
+                     data : {id: id},
+                     async : false,
+                     dataType : 'json',
+                     success: function(data){
+                         var html = '';
+                         var i;
+                         for(i=0; i<data.length; i++){
+                             html += '<option value='+data[i].id+'>'+data[i].nama_kabupaten_kota+'</option>';
+                         }
+                         $('.kabupaten_kota').html(html);
+                          
+                     }
+                 });
+             });
+
+
+      $('#id_m_kabupaten_kota').change(function(){     
+                 var id=$(this).val();
+                 $.ajax({
+                     url : "<?php echo base_url();?>webcp/reservasi/C_Reservasi/getListKecamatan",
+                     method : "POST",
+                     data : {id: id},
+                     async : false,
+                     dataType : 'json',
+                     success: function(data){
+                         var html = '';
+                         var i;
+                         for(i=0; i<data.length; i++){
+                             html += '<option value='+data[i].id+'>'+data[i].nama_kecamatan+'</option>';
+                         }
+                         $('.kecamatan').html(html);
+                          
+                     }
+                 });
+             });
+
+    
+
+      $('#id_m_kecamatan').change(function(){     
+                 var id=$(this).val();
+                 $.ajax({
+                     url : "<?php echo base_url();?>webcp/reservasi/C_Reservasi/getListKelurahan",
+                     method : "POST",
+                     data : {id: id},
+                     async : false,
+                     dataType : 'json',
+                     success: function(data){
+                         var html = '';
+                         var i;
+                         for(i=0; i<data.length; i++){
+                             html += '<option value='+data[i].id+'>'+data[i].nama_kelurahan+'</option>';
+                         }
+                         $('.kelurahan').html(html);
+                          
+                     }
+                 });
+             });
+
+   
+    $('.datetimepickerthis').datetimepicker({
+    format: 'yyyy-mm-dd hh:ii:ss',
+    autoclose: true,
+    todayHighlight: true,
+    todayBtn: true
+    })
   </script>
 <?php } else { ?>
   <div class="text-center">

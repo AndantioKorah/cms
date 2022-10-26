@@ -91,6 +91,9 @@
                 <div class="col-lg-4 form-group">
                     <label>Pilih Pelanggan</label>
                     <select onchange="getPelanggan()" class="form-control form-control-sm select2_this select2-navy" data-dropdown-css-class="select2-navy" name="pelanggan" id="pelanggan">
+                    <?php if($result['id_m_pelanggan'] == null){ ?>
+                    <option value="">-- Pilih Pelanggan --</option>
+                    <?php } ?>
                     <?php if($pelanggan){ foreach($pelanggan as $l){ ?>
                         <option <?=$result['id_m_pelanggan'] == $l['id'] ? 'selected' : '';?> value="<?=$l['id']?>"><?=$l['nama']?></option>
                     <?php } } ?>
@@ -104,7 +107,7 @@
               <td style="width: 10%;">
                 <span class="label_title">Nama</span>  
               </td>
-              <td style="width: 33%; text-align: left;"> :<?=$result['id_m_pelanggan'] == $l['id'] ? 'selected' : '';?> 
+              <td style="width: 33%; text-align: left;"> :
               <span class="value_title" id="pelanggan_nama"></span>
               </td>
            

@@ -23,7 +23,7 @@
   }
 </style>
 <?php if($result){ ?>
-  <table style="width: 100%;">
+  <table style="width: 100%;" border="1">
     <thead>
       <th class="label_th">JENIS LAYANAN</th>
       <th class="label_th">TOTAL</th>
@@ -54,6 +54,12 @@
           <td style="width: 35%; text-align: right;" valign="top">
             <span class="r_total_biaya"><?=formatCurrencyWithoutRp($total)?></span>
           </td>
+        </tr>
+        <tr>
+          <td>Provinsi : <?=$r['nama_provinsi']?> , Kabupaten/Kota  <?=$r['nama_kabupaten_kota']?>, Kecamatan : <?=$r['nama_kecamatan']?>, kelurahan : <?=$r['nama_kelurahan']?> 
+                <br>
+              Waktu Pengambilan Sampel : <?=$r['waktu_pengambilan_sampel']?> 
+        </td>
         </tr>
       <?php $total_seluruh += $total; $total = 0; } ?>
       <tr style="border-top: 1px solid black;">
