@@ -29,6 +29,7 @@ class C_Reservasi extends CI_Controller
         if($this->general_library->isPetugasYantek()){
             $data['layanan'] = $this->reservasi->getAllLayanan();
             $data['pelanggan'] = $this->reservasi->getAllPelanggan();
+           
             $this->load->view('reservasi/V_DetailAdministrasiReservasi', $data);
         } else if($this->general_library->isKepalaInstalasi()){
             $this->load->view('reservasi/V_DetailVerifikasiKi', $data);
@@ -43,6 +44,9 @@ class C_Reservasi extends CI_Controller
 
     public function getListParameterJenisPelayanan($id){
         $data['parameter'] = $this->master->getListParameterJenisPelayanan($id);
+        $data['list_provinsi'] = $this->reservasi->getListProvinsi();
+        $data['list_kab_kota'] = $this->reservasi->getListKabKota();
+        $data['list_kecamatan'] = $this->reservasi->getListKec();
         $this->load->view('reservasi/V_ChooseParameterAddLayanan', $data);
     }
 
@@ -184,6 +188,24 @@ class C_Reservasi extends CI_Controller
 
     public function sendNotifTelegram(){
         $this->reservasi->sendNotifTelegram(['send_to' => '713399901', 'message' => "Testing 1 2 3"]);
+    }
+
+    function getListKabupatenKota(){
+        $id=$this->input->post('id');
+        $data=$this->reservasi->getListKabupatenKota($id);
+        echo json_encode($data);
+    }
+
+    function getListKecamatan(){
+        $id=$this->input->post('id');
+        $data=$this->reservasi->getListKecamatan($id);
+        echo json_encode($data);
+    }
+
+    function getListKelurahan(){
+        $id=$this->input->post('id');
+        $data=$this->reservasi->getListKelurahan($id);
+        echo json_encode($data);
     }
 
 }

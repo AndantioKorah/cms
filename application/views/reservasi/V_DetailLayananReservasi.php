@@ -57,6 +57,8 @@
                   <?php } ?>
               </div>
             </div>
+            <br>
+            Lokasi : <?= $rs['nama_provinsi'];?>
           </td>
           <td style="width: 30%; border: 1px solid black;" class="text-center">
             <span class="search_jenis_layanan text_sub_total" id="text_total_<?=$rs['id_t_reservasi_online_detail']?>"><?=formatCurrencyWithoutRp($total)?></span>
