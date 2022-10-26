@@ -103,25 +103,26 @@
     <div id="modal-dialog" class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
-                <h6 class="modal-title">UPLOAD BUKTI PEMBAYARAN</h6>
+                <h6 class="modal-title">MASUKKAN BUKTI PEMBAYARAN</h6>
                 <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="row">
-                  <form id="form_upload_bukti" method="post" enctype="multipart/form-data">
-                    <input type="hidden" id="nmr_tiket" name="nmr_tiket" value="<?=$result['nomor_tiket']?>">
+                  <form id="form_upload_bukti" method="post">
+                  <!-- <form id="form_upload_bukti" method="post" enctype="multipart/form-data"> -->
+                    <!-- <input type="hidden" id="nmr_tiket" name="nmr_tiket" value="<?=$result['nomor_tiket']?>"> -->
                     <div class="col-lg-12 form-group">
                       <label>Nomor Billing</label>
-                      <input class="form-control" name="nomor_billing" />
+                      <input class="form-control" value="<?=$result['nomor_billing']?>" name="nomor_billing" />
                     </div>
-                    <div class="col-lg-12 form-group mt-3">
+                    <!-- <div class="col-lg-12 form-group mt-3">
                       <label>Bukti Pembayaran</label>
                       <input accept="image/*" type="file" class="form-control" name="berkas" />
-                    </div>
+                    </div> -->
                     <div class="col-lg-12 form-group mt-3">
-                      <button style="float: center;" class="float-center btn btn-block btn-primary-color"><i class="fa fa-upload"></i> Submit Dokumen</button>
+                      <button type="submit" style="float: center;" class="float-center btn btn-block btn-primary-color"><i class="fa fa-save"></i> Simpan Data</button>
                     </div>
                   </form>
                 </div>
@@ -143,44 +144,60 @@
 
     $('#form_upload_bukti').on('submit', function(e){
       e.preventDefault()
-      // let formdata = new FormData(this)
-      // $.ajax({
-      //   url: '<?=base_url('webcp/reservasi/C_Reservasi/uploadPayment')?>',
-      //   data: formdata,
-      //   cache:false,
-      //   contentType: false,
-      //   processData: false,
-      //   success:function(res){
-      //     let rs = JSON.parse(res)
-
-      //     successtoast('Data Berhasil Diupload')
-      //   },
-      //   error: function(data){
-      //     errortoast('Terjadi Kesalahan')
-      //   }
-      // })
-      $.ajax({  
-                   url:"<?=base_url("webcp/reservasi/C_Reservasi/uploadPayment")?>",  
-                    method:"POST",  
-                    data:new FormData(this),  
-                    contentType: false,  
-                    cache: false,  
-                    processData:false,  
-                    success:function(res)  
-                    {  
-                      alert(res)
-                       let rs = JSON.parse(res)
-                       
-                       if(rs.code == 0){
-                         alert()
-                        $('#modal_upload_payment').modal('hide')       
-                       } else {
-                           errortoast(result.msg)
-                           return false;
-                       }
-                    }  
-               }); 
+      $.ajax({
+        url: '<?=base_url('webcp/reservasi/C_Reservasi/uploadPayment/'.$result['id'])?>',
+        data: $(this).serialize(),
+        method: 'POST',
+        success:function(res){
+          let rs = JSON.parse(res)
+          successtoast('Nomor Billing Berhasil Dimasukkan')
+        },
+        error: function(data){
+          errortoast('Terjadi Kesalahan')
+        }
+      })
     })
+
+    // $('#form_upload_bukti').on('submit', function(e){
+    //   e.preventDefault()
+    //   // let formdata = new FormData(this)
+    //   // $.ajax({
+    //   //   url: '<?=base_url('webcp/reservasi/C_Reservasi/uploadPayment')?>',
+    //   //   data: formdata,
+    //   //   cache:false,
+    //   //   contentType: false,
+    //   //   processData: false,
+    //   //   success:function(res){
+    //   //     let rs = JSON.parse(res)
+
+    //   //     successtoast('Data Berhasil Diupload')
+    //   //   },
+    //   //   error: function(data){
+    //   //     errortoast('Terjadi Kesalahan')
+    //   //   }
+    //   // })
+    //   $.ajax({  
+    //                url:"<?=base_url("webcp/reservasi/C_Reservasi/uploadPayment")?>",  
+    //                 method:"POST",  
+    //                 data:new FormData(this),  
+    //                 contentType: false,  
+    //                 cache: false,  
+    //                 processData:false,  
+    //                 success:function(res)  
+    //                 {  
+    //                   alert(res)
+    //                    let rs = JSON.parse(res)
+                       
+    //                    if(rs.code == 0){
+    //                      alert()
+    //                     $('#modal_upload_payment').modal('hide')       
+    //                    } else {
+    //                        errortoast(result.msg)
+    //                        return false;
+    //                    }
+    //                 }  
+    //            }); 
+    // })
     
     function cetakReceipt() {
       <?php

@@ -1180,13 +1180,17 @@
 
         public function loadParameterForInputHasil($id){
             return $this->db->select('c.id, a.nama_parameter_jenis_pelayanan, c.hasil_lab, c.catatan_lab, e.id as id_t_reservasi_online,
-                            d.id as id_t_reservasi_online_detail, e.created_date as tgl_regis, f.satuan, d.no_sampel')
+                            d.id as id_t_reservasi_online_detail, e.created_date as tgl_regis, f.satuan, d.no_sampel, d.waktu_pengambilan_sampel,
+                            CONCAT(g.nama_kecamatan,", ",h.nama_kelurahan) as lokasi_pengambilan_sampel, i.nama_jenis_pelayanan')
                             ->from('m_parameter_jenis_pelayanan a')
                             ->join('t_parameter_jenis_pelayanan b', 'a.id = b.id_m_parameter_jenis_pelayanan')
                             ->join('t_reservasi_online_parameter c', 'b.id = c.id_t_parameter_jenis_pelayanan')
                             ->join('t_reservasi_online_detail d', 'd.id = c.id_t_reservasi_online_detail')
                             ->join('t_reservasi_online e', 'e.id = d.id_t_reservasi_online')
                             ->join('m_parameter_jenis_pelayanan f', 'b.id_m_parameter_jenis_pelayanan = f.id')
+                            ->join('m_kecamatan g', 'd.id_m_kecamatan = g.id', 'left')
+                            ->join('m_kelurahan h', 'd.id_m_kelurahan = h.id', 'left')
+                            ->join('m_jenis_pelayanan i', 'd.id_m_jenis_pelayanan = i.id')
                             ->where('c.flag_active', 1)
                             ->where('d.flag_active', 1)
                             ->where('e.flag_active', 1)
