@@ -272,7 +272,7 @@
                         $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['nama_jenis_pelayanan'] = $rs['nama_jenis_pelayanan'];
                         $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['catatan_kepala_instalasi'] = $rs['catatan_kepala_instalasi'];
                         
-                        $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['parameter'] = $dt_param[$rs['id_m_jenis_pelayanan']];
+                        $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['parameter']  = $dt_param[$rs['id_m_jenis_pelayanan']];
 
 
                         // $default_param = $this->db->select('a.id_m_jenis_pelayanan, a.id as id_t_parameter_jenis_pelayanan, b.nama_parameter_jenis_pelayanan, a.harga, b.id as id_m_parameter_jenis_pelayanan')
