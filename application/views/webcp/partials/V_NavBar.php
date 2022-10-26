@@ -83,6 +83,7 @@
                       <li><a href="<?=base_url('service/jenis-pelayanan')?>">Jenis Pelayanan</a></li>
                       <li><a href="<?=base_url('service/jam-pelayanan')?>">Jam Pelayanan</a></li>
                       <li><a href="<?=base_url('service/pola-tarif')?>">Pola Tarif</a></li>
+                      <li><a href="<?=base_url('reservasi')?>">Reservasi Online</a></li>
                     </ul>
                 </li>
 
