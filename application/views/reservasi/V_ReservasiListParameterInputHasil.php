@@ -5,30 +5,28 @@
             <table class="table table-hover">
                 <thead>
                     <th class="text-center">No</th>
+                    <th class="text-center">Jenis Sampel</th>
                     <th class="text-center">No. Sampel</th>
-                    <th class="text-center">Tgl. Regis</th>
-                    <th class="text-center">Nama Parameter</th>
+                    <th class="text-center">Tgl. Pngmblm Sampel</th>
+                    <!-- <th class="text-center">Lok. Pngmblm Sampel</th> -->
+                    <!-- <th class="text-center">Nama Parameter</th> -->
                     <th class="text-center">Satuan</th>
                     <th class="text-center">Hasil</th>
-                    <th class="text-center">Catatan</th>
                 </thead>
                 <tbody>
                     <?php $no = 1; foreach($result as $rs){ ?>
                         <tr>
                             <td class="text-center"><?=$no++;?></td>
+                            <td class="text-center"><?=$rs['nama_jenis_pelayanan']?></td>
                             <td class="text-center"><?=$rs['no_sampel']?></td>
-                            <td class="text-center"><?=formatDateNamaBulan($rs['tgl_regis'])?></td>
-                            <td class="text-center"><?=$rs['nama_parameter_jenis_pelayanan']?></td>
-                            <td class="text-center"></td>
+                            <td class="text-center"><?= $rs['waktu_pengambilan_sampel'] ? formatDate($rs['waktu_pengambilan_sampel']) : ''?></td>
+                            <!-- <td class="text-center"><?=$rs['lokasi_pengambilan_sampel']?></td> -->
+                            <!-- <td class="text-center"><?=$rs['nama_parameter_jenis_pelayanan']?></td> -->
+                            <td class="text-center"><?=$rs['satuan']?></td>
                             <td class="text-center">
                                 <input class="form-control form-control-sm" 
                                 name="hasil_lab_<?=$rs['id']?>" 
                                 value="<?=$rs['hasil_lab']?>" />
-                            </td>
-                            <td class="text-center">
-                                <input class="form-control form-control-sm" 
-                                name="catatan_lab_<?=$rs['id']?>" 
-                                value="<?=$rs['catatan_lab']?>" />
                             </td>
                         </tr>
                     <?php } ?>

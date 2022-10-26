@@ -244,7 +244,7 @@
             $search_value = $this->input->post('search_nomor_tiket');
             $final_result = null;
             $result = $this->db->select('a.session_id, c.nama_jenis_pelayanan, b.id_m_jenis_pelayanan, a.id, b.id as id_t_reservasi_online_detail,
-                            a.created_date, d.nama_status, a.total_biaya, a.nomor_tiket, a.status, b.catatan_kepala_instalasi')
+                            a.created_date, d.nama_status, a.total_biaya, a.nomor_tiket, a.status, b.catatan_kepala_instalasi, a.nomor_billing')
                             ->from('t_reservasi_online a')
                             ->join('t_reservasi_online_detail b', 'b.id_t_reservasi_online = a.id')
                             ->join('m_jenis_pelayanan c', 'b.id_m_jenis_pelayanan = c.id')
@@ -276,18 +276,20 @@
 
                     $i = 0;
                     foreach($result as $rs){
+                        $final_result['id'] = $rs['id'];
                         $final_result['status'] = $rs['status'];
                         $final_result['nama_status'] = $rs['nama_status'];
                         $final_result['created_date'] = $rs['created_date'];
                         $final_result['nomor_tiket'] = $rs['nomor_tiket'];
                         $final_result['total_biaya'] = $rs['total_biaya'];
+                        $final_result['nomor_billing'] = $rs['nomor_billing'];
                         $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['id_t_reservasi_online'] = $rs['id'];
                         $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['created_date'] = $rs['created_date'];
                         $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['id_t_reservasi_online_detail'] = $rs['id_t_reservasi_online_detail'];
                         $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['nama_jenis_pelayanan'] = $rs['nama_jenis_pelayanan'];
                         $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['catatan_kepala_instalasi'] = $rs['catatan_kepala_instalasi'];
                         
-                        $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['parameter'] = $dt_param[$rs['id_m_jenis_pelayanan']];
+                        $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['parameter']  = $dt_param[$rs['id_m_jenis_pelayanan']];
 
 
                         // $default_param = $this->db->select('a.id_m_jenis_pelayanan, a.id as id_t_parameter_jenis_pelayanan, b.nama_parameter_jenis_pelayanan, a.harga, b.id as id_m_parameter_jenis_pelayanan')
@@ -428,8 +430,28 @@
                             ->get()->result_array();
         }
 
+        public function uploadPayment($id){
+            $rs['code'] = 0;
+            $rs['message'] = '';
+            $data = $this->input->post();
+            
+            $this->db->trans_begin();
+            
+            $this->db->where('id', $id)
+                    ->update('t_reservasi_online', $data);
 
-        public function uploadPayment(){
+            if($this->db->trans_status() == FALSE){
+                $this->db->trans_rollback();
+                $rs['code'] = 1;
+                $rs['message'] = $this->upload->display_errors();
+            } else {
+                $this->db->trans_commit();
+            }
+
+            return $rs;
+        }
+
+        public function uploadPayments(){
             $rs['code'] = 0;
             $rs['message'] = '';
 
