@@ -56,13 +56,18 @@
           </td>
         </tr>
         <tr>
-          <td>Provinsi : <?=$r['nama_provinsi']?> , Kabupaten/Kota  <?=$r['nama_kabupaten_kota']?>, Kecamatan : <?=$r['nama_kecamatan']?>, kelurahan : <?=$r['nama_kelurahan']?> 
-                <br>
-              Waktu Pengambilan Sampel : <?=$r['waktu_pengambilan_sampel']?> 
-        </td>
+          <td colspan=2>
+              <span class="r_parameter_pelayanan">Lokasi Sampel :</span>
+              <span class="r_parameter_pelayanan" style="font-weight: bold; color: var(--primary);">
+                <?=$r['nama_kelurahan'].', '. $r['nama_kecamatan'].', '.$r['nama_kabupaten_kota'].', '.$r['nama_provinsi']?></span>
+              <br>
+              <span class="r_parameter_pelayanan">Waktu:</span>
+              <span class="r_parameter_pelayanan" style="font-weight: bold; color: var(--primary);">
+                <?=formatDate($r['waktu_pengambilan_sampel'])?></span>
+          </td>
         </tr>
       <?php $total_seluruh += $total; $total = 0; } ?>
-      <tr style="border-top: 1px solid black;">
+      <tr style="border-top: 1px solid black; padding: 10px;">
         <td>
           <span class="r_total_seluruh_biaya">TOTAL : </span>
         </td>
