@@ -85,8 +85,14 @@ class C_Reservasi extends CI_Controller
         $data=$this->reservasi->getListKelurahan($id);
         echo json_encode($data);
     }
+
     public function uploadPayment($id){
         echo json_encode($this->reservasi->uploadPayment($id));
+    }
+
+    public function cetakHasilPemeriksaan($id){
+        $data['result'] = $this->reservasi->cetakHasilPemeriksaan($id);
+        $this->load->view('webcp/reservasi/V_CetakHasilLab', $data);
     }
         
 }

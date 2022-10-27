@@ -498,5 +498,80 @@
                 $this->db->trans_commit();
             }
         }
+
+        public function cetakHasilPemeriksaan($id){
+            $final_result = null;
+
+            $rsv = $this->db->select('a.*, b.id as id_t_reservasi_online_detail, b.no_sampel, b.waktu_pengambilan_sampel, g.nama_jenis_pelayanan, g.keterangan, g.id_m_lab,
+                                CONCAT(f.nama_kelurahan,", ", e.nama_kecamatan,", ",d.nama_kabupaten_kota,", ", c.nama_provinsi) as lokasi_sampel,
+                                h.nama, h.alamat, h.no_hp')
+                                ->from('t_reservasi_online a')
+                                ->join('t_reservasi_online_detail b', 'a.id = b.id_t_reservasi_online')
+                                ->join('m_provinsi c', 'b.id_m_provinsi = c.id', 'left')
+                                ->join('m_kabupaten_kota d', 'b.id_m_kabupaten_kota = d.id', 'left')
+                                ->join('m_kecamatan e', 'b.id_m_kecamatan = e.id', 'left')
+                                ->join('m_kelurahan f', 'b.id_m_kelurahan = f.id', 'left')
+                                ->join('m_jenis_pelayanan g', 'b.id_m_jenis_pelayanan = g.id')
+                                ->join('m_pelanggan h', 'a.id_m_pelanggan = h.id')
+                                ->where('a.id', $id)
+                                ->where('b.flag_active', 1)
+                                ->get()->result_array();
+            $list_id_detail = null;
+            if($rsv){
+                foreach($rsv as $r){
+                    $list_id_detail[] = $r['id_t_reservasi_online_detail'];
+                }
+            }
+
+            $detail = $this->db->select('a.*, e.nama_parameter_jenis_pelayanan, e.satuan, e.metode, e.baku_mutu, c.nama_kategori_parameter,
+                                c.id as id_kategori_parameter, d.nama_jenis_parameter, d.id as id_jenis_parameter')
+                                ->from('t_reservasi_online_parameter a')
+                                ->join('t_parameter_jenis_pelayanan b', 'a.id_t_parameter_jenis_pelayanan = b.id')
+                                ->join('m_kategori_parameter c', 'b.id_m_kategori_parameter = c.id', 'left')
+                                ->join('m_jenis_parameter d', 'b.id_m_jenis_parameter = d.id', 'left')
+                                ->join('m_parameter_jenis_pelayanan e', 'b.id_m_parameter_jenis_pelayanan = e.id')
+                                ->where_in('a.id_t_reservasi_online_detail', $list_id_detail)
+                                ->where('a.flag_active', 1)
+                                ->get()->result_array();
+
+            $final_detail = null;
+            foreach($detail as $d){
+                $temp['nama_parameter_jenis_pelayanan'] = $d['nama_parameter_jenis_pelayanan'];
+                $temp['harga'] = $d['harga'];
+                $temp['hasil_lab'] = $d['hasil_lab'];
+                $temp['satuan'] = $d['satuan'];
+                $temp['baku_mutu'] = $d['baku_mutu'];
+                $temp['metode'] = $d['metode'];
+
+                if($d['id_kategori_parameter'] == '2'){
+                    if($d['id_jenis_parameter'] == '1'){
+                        $final_detail[$d['id_t_reservasi_online_detail']]['kimia']['anorganik'][] = $temp;
+                    } else if($d['id_jenis_parameter'] == '2'){
+                        $final_detail[$d['id_t_reservasi_online_detail']]['kimia']['organik'][] = $temp;
+                    } else if($d['id_jenis_parameter'] == '3'){
+                        $final_detail[$d['id_t_reservasi_online_detail']]['kimia']['mikrobiologi'][] = $temp;
+                    } else {
+                        $final_detail[$d['id_t_reservasi_online_detail']]['kimia']['etc'][] = $temp;
+                    }
+                } else if($d['id_kategori_parameter'] == '1'){
+                    $final_detail[$d['id_t_reservasi_online_detail']]['fisika'][] = $temp;
+                } else {
+                    $final_detail[$d['id_t_reservasi_online_detail']]['etc'][] = $temp;
+                }
+            }
+
+            $i = 0;
+            foreach($rsv as $rs){
+                $final_result[$i]['jenis_sampel'] = $rs['nama_jenis_pelayanan'];
+                $final_result[$i]['baku_mutu'] = $rs['keterangan'];
+                $final_result[$i]['nama_pelanggan'] = $rs['nama'];
+                $final_result[$i]['alamat_pelanggan'] = $rs['alamat'];
+                $final_result[$i]['no_hp_pelanggan'] = $rs['no_hp'];
+                $final_result[$i]['parameter'] = $final_detail[$rs['id_t_reservasi_online_detail']];
+                $i++;
+            }
+
+            return $final_result;
+        }
     }
 ?>
