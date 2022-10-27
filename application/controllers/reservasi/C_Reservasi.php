@@ -208,4 +208,21 @@ class C_Reservasi extends CI_Controller
         echo json_encode($data);
     }
 
+    public function loadDetailLokasi($id){
+        $data['lokasi'] = $this->reservasi->loadDetailLokasi($id);
+        $id_kab_kota = $data['lokasi']['id_m_kabupaten_kota'];
+        $id_kec = $data['lokasi']['id_m_kecamatan'];
+        $id_prov = $data['lokasi']['id_m_provinsi'];
+        // dd($id_kab_kota);
+        $data['list_provinsi'] = $this->reservasi->getListProvinsi();
+        $data['list_kab_kota'] = $this->reservasi->getListKabupatenKota($id_prov);
+        $data['list_kecamatan'] = $this->reservasi->getListKecamatan($id_kab_kota);
+        $data['list_kelurahan'] = $this->reservasi->getListKelurahan($id_kec);
+        $this->load->view('reservasi/V_EditLokasiSampel', $data);
+    }
+
+    public function submitEditLokasiPengambilan(){
+        echo json_encode($this->reservasi->submitEditLokasiPengambilan($this->input->post()));
+    }
+
 }

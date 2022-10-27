@@ -1398,6 +1398,23 @@
                             ->get()->result_array();
         }
 
+        public function getListKecEdit(){
+
+            return $this->db->select('*')
+                            ->from('m_kecamatan as a')
+                            // ->where('a.id_m_kabupaten_kota', 7171)
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+        }
+
+        public function getListKel(){
+
+            return $this->db->select('*')
+                            ->from('m_kelurahan as a')
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+        }
+
         public function getListKabupatenKota($id){
             return $this->db->select('*')
                             ->from('m_kabupaten_kota as a')
@@ -1420,6 +1437,52 @@
                             ->where('a.id_m_kecamatan', $id)
                             ->where('a.flag_active', 1)
                             ->get()->result_array();
+        }
+
+        public function loadDetailLokasi($id){
+            return $this->db->select('*')
+                            ->from('t_reservasi_online_detail a')
+                            ->where('a.id', $id)
+                            ->where('a.flag_active', 1)
+                            ->limit(1)
+                            ->get()->row_array();
+        }
+
+
+        public function submitEditLokasiPengambilan(){
+            $rs['code'] = 0;
+            $rs['message'] = '';
+            $rs['data'] = null;
+            $rs['data']['status'] = null;
+
+            $this->db->trans_begin();
+             $id =   $this->input->post('id_t_reservasi_online_detail');
+            
+                     // update status
+                    $this->db->where('id', $id)
+                //     ->update('t_reservasi_online_detail',[
+                //        'no_sampel' => $noSampel,
+                //        'updated_by' => $this->general_library->getId()
+                //    ]);
+                    ->update('t_reservasi_online_detail',[
+                    'id_m_provinsi' => $this->input->post('id_m_provinsi'),
+                    'id_m_kabupaten_kota' => $this->input->post('id_m_kabupaten_kota'),
+                    'id_m_kecamatan' => $this->input->post('id_m_kecamatan'),
+                    'id_m_kelurahan' => $this->input->post('id_m_kelurahan'),
+                    'waktu_pengambilan_sampel' => $this->input->post('waktu_pengambilan_sampel')
+                    ]);
+
+
+    
+            if($this->db->trans_status() == FALSE){
+                $this->db->trans_rollback();
+                $rs['code'] = 1;
+                $rs['message'] = $this->upload->display_errors();
+            } else {
+                $this->db->trans_commit();
+            }
+
+            return $rs;
         }
 
             
