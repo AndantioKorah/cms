@@ -1,6 +1,9 @@
-<?php if($result){ ?>
-  <?php foreach($result as $rs){ ?>
-    <?php $this->load->view('webcp/reservasi/V_CetakHasilLabDetail', $rs); ?>
+<?php if($hasil){
+?>
+  <?php foreach($hasil as $rs){
+    $data['result'] = $rs;
+  ?>
+    <?php $this->load->view('webcp/reservasi/V_CetakHasilLabDetail', $data); ?>
   <?php } ?>
 <?php } else { ?>
   <div class="col-lg-12 text-center">

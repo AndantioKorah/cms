@@ -59,7 +59,10 @@ class C_Reservasi extends CI_Controller
             $data['result'] = $this->session->userdata('final_receipt_search_'.$id);
         }
         $data['tanggal_tiket'] = ''; 
-        $data['tanggal_tiket'] = $data['result']['created_date']; 
+        foreach($data['result'] as $rs){
+            $data['tanggal_tiket'] = $rs['created_date']; 
+            break;
+        }
         $this->load->view('webcp/reservasi/V_ReceiptPdf', $data);
     }
 
@@ -91,6 +94,11 @@ class C_Reservasi extends CI_Controller
     }
 
     public function cetakHasilPemeriksaan($id){
+        $data['hasil'] = $this->reservasi->cetakHasilPemeriksaan($id);
+        $this->load->view('webcp/reservasi/V_CetakHasilLab', $data);
+    }
+
+    public function downloadHasil($id){
         $data['result'] = $this->reservasi->cetakHasilPemeriksaan($id);
         $this->load->view('webcp/reservasi/V_CetakHasilLab', $data);
     }

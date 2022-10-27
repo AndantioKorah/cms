@@ -204,6 +204,7 @@
                         <?php } else if($result['status'] == 10){ ?>
                           <div class="row">
                             <div class="col-lg-12">
+                              <button onclick="cetakHasilPemeriksaan()" id="btn_cetak_hasil" style="float: left; text-align: left;" class="btn btn-navy btn-sm float-left" type="button"><i class="fa fa-print"></i> Cetak Hasil</button>
                               <button id="btn_delete_publikasi" style="float: right; text-align: right;" class="btn btn-danger btn-sm float-right" type="button"><i class="fa fa-trash"></i> Batal Publish Hasil</button>
                             </div>
                           </div>
@@ -233,12 +234,31 @@
         </div>
       </div>
     </div>
+    <div id="print_div" style="display:none;"></div>
     <script>
       $(function(){
         $('#id_m_jenis_pelayanan').select2()
         getParameterByJenisLayanan()
         loadDetailLayanan()
       })
+
+      function printSpace(elementId) {
+        var isi = document.getElementById(elementId).innerHTML;
+        window.frames["print_frame"].document.title = document.title;
+        window.frames["print_frame"].document.body.innerHTML = isi;
+        window.frames["print_frame"].window.focus();
+        window.frames["print_frame"].window.print();
+      }
+
+      function cetakHasilPemeriksaan() {
+        $("#print_div").load('<?= base_url('webcp/reservasi/C_Reservasi/cetakHasilPemeriksaan/'.$result['id'])?>',
+          function () {
+            $('img').on('load', function(){
+              printSpace('print_div');
+            })
+          });
+      }
+      
 
       $('#btn_delete_publikasi').on('click', function(){
         if(confirm('Apakah Anda yakin akan Publish Hasil?')){

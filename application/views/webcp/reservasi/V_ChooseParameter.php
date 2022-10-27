@@ -25,7 +25,7 @@
       <div class="row">
       <hr>
         <!-- Provinsi -->
-        <div class="col form-group">
+        <div class="col-lg-4 form-group mt-3 mb-3">
           <label class="bmd-label-floating"><b>Provinsi</b></label>
           <select required class="form-control select2_this select2-navy" data-dropdown-css-class="select2-navy" name="id_m_provinsi" id="id_m_provinsi">
                         <option value="" selected>- Pilih Provinsi -</option>
@@ -35,7 +35,7 @@
           </select>
         </div>
         <!-- Kabupaten Kota -->
-        <div class="col form-group">
+        <div class="col-lg-4 form-group mt-3 mb-3">
           <label class="bmd-label-floating"><b>Kabupaten/Kota</b></label>
           <select required class="form-control select2_this select2-navy kabupaten_kota" data-dropdown-css-class="select2-navy" name="id_m_kabupaten_kota" id="id_m_kabupaten_kota">
                         <option value="" selected>- Pilih Kabupaten Kota -</option>
@@ -46,7 +46,7 @@
           </select>
         </div>
         <!-- Kecamatan -->
-        <div class="col form-group">
+        <div class="col-lg-4 form-group mt-3 mb-3">
           <label class="bmd-label-floating"><b>Kecamatan</b></label>
           <select required class="form-control select2_this select2-navy kecamatan" data-dropdown-css-class="select2-navy" name="id_m_kecamatan" id="id_m_kecamatan">
                         <option value="" selected>- Pilih Kecamatan -</option>
@@ -57,7 +57,7 @@
           </select>
         </div>
         <!-- Kelurahan -->
-        <div class="col form-group">
+        <div class="col-lg-4 form-group mt-3 mb-3">
           <label class="bmd-label-floating"><b>Kelurahan</b></label>
           <select required class="form-control select2_this select2-navy kelurahan" data-dropdown-css-class="select2-navy" name="id_m_kelurahan" id="id_m_kelurahan">
                         <option value="" selected>- Pilih Kelurahan -</option>
@@ -65,11 +65,11 @@
           </select>
         </div>
 
-        <div class="col form-group" style="margin-bottom: 10px;">
+        <div class="col-lg-4 form-group mt-3 mb-3" style="margin-bottom: 10px;">
           <label class="bmd-label-floating"><b>Waktu Pengambilan Sampel</b></label>
           <input required autocomplete="off" class="form-control datetimepickerthis" type="text" id="waktu_pengambilan_sampel" name="waktu_pengambilan_sampel" value="<?= date('Y-m-d H:i:s');?>"/>
         </div>
-        <div class="col form-group" style="margin-bottom: 10px;">
+        <div class="col-lg-4 form-group mt-3 mb-3" style="margin-bottom: 10px;">
           <label class="bmd-label-floating"><b>Nama Pengambil Sampel</b></label>
           <input required autocomplete="off" class="form-control " type="text" id="nama_pengambil_sampel" name="nama_pengambil_sampel" />
         </div>

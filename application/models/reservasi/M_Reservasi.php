@@ -21,11 +21,17 @@
             $this->db->select('a.*, b.nama_status')
                     ->from('t_reservasi_online a')
                     ->join('m_status_reservasi b', 'a.status = b.id')
-                    ->where('a.flag_active', 1);
+                    ->where('a.flag_active', 1)
+                    ->order_by('a.created_date', 'desc');
             if($param['filter'] == 1){
                 $tanggal = explodeRangeDate($param['range_tanggal']);
-                $this->db->where('a.created_date >=', $tanggal[0])
-                        ->where('a.created_date <=', $tanggal[1]);
+                $explode_awal = explode("-", $tanggal[0]);
+                $explode_akhir = explode("-", $tanggal[0]);
+                
+                $tanggal[0] = $explode_awal[0].'-'.$explode_awal[2].'-'.$explode_awal[1];
+                $tanggal[1] = $explode_akhir[0].'-'.$explode_akhir[2].'-'.$explode_akhir[1];
+                $this->db->where('a.created_date >=', $tanggal[0].' 00:00:00')
+                        ->where('a.created_date <=', $tanggal[1].' 23:59:59');
             } else if ($param['filter'] == 2){
                 $this->db->like('a.nomor_tiket', $param['nomor_tiket']);
             }

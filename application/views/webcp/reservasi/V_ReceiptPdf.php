@@ -80,7 +80,7 @@
           <th style="padding: 10px;" class="label_th">TOTAL</th>
         </thead>
         <tbody>
-          <?php $total = 0; $total_seluruh = 0; foreach($result['pelayanan'] as $r){ ?>
+          <?php $total = 0; $total_seluruh = 0; foreach($result as $r){ ?>
             <tr style="padding: 5px;">
               <td style="width: 65%; line-height: 14pt; padding: 10px;">
                 <span class="r_nama_pelayanan"><?=$r['nama_jenis_pelayanan']?> 

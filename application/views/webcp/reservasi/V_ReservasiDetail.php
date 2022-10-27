@@ -37,7 +37,11 @@
       <div class="col-lg-12 mb-3">
         <button onclick="cetakReceipt()" type="button" class="btn btn-sm btn-primary-color mb-2" style="float: right;"><i class="fa fa-print"></i> Cetak Nota Reservasi</button>
         <?php if($result['status'] == 10){ ?>
+          <!-- <form action="webcp/reservasi/C_Reservasi/downloadHasil/<?=$result['id']?>" method="post" target="_blank">
+            <button type="submit" class="btn btn-sm btn-success mb-2" style="float: left; margin-right: 10px;"><i class="fa fa-download"></i> Download Hasil</button>
+          </form> -->
           <button onclick="cetakHasilPemeriksaan()" type="button" class="btn btn-sm btn-success mb-2" style="float: left; margin-right: 10px;"><i class="fa fa-print"></i> Cetak Hasil Pemeriksaan</button>
+
         <?php } if($result['status'] == 2){ ?>
           <button onclick="openUploadModal()" href="#modal_upload_payment" data-toggle="modal" type="button" class="btn btn-sm btn-info mb-2" style="color: white; float: left; margin-right: 10px;"><i class="fa fa-upload"></i> Upload Bukti Pembayaran</button>
         <?php } ?>

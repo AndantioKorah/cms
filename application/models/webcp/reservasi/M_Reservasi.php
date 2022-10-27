@@ -156,7 +156,7 @@
                     }
                 }
             }
-
+            
             return $final_result;
         }
 
@@ -503,9 +503,30 @@
         public function cetakHasilPemeriksaan($id){
             $final_result = null;
 
+            $tgl_penerimaan = null;
+            $tgl_pemeriksaan = null;
+
+            $status = $this->db->select('*')
+                                ->from('t_verif_reservasi')
+                                ->where('id_t_reservasi_online', $id)
+                                ->where('flag_active', 1)
+                                ->where_in('status', [3, 6])
+                                ->get()->result_array();
+            if($status){
+                foreach($status as $st){
+                    if($st['status'] == 3){
+                        $tgl_penerimaan = $st['created_date'];
+                    }
+
+                    if($st['status'] == 6){
+                        $tgl_pemeriksaan = $st['created_date'];
+                    }
+                }
+            }
+
             $rsv = $this->db->select('a.*, b.id as id_t_reservasi_online_detail, b.no_sampel, b.waktu_pengambilan_sampel, g.nama_jenis_pelayanan, g.keterangan, g.id_m_lab,
                                 CONCAT(f.nama_kelurahan,", ", e.nama_kecamatan,", ",d.nama_kabupaten_kota,", ", c.nama_provinsi) as lokasi_sampel,
-                                h.nama, h.alamat, h.no_hp')
+                                h.nama, h.alamat, h.no_hp, b.nama_pengambil_sampel')
                                 ->from('t_reservasi_online a')
                                 ->join('t_reservasi_online_detail b', 'a.id = b.id_t_reservasi_online')
                                 ->join('m_provinsi c', 'b.id_m_provinsi = c.id', 'left')
@@ -568,6 +589,13 @@
                 $final_result[$i]['nama_pelanggan'] = $rs['nama'];
                 $final_result[$i]['alamat_pelanggan'] = $rs['alamat'];
                 $final_result[$i]['no_hp_pelanggan'] = $rs['no_hp'];
+                $final_result[$i]['lokasi_pengambilan'] = $rs['lokasi_sampel'];
+                $final_result[$i]['lokasi_sampel'] = $rs['lokasi_sampel'];
+                $final_result[$i]['nama_pengambil_sampel'] = $rs['nama_pengambil_sampel'];
+                $final_result[$i]['no_sampel'] = $rs['no_sampel'];
+                $final_result[$i]['waktu_pengambilan_sampel'] = $rs['waktu_pengambilan_sampel'];
+                $final_result[$i]['tgl_penerimaan'] = $tgl_penerimaan;
+                $final_result[$i]['tgl_pemeriksaan'] = $tgl_pemeriksaan;
                 $final_result[$i]['parameter'] = $final_detail[$rs['id_t_reservasi_online_detail']];
                 $i++;
             }
