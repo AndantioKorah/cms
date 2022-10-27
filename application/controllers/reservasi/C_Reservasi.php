@@ -29,6 +29,7 @@ class C_Reservasi extends CI_Controller
         if($this->general_library->isPetugasYantek()){
             $data['layanan'] = $this->reservasi->getAllLayanan();
             $data['pelanggan'] = $this->reservasi->getAllPelanggan();
+           
             $this->load->view('reservasi/V_DetailAdministrasiReservasi', $data);
         } else if($this->general_library->isKepalaInstalasi()){
             $this->load->view('reservasi/V_DetailVerifikasiKi', $data);
@@ -43,6 +44,9 @@ class C_Reservasi extends CI_Controller
 
     public function getListParameterJenisPelayanan($id){
         $data['parameter'] = $this->master->getListParameterJenisPelayanan($id);
+        $data['list_provinsi'] = $this->reservasi->getListProvinsi();
+        $data['list_kab_kota'] = $this->reservasi->getListKabKota();
+        $data['list_kecamatan'] = $this->reservasi->getListKec();
         $this->load->view('reservasi/V_ChooseParameterAddLayanan', $data);
     }
 
@@ -184,6 +188,41 @@ class C_Reservasi extends CI_Controller
 
     public function sendNotifTelegram(){
         $this->reservasi->sendNotifTelegram(['send_to' => '713399901', 'message' => "Testing 1 2 3"]);
+    }
+
+    function getListKabupatenKota(){
+        $id=$this->input->post('id');
+        $data=$this->reservasi->getListKabupatenKota($id);
+        echo json_encode($data);
+    }
+
+    function getListKecamatan(){
+        $id=$this->input->post('id');
+        $data=$this->reservasi->getListKecamatan($id);
+        echo json_encode($data);
+    }
+
+    function getListKelurahan(){
+        $id=$this->input->post('id');
+        $data=$this->reservasi->getListKelurahan($id);
+        echo json_encode($data);
+    }
+
+    public function loadDetailLokasi($id){
+        $data['lokasi'] = $this->reservasi->loadDetailLokasi($id);
+        $id_kab_kota = $data['lokasi']['id_m_kabupaten_kota'];
+        $id_kec = $data['lokasi']['id_m_kecamatan'];
+        $id_prov = $data['lokasi']['id_m_provinsi'];
+        // dd($id_kab_kota);
+        $data['list_provinsi'] = $this->reservasi->getListProvinsi();
+        $data['list_kab_kota'] = $this->reservasi->getListKabupatenKota($id_prov);
+        $data['list_kecamatan'] = $this->reservasi->getListKecamatan($id_kab_kota);
+        $data['list_kelurahan'] = $this->reservasi->getListKelurahan($id_kec);
+        $this->load->view('reservasi/V_EditLokasiSampel', $data);
+    }
+
+    public function submitEditLokasiPengambilan(){
+        echo json_encode($this->reservasi->submitEditLokasiPengambilan($this->input->post()));
     }
 
 }

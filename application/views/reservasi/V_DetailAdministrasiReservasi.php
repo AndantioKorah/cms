@@ -84,7 +84,7 @@
             <div id="administrasi_tab" class="tab-pane active">
             
               <form id="form_administrasi">
-              <?php if($result['status'] <= 4){ ?>
+              <?php if($result['status'] <= 2){ ?>
                 <a href="<?=base_url('admin/master/pelanggan');?>">
             <button type="button" id="btn_create_billing" style="float: right;" class="btn btn-navy btn-sm"><i class="fa fa-user"></i> Tambah Data Pelanggan</button></a>
             <div class="row">
@@ -166,6 +166,7 @@
           </table>
           </div>
               <?php } ?>
+            
                 <div class="col-lg-12" id="div_detail_layanan">
                 </div>
                 <div class="col-lg-12" style="height: 5vh;">

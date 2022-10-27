@@ -57,6 +57,17 @@
                   <?php } ?>
               </div>
             </div>
+            <br>
+            <span class="r_parameter_pelayanan">Lokasi Sampel :</span>
+              <span class="r_parameter_pelayanan" style="font-weight: bold; color: var(--primary);">
+                <?=$rs['nama_kelurahan'].', '. $rs['nama_kecamatan'].', '.$rs['nama_kabupaten_kota'].', '.$rs['nama_provinsi']?></span>
+                <span onclick="editLokasi('<?=$rs['id_t_reservasi_online_detail']?>')"   data-toggle="modal" data-target="#edit-lokasi" class="btn btn-sm btn-info">Ubah</span>
+                  
+              <br>
+              <span class="r_parameter_pelayanan">Waktu:</span>
+              <span class="r_parameter_pelayanan" style="font-weight: bold; color: var(--primary);">
+                <?=formatDate($rs['waktu_pengambilan_sampel'])?></span>
+
           </td>
           <td style="width: 30%; border: 1px solid black;" class="text-center">
             <span class="search_jenis_layanan text_sub_total" id="text_total_<?=$rs['id_t_reservasi_online_detail']?>"><?=formatCurrencyWithoutRp($total)?></span>
@@ -73,6 +84,46 @@
       </tr>
     </tbody>
   </table>
+
+          <!-- Modal Ubah -->
+<!-- <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="edit-lokasi" class="modal fade">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h5 class="modal-title">Modal title</h5>
+            </div>
+            <div class="modal-body" id="modal_detail_lokasi">
+            
+                     
+                     
+                 </div>
+                
+               
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="edit-lokasi" class="modal fade">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Pengambilan Lokasi Sampel</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="modal_detail_lokasi">
+        <p>Modal body text goes here.</p>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<!-- END Modal Ubah -->
+
   <script>
     $(function(){
       <?php if($result['status'] == 2){ ?>
@@ -160,6 +211,17 @@
       }
       countTotalBiaya(id_t_reservasi_online_detail)
     }
+
+
+    function editLokasi(id = 0){
+            $('#modal_detail_lokasi').html('')
+            // $('#modal_detail_berita').append(divLoaderNavy)
+            $('#modal_detail_lokasi').load('<?=base_url("reservasi/C_Reservasi/loadDetailLokasi")?>'+'/'+id, function(){
+            $('#loader').hide()
+            })
+        }
+
+
   </script>
 <?php } else { ?>
   <div class="text-center">

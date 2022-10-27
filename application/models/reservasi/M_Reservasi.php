@@ -47,11 +47,16 @@
         public function loadDetailLayanan($id){
             $final_result = null;
             $result = $this->db->select('a.session_id, c.nama_jenis_pelayanan, b.id_m_jenis_pelayanan, a.id, b.id as id_t_reservasi_online_detail,
-                            a.created_date, d.nama_status, a.total_biaya, a.nomor_tiket, a.status, b.catatan_kepala_instalasi, b.no_sampel')
+                            a.created_date, d.nama_status, a.total_biaya, a.nomor_tiket, a.status, b.catatan_kepala_instalasi, b.no_sampel, 
+                            e.nama_provinsi, f.nama_kabupaten_kota, g.nama_kecamatan, h.nama_kelurahan, b.waktu_pengambilan_sampel')
                             ->from('t_reservasi_online a')
                             ->join('t_reservasi_online_detail b', 'b.id_t_reservasi_online = a.id')
                             ->join('m_jenis_pelayanan c', 'b.id_m_jenis_pelayanan = c.id')
                             ->join('m_status_reservasi d', 'a.status = d.id')
+                            ->join('m_provinsi e', 'b.id_m_provinsi = e.id', 'left')
+                            ->join('m_kabupaten_kota f', 'b.id_m_kabupaten_kota = f.id', 'left')
+                            ->join('m_kecamatan g', 'b.id_m_kecamatan = g.id', 'left')
+                            ->join('m_kelurahan h', 'b.id_m_kelurahan = h.id', 'left')
                             ->where('a.id', $id)
                             ->where('b.flag_active', 1)
                             ->where('a.status !=', 1)
@@ -85,6 +90,11 @@
                         $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['nama_jenis_pelayanan'] = $rs['nama_jenis_pelayanan'];
                         $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['catatan_kepala_instalasi'] = $rs['catatan_kepala_instalasi'];
                         $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['no_sampel'] = $rs['no_sampel'];
+                        $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['nama_provinsi'] = $rs['nama_provinsi'];
+                        $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['nama_kabupaten_kota'] = $rs['nama_kabupaten_kota'];
+                        $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['nama_kecamatan'] = $rs['nama_kecamatan'];
+                        $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['nama_kelurahan'] = $rs['nama_kelurahan'];
+                        $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['waktu_pengambilan_sampel'] = $rs['waktu_pengambilan_sampel'];
                        
                         $default_param = $this->db->select('a.id_m_jenis_pelayanan, a.id as id_t_parameter_jenis_pelayanan, b.nama_parameter_jenis_pelayanan, a.harga, b.id as id_m_parameter_jenis_pelayanan, a.flag_available')
                                                 ->from('t_parameter_jenis_pelayanan a')
@@ -103,6 +113,9 @@
                                 $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']]['id_t_parameter_jenis_pelayanan'] = $df['id_t_parameter_jenis_pelayanan'];
                                 $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']]['checked'] = 0;
                                 $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']]['flag_available'] = $df['flag_available'];
+                               
+                               
+ 
 
 
                                 if(isset($dt_param[$rs['id_m_jenis_pelayanan']]['parameter'][$df['id_m_parameter_jenis_pelayanan']])){
@@ -155,6 +168,7 @@
         public function addJenisPelayanan($id){
             $rs['code'] = 0;
             $rs['message'] = '';
+            // dd($this->input->post());
 
             $this->db->trans_begin();
 
@@ -173,6 +187,11 @@
                 $this->db->insert('t_reservasi_online_detail',
                     ['id_t_reservasi_online' => $id,
                     'id_m_jenis_pelayanan' => $data['id_m_jenis_pelayanan'],
+                    'id_m_provinsi' => $data['id_m_provinsi'],
+                    'id_m_kabupaten_kota' => $data['id_m_kabupaten_kota'],
+                    'id_m_kecamatan' => $data['id_m_kecamatan'],
+                    'id_m_kelurahan' => $data['id_m_kelurahan'],
+                    'waktu_pengambilan_sampel' => $data['waktu_pengambilan_sampel'],
                     'created_by' => $this->general_library->getId()]
                 );
                 $last_id = $this->db->insert_id();
@@ -1258,7 +1277,6 @@
         public function formAddParameterLangsung($data){
             $rs['code'] = 0;
             $rs['message'] = '';
-           
             $this->db->trans_begin();
             if(isset($data['parameter']) && $data['parameter']){
                 $last_id_parent = 0;
@@ -1308,6 +1326,11 @@
                 } else {
                     $detail['id_t_reservasi_online'] = $last_id_parent;
                     $detail['id_m_jenis_pelayanan'] = $data['id_m_jenis_pelayanan'];
+                    $detail['id_m_provinsi'] = $data['id_m_provinsi'];
+                    $detail['id_m_kabupaten_kota'] = $data['id_m_kabupaten_kota'];
+                    $detail['id_m_kecamatan'] = $data['id_m_kecamatan'];
+                    $detail['id_m_kelurahan'] = $data['id_m_kelurahan'];
+                    $detail['waktu_pengambilan_sampel'] = $data['waktu_pengambilan_sampel'];
                     $this->db->insert('t_reservasi_online_detail', $detail);
                     $last_id_detail = $this->db->insert_id();
     
@@ -1347,6 +1370,121 @@
                 'created_by' => $this->general_library->getId()
             ]);
         }
+
+        public function getListProvinsi(){
+
+            return $this->db->select('*')
+                            ->from('m_provinsi as a')
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+        }
+
+
+        public function getListKabKota(){
+
+            return $this->db->select('*')
+                            ->from('m_kabupaten_kota as a')
+                            // ->where('a.id_m_provinsi', 71)
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+        }
+
+        public function getListKec(){
+
+            return $this->db->select('*')
+                            ->from('m_kecamatan as a')
+                            ->where('a.id_m_kabupaten_kota', 7171)
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+        }
+
+        public function getListKecEdit(){
+
+            return $this->db->select('*')
+                            ->from('m_kecamatan as a')
+                            // ->where('a.id_m_kabupaten_kota', 7171)
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+        }
+
+        public function getListKel(){
+
+            return $this->db->select('*')
+                            ->from('m_kelurahan as a')
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+        }
+
+        public function getListKabupatenKota($id){
+            return $this->db->select('*')
+                            ->from('m_kabupaten_kota as a')
+                            ->where('a.id_m_provinsi', $id)
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+        }
+
+        public function getListKecamatan($id){
+            return $this->db->select('*')
+                            ->from('m_kecamatan as a')
+                            ->where('a.id_m_kabupaten_kota', $id)
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+        }
+
+        public function getListKelurahan($id){
+            return $this->db->select('*')
+                            ->from('m_kelurahan as a')
+                            ->where('a.id_m_kecamatan', $id)
+                            ->where('a.flag_active', 1)
+                            ->get()->result_array();
+        }
+
+        public function loadDetailLokasi($id){
+            return $this->db->select('*')
+                            ->from('t_reservasi_online_detail a')
+                            ->where('a.id', $id)
+                            ->where('a.flag_active', 1)
+                            ->limit(1)
+                            ->get()->row_array();
+        }
+
+
+        public function submitEditLokasiPengambilan(){
+            $rs['code'] = 0;
+            $rs['message'] = '';
+            $rs['data'] = null;
+            $rs['data']['status'] = null;
+
+            $this->db->trans_begin();
+             $id =   $this->input->post('id_t_reservasi_online_detail');
+            
+                     // update status
+                    $this->db->where('id', $id)
+                //     ->update('t_reservasi_online_detail',[
+                //        'no_sampel' => $noSampel,
+                //        'updated_by' => $this->general_library->getId()
+                //    ]);
+                    ->update('t_reservasi_online_detail',[
+                    'id_m_provinsi' => $this->input->post('id_m_provinsi'),
+                    'id_m_kabupaten_kota' => $this->input->post('id_m_kabupaten_kota'),
+                    'id_m_kecamatan' => $this->input->post('id_m_kecamatan'),
+                    'id_m_kelurahan' => $this->input->post('id_m_kelurahan'),
+                    'waktu_pengambilan_sampel' => $this->input->post('waktu_pengambilan_sampel')
+                    ]);
+
+
+    
+            if($this->db->trans_status() == FALSE){
+                $this->db->trans_rollback();
+                $rs['code'] = 1;
+                $rs['message'] = $this->upload->display_errors();
+            } else {
+                $this->db->trans_commit();
+            }
+
+            return $rs;
+        }
+
             
 
     }
