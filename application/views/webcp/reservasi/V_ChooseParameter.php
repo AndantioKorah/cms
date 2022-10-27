@@ -21,55 +21,56 @@
         </div>
       </div>
     <?php } ?>
-    <div class="col-lg-12">
+    <div class="col-lg-12" style="margin-bottom: 10px;">
+      <div class="row">
       <hr>
-  <!-- Provinsi -->
-  <div class="form-group" style="margin-bottom:10px;">
-  <label class="bmd-label-floating"><b>Provinsi</b></label>
-  <select required class="form-control select2_this select2-navy" data-dropdown-css-class="select2-navy" name="id_m_provinsi" id="id_m_provinsi">
-                 <option value="" selected>- Pilih Provinsi -</option>
-                 <?php  foreach($list_provinsi as $ljp){?>
-                                <option <?=$ljp['id'] == 71 ? 'selected' : '';?>     value="<?=$ljp['id']?>"><?=$ljp['nama_provinsi']?></option>
-                            <?php } ?>
-  </select>
-  </div>
-  <!-- Kabupaten Kota -->
-  <div class="form-group" style="margin-bottom:10px;">
-  <label class="bmd-label-floating"><b>Kabupaten/Kota</b></label>
-  <select required class="form-control select2_this select2-navy kabupaten_kota" data-dropdown-css-class="select2-navy" name="id_m_kabupaten_kota" id="id_m_kabupaten_kota">
-                 <option value="" selected>- Pilih Kabupaten Kota -</option>
-                 <?php  foreach($list_kab_kota as $lkab){?>
-                                <option <?=$lkab['id'] == 7171 ? 'selected' : '';?>     value="<?=$lkab['id']?>"><?=$lkab['nama_kabupaten_kota']?></option>
-                            <?php } ?>
+        <!-- Provinsi -->
+        <div class="col form-group">
+          <label class="bmd-label-floating"><b>Provinsi</b></label>
+          <select required class="form-control select2_this select2-navy" data-dropdown-css-class="select2-navy" name="id_m_provinsi" id="id_m_provinsi">
+                        <option value="" selected>- Pilih Provinsi -</option>
+                        <?php  foreach($list_provinsi as $ljp){?>
+                                        <option <?=$ljp['id'] == 71 ? 'selected' : '';?>     value="<?=$ljp['id']?>"><?=$ljp['nama_provinsi']?></option>
+                                    <?php } ?>
+          </select>
+        </div>
+        <!-- Kabupaten Kota -->
+        <div class="col form-group">
+          <label class="bmd-label-floating"><b>Kabupaten/Kota</b></label>
+          <select required class="form-control select2_this select2-navy kabupaten_kota" data-dropdown-css-class="select2-navy" name="id_m_kabupaten_kota" id="id_m_kabupaten_kota">
+                        <option value="" selected>- Pilih Kabupaten Kota -</option>
+                        <?php  foreach($list_kab_kota as $lkab){?>
+                                        <option <?=$lkab['id'] == 7171 ? 'selected' : '';?>     value="<?=$lkab['id']?>"><?=$lkab['nama_kabupaten_kota']?></option>
+                                    <?php } ?>
 
-  </select>
-  </div>
-  <!-- Kecamatan -->
-  <div class="form-group" style="margin-bottom:10px;">
-  <label class="bmd-label-floating"><b>Kecamatan</b></label>
-  <select required class="form-control select2_this select2-navy kecamatan" data-dropdown-css-class="select2-navy" name="id_m_kecamatan" id="id_m_kecamatan">
-                 <option value="" selected>- Pilih Kecamatan -</option>
-                 <?php  foreach($list_kecamatan as $lkec){?>
-                                <option value="<?=$lkec['id']?>"><?=$lkec['nama_kecamatan']?></option>
-                            <?php } ?>
+          </select>
+        </div>
+        <!-- Kecamatan -->
+        <div class="col form-group">
+          <label class="bmd-label-floating"><b>Kecamatan</b></label>
+          <select required class="form-control select2_this select2-navy kecamatan" data-dropdown-css-class="select2-navy" name="id_m_kecamatan" id="id_m_kecamatan">
+                        <option value="" selected>- Pilih Kecamatan -</option>
+                        <?php  foreach($list_kecamatan as $lkec){?>
+                                        <option value="<?=$lkec['id']?>"><?=$lkec['nama_kecamatan']?></option>
+                                    <?php } ?>
 
-  </select>
-  </div>
-  <!-- Kelurahan -->
-  <div class="form-group" style="margin-bottom:10px;">
-  <label class="bmd-label-floating"><b>Kelurahan</b></label>
-  <select required class="form-control select2_this select2-navy kelurahan" data-dropdown-css-class="select2-navy" name="id_m_kelurahan" id="id_m_kelurahan">
-                 <option value="" selected>- Pilih Kelurahan -</option>
+          </select>
+        </div>
+        <!-- Kelurahan -->
+        <div class="col form-group">
+          <label class="bmd-label-floating"><b>Kelurahan</b></label>
+          <select required class="form-control select2_this select2-navy kelurahan" data-dropdown-css-class="select2-navy" name="id_m_kelurahan" id="id_m_kelurahan">
+                        <option value="" selected>- Pilih Kelurahan -</option>
 
-  </select>
-  </div>
+          </select>
+        </div>
 
-  <div class="form-group">
-  <label class="bmd-label-floating"><b>Waktu Pengambilan Sampel</b></label>
-  <input required autocomplete="off" class="form-control datetimepickerthis" type="text" id="waktu_pengambilan_sampel" name="waktu_pengambilan_sampel" />
-  </div>
-
-  <br>
+        <div class="col form-group" style="margin-bottom: 10px;">
+          <label class="bmd-label-floating"><b>Waktu Pengambilan Sampel</b></label>
+          <input required autocomplete="off" class="form-control datetimepickerthis" type="text" id="waktu_pengambilan_sampel" name="waktu_pengambilan_sampel" />
+        </div>
+        <hr>
+      </div>                  
     </div>
     <div class="col-lg-6">
       <span class="title-layanan">Total Biaya</span><br>
