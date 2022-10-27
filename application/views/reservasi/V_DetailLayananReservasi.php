@@ -61,12 +61,17 @@
             <span class="r_parameter_pelayanan">Lokasi Sampel :</span>
               <span class="r_parameter_pelayanan" style="font-weight: bold; color: var(--primary);">
                 <?=$rs['nama_kelurahan'].', '. $rs['nama_kecamatan'].', '.$rs['nama_kabupaten_kota'].', '.$rs['nama_provinsi']?></span>
+                <?php if($result['status'] == 2){ ?>
                 <span onclick="editLokasi('<?=$rs['id_t_reservasi_online_detail']?>')"   data-toggle="modal" data-target="#edit-lokasi" class="btn btn-sm btn-info">Ubah</span>
-                  
+                <?php } ?>
               <br>
               <span class="r_parameter_pelayanan">Waktu:</span>
               <span class="r_parameter_pelayanan" style="font-weight: bold; color: var(--primary);">
                 <?=formatDate($rs['waktu_pengambilan_sampel'])?></span>
+                <br>
+                <span class="r_parameter_pelayanan">Pengambil Sampel:</span>
+              <span class="r_parameter_pelayanan" style="font-weight: bold; color: var(--primary);">
+                <?=$rs['nama_pengambil_sampel']?></span>
 
           </td>
           <td style="width: 30%; border: 1px solid black;" class="text-center">
@@ -109,7 +114,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Edit Pengambilan Lokasi Sampel</h5>
+        <h5 class="modal-title">Edit Lokasi Pengambilan Sampel</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

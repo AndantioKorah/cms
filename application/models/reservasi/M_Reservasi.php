@@ -48,7 +48,7 @@
             $final_result = null;
             $result = $this->db->select('a.session_id, c.nama_jenis_pelayanan, b.id_m_jenis_pelayanan, a.id, b.id as id_t_reservasi_online_detail,
                             a.created_date, d.nama_status, a.total_biaya, a.nomor_tiket, a.status, b.catatan_kepala_instalasi, b.no_sampel, 
-                            e.nama_provinsi, f.nama_kabupaten_kota, g.nama_kecamatan, h.nama_kelurahan, b.waktu_pengambilan_sampel')
+                            e.nama_provinsi, f.nama_kabupaten_kota, g.nama_kecamatan, h.nama_kelurahan, b.waktu_pengambilan_sampel, b.nama_pengambil_sampel')
                             ->from('t_reservasi_online a')
                             ->join('t_reservasi_online_detail b', 'b.id_t_reservasi_online = a.id')
                             ->join('m_jenis_pelayanan c', 'b.id_m_jenis_pelayanan = c.id')
@@ -95,6 +95,7 @@
                         $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['nama_kecamatan'] = $rs['nama_kecamatan'];
                         $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['nama_kelurahan'] = $rs['nama_kelurahan'];
                         $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['waktu_pengambilan_sampel'] = $rs['waktu_pengambilan_sampel'];
+                        $final_result['pelayanan'][$rs['id_m_jenis_pelayanan']]['nama_pengambil_sampel'] = $rs['nama_pengambil_sampel'];
                        
                         $default_param = $this->db->select('a.id_m_jenis_pelayanan, a.id as id_t_parameter_jenis_pelayanan, b.nama_parameter_jenis_pelayanan, a.harga, b.id as id_m_parameter_jenis_pelayanan, a.flag_available')
                                                 ->from('t_parameter_jenis_pelayanan a')
@@ -192,6 +193,7 @@
                     'id_m_kecamatan' => $data['id_m_kecamatan'],
                     'id_m_kelurahan' => $data['id_m_kelurahan'],
                     'waktu_pengambilan_sampel' => $data['waktu_pengambilan_sampel'],
+                    'nama_pengambil_sampel' => $data['nama_pengambil_sampel'],
                     'created_by' => $this->general_library->getId()]
                 );
                 $last_id = $this->db->insert_id();
@@ -1331,6 +1333,7 @@
                     $detail['id_m_kecamatan'] = $data['id_m_kecamatan'];
                     $detail['id_m_kelurahan'] = $data['id_m_kelurahan'];
                     $detail['waktu_pengambilan_sampel'] = $data['waktu_pengambilan_sampel'];
+                    $detail['nama_pengambil_sampel'] = $data['nama_pengambil_sampel'];
                     $this->db->insert('t_reservasi_online_detail', $detail);
                     $last_id_detail = $this->db->insert_id();
     
@@ -1469,7 +1472,8 @@
                     'id_m_kabupaten_kota' => $this->input->post('id_m_kabupaten_kota'),
                     'id_m_kecamatan' => $this->input->post('id_m_kecamatan'),
                     'id_m_kelurahan' => $this->input->post('id_m_kelurahan'),
-                    'waktu_pengambilan_sampel' => $this->input->post('waktu_pengambilan_sampel')
+                    'waktu_pengambilan_sampel' => $this->input->post('waktu_pengambilan_sampel'),
+                    'nama_pengambil_sampel' => $this->input->post('nama_pengambil_sampel')
                     ]);
 
 
