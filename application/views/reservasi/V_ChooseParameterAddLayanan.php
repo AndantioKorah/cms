@@ -65,7 +65,12 @@
   </div>
   <div class="form-group">
   <label class="bmd-label-floating"><b>Waktu Pengambilan Sampel</b></label>
-  <input required autocomplete="off" class="form-control datetimepickerthis" type="text" id="waktu_pengambilan_sampel" name="waktu_pengambilan_sampel" />
+  <input required autocomplete="off" class="form-control datetimepickerthis" type="text" id="waktu_pengambilan_sampel" name="waktu_pengambilan_sampel" value="<?= date('Y-m-d H:i:s');?>"/>
+  </div>
+
+  <div class="form-group">
+  <label class="bmd-label-floating"><b>Nama Pengambilan Sampel</b></label>
+  <input required autocomplete="off" class="form-control " type="text" id="nama_pengambil_sampel" name="nama_pengambil_sampel" />
   </div>
               </div>
               <!-- tutup pilih tempat -->

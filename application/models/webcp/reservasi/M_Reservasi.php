@@ -74,6 +74,7 @@
                     $detail['id_m_kecamatan'] = $data['id_m_kecamatan'];
                     $detail['id_m_kelurahan'] = $data['id_m_kelurahan'];
                     $detail['waktu_pengambilan_sampel'] = $data['waktu_pengambilan_sampel'];
+                    $detail['nama_pengambil_sampel'] = $data['nama_pengambil_sampel'];
                     $this->db->insert('t_reservasi_online_detail', $detail);
                     $last_id_detail = $this->db->insert_id();
     

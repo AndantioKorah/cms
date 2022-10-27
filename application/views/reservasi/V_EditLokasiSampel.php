@@ -50,6 +50,12 @@
   <label class="bmd-label-floating"><b>Waktu Pengambilan Sampel</b></label>
   <input required autocomplete="off" class="form-control datetimepickerthis" type="text" id="waktu_pengambilan_sampel" name="waktu_pengambilan_sampel" value="<?=$lokasi['waktu_pengambilan_sampel'];?>" />
   </div>
+
+  <div class="form-group">
+  <label class="bmd-label-floating"><b>Nama Pengambil Sampel</b></label>
+  <input required autocomplete="off" class="form-control " type="text" id="nama_pengambil_sampel" name="nama_pengambil_sampel"  value="<?=$lokasi['nama_pengambil_sampel'];?>"/>
+  </div>
+
 </div>
 
 <div class="col-lg-12">
