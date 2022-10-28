@@ -48,6 +48,9 @@
                         <?php } ?>
                         <?php if($this->general_library->isKoordinatorLab()){ ?>
                             <li class="nav-item">
+                                <a data-toggle="tab" onclick="searchReservasiByStatus('6')" class="nav-link" href="#result_tab"><span class="text_tab">Belum Kunci Hasil</span></a>
+                            </li>
+                            <li class="nav-item">
                                 <a data-toggle="tab" onclick="searchReservasiByStatus('8')" class="nav-link" href="#result_tab"><span class="text_tab">Belum Verif</span></a>
                             </li>
                             <!-- <li class="nav-item">
