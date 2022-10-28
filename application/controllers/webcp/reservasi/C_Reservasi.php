@@ -58,11 +58,12 @@ class C_Reservasi extends CI_Controller
         if($flag_search_receipt == 1){
             $data['result'] = $this->session->userdata('final_receipt_search_'.$id);
         }
-        $data['tanggal_tiket'] = ''; 
-        foreach($data['result'] as $rs){
-            $data['tanggal_tiket'] = $rs['created_date']; 
-            break;
-        }
+        $data['tanggal_tiket'] = $data['result']['created_date']; 
+
+        // foreach($data['result'] as $rs){
+        //     $data['tanggal_tiket'] = $rs['created_date']; 
+        //     break;
+        // }
         $this->load->view('webcp/reservasi/V_ReceiptPdf', $data);
     }
 

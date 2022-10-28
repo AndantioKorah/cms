@@ -75,9 +75,12 @@
                 <hr>
                 <button id="btn_loading" style="float: right; text-align: right; display: none;" disabled class="btn btn-navy btn-sm"><i class="fa fa-spin fa-spinner"></i> Loading...</button>
                 <?php if($result['status'] == 8){ ?>
+                  <button id="btn_open_lock" style="float: right; text-align: right;" class="btn btn-info btn-sm" type="button"><i class="fa fa-lock-open"></i> Buka Kunci Input</button>
                   <button id="btn_verif" style="float: right; text-align: right;" class="btn btn-navy btn-sm float-right" type="button"><i class="fa fa-check"></i> Verifikasi Hasil</button>
                 <?php } else if($result['status'] == 9){ ?>
                   <button id="btn_batal_verif" style="float: right; text-align: right;" class="btn btn-danger btn-sm float-right" type="button"><i class="fa fa-trash"></i> Hapus Verifikasi</button>
+                <?php } else if($result['status'] == 6){ ?>
+                  <button id="btn_lock" style="float: right; text-align: right;" class="btn btn-info btn-sm float-left" type="button"><i class="fa fa-lock"></i> Kunci Input Hasil</button>
                 <?php } ?> 
               </div>
             </div>
@@ -88,6 +91,60 @@
     <script>
       $(function(){
         loadDetailLayanan()
+      })
+
+      $('#btn_open_lock').on('click', function(){
+        $('#btn_open_lock').hide()
+        $('#btn_loading').show()
+        $.ajax({
+          url: '<?=base_url('reservasi/C_Reservasi/openLockResult/')?>'+'<?=$result['id']?>',
+          method: 'POST',
+          data: null,
+          success: function(res){
+            $('#btn_open_lock').show()
+            $('#btn_loading').hide()
+            let rs = JSON.parse(res)
+            if(rs.code == 0){
+              $('.status_<?=$result['id']?>').html(rs.data.status)
+              $('.label_status').html(rs.data.status)
+              successtoast('Berhasil')
+              openReceipt('<?=$result['id']?>')
+            } else {
+              errortoast(rs.message)
+            }
+          }, error: function(e){
+            $('#btn_open_lock').show()
+            $('#btn_loading').hide()
+            errortoast(e)
+          }
+        })
+      })
+
+      $('#btn_lock').on('click', function(){
+        $('#btn_lock').hide()
+        $('#btn_loading').show()
+        $.ajax({
+          url: '<?=base_url('reservasi/C_Reservasi/lockResult/')?>'+'<?=$result['id']?>',
+          method: 'POST',
+          data: null,
+          success: function(res){
+            $('#btn_lock').show()
+            $('#btn_loading').hide()
+            let rs = JSON.parse(res)
+            if(rs.code == 0){
+              $('.status_<?=$result['id']?>').html(rs.data.status)
+              $('.label_status').html(rs.data.status)
+              successtoast('Kunci Input Hasil Berhasil')
+              openReceipt('<?=$result['id']?>')
+            } else {
+              errortoast(rs.message)
+            }
+          }, error: function(e){
+            $('#btn_lock').show()
+            $('#btn_loading').hide()
+            errortoast(e)
+          }
+        })
       })
 
       $('#btn_verif').on('click', function(){

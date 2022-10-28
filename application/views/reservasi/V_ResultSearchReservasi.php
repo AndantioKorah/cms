@@ -48,6 +48,7 @@
     <table class="table table-hover datatable">
       <thead>
         <th class="text-center">No</th>
+        <th class="text-center">Nama Pelanggan</th>
         <th class="text-center">Nomor Tiket</th>
         <th class="text-center">Tanggal</th>
         <th class="text-center">Biaya</th>
@@ -57,6 +58,7 @@
         <?php $no=1; foreach($result as $rs){ ?>
           <tr onclick="openReceipt('<?=$rs['id']?>')" style="cursor: pointer;">
             <td class="text-center"><?=$no++;?></td>
+            <td class="text-center"><?=$rs['nama_pelanggan']?></td>
             <td class="text-center"><?=$rs['nomor_tiket']?></td>
             <td class="text-center"><?=formatDateNamaBulanWT($rs['created_date'])?></td>
             <td class="text-center"><span class="total_biaya_<?=$rs['id']?>"><?=formatCurrency($rs['total_biaya'])?></span></td>

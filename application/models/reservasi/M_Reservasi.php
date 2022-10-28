@@ -18,15 +18,16 @@
         }
 
         public function searchReservasi($param){
-            $this->db->select('a.*, b.nama_status')
+            $this->db->select('a.*, b.nama_status, c.nama as nama_pelanggan')
                     ->from('t_reservasi_online a')
                     ->join('m_status_reservasi b', 'a.status = b.id')
+                    ->join('m_pelanggan c', 'a.id_m_pelanggan = c.id', 'left')
                     ->where('a.flag_active', 1)
                     ->order_by('a.created_date', 'desc');
             if($param['filter'] == 1){
                 $tanggal = explodeRangeDate($param['range_tanggal']);
                 $explode_awal = explode("-", $tanggal[0]);
-                $explode_akhir = explode("-", $tanggal[0]);
+                $explode_akhir = explode("-", $tanggal[1]);
                 
                 $tanggal[0] = $explode_awal[0].'-'.$explode_awal[2].'-'.$explode_awal[1];
                 $tanggal[1] = $explode_akhir[0].'-'.$explode_akhir[2].'-'.$explode_akhir[1];
@@ -1182,9 +1183,10 @@
                 }
             }
             
-            $this->db->select('a.*, b.nama_status')
+            $this->db->select('a.*, b.nama_status, c.nama as nama_pelanggan')
                     ->from('t_reservasi_online a')
                     ->join('m_status_reservasi b', 'a.status = b.id')
+                    ->join('m_pelanggan c', 'a.id_m_pelanggan = c.id', 'left')
                     ->where('a.flag_active', 1)
                     ->order_by('a.created_date', 'asc');
 

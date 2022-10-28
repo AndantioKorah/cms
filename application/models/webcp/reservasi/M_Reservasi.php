@@ -534,7 +534,7 @@
                                 ->join('m_kecamatan e', 'b.id_m_kecamatan = e.id', 'left')
                                 ->join('m_kelurahan f', 'b.id_m_kelurahan = f.id', 'left')
                                 ->join('m_jenis_pelayanan g', 'b.id_m_jenis_pelayanan = g.id')
-                                ->join('m_pelanggan h', 'a.id_m_pelanggan = h.id')
+                                ->join('m_pelanggan h', 'a.id_m_pelanggan = h.id', 'left')
                                 ->where('a.id', $id)
                                 ->where('b.flag_active', 1)
                                 ->get()->result_array();
